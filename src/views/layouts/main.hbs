@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOTDCD - ERP</title>
+    {{> include/_head}}
+    {{#>head-block}}{{/head-block}}
+</head>
+    
+
+<body class="mod-bg-1 mod-nav-link">
+
+    {{> include/_scripts-loading-saving}}
+
+    <div class="page-wrapper">
+        <div class="page-inner">
+            {{> include/_left-panel }}
+            <div class="page-content-wrapper">
+                {{> include/_page-header}}
+                <main id="js-page-content" role="main" class="page-content">
+
+                    <ol class="breadcrumb page-breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">SmartAdmin</a></li>
+                        <li class="position-absolute pos-top pos-right d-none d-sm-block"><span
+                                class="js-get-date"></span></li>
+                    </ol>
+                    <h1 class="subheader-title">
+                        {{#>subheader-block}}{{/subheader-block}}
+                    </h1>
+                    {{{body}}}
+                </main>
+                <!-- this overlay is activated only when mobile menu is triggered -->
+                <div class="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div>
+
+                {{> include/_page-footer}}
+                {{> include/_shortcut-modal}}
+                {{> include/_color-profile-reference}}
+
+            </div>
+        </div>
+    </div>
+    {{> include/_shortcut-menu}}
+    {{> include/_page-settings}}
+    {{> include/_scripts-base-plugins}}
+    {{{_sections.scripts}}}
+
+</body>
+
+</html>

@@ -1,0 +1,410 @@
+<div class="col-xl-12">
+	<!--Types Chart-->
+	<div class="row">
+		<div class="col-xl-12">
+			<div id="panel-1" class="panel">
+				<div class="panel-hdr">
+					<h2>
+						Empleados <span class="fw-300"><i>Por Tipo</i></span>
+					</h2>
+					<div class="panel-toolbar">
+						<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
+							data-offset="0,10" data-original-title="Collapse"></button>
+						<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+							data-offset="0,10" data-original-title="Fullscreen"></button>
+						<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+							data-original-title="Close"></button>
+					</div>
+				</div>
+				<div class="panel-container show">
+					<div class="panel-content">
+						<div class="row mb-g">
+							<div class="col-md-6 d-flex align-items-center">
+								<div id="donutTypes" style="width:100%; height: 400px;"></div>
+							</div>
+							<div class="col-md-6 col-lg-5 mr-lg-auto">	
+								{{#each empType}}
+									<div class="mt-2 mb-1 fs-xs text-primary">
+										{{tipo}}: {{num}}
+									</div>
+									
+									<div class="progress progress-xs mb-3">
+									
+										<div 
+											class="progress-bar" 
+											role="progressbar"
+											style="width: {{percent}}%; background-color: {{color}};"
+											aria-valuenow="{{percent}}" 
+											aria-valuemin="0" 
+											aria-valuemax="100"
+										></div>
+									
+									</div>
+								{{/each}}
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--Sucursales Chart-->
+	<div class="row">
+		<div class="col-xl-12">
+			<div id="panel-1" class="panel">
+				<div class="panel-hdr">
+					<h2>
+						Empleados <span class="fw-300"><i>Por Sucursal</i></span>
+					</h2>
+					<div class="panel-toolbar">
+						<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
+							data-offset="0,10" data-original-title="Collapse"></button>
+						<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+							data-offset="0,10" data-original-title="Fullscreen"></button>
+						<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+							data-original-title="Close"></button>
+					</div>
+				</div>
+				<div class="panel-container show">
+					<div class="panel-content">
+						<div class="row mb-g">
+							<div class="col-md-6 d-flex align-items-center">
+								<div id="donutSucs" style="width:100%; height:400px;"></div>
+							</div>
+							<div class="col-md-6 col-lg-5 mr-lg-auto">	
+								{{#each empSuc}}
+									<div class="mt-2 mb-1 fs-xs text-primary">
+										{{sucursal}}: {{num}}
+									</div>
+									
+									<div class="progress progress-xs mb-3">
+									
+										<div 
+											class="progress-bar" 
+											role="progressbar"
+											style="width: {{percent}}%; background-color: {{color}};"
+											aria-valuenow="{{percent}}" 
+											aria-valuemin="0" 
+											aria-valuemax="100"
+										></div>
+									
+									</div>
+								{{/each}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!--DT-->
+	<div class="row">
+		<div class="col-xl-12">
+			<div id="panel-1" class="panel">
+				<div class="panel-hdr">
+					<h2>
+						Empleados <span class="fw-300"><i>DOTDCD</i></span>
+					</h2>
+					<div class="panel-toolbar">
+						<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
+							data-offset="0,10" data-original-title="Collapse"></button>
+						<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+							data-offset="0,10" data-original-title="Fullscreen"></button>
+						<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+							data-original-title="Close"></button>
+					</div>
+				</div>
+				<div class="panel-container show">
+					<div class="panel-content">
+						<!-- datatable start -->
+						<table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+							<thead class="bg-primary-600">
+								<tr>
+									<th>Nombre</th>
+									<th>Apellido Paterno</th>
+									<th>Apellido Materno</th>
+									<th>Tipo Indirecto</th>
+									<th>Puesto</th>
+									<th>Sucursal</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+						</table>
+						<!-- datatable end -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--DT-->
+
+	{{#each sucEmployees}}
+
+		<!--Sucursales Chart-->
+		<div class="row">
+			<div class="col-xl-12">
+				<div id="panel-1" class="panel">
+					<div class="panel-hdr">
+						<h2>
+							Empleados <span class="fw-300"><i>{{sucursal}}</i></span>
+						</h2>
+						<div class="panel-toolbar">
+							<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
+								data-offset="0,10" data-original-title="Collapse"></button>
+							<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+								data-offset="0,10" data-original-title="Fullscreen"></button>
+							<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+								data-original-title="Close"></button>
+						</div>
+					</div>
+					<div class="panel-container show">
+						<div class="panel-content">
+							<div class="row mb-g">
+								<div class="col-md-6 d-flex align-items-center">
+									<div id="donut{{id}}" style="width:100%; height:400px;"></div>
+								</div>
+								<div class="col-md-6 col-lg-5 mr-lg-auto">	
+									{{#each data}}
+										<div class="mt-2 mb-1 fs-xs text-primary">
+											{{tipo}}: {{num}}
+										</div>
+										
+										<div class="progress progress-xs mb-3">
+										
+											<div 
+												class="progress-bar" 
+												role="progressbar"
+												style="width: {{percent}}%; background-color: {{color}};"
+												aria-valuenow="{{percent}}" 
+												aria-valuemin="0" 
+												aria-valuemax="100"
+											></div>
+										
+										</div>
+									{{/each}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	{{/each}}
+
+	<!--Empleados con rol mobiliario-->
+	<div class="row">
+		<div class="col-xl-12">
+			<div id="panel-1" class="panel">
+				<div class="panel-hdr">
+					<h2>
+						Empleados <span class="fw-300"><i>Mobiliaria</i></span>
+					</h2>
+					<div class="panel-toolbar">
+						<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
+							data-offset="0,10" data-original-title="Collapse"></button>
+						<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+							data-offset="0,10" data-original-title="Fullscreen"></button>
+						<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+							data-original-title="Close"></button>
+					</div>
+				</div>
+				<div class="panel-container show">
+					<div class="panel-content">
+						<div class="row mb-g">
+							<div class="col-md-6 d-flex align-items-center">
+								<div id="donutMob" style="width:100%; height:400px;"></div>
+							</div>
+							<div class="col-md-6 col-lg-5 mr-lg-auto">	
+								{{#each empMob}}
+									<div class="mt-2 mb-1 fs-xs text-primary">
+										{{tipo}}: {{num}}
+									</div>
+									
+									<div class="progress progress-xs mb-3">
+									
+										<div 
+											class="progress-bar" 
+											role="progressbar"
+											style="width: {{percent}}%; background-color: {{color}};"
+											aria-valuenow="{{percent}}" 
+											aria-valuemin="0" 
+											aria-valuemax="100"
+										></div>
+									
+									</div>
+								{{/each}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+{{#section 'scripts'}}
+<!-- dependency for c3 charts : this dependency is a BSD license with clause 3 -->
+<script src="/js/statistics/d3/d3.js"></script>
+<!-- c3 charts : MIT license -->
+<script src="/js/statistics/c3/c3.js"></script>
+{{!--
+<script src="js/statistics/demo-data/demo-c3.js"></script> --}}
+<script src="/js/statistics/demo-data/demo-c3.js"></script>
+
+
+<script src="/js/datagrid/datatables/datatables.bundle.js"></script>
+
+<script src="/js/datagrid/datatables/datatables.export.js"></script>
+
+<script>
+	const empleados = {{{ json employees }}}
+
+	
+	var donutTypes = c3.generate({
+		bindto: "#donutTypes",
+		data: {
+			// iris data from R
+			columns: [
+				{{#each empType }} [ "{{tipo}}", {{ num }} ], {{/each}}
+			],
+			type: 'donut'//,
+			/*onclick: function (d, i) { console.log("onclick", d, i); },
+			onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+			onmouseout: function (d, i) { console.log("onmouseout", d, i); }*/
+		},
+		donut: {
+			title: "Empleados activos: " + empleados.length
+		},
+		color: {
+			pattern: [{{#each empType }} "{{color}}", {{/each}}]
+		},
+		legend: {
+			show: false
+		}
+	});
+
+	var donutSucs = c3.generate({
+		bindto: "#donutSucs",
+		data: {
+	
+			columns: [
+				{{#each empSuc }} [ "{{sucursal}}", {{ num }} ], {{/each}}
+			],
+			type: 'donut'
+		},
+		donut: {
+			title: "Empleados activos: " + empleados.length
+		},
+		color: {
+			pattern: [{{#each empSuc }} "{{color}}", {{/each}}]
+		},
+		legend: {
+			show: false
+		}
+	});
+
+	// Data table
+
+	$(document).ready(function () {
+
+		// initialize datatable
+		$('#dt-basic-example').dataTable(
+			{
+				data: empleados,
+				responsive: true,
+				lengthChange: false,
+				dom:
+					"<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+					"<'row'<'col-sm-12'tr>>" +
+					"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+				buttons: [
+
+					{
+						extend: 'pdfHtml5',
+						text: 'PDF',
+						titleAttr: 'Generate PDF',
+						className: 'btn-outline-danger btn-sm mr-1'
+					},
+					{
+						extend: 'excelHtml5',
+						text: 'Excel',
+						titleAttr: 'Generate Excel',
+						className: 'btn-outline-success btn-sm mr-1'
+					},
+					{
+						extend: 'csvHtml5',
+						text: 'CSV',
+						titleAttr: 'Generate CSV',
+						className: 'btn-outline-primary btn-sm mr-1'
+					},
+					{
+						extend: 'copyHtml5',
+						text: 'Copy',
+						titleAttr: 'Copy to clipboard',
+						className: 'btn-outline-primary btn-sm mr-1'
+					},
+					{
+						extend: 'print',
+						text: 'Print',
+						titleAttr: 'Print Table',
+						className: 'btn-outline-primary btn-sm'
+					}
+				]
+			});
+
+	});
+
+	{{#each sucEmployees}}
+		var donut{{id}} = c3.generate({
+			bindto: "#donut{{id}}",
+			data: {
+		
+				columns: [
+					{{#each data }} [ "{{tipo}}", {{ num }} ], {{/each}}
+				],
+				type: 'donut'
+			},
+			donut: {
+				title: "{{sucursal}}"
+			},
+			color: {
+				pattern: [{{#each data }} "{{color}}", {{/each}}]
+			},
+			legend: {
+				show: false
+			}
+		});
+	{{/each}}
+
+	var donutMob = c3.generate({
+		bindto: "#donutMob",
+		data: {
+	
+			columns: [
+				{{#each empMob }} [ "{{tipo}}", {{ num }} ], {{/each}}
+			],
+			type: 'donut'
+		},
+		donut: {
+			title: "Mobiliaria"
+		},
+		color: {
+			pattern: [{{#each empMob }} "{{color}}", {{/each}}]
+		},
+		legend: {
+			show: false
+		}
+	});
+
+</script>
+
+{{/section}}
