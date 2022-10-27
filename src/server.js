@@ -26,6 +26,9 @@ app.engine('.hbs', engine({
         },
         json: function(obj) {
             return JSON.stringify(obj);
+        },
+        multiply: function(num1, num2){
+            return num1 * num2
         }
     },
     extname: '.hbs',
