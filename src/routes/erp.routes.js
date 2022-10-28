@@ -2,6 +2,13 @@ const { Router } = require('express');
 const rutas = Router();
 const {renderEmployees, renderAnalytics, renderProyectos} = require('../controllers/erp/analytics.controller')
 
+
+
+//?Home Route
+/*
+rutas.get('/dashboard/home', renderHome)
+*/
+
 //? Analytics routes
 rutas.get('/dashboard/analytics/analytics', renderAnalytics)
 rutas.get('/dashboard/analytics/empleados', renderEmployees)

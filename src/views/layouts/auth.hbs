@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOTDCD - ERP</title>
+    {{> include/_head}}
+    {{#>head-block}}{{/head-block}}
+</head>
+    
+
+<body class="mod-bg-1 mod-nav-link">
+
+    {{> include/_scripts-loading-saving}}
+
+    {{{body}}}
+
+    {{> include/_scripts-base-plugins}}
+    {{{_sections.scripts}}}
+
+</body>
+
+</html>

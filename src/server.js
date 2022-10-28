@@ -3,7 +3,9 @@ const {engine} = require('express-handlebars');
 const handlebars = require('handlebars');
 const path = require('path');
 const app = express();
-const is = require('./views/_helpers/is-helper')
+const flash = require('connect-flash');
+const session = require('express-session');
+var cookieParser = require('cookie-parser')
 
 //? Port setting you can change de port number here or in .env
 app.set('port', process.env.SPORT || 5000);
@@ -39,15 +41,22 @@ app.engine('.hbs', engine({
 app.set('view engine', '.hbs');
 
 
-
 //? Midlewares
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
-//app.use(session({
-//  secret: 'secret',
-//  resave: true,
-// saveUninitialized: true,
-//}));
+app.use(cookieParser())
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+  }));
+app.use(flash());
+
+//? Connect - Flash (For show alerts in handlebars & express)
+app.use((req, res, next) => {
+    res.locals.error = req.flash('error')
+    next();
+})
 
 //? Routes files
 app.use(require('./routes/index.routes'));

@@ -144,7 +144,7 @@
 	</div>
 	<!--DT-->
 
-	{{#each sucEmployees}}
+	{{#each orderSuc}}
 
 		<!--Sucursales Chart-->
 		<div class="row">
@@ -363,7 +363,7 @@
 
 	});
 
-	{{#each sucEmployees}}
+	{{#each orderSuc}}
 		var donut{{id}} = c3.generate({
 			bindto: "#donut{{id}}",
 			data: {
@@ -374,7 +374,7 @@
 				type: 'donut'
 			},
 			donut: {
-				title: "{{sucursal}}"
+				title: "{{sucursal}} : {{total}}"
 			},
 			color: {
 				pattern: [{{#each data }} "{{color}}", {{/each}}]

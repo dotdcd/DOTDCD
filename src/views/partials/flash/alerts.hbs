@@ -1,0 +1,27 @@
+{{#if error}}
+<div class="alert alert-danger alert-dismissible fade show">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true"><i class="{{iconPrefix}} fa-times"></i></span>
+    </button>
+
+    <div class="d-flex align-items-center">
+
+        <div class="alert-icon width-8">
+            <span class="icon-stack icon-stack-xl">
+                <i class="base-2 icon-stack-3x color-danger-400"></i>
+                <i class="base-10 text-white icon-stack-1x"></i>
+                <i class="ni md-profile color-danger-800 icon-stack-2x"></i>
+            </span>
+        </div>
+
+        <div class="flex-1 pl-1">
+            <span class="h2">
+                ...Ooops!
+            </span>
+            <br>
+            {{error.[0].message}}
+        </div>
+
+    </div>
+</div>
+{{/if}}

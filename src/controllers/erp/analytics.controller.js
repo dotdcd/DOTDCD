@@ -5,30 +5,30 @@ const pool = require('../../db')
 
 //? Color schema for charts
 const colors = [
-    { color: '#886AB5' },
-    { color: '#1DC9B7' },
-    { color: '#FD3995' },
-    { color: '#FFC241' },
-    { color: '#2196F3' },
+    { color: '#6A7EB5' },
+    { color: '#1DC7A0' },
+    { color: '#FFD541' },
+    { color: '#CCBFDF' },
     { color: '#5D5D5D' },
-    { color: '#886AB5' },
-    { color: '#1DC9B7' },
     { color: '#FD3995' },
-    { color: '#FFC241' },
-    { color: '#2196F3' },
+    { color: '#886AB5' },
+    { color: '#003997' },
+    { color: '#6A7EB5' },
+    { color: '#1DC7A0' },
+    { color: '#FFD541' },
+    { color: '#CCBFDF' },
     { color: '#5D5D5D' },
-    { color: '#886AB5' },
-    { color: '#1DC9B7' },
     { color: '#FD3995' },
-    { color: '#FFC241' },
-    { color: '#2196F3' },
+    { color: '#886AB5' },
+    { color: '#003997' },
+    { color: '#6A7EB5' },
+    { color: '#1DC7A0' },
+    { color: '#FFD541' },
+    { color: '#CCBFDF' },
     { color: '#5D5D5D' },
-    { color: '#886AB5' },
-    { color: '#1DC9B7' },
     { color: '#FD3995' },
-    { color: '#FFC241' },
-    { color: '#2196F3' },
-    { color: '#5D5D5D' }
+    { color: '#886AB5' },
+    { color: '#003997' }
 ]
 
 //? Get Total num of employees function
@@ -125,7 +125,7 @@ const getSucursalEmp = async (id) => {
             employees[i].color = colors[i].color
         }
 
-        return employees
+        return {data: employees, total: resultN[0][0].num}
     } catch (error) {
         return error
     }
@@ -140,7 +140,7 @@ const getEmpForSuc = async () => {
         for (const sucursal of sucursales[0]) {
             const employees = await getSucursalEmp(sucursal.id)
 
-            if(employees.length > 0) empSuc.push({id: sucursal.id, sucursal: sucursal.nombre, data: employees})
+            if(employees.data.length > 0) empSuc.push({id: sucursal.id, sucursal: sucursal.nombre, data: employees.data, total: employees.total})
         }
 
         return empSuc
@@ -184,7 +184,20 @@ controller.renderEmployees = async (req, res) => {
     const sucEmployees = await getEmpForSuc()
     const empMob = await getEmpMob()
 
-    res.render('analytics/empleados', {employees, empType, empSuc, sucEmployees, empMob})
+    const orderSuc = sucEmployees.sort(function (a, b){
+        if(a.total > b.total){
+            return 1
+        }
+        if(a.total < b.total){
+            return -1
+        }
+
+        return 0
+    })
+
+    console.log(orderSuc.reverse())
+    
+    res.render('analytics/empleados', {employees, empType, empSuc, orderSuc, empMob})
 }
 //! End Employees
 
@@ -271,6 +284,7 @@ const calMetas = async (date, minimo) => {
     }
 }
 
+
 const getMetas = async (cotizaciones, minimo) => {
     try {
         let metas = []
@@ -301,4 +315,4 @@ controller.renderProyectos = async (req, res) => {
 res.render('analytics/proyectos')
 
 } 
-module.exports = controller;
+module.exports = controller;/////
