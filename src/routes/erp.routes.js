@@ -3,7 +3,7 @@ const rutas = Router();
 const {renderEmployees, renderAnalytics, renderProyectos} = require('../controllers/erp/analytics.controller')
 const {renderUsuarios} = require('../controllers/erp/inicio.controller')
 const {authenticateUser} = require('../middlewares/auth')
-
+const {renderOpNuevo} = require('../controllers/erp/operacion.controller')
 
 //?Home Route
 /*
@@ -29,8 +29,10 @@ rutas.get('/dashboard/inicio/respaldo', renderRespaldo)
 //*llllllllllllllllllllllll
 //*Proyectos
 //*llllllllllllllllllllllll
-//?
+//? */
+
 rutas.get('/dashboard/operacion/proyecto/nuevo', renderOpNuevo)
+/*
 rutas.get('/dashboard/operacion/proyecto/control_cambios', renderOpControl)
 rutas.get('/dashboard/operacion/proyecto/buscar', renderOpBuscar)
 //?requisicion

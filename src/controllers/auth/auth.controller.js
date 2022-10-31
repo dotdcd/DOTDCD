@@ -10,7 +10,7 @@ controller.login = async (req, res) => {
 
 
     const [rows] = await pool.query("SELECT username, password FROM usuarios WHERE username = '" + username + "'")
-    if (![rows][0].length > 0) {
+    if (![rows][0][0].length > 0) {
         req.flash('error', { title: 'Ooops!', message: 'No pudimos encontrar a '+username+'!, intentalo con un nombre de usuario valido.' })
         res.redirect('/')
     }
@@ -43,7 +43,7 @@ controller.login = async (req, res) => {
 
     //? set cookie in header
     res.setHeader("Set-Cookie", serialized);
-    return res.status(200).redirect('/dashboard')
+    res.status(200).redirect('/dashboard')
 
 }
 
