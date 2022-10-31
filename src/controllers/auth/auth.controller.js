@@ -12,7 +12,7 @@ controller.login = async (req, res) => {
     const [rows] = await pool.query("SELECT username, password FROM usuarios WHERE username = '" + username + "'")
     if (![rows][0][0].length > 0) {
         req.flash('error', { title: 'Ooops!', message: 'No pudimos encontrar a '+username+'!, intentalo con un nombre de usuario valido.' })
-        res.redirect('/')
+        return res.redirect('/')
     }
     const result = [rows][0][0]
 
@@ -20,7 +20,7 @@ controller.login = async (req, res) => {
     const matchPass = await bcrypt.compare(password, result.password)
     if (!matchPass) {
         req.flash('error', { title: 'Ooops!', message: 'Lo sentimos '+username+'!, tu contraseña es incorrecta, intentalo de nuevo.' })
-        res.redirect('/')
+        return res.redirect('/')
     }
 
     //? create json web token
@@ -43,7 +43,7 @@ controller.login = async (req, res) => {
 
     //? set cookie in header
     res.setHeader("Set-Cookie", serialized);
-    res.status(200).redirect('/dashboard')
+    return res.status(200).redirect('/dashboard')
 
 }
 
