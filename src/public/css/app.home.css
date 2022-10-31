@@ -1,0 +1,82 @@
+.home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.containerHome{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.containerHome .serviceBox{
+    position: relative;
+    width: 350px;
+    height: 280px;
+    background: #D3D3D3;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.containerHome .serviceBox .icon{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--i);
+    transition: 0.5s; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.containerHome .serviceBox:hover .icon{
+    top: 30px;
+    left: calc(50% - 40px);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.containerHome .serviceBox .icon i{
+    font-size: 5em;
+    color: #D3D3D3;
+    transition: 0.5s;
+}
+
+.containerHome .serviceBox:hover .icon i{
+    font-size: 2em;
+}
+
+.containerHome .serviceBox .content{
+    position: relative;
+    padding: 20px;
+    color: black;
+    text-align: center;
+    margin-top: 100px;
+    z-index: 1;
+    transform: scale(0);
+    transition: 0.5s;
+}
+
+.containerHome .serviceBox:hover .content{
+    transform: scale(1);
+}
+
+.containerHome .serviceBox .content h2{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.containerHome .serviceBox .content p{
+    font-weight: 300;
+    line-height: 1.5em;
+}

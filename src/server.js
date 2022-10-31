@@ -31,6 +31,10 @@ app.engine('.hbs', engine({
         },
         multiply: function(num1, num2){
             return num1 * num2
+        },
+        money: function(num){
+            const money = new Intl.NumberFormat('en-US').format(num)
+            return money
         }
     },
     extname: '.hbs',

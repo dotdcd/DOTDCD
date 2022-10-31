@@ -3,7 +3,6 @@ const pool = require('../../db')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const cookie = require('cookie')
-const Swal = require('sweetalert2')
 
 //? Login controller
 controller.login = async (req, res) => {
@@ -55,7 +54,7 @@ controller.logout = async (req, res) => {
         const { sessionToken } = req.cookies;
         if (!sessionToken) return res.status(500).json({ error: "Not logged in" })
 
-        const serialized = cookie.serialize('sessionToken', token, {
+        const serialized = cookie.serialize('sessionToken', null, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
@@ -64,9 +63,9 @@ controller.logout = async (req, res) => {
         });
 
         res.setHeader("Set-Cookie", serialized);
-        return res.status(200).redirect('/')
+        res.redirect('/')
     } catch (error) {
-        return res.status(500).json(error)
+        console.log(error)
     }
 }
 

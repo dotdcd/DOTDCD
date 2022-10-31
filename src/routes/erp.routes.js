@@ -1,7 +1,8 @@
 const { Router } = require('express');
 const rutas = Router();
 const {renderEmployees, renderAnalytics, renderProyectos} = require('../controllers/erp/analytics.controller')
-
+const {renderUsuarios} = require('../controllers/erp/inicio.controller')
+const {authenticateUser} = require('../middlewares/auth')
 
 
 //?Home Route
@@ -10,14 +11,15 @@ rutas.get('/dashboard/home', renderHome)
 */
 
 //? Analytics routes
-rutas.get('/dashboard/analytics/analytics', renderAnalytics)
-rutas.get('/dashboard/analytics/empleados', renderEmployees)
-rutas.get('/dashboard/analytics/proyectos', renderProyectos)
+rutas.get('/dashboard/analytics/analytics', authenticateUser, renderAnalytics)
+rutas.get('/dashboard/analytics/empleados', authenticateUser, renderEmployees)
+rutas.get('/dashboard/analytics/proyectos', authenticateUser, renderProyectos)
 
 
-/*
+
 //?Inicio Routes
-rutas.get('/dashboard/inicio/usuarios', renderUsuarios)
+rutas.get('/dashboard/inicio/usuarios', authenticateUser, renderUsuarios)
+/*
 rutas.get('/dashboard/inicio/respaldo', renderRespaldo)
 
 //?llllllllllllllllllllllllllllll

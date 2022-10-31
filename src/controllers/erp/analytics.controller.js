@@ -184,7 +184,7 @@ controller.renderEmployees = async (req, res) => {
     const sucEmployees = await getEmpForSuc()
     const empMob = await getEmpMob()
 
-    const orderSuc = sucEmployees.sort(function (a, b){
+    const sucs = sucEmployees.sort(function (a, b){
         if(a.total > b.total){
             return 1
         }
@@ -195,7 +195,7 @@ controller.renderEmployees = async (req, res) => {
         return 0
     })
 
-    console.log(orderSuc.reverse())
+    const orderSuc = sucs.reverse()
     
     res.render('analytics/empleados', {employees, empType, empSuc, orderSuc, empMob})
 }
