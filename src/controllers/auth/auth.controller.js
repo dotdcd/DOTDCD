@@ -1,16 +1,15 @@
-const controller = {}
-const pool = require('../../db')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const cookie = require('cookie')
+import {pool} from '../../db.js'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import cookie from 'cookie'
 
 //? Login controller
-controller.login = async (req, res) => {
+export const login = async (req, res) => {
     const { username, password } = req.body;
 
 
-    const [rows] = await pool.query("SELECT username, password FROM usuarios WHERE username = '" + username + "'")
-    if (![rows][0][0].length > 0) {
+    const [rows] = await pool.query("SELECT * FROM usuarios WHERE username = '" + username + "'")
+    if (![rows][0].length > 0) {
         req.flash('error', { title: 'Ooops!', message: 'No pudimos encontrar a '+username+'!, intentalo con un nombre de usuario valido.' })
         return res.redirect('/')
     }
@@ -42,13 +41,14 @@ controller.login = async (req, res) => {
     });
 
     //? set cookie in header
+    req.app.locals = {username: result.username, profile_img: result.profile_img}
     res.setHeader("Set-Cookie", serialized);
     return res.status(200).redirect('/dashboard')
 
 }
 
 //? logout controller
-controller.logout = async (req, res) => {
+export const logout = async (req, res) => {
     try {
         //? destroy cookie and jwt 
         const { sessionToken } = req.cookies;
@@ -68,5 +68,3 @@ controller.logout = async (req, res) => {
         console.log(error)
     }
 }
-
-module.exports = controller

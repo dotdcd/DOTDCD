@@ -1,0 +1,5 @@
+https://codepen.io/alejandroayala6/pen/WNrWZBq
+
+SELECT m.marca_descripcion as marca, p.proveedor_razon_social as proveedor FROM marcas_proveedores mp
+INNER JOIN marcas m ON m.marca_id = mp.proveedoresxmarca_marca_id
+INNER JOIN proveedores p ON p.proveedor_id = mp.proveedoresxmarca_marca_id

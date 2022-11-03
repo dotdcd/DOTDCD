@@ -1,8 +1,5 @@
-const controller = {
-}
 
-controller.renderOpNuevo= async(req, res) => {
+
+export const renderOpNuevo= async(req, res) => {
     res.render('operacion/proyectos/nuevo')
 }
-
-module.exports = controller

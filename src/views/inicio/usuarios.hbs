@@ -1,48 +1,162 @@
-	<div class="row">
-		<div class="col-xl-12">
-			<div id="panel-1" class="panel">
-				<div class="panel-hdr">
-					<h2>
-						Usuarios <span class="fw-300"><i>DOTDCD - ERP</i></span>
-					</h2>
-					<div class="panel-toolbar">
-						<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
-							data-offset="0,10" data-original-title="Collapse"></button>
-						<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
-							data-offset="0,10" data-original-title="Fullscreen"></button>
-						<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
-							data-original-title="Close"></button>
-					</div>
+<div class="row">
+	<div class="col-xl-12">
+		<div id="panel-1" class="panel">
+			<div class="panel-hdr">
+				<h2>
+					Agregar Usuario <span class="fw-300"><i></i></span>
+				</h2>
+				<div class="panel-toolbar">
+					<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Collapse"></button>
+					<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+						data-offset="0,10" data-original-title="Fullscreen"></button>
+					<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Close"></button>
 				</div>
-				<div class="panel-container show">
-					<div class="panel-content">
-						<!-- datatable start -->
-						<table id="dt-basic-example" class=" table table-bordered table-hover table-striped w-100">
-							<thead class="bg-primary-600">
-								<tr>
-									<th>Nombre</th>
-									<th>Usuario</th>
-                                    <th>Modificar</th> 
-								</tr>
-							</thead> 
-							<tbody>
+			</div>
+			<div class="panel-container show">
+				<div class="panel-content">
+					<div id="metasAll">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-3"></div>
+								<div class="col-md-6">
+									<!-- Formulario  -->
+									<form class="form-group" method="post">
+										<label class="form-label" for="simpleinput">
+											<h3>Agregar Usuario</h3>
+										</label><br>
 
-							</tbody>
-						</table>
-						<!-- datatable end -->
+										<span class="col-12" style="margin-left:-1.5% ;">Usuario</span><br>
+										<div class="row">
+
+											<span>
+												<div class="form-group">
+
+													<select class="form-control" id="example-select">
+														<option value="Dr.">Dr.</option>
+														<option value="Lic.">Lic.</option>
+														<option value="Ing.">Ing.</option>
+														<option value="Arq.">Arq.</option>
+														<option value="Emp.">Emp.</option>
+													</select>
+												</div>
+											</span> <input type="text" id="simpleinput" style="width: 88%;"
+												class="ml-2 justify-content-lg-end form-control mb-1 display-4"
+												placeholder="Ingresa el nombre de usuario" autofocus required>
+											<br><br>
+											<span class="col-12">Contraseña</span>
+											<input type="text" id="result" value='' class="form-control col-12 mb-1"
+												placeholder="Ingresa la contraseña" required>
+											<div class="text-right">
+												<a href="javascript:void(0);" id="btn">Generar clave</a>
+											</div> <br>
+										</div>
+
+										<br><br>
+
+
+										<div class="image-input">
+											<input type="file" accept="image/*" id="imageInput">
+											<label for="imageInput" class="image-button"><br><i
+													class="far fa-image"></i><br>
+												Elegir Imagen</label>
+											<img src="" class="image-preview">
+											<span class="change-image">Elegir otra imagen</span>
+										</div>
+
+
+										<br /> <br />
+										<button type="button"
+											class="btn-outline-info btn-lg btn-block ">Agregar</button>
+									</form>
+									<div class="col-md-3"></div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="row">
+	<div class="col-xl-12">
+		<div id="panel-1" class="panel">
+			<div class="panel-hdr">
+				<h2>
+					Usuarios <span class="fw-300"><i>DOTDCD - ERP</i></span>
+				</h2>
+				<div class="panel-toolbar">
+					<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Collapse"></button>
+					<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+						data-offset="0,10" data-original-title="Fullscreen"></button>
+					<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Close"></button>
+				</div>
+			</div>
+			<div class="panel-container show">
+				<div class="panel-content">
+					<!-- datatable start -->
+					<table id="dt-basic-example" class=" table table-bordered table-hover table-striped w-100">
+						<thead class="bg-primary-600">
+							<tr>
+								<th>Nombre</th>
+								<th>Usuario</th>
+								<th>Modificar</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+					<!-- datatable end -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 {{#section 'scripts'}}
 
 <script src="/js/datagrid/datatables/datatables.bundle.js"></script>
 <script src="/js/datagrid/datatables/datatables.export.js"></script>
 
+
 <script>
-$(document).ready(function () {
+	document.querySelector("#btn").addEventListener("click", function () {
+		$longitud = 8; //numero de caracteres
+		$clave = generarClave($longitud);
+		document.querySelector("#result").value = $clave;
+	});
+
+
+	/*Función principal | Generador de claves | Password Generator*/
+	function generarClave(long) {
+		/*caracteres permitidos*/
+		let caracteres = "Aa0BbCc1DdEe2FfGgHh3IiJj4KkLl5MmNn6OoPp7QqRr8SsTt9UuVv*WwXxYyZz$",
+			clave = '',
+			numero;
+
+		/*creacion de clave*/
+		for (let i = 0; i < long; i++) {
+			numero = getNumero(0, caracteres.length);
+			clave += caracteres.substring(numero, numero + 1);
+		}
+		return clave;
+	}
+
+
+	/*Función para generar un numero aleatorio*/
+	function getNumero(min, max) {
+		return Math.floor(Math.random() * (max - min)) + min;
+	}
+
+	console.log($clave)
+
+	$(document).ready(function () {
 
 		// initialize datatable
 		$('#dt-basic-example').dataTable(
@@ -54,7 +168,7 @@ $(document).ready(function () {
 					"<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
 					"<'row'<'col-sm-12'tr>>" +
 					"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
+				"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
 				buttons: [
 
 					{
@@ -91,5 +205,33 @@ $(document).ready(function () {
 			});
 
 	});
+
+	
+
+	
+		$('#imageInput').on('change', function () {
+			$input = $(this);
+			if ($input.val().length > 0) {
+				fileReader = new FileReader();
+				fileReader.onload = function (data) {
+					$('.image-preview').attr('src', data.target.result);
+				}
+				fileReader.readAsDataURL($input.prop('files')[0]);
+				$('.image-button').css('display', 'none');
+				$('.image-preview').css('display', 'block');
+				$('.change-image').css('display', 'block');
+			}
+		});
+
+		$('.change-image').on('click', function () {
+			$control = $(this);
+			$('#imageInput').val('');
+			$preview = $('.image-preview');
+			$preview.attr('src', '');
+			$preview.css('display', 'none');
+			$control.css('display', 'none');
+			$('.image-button').css('display', 'block');
+		});
+	
 </script>
 {{/section}}

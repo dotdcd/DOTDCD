@@ -1,11 +1,13 @@
-const mysql = require('mysql2/promise')
+import {createPool} from 'mysql2/promise';
+import { db_URI } from './config.js';
 
-pool =  mysql.createPool({
-    host: process.env.HOST_DB,
-    user: process.env.USER_DB,
-    password: process.env.PASS,
-    port: process.env.PORT_DB,
-    database: process.env.DB
+
+const pool =  createPool({
+    host: db_URI.host,
+    user: db_URI.user,
+    password: db_URI.password,
+    port: db_URI.port,
+    database: db_URI.database,
 });
 
-module.exports = pool
+export {pool};

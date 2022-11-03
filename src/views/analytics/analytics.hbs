@@ -87,7 +87,81 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Sucursales <span class="fw-300"><i></i></span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
+                            data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                            data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                            data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="contenedor">
+                            <div class="card">
+                                <div class="box">
+                                    <div class="percent">
+                                        <svg>
+                                            <circle cx="70" cy="70" r="70"></circle>
+                                            <circle cx="70" cy="70" r="70"></circle>
+                                        </svg>
+                                        <div class="number">
+                                            <h2 class="number">90 <span>%</span></h2>
+                                        </div>
+                                    </div>
+                                    <h2 class="text">(sucursal)</h2>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="box">
+                                    <div class="percent">
+                                        <svg>
+                                            <circle cx="70" cy="70" r="70"></circle>
+                                            <circle cx="70" cy="70" r="70"></circle>
+                                        </svg>
+                                        <div class="number">
+                                            <h2 class="number">70 <span>%</span></h2>
+                                        </div>
+                                    </div>
+                                    <h2 class="text">(sucursal 2)</h2>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="box">
+                                    <div class="percent">
+                                        <svg>
+                                            <circle cx="70" cy="70" r="70"></circle>
+                                            <circle cx="70" cy="70" r="70"></circle>
+                                        </svg>
+                                        <div class="number">
+                                            <h2 class="number">60 <span>%</span></h2>
+                                        </div>
+                                    </div>
+                                    <h2 class="text">(sucursal 3)</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+
+
 
 {{#section 'scripts'}}
 <script src="/js/statistics/chartjs/chartjs.bundle.js"></script>
@@ -127,7 +201,7 @@
     /* bar stacked */
     var barStacked = function () {
         var barStackedData = {
-            labels: [{{#each cotizaciones}} "{{y}}/{{m}}", {{/each}}].reverse(),
+            labels: [{{#each dates}} "{{y}}/{{m}}", {{/each}}].reverse(),
             datasets: [
             {
                 type: 'line',
@@ -261,7 +335,7 @@
     /* bar stacked */
     var barStackeds = function () {
         var barStackedData = {
-            labels: [{{#each cotizaciones}} "{{y}}/{{m}}", {{/each}}].reverse(),
+            labels: [{{#each dates}} "{{y}}/{{m}}", {{/each}}].reverse(),
             datasets: [
                 {
                     type: 'line',

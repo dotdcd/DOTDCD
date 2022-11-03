@@ -1,14 +1,15 @@
 // * Requerimos la función "Router" para enrutar de express
-const { Router } = require('express');
-const rutas = Router();
-const {renderIndex, renderHome} = require('../controllers/index.controller')
-const {login, logout} = require('../controllers/auth/auth.controller')
-const {authenticateUser} = require('../middlewares/auth')
+import { Router } from 'express';
+import { renderIndex, renderHome } from '../controllers/index.controller.js';
+import { login, logout } from '../controllers/auth/auth.controller.js';
+import {authenticateUser} from '../middlewares/auth.js';
 
-rutas.get('/', renderIndex);
-rutas.post('/login', login);
-rutas.get('/logout', logout);
-rutas.get('/dashboard', authenticateUser, renderHome)
+const rutasIndex = Router();
 
-module.exports = rutas;
+rutasIndex.get('/', renderIndex);
+rutasIndex.post('/login', login);
+rutasIndex.get('/logout', logout);
+rutasIndex.get('/dashboard', authenticateUser, renderHome)
+
+export default rutasIndex;
 

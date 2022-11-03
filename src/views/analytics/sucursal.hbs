@@ -1,0 +1,377 @@
+
+<div class="col-xl-12">
+    <h1>{{sucursal.[0].[0].sucursal_nombre}}</h1>
+    <div class="row">
+        <div class="col-sm col-xl-4">
+            <div class="p-3 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                        ${{money metas.[0].mc.minimo}}
+                        <small class="m-0 l-h-n">Minimo</small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm col-xl-4">
+            <div class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                        ${{money metas.[0].mc.media}}
+                        <small class="m-0 l-h-n">Media</small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm col-xl-4">
+            <div class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
+                <div class="">
+                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                        ${{money metas.[0].mc.esperado}}
+                        <small class="m-0 l-h-n">Esperado</small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Empleados <span class="fw-300"><i>Por Tipo</i></span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
+                            data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                            data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                            data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div id="metasAll">
+                            <canvas id="chart1" style="width:100%; height:350px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Empleados <span class="fw-300"><i>Por Tipo</i></span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
+                            data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                            data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                            data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div id="metascot">
+                            <canvas id="chart2" style="width:100%; height:350px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{{#section 'scripts'}}
+<script src="/js/statistics/chartjs/chartjs.bundle.js"></script>
+<script>
+    var chart = document.getElementById('chart2').getContext('2d')
+    var gradientM = chart.createLinearGradient(0, 0, 0, 450);
+    gradientM.addColorStop(0, 'rgba(255, 194, 65, 1)');
+    gradientM.addColorStop(0.5, 'rgba(255, 194, 65, 0.5)');
+    gradientM.addColorStop(1, 'rgba(255, 194, 65, 0)');
+
+    var gradientMM = chart.createLinearGradient(0, 0, 0, 450);
+    gradientMM.addColorStop(0, 'rgba(0, 255, 60, 1)');
+    gradientMM.addColorStop(0.5, 'rgba(0, 255, 60, 0.5)');
+    gradientMM.addColorStop(1, 'rgba(0, 255, 60, 0)');
+
+    var gradientE = chart.createLinearGradient(0, 0, 0, 450);
+    gradientE.addColorStop(0, 'rgba(140, 156, 198, 1)');
+    gradientE.addColorStop(0.5, 'rgba(140, 156, 198, 0.5)');
+    gradientE.addColorStop(1, 'rgba(140, 156, 198, 0)');
+
+    var chart1 = document.getElementById('chart1').getContext('2d')
+    var gradientM1 = chart.createLinearGradient(0, 0, 0, 450);
+    gradientM1.addColorStop(0, 'rgba(255, 194, 65, 1)');
+    gradientM1.addColorStop(0.5, 'rgba(255, 194, 65, 0.5)');
+    gradientM1.addColorStop(1, 'rgba(255, 194, 65, 0)');
+
+    var gradientMM1 = chart.createLinearGradient(0, 0, 0, 450);
+    gradientMM1.addColorStop(0, 'rgba(0, 255, 60, 1)');
+    gradientMM1.addColorStop(0.5, 'rgba(0, 255, 60, 0.5)');
+    gradientMM1.addColorStop(1, 'rgba(0, 255, 60, 0)');
+
+    var gradientE1 = chart.createLinearGradient(0, 0, 0, 450);
+    gradientE1.addColorStop(0, 'rgba(140, 156, 198, 1)');
+    gradientE1.addColorStop(0.5, 'rgba(140, 156, 198, 0.5)');
+    gradientE1.addColorStop(1, 'rgba(140, 156, 198, 0)');
+
+    /* bar stacked */
+    var barStacked = function () {
+        var barStackedData = {
+            labels: [{{#each dates}} "{{y}}/{{m}}", {{/each}}].reverse(),
+            datasets: [
+            {
+                type: 'line',
+                label: 'Venta',
+                borderColor: '#5D5D5D',
+                pointBackgroundColor: '#ffff',
+                pointBorderColor: '#5D5D5D',
+                pointBorderWidth: 1,
+                tension: 0,
+                borderWidth: 2,
+                pointHoverRadius: 5,
+                fill: false,
+                data: [{{#each ventas}} {{total}}, {{/each}}].reverse()
+            },
+            {
+                type: 'line',
+                label: 'Facturas',
+                borderColor: '#36A2EB',
+                pointBackgroundColor: '#ffff',
+                pointBorderColor: '#36A2EB',
+                pointBorderWidth: 1,
+                tension: 0,
+                borderWidth: 2,
+                pointHoverRadius: 5,
+                fill: false,
+                data: [{{#each facturas}} {{total}}, {{/each}}].reverse()
+            },
+            {
+                type: 'line',
+                label: 'Ingresos',
+                borderColor: '#FF2724',
+                pointBackgroundColor: '#ffff',
+                pointBorderColor: '#FF2724',
+                pointBorderWidth: 1,
+                tension: 0,
+                borderWidth: 2,
+                pointHoverRadius: 5,
+                fill: false,
+                data: [{{#each ingresos}} {{total}}, {{/each}}].reverse()
+            },
+            {
+                label: "Minimo",
+                backgroundColor: gradientM,
+                borderColor: gradientM,
+                borderWidth: 1,
+                data: [{{#each metas}} {{mc.minimo}}, {{/each}}].reverse()
+            },
+            {
+                label: "Media",
+                backgroundColor: gradientMM,
+                borderColor: gradientMM,
+                borderWidth: 1,
+                data: [{{#each metas}} {{mc.media}}, {{/each}}].reverse()
+            },
+            {
+                label: "Esperado",
+                backgroundColor: gradientE,
+                borderColor: gradientE,
+                borderWidth: 1,
+                data: [{{#each metas}} {{mc.esperado}}, {{/each}}].reverse()
+            }
+        ]        
+    };
+    var config = {
+        type: 'bar',
+        data: barStackedData,
+        options:
+        {
+
+            tooltips: {
+                callbacks: {
+                    label: function (t, d) {
+                        var xLabel = d.datasets[t.datasetIndex].label;
+                        var yLabel = t.yLabel >= 1000 ? '$' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : '$' + t.yLabel;
+                        return xLabel + ': ' + yLabel;
+                    }
+                }
+            },
+            legend:
+            {
+                display: true,
+                labels:
+                {
+                    display: false
+                }
+            },
+            scales:
+            {
+                yAxes: [
+                    {
+                        stacked: false,
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks:
+                        {
+                            callback: function (value, index, values) {
+                                if (parseInt(value) >= 1000) {
+                                    return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                } else {
+                                    return '$' + value;
+                                }
+                            },
+                            beginAtZero: true,
+                            fontSize: 11
+                        }
+                    }],
+                xAxes: [
+                    {
+                        stacked: false,
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks:
+                        {
+                            beginAtZero: true,
+                            fontSize: 11
+                        }
+                    }]
+            }
+        }
+    }
+    new Chart($("#metasAll > canvas").get(0).getContext("2d"), config);
+            }
+    /* bar stacked -- end */
+
+    /* bar stacked */
+    var barStackeds = function () {
+        var barStackedData = {
+            labels: [{{#each dates}} "{{y}}/{{m}}", {{/each}}].reverse(),
+            datasets: [
+                {
+                    type: 'line',
+                    label: 'Cotizaciones',
+                    borderColor: color.danger._300,
+                    pointBackgroundColor: '#ffff',
+                    pointBorderColor: color.danger._500,
+                    pointBorderWidth: 1,
+                    tension: 0,
+                    borderWidth: 2,
+                    pointHoverRadius: 5,
+                    fill: false,
+                    data: [{{#each cotizaciones}} {{total}}, {{/each}}].reverse()
+                },
+                {
+                    label: "Minima",
+                    backgroundColor: gradientM1,
+                    borderColor: gradientM1,
+                    borderWidth: 1,
+                    data: [{{#each metas}} {{multiply pb.minimo 3}}, {{/each}}].reverse()
+                },
+                {
+                    label: "Media",
+                    backgroundColor: gradientMM1,
+                    borderColor: gradientMM1,
+                    borderWidth: 1,
+                    data: [ {{#each metas}} {{multiply pb.media 3}}, {{/each}} ].reverse()
+                },
+                {
+                    label: "Esperada",
+                    backgroundColor: gradientE1,
+                    borderColor: gradientE1,
+                    borderWidth: 1,
+                    data: [ {{#each metas}} {{multiply pb.esperado 3}}, {{/each}} ].reverse()
+                },
+
+            ]
+
+        };
+    var config = {
+        type: 'bar',
+        data: barStackedData,
+        options:
+        {
+
+            tooltips: {
+                callbacks: {
+                    label: function (t, d) {
+                        var xLabel = d.datasets[t.datasetIndex].label;
+                        var yLabel = t.yLabel >= 1000 ? '$' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : '$' + t.yLabel;
+                        return xLabel + ': ' + yLabel;
+                    }
+                }
+            },
+            legend:
+            {
+                display: true,
+                labels:
+                {
+                    display: false
+                }
+            },
+            scales:
+            {
+                yAxes: [
+                    {
+                        stacked: false,
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks:
+                        {
+                            callback: function (value, index, values) {
+                                if (parseInt(value) >= 1000) {
+                                    return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                } else {
+                                    return '$' + value;
+                                }
+                            },
+                            beginAtZero: true,
+                            fontSize: 11
+                        }
+                    }],
+                xAxes: [
+                    {
+                        stacked: false,
+                        gridLines:
+                        {
+                            display: true,
+                            color: "#f2f2f2"
+                        },
+                        ticks:
+                        {
+                            beginAtZero: true,
+                            fontSize: 11
+                        }
+                    }]
+            }
+        }
+    }
+    new Chart($("#metascot > canvas").get(0).getContext("2d"), config);
+            }
+    /* bar stacked -- end */
+
+    $(document).ready(function () {
+        barStacked();
+        barStackeds();
+    });   
+</script>
+{{/section}}

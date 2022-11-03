@@ -1,5 +1,5 @@
 "use strict";
-const nodemailer = require("nodemailer");
+import nodemailer from 'nodemailer';
 
 // async..await is not allowed in global scope, must use a wrapper
 async function main() {

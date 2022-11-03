@@ -1,0 +1,270 @@
+
+<table border="0" cellspacing="0">
+		<tr>
+			<td align="center" colspan="10"><font style="font-size:14px;"><b>DOTDCD, S.A. DE C.V.</b></font></td>
+		</tr>
+		<tr>
+			<td align="center" colspan="10">REPORTADO EN PESOS</td>
+		</tr>
+		<tr>
+			<td align="center" colspan="10">T.C. MX$ 1.0000</td>
+		</tr>
+		<tr>
+			<td align="center" colspan="10"><b>SITUACIÓN ACTUAL DE COTIZACIONES</b></td>
+		</tr>
+		<tr>
+			<td align="center" colspan="10">Cliente: TORRE SOFIA, A.C.</td>
+		</tr>
+		<tr>
+			<td align="center" colspan="10">Tipo: Todos, Estatus: Autorizada, Facturadas: Todas, Ordenadas: Todas, Eliminadas: No</td>
+		</tr>
+		<tr>
+			<td align="center" colspan="10">03/11/2022 09:12 AM</td>
+		</tr>	
+		<tr>
+			<td align="center" width="90" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;"># Cliente</span></td>
+			<td align="center" width="290" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Nombre Cliente</span></td>
+			<td align="center" width="90" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;"># Proyecto</span></td>
+			<td align="center" width="400" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Cliente / Proyectos</span></td>
+			<td align="center" width="250" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Arquitecto responsable</span></td>
+			<td align="center" width="250" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Vendedor</span></td>
+			<td align="center" width="250" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Ing. responsable</span></td>
+			<td align="center" width="130" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Sucursal</span></td>
+			<td align="center" width="130" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Cotizado</span></td>
+			<td align="center" width="130" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Costo-total</span></td>
+			<td align="center" width="130" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Comprado</span></td>
+			<td align="center" width="130" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Por comprar</span></td>
+			<td align="center" width="130" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Facturado</span></td>
+			<td align="center" width="130" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Por facturar</span></td>
+			<td align="center" width="130" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Cobrado</span></td>
+			<td align="center" width="130" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Por cobrar</span></td>
+			<td align="center" width="130" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Posición</span></td>
+			<td align="center" width="130" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">PF</span></td>
+			<td align="center" width="130" bgcolor="#16525F"><span style="font-family: Verdana, Geneva, sans-serif;	font-size: 10px; color: #FFF;">Fecha autorización</span></td>			
+		</tr><tr>					
+					<td>512</td>
+					<td>TORRE SOFIA, A.C.</td>
+					<td>&nbsp;</td>
+					<td><b>TORRE SOFIA, A.C.(512)</b></td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>	
+			<tr>
+			<td>512</td>
+			<td>TORRE SOFIA, A.C.</td>
+			<td>16741</td>
+			<td>100 tags iclass (16741)</td>			
+			<td>ALAN QUIROGA GAMBOA</td>
+			<td>ALAN QUIROGA GAMBOA</td>
+			<td>ALAN QUIROGA GAMBOA</td>
+			<td>Monterrey</td>			
+			<td align="right">MX$20,155.00</td>
+			<td align="right">MX$10,324.00</td>
+			<td align="right">MX$0.00</td>
+			<td align="right">MX$10,324.00</td>
+			<td align="right">MX$20,155.00</td>
+			<td align="right">MX$0.00</td>
+			<td align="right">MX$20,155.00</td>
+			<td align="right">MX$0.00</td>
+			<td align="right">MX$-10,324.00</td>
+			<td align="center">48.78%</td>
+			<td align="center">30/09/2022</td>	
+			</tr>	
+			<tr>
+			<td>512</td>
+			<td>TORRE SOFIA, A.C.</td>
+			<td>14826</td>
+			<td>Poliza de mantenimiento mensual (Torre Sofia) (14826)</td>			
+			<td>Rafael Garcia Alonso</td>
+			<td>Rafael Garcia Alonso</td>
+			<td>ARTURO MAGDALENO DAMAZO</td>
+			<td>Monterrey</td>			
+			<td align="right">MX$287,951.63</td>
+			<td align="right">MX$5,274.18</td>
+			<td align="right">MX$5,349.16</td>
+			<td align="right">MX$-74.98</td>
+			<td align="right">MX$232,000.00</td>
+			<td align="right">MX$55,951.63</td>
+			<td align="right">MX$232,000.00</td>
+			<td align="right">MX$55,951.63</td>
+			<td align="right">MX$56,026.60</td>
+			<td align="center">98.17%</td>
+			<td align="center">01/01/2022</td>	
+			</tr>	
+			<tr>
+			<td>512</td>
+			<td>TORRE SOFIA, A.C.</td>
+			<td>14735</td>
+			<td>Repetidor para detección de incendio (14735)</td>			
+			<td>EFREN ALEJANDRO ORTIZ RIOS</td>
+			<td>DANIEL DE JESÚS RUIZ LOPEZ</td>
+			<td>EFREN ALEJANDRO ORTIZ RIOS</td>
+			<td>Monterrey</td>			
+			<td align="right">MX$31,948.53</td>
+			<td align="right">MX$19,155.00</td>
+			<td align="right">MX$0.00</td>
+			<td align="right">MX$19,155.00</td>
+			<td align="right">MX$0.00</td>
+			<td align="right">MX$31,948.53</td>
+			<td align="right">MX$0.00</td>
+			<td align="right">MX$31,948.53</td>
+			<td align="right">MX$12,793.54</td>
+			<td align="center">40.04%</td>
+			<td align="center">13/01/2022</td>	
+			</tr>	
+			<tr>
+			<td>512</td>
+			<td>TORRE SOFIA, A.C.</td>
+			<td>15992</td>
+			<td>Revisión de BMS de SOFIA (15992)</td>			
+			<td>ALAN QUIROGA GAMBOA</td>
+			<td>ALAN QUIROGA GAMBOA</td>
+			<td>ANTONIO DE JESUS CEPEDA LOZANO</td>
+			<td>Monterrey</td>			
+			<td align="right">MX$46,400.00</td>
+			<td align="right">MX$0.00</td>
+			<td align="right">MX$0.00</td>
+			<td align="right">MX$0.00</td>
+			<td align="right">MX$0.00</td>
+			<td align="right">MX$46,400.00</td>
+			<td align="right">MX$0.00</td>
+			<td align="right">MX$46,400.00</td>
+			<td align="right">MX$46,400.00</td>
+			<td align="center">100%</td>
+			<td align="center">29/06/2022</td>	
+			</tr>	
+			<tr>
+			<td>512</td>
+			<td>TORRE SOFIA, A.C.</td>
+			<td>15865</td>
+			<td>Sistema de detección de derrame de agua para piso 19 (15865)</td>			
+			<td>ALAN QUIROGA GAMBOA</td>
+			<td>ALAN QUIROGA GAMBOA</td>
+			<td>ANTONIO DE JESUS CEPEDA LOZANO</td>
+			<td>Monterrey</td>			
+			<td align="right">MX$32,435.75</td>
+			<td align="right">MX$0.00</td>
+			<td align="right">MX$7,326.50</td>
+			<td align="right">MX$-7,326.50</td>
+			<td align="right">MX$32,435.75</td>
+			<td align="right">MX$0.00</td>
+			<td align="right">MX$32,435.75</td>
+			<td align="right">MX$0.00</td>
+			<td align="right">MX$7,326.50</td>
+			<td align="center">100%</td>
+			<td align="center">17/10/2022</td>	
+			</tr>	
+			<tr>
+			<td>512</td>
+			<td>TORRE SOFIA, A.C.</td>
+			<td>16077</td>
+			<td>Tarjetas de vehículos y personales (16077)</td>			
+			<td>ALAN QUIROGA GAMBOA</td>
+			<td>ALAN QUIROGA GAMBOA</td>
+			<td>ALAN QUIROGA GAMBOA</td>
+			<td>Monterrey</td>			
+			<td align="right">MX$36,636.23</td>
+			<td align="right">MX$21,419.75</td>
+			<td align="right">MX$0.00</td>
+			<td align="right">MX$21,419.75</td>
+			<td align="right">MX$30,685.43</td>
+			<td align="right">MX$5,950.80</td>
+			<td align="right">MX$30,685.43</td>
+			<td align="right">MX$5,950.80</td>
+			<td align="right">MX$-15,468.94</td>
+			<td align="center">41.53%</td>
+			<td align="center">09/07/2022</td>	
+			</tr>	
+			<tr>			
+			<td>512</td>
+			<td>TORRE SOFIA, A.C.</td>
+			<td>&nbsp;</td>
+			<td><b>TOTAL DEL CLIENTE</b></td>
+			<td>--</td>
+			<td>--</td>
+			<td>--</td>
+			<td></td>
+			<td align="right">MX$455,527.14</td>
+			<td align="right">MX$56,172.93</td>
+			<td align="right">MX$12,675.66</td>
+			<td align="right">MX$43,497.27</td>
+			<td align="right">MX$315,276.18</td>
+			<td align="right">MX$140,250.96</td>
+			<td align="right">MX$315,276.18</td>
+			<td align="right">MX$140,250.96</td>
+			<td align="right">MX$96,753.69</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			</tr><tr>					
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+				</tr>	
+			<tr>			
+			<td>512</td>
+			<td>TORRE SOFIA, A.C.</td>
+			<td>&nbsp;</td>
+			<td><b>GRAN TOTAL</b></td>
+			<td>--</td>
+			<td>--</td>
+			<td>--</td>
+			<td></td>
+			<td align="right">MX$455,527.14</td>
+			<td align="right">MX$56,172.93</td>
+			<td align="right">MX$12,675.66</td>
+			<td align="right">MX$43,497.27</td>
+			<td align="right">MX$315,276.18</td>
+			<td align="right">MX$140,250.96</td>
+			<td align="right">MX$315,276.18</td>
+			<td align="right">MX$140,250.96</td>
+			<td align="right">MX$96,753.69</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			</tr><tr>					
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+				</tr></table>	

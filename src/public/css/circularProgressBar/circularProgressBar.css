@@ -1,0 +1,126 @@
+svg {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    z-index: 1000;
+}
+
+svg circle {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: #191919 ;
+    stroke-width: 10;
+    stroke-linecap: round;
+    transform: translate(5px, 5px)
+}
+
+svg circle:nth-child(2){
+    stroke-dasharray: 450;
+    stroke-dashoffset: 450;
+
+}
+
+.card:nth-child(1) svg circle:nth-child(2){
+    stroke: #0eec72;
+    stroke-dashoffset: calc(440 - (440 * 90) / 100);
+}
+
+.card:nth-child(2) svg circle:nth-child(2){
+    stroke: #2ba4ea;
+    stroke-dashoffset: calc(440 - (440 * 70) / 100);
+    
+}
+.card:nth-child(3) svg circle:nth-child(2){
+    stroke: #ea66e4;
+    stroke-dashoffset: calc(440 - (440 * 60) / 100);
+    
+}
+.contenedor{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+}
+.contenedor .card{
+    position: relative;
+    width: 250px;
+    background-color: rgb(242, 244, 247);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    border-radius: 4px;
+    text-align: center;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.contenedor .card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0, .5);
+}
+.contenedor .card:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, .03);
+    pointer-events: none;
+    z-index: 1;
+}
+.percent{
+    position:relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    z-index: 1000;
+}
+
+.percent .number{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.percent .number h2 {
+    color: rgb(0, 0, 0);
+    font-weight: 700;
+    font-size: 40px;
+    transition: 0.5s;
+}
+
+
+.percent .number h2 span {
+    font-size: 24px;
+    color: rgb(0, 0, 0);
+    transition: 0.5s;
+}
+
+.percent:hover .number h2 span {
+    color: rgb(0, 0, 0);
+}
+
+.text{
+    position: relative;
+    color: rgb(0, 0, 0);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: 0.5s;
+    margin-top: 20px;
+}
+
+.card:hover .text{
+    color: rgb(0, 0, 0);
+}

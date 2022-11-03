@@ -1,7 +1,7 @@
-const controller = {}
-const {pool} = require('../db')
+import {pool} from '../db.js'
 
-controller.renderIndex = async (req, res) => {
+
+export const renderIndex = async (req, res) => {
     try {
         res.render('index', {layout: 'auth'})
     } catch (error) {
@@ -9,8 +9,7 @@ controller.renderIndex = async (req, res) => {
     }
 }
 
-controller.renderHome = async (req, res) => {
+export const renderHome = async (req, res) => {
     res.render('home')
 }
 
-module.exports = controller;

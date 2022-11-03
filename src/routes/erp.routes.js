@@ -1,24 +1,26 @@
-const { Router } = require('express');
-const rutas = Router();
-const {renderEmployees, renderAnalytics, renderProyectos} = require('../controllers/erp/analytics.controller')
-const {renderUsuarios} = require('../controllers/erp/inicio.controller')
-const {authenticateUser} = require('../middlewares/auth')
-const {renderOpNuevo} = require('../controllers/erp/operacion.controller')
+import { Router } from 'express';
+import { renderEmployees, renderAnalytics, renderProyectos } from '../controllers/erp/analytics.controller.js';
+import { renderUsuarios } from '../controllers/erp/inicio.controller.js';
+import { renderOpNuevo } from '../controllers/erp/operacion.controller.js';
+import { renderAdBuscar, renderAdNuevo, renderAdProvMarca, renderCliBuscar, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar } from '../controllers/erp/administracion.controller.js';
+import { renderCoBuscar, renderCoNuevo, renderCoRequerir } from '../controllers/erp/contabilidad.controller.js';
+import { authenticateUser } from '../middlewares/auth.js';
 
+const rutasErp = Router();
 //?Home Route
 /*
 rutas.get('/dashboard/home', renderHome)
 */
 
 //? Analytics routes
-rutas.get('/dashboard/analytics/analytics', authenticateUser, renderAnalytics)
-rutas.get('/dashboard/analytics/empleados', authenticateUser, renderEmployees)
-rutas.get('/dashboard/analytics/proyectos', authenticateUser, renderProyectos)
+rutasErp.get('/dashboard/analytics/analytics', authenticateUser, renderAnalytics)
+rutasErp.get('/dashboard/analytics/empleados', authenticateUser, renderEmployees)
+rutasErp.get('/dashboard/analytics/proyectos', authenticateUser, renderProyectos)
 
 
 
 //?Inicio Routes
-rutas.get('/dashboard/inicio/usuarios', authenticateUser, renderUsuarios)
+rutasErp.get('/dashboard/inicio/usuarios', authenticateUser, renderUsuarios)
 /*
 rutas.get('/dashboard/inicio/respaldo', renderRespaldo)
 
@@ -31,7 +33,7 @@ rutas.get('/dashboard/inicio/respaldo', renderRespaldo)
 //*llllllllllllllllllllllll
 //? */
 
-rutas.get('/dashboard/operacion/proyecto/nuevo', renderOpNuevo)
+rutasErp.get('/dashboard/operacion/proyectos/nuevo', renderOpNuevo)
 /*
 rutas.get('/dashboard/operacion/proyecto/control_cambios', renderOpControl)
 rutas.get('/dashboard/operacion/proyecto/buscar', renderOpBuscar)
@@ -69,41 +71,54 @@ rutas.get('/dashboard/operacion/subcontratos/anticipos',renderSubAnticipos)
 //?Folios
 rutas.get('/dashboard/operacion/folios/nuevo', renderNuevo)
 rutas.get('/dashboard/operacion/folios/pendientes', renderPendientes)
-
+*/
 
 
 //?llllllllllllllllllllllllllllll
 //?Administracion Routes
 //?llllllllllllllllllllllllllllll
-rutas.get('/dashboard/administracion/clientes/nuevo', renderCliNuevo)
-rutas.get('/dashboard/administracion/clientes/buscar', renderCliBuscar)
-
+rutasErp.get('/dashboard/administracion/clientes/nuevo', renderCliNuevo)
+rutasErp.get('/dashboard/administracion/clientes/buscar', renderCliBuscar)
+/*
 rutas.get('/dashboard/administracion/proveedores', render)
 rutas.get('/dashboard/administracion/proveedores', render)
 
 rutas.get('/dashboard/administracion/', render)
 rutas.get('/dashboard/administracion/', render)
 rutas.get('/dashboard/administracion/', render)
+*/
+rutasErp.get('/dashboard/administracion/marca/nuevo', renderAdNuevo)
+rutasErp.get('/dashboard/administracion/marca/buscar', renderAdBuscar)
+rutasErp.get('/dashboard/administracion/marca/prov_marca', renderAdProvMarca)
 
+rutasErp.get('/dashboard/administracion/disciplina/nuevo', renderDCNuevo)
+rutasErp.get('/dashboard/administracion/disciplina/buscar', renderDCBuscar)
+
+
+rutasErp.get('/dashboard/administracion/proveedores/nuevo', renderPBNuevo)
+rutasErp.get('/dashboard/administracion/proveedores/buscar', renderPBBuscar)
+
+/*
 rutas.get('/dashboard/administracion/', render)
 rutas.get('/dashboard/administracion/', render)
-rutas.get('/dashboard/administracion/', render)
 
-
-
+*/
 
 //?llllllllllllllllllllllllllllll
 //?Contabilidad Routes
 //?llllllllllllllllllllllllllllll
 
+rutasErp.get('/dashboard/contabilidad/inversiones/nuevo', renderCoNuevo)
+rutasErp.get('/dashboard/contabilidad/inversiones/requerir', renderCoRequerir)
+rutasErp.get('/dashboard/contabilidad/inversiones/buscar', renderCoBuscar)
 
 
 
-
+/*
 //?llllllllllllllllllllllllllllll
 //?Reportes Routes
 //?llllllllllllllllllllllllllllll
 
 */
 
-module.exports = rutas;
+export default rutasErp;

@@ -1,6 +1,7 @@
 {
   "name": "doterp",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "dependencies": {
@@ -71,6 +72,7 @@
     "moment": "^2.29.4",
     "mysql2": "^2.3.3",
     "nestable": "^0.2.0",
+    "node-fetch": "^3.2.10",
     "node-waves": "^0.7.6",
     "nouislider": "^15.6.1",
     "pace-js": "^1.2.4",
@@ -85,7 +87,8 @@
   },
   "devDependencies": {
     "dotenv": "^16.0.3",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "tailwindcss": "^3.2.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

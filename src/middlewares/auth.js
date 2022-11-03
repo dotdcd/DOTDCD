@@ -1,7 +1,6 @@
-const jose = require('jose')
-const middlewares = {}
+import * as jose from 'jose'
 
-middlewares.authenticateUser = async (req, res, next) => {
+export const authenticateUser = async (req, res, next) => {
     try {
         const token = req.cookies
         if(!token.sessionToken) {
@@ -18,5 +17,3 @@ middlewares.authenticateUser = async (req, res, next) => {
         console.log(error)
     }
 }
-
-module.exports = middlewares;

@@ -1,16 +1,24 @@
-const express = require('express');
-const {engine} = require('express-handlebars');
-const handlebars = require('handlebars');
-const path = require('path');
+import express from 'express'
+import { engine } from 'express-handlebars';
+import handlebars from 'handlebars';
+import path from 'path';
+import flash from 'connect-flash';	
+import session from 'express-session';
+import cookieParser from 'cookie-parser';
+import rutasAnalytics from './routes/analytics.routes.js';
+import rutasErp from './routes/erp.routes.js';
+import rutasIndex from './routes/index.routes.js';
+import {fileURLToPath} from 'url';
+import { PORT } from './config.js';
+
 const app = express();
-const flash = require('connect-flash');
-const session = require('express-session');
-var cookieParser = require('cookie-parser')
 
 //? Port setting you can change de port number here or in .env
-app.set('port', process.env.SPORT || 5000);
+app.set('port', PORT);
 
 //? Setup views directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 app.set('views', path.join(__dirname, 'views'));
 
 //? Handlebars Settings
@@ -53,18 +61,19 @@ app.use(session({
     secret: 'secret',
     resave: true,
     saveUninitialized: true,
-  }));
+}));
 app.use(flash());
 
 //? Connect - Flash (For show alerts in handlebars & express)
 app.use((req, res, next) => {
-    res.locals.error = req.flash('error')
+    res.locals.error = req.flash('error');
     next();
 })
 
 //? Routes files
-app.use(require('./routes/index.routes'));
-app.use(require('./routes/erp.routes'));
+app.use(rutasAnalytics);
+app.use(rutasErp);
+app.use(rutasIndex);
 
 
 
@@ -72,4 +81,4 @@ app.use(require('./routes/erp.routes'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-module.exports = app;
+export default app;
