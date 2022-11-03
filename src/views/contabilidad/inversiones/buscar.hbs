@@ -21,8 +21,8 @@
 					<table id="dt-basic-example" class=" table table-bordered table-hover table-striped w-100">
 						<thead class="bg-primary-600">
 							<tr>
-								<th>Nombre</th>
 								<th>Clave</th>
+								<th>Descripcion</th>
 								<th>Estatus</th>
 							</tr>
 						</thead>
@@ -43,19 +43,19 @@
 <script src="/js/datagrid/datatables/datatables.export.js"></script>
 
 <script>
+	const invArray = {{{json invArray}}}
 	$(document).ready(function () {
 
 		// initialize datatable
 		$('#dt-basic-example').dataTable(
 			{
-				data: empleados,
+				data: invArray,
 				responsive: true,
 				lengthChange: false,
 				dom:
 					"<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
 					"<'row'<'col-sm-12'tr>>" +
 					"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-				"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
 				buttons: [
 
 					{

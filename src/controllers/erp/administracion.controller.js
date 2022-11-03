@@ -30,11 +30,19 @@ export const renderAdProvMarca = async (req, res) => {
 
 //?clientes
 export const renderCliNuevo = async (req, res) => {
+
     res.render('administracion/clientes/nuevo')
 }
 
 export const renderCliBuscar = async (req, res) => {
-    res.render('administracion/clientes/buscar')
+    let cliArray = []
+    const cli = await pool.query("SELECT IF(cliente_razon_social = '', 'SIN AGREGAR', cliente_razon_social) as rsocial, IF(cliente_rfc = '', 'SIN AGREGAR', cliente_rfc) as rfc, IF(cliente_calle = '', 'SIN AGREGAR' , cliente_calle) as calle, IF(cliente_colonia = '', 'SIN AGREGAR', cliente_colonia) as colonia, IF(cliente_municipio = '', 'SIN AGREGAR', cliente_municipio) as municipio, IF(cliente_estado = '', 'SIN AGREGAR', cliente_estado) as estado, IF(cliente_codigo_postal = 0, 'pendiente', cliente_codigo_postal) as cp, IF(cliente_telefono = '', 'SIN AGREGAR', cliente_telefono) as telefono, IF(cliente_contacto = '', 'SIN AGREGAR', cliente_contacto) as contacto, IF(cliente_cobranza = '', 'SIN AGREGAR', cliente_cobranza) as cobranza, IF(cliente_estatus_baja = NULL, 'SIN AGREGAR', cliente_estatus_baja) as estatus FROM clientes")
+    cli[0].forEach(c => {
+        const cstatus = (c.status == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
+        cliArray.push([c.rsocial, c.rfc, c.calle, c.colonia, c.municipio, c.estado, c.cp, c.telefono, c.contacto, c.cobranza, cstatus])
+    });
+
+    res.render('administracion/clientes/buscar', {cliArray})
 }
 
 //?proveedores

@@ -262,7 +262,7 @@ const getIngresos = async (dates) => {
 
         let ingresos = []
         for (const date of dates) {
-            const ingreso = await pool.query("SELECT ROUND(SUM(cheque_subtotal), 2) as total FROM cheques WHERE cheque_comentario NOT LIKE '%Dol%' AND cheque_comentario NOT LIKE '%DEV%' AND cheque_estatus_baja = 0 AND cheque_ingreso = 1 AND cheque_cliente_id NOT IN(111, 290, 107, 1049, 2584, 3149, 3152, 3154, 3175, 3314, 2369, 3242, 3243) AND cheque_empresa_id IN (3, 15, 16, 17, 18) AND YEAR(cheque_fecha_alta) = "+date.y+" AND MONTH(cheque_fecha_alta) = "+date.m+"")
+            const ingreso = await pool.query("SELECT ROUND(SUM(IF(cheque_saldo = 20, (cheque_saldo * cheque_subtotal), cheque_subtotal)), 2) as total FROM cheques WHERE cheque_comentario NOT LIKE '%Dol%' AND cheque_comentario NOT LIKE '%DEV%' AND cheque_comentario NOT LIKE '%dlls%' AND cheque_estatus_baja = 0 AND cheque_ingreso = 1 AND cheque_cliente_id NOT IN(111, 290, 107, 1049, 2584, 3149, 3152, 3154, 3175, 3314, 2369, 3242, 3243) AND cheque_empresa_id IN (3, 15, 16, 17, 18) AND YEAR(cheque_fecha_alta) = "+date.y+" AND MONTH(cheque_fecha_alta) = "+date.m+"")
             if(ingreso[0][0].total == null) ingresos.push({total: 0})
             else ingresos.push({total: ingreso[0][0].total})
         }

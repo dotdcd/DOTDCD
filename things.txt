@@ -3,3 +3,93 @@ https://codepen.io/alejandroayala6/pen/WNrWZBq
 SELECT m.marca_descripcion as marca, p.proveedor_razon_social as proveedor FROM marcas_proveedores mp
 INNER JOIN marcas m ON m.marca_id = mp.proveedoresxmarca_marca_id
 INNER JOIN proveedores p ON p.proveedor_id = mp.proveedoresxmarca_marca_id
+
+let invArray = []
+    const inv = await  pool.query("SELECT inversion_clave as clave, Inversion_descripcion as descripcion, inversion_estatus_baja as estatus FROM `inversiones`")
+    inv[0].forEach(i => {
+        const istatus = (i.estatus == 0) ? 'Inactivo' : 'Activo'
+        invArray.push([i.clave, i.descripcion, istatus])
+    });
+
+
+
+SELECT cliente_razon_social as rsocial, cliente_rfc as rfc, cliente_calle as calle, cliente_colonia as colonia, cliente_municipio as municipio, cliente_estado as estado, cliente_codigo_postal as cp, cliente_telefono as telefono, cliente_contacto as contacto, cliente_cobranza as cobranza, cliente_estatus_baja as estatus FROM clientes
+
+
+SELECT  IF(cliente_razon_social = '', 'SIN AGREGAR', cliente_razon_social) as rsocial, IF(cliente_rfc = '', 'SIN AGREGAR', cliente_rfc) as rfc, IF(cliente_calle = '', 'SIN AGREGAR' , cliente_calle) as calle, IF(cliente_colonia = '', 'SIN AGREGAR', cliente_colonia) as colonia, IF(cliente_municipio = '', 'SIN AGREGAR', cliente_municipio) as municipio, IF(cliente_estado = '', 'SIN AGREGAR', cliente_estado) as estado, IF(cliente_codigo_postal = 0, 'pendiente', cliente_codigo_postal) as cp, IF(cliente_telefono = '', 'SIN AGREGAR', cliente_telefono) as telefono, IF(cliente_contacto = '', 'SIN AGREGAR', cliente_contacto) as contacto, IF(cliente_cobranza = '', 'SIN AGREGAR', cliente_cobranza) as cobranza, IF(cliente_estatus_baja = NULL, 'SIN AGREGAR', cliente_estatus_baja) as estatus FROM clientes
+
+
+
+
+
+este es los card porcentajes, el css sigue linkeado
+
+<div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Sucursales <span class="fw-300"><i></i></span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
+                            data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                            data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                            data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div class="contenedor">
+                            <div class="card">
+                                <div class="box">
+                                    <div class="percent">
+                                        <svg>
+                                            <circle cx="70" cy="70" r="70"></circle>
+                                            <circle cx="70" cy="70" r="70"></circle>
+                                        </svg>
+                                        <div class="number">
+                                            <h2 class="number">90 <span>%</span></h2>
+                                        </div>
+                                    </div>
+                                    <h2 class="text">(sucursal)</h2>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="box">
+                                    <div class="percent">
+                                        <svg>
+                                            <circle cx="70" cy="70" r="70"></circle>
+                                            <circle cx="70" cy="70" r="70"></circle>
+                                        </svg>
+                                        <div class="number">
+                                            <h2 class="number">70 <span>%</span></h2>
+                                        </div>
+                                    </div>
+                                    <h2 class="text">(sucursal 2)</h2>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="box">
+                                    <div class="percent">
+                                        <svg>
+                                            <circle cx="70" cy="70" r="70"></circle>
+                                            <circle cx="70" cy="70" r="70"></circle>
+                                        </svg>
+                                        <div class="number">
+                                            <h2 class="number">60 <span>%</span></h2>
+                                        </div>
+                                    </div>
+                                    <h2 class="text">(sucursal 3)</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
