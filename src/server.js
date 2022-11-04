@@ -5,11 +5,15 @@ import path from 'path';
 import flash from 'connect-flash';	
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
+import {fileURLToPath} from 'url';
+import { PORT } from './config.js';
+
+//? Importar rutas
 import rutasAnalytics from './routes/analytics.routes.js';
 import rutasErp from './routes/erp.routes.js';
 import rutasIndex from './routes/index.routes.js';
-import {fileURLToPath} from 'url';
-import { PORT } from './config.js';
+import rutasMarcas from './routes/marcas.routes.js';
+
 
 const app = express();
 
@@ -67,6 +71,7 @@ app.use(flash());
 //? Connect - Flash (For show alerts in handlebars & express)
 app.use((req, res, next) => {
     res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');	
     next();
 })
 
@@ -74,6 +79,7 @@ app.use((req, res, next) => {
 app.use(rutasAnalytics);
 app.use(rutasErp);
 app.use(rutasIndex);
+app.use(rutasMarcas);
 
 
 

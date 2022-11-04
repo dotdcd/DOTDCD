@@ -5,6 +5,7 @@ import { renderOpNuevo } from '../controllers/erp/operacion.controller.js';
 import { renderAdBuscar, renderAdNuevo, renderAdProvMarca, renderCliBuscar, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar } from '../controllers/erp/administracion.controller.js';
 import { renderCoBuscar, renderCoNuevo, renderCoRequerir } from '../controllers/erp/contabilidad.controller.js';
 import { authenticateUser } from '../middlewares/auth.js';
+import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos } from '../controllers/erp/contabilidad.controller.js'
 
 const rutasErp = Router();
 //?Home Route
@@ -108,11 +109,17 @@ rutas.get('/dashboard/administracion/', render)
 //?Contabilidad Routes
 //?llllllllllllllllllllllllllllll
 
+//?Inversiones
 rutasErp.get('/dashboard/contabilidad/inversiones/nuevo', renderCoNuevo)
 rutasErp.get('/dashboard/contabilidad/inversiones/requerir', renderCoRequerir)
 rutasErp.get('/dashboard/contabilidad/inversiones/buscar', renderCoBuscar)
 
 
+//?Empleados
+rutasErp.get('/dashboard/contabilidad/empleados/nuevo', renderEmNuevo)
+rutasErp.get('/dashboard/contabilidad/empleados/asignar', renderEmAsignar)
+rutasErp.get('/dashboard/contabilidad/empleados/buscar', renderEmBuscar)
+rutasErp.get('/dashboard/contabilidad/empleados/todos', renderEmTodos)
 
 /*
 //?llllllllllllllllllllllllllllll

@@ -1,0 +1,242 @@
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Agregar Proveedor <span class="fw-300"><i></i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div id="metasAll">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <form method="post" class="form-group">
+                                        <label class="form-label" for="simpleinput">
+                                            <h3>Agregar Empleado</h3>
+                                        </label><br>
+                                        <span>Nombre</span>
+                                        <input type="text" id="simpleinput" class="form-control mb-1 display-4"
+                                            placeholder="Ingresa el nombre" autofocus> <br>
+
+                                        <span>Apellido Paterno</span>
+                                        <input type="text" id="simpleinput" class="form-control mb-1"
+                                            placeholder="Ingresa el apellido paterno"> <br>
+
+                                        <span>Apellido Materno</span>
+                                        <input type="text" id="simpleinput" class="form-control mb-1 "
+                                            placeholder="Ingresa el apellido paterno"> <br>
+
+                                        <span> Tipo de Empleado </span>
+                                        <input type="text" id="simpleinput" class="form-control mb-1"
+                                            placeholder="Ingresa el tipo de empleado"> <br>
+
+                                        <span>Teléfono</span>
+                                        <input type="text" id="simpleinput" class="form-control mb-1"
+                                            placeholder="Ingresa teléfono "> <br>
+
+                                        <span>Número de IMSS</span>
+                                        <input type="text" id="simpleinput" class="form-control mb-1"
+                                            placeholder="Ingresa el número de IMSS "> <br>
+
+                                        <span>Dirección</span>
+                                        <input type="text" id="simpleinput" class="form-control mb-1"
+                                            placeholder="Ingresa usuario y contraseña"> <br>
+
+                                        <span>Sueldo por Periodo</span>
+                                        <input type="text" id="simpleinput" class="form-control mb-1"
+                                            placeholder="Ingresa sueldo por periodo "> <br>
+
+                                        <span> Sueldo Reportado IMSS </span>
+                                        <input type="text" id="simpleinput" class="form-control mb-1"
+                                            placeholder="Ingresa el sueldo reportado al IMSS"> <br>
+
+                                        <span> Cuenta de Depósito IMSS </span>
+                                        <input type="text" id="simpleinput" class="form-control mb-1"
+                                            placeholder="Ingresa la cuenta de depósito IMSS"><br>
+
+                                        <span> Cuenta de Deósito Maquila </span>
+                                        <input type="text" id="simpleinput" class="form-control mb-1"
+                                            placeholder="Ingresa la cuenta de depósito maquila"><br>
+
+                                        <span> Cotización Diaria IMSS </span>
+                                        <input type="text" id="simpleinput" class="form-control mb-1"
+                                            placeholder="Ingresa la cotización diaria IMSS"><br>
+
+                                        <span> RFC </span>
+                                        <input type="text" id="simpleinput" class="form-control mb-1"
+                                            placeholder="Ingresa el RFC"><br>
+
+                                        <span> CURP </span>
+                                        <input type="text" id="simpleinput" class="form-control mb-1"
+                                            placeholder="Ingresa el CURP"><br>
+
+                                        <label class="form-label" for="example-date">Date</label>
+                                        <input class="form-control" id="example-date" type="date" name="date"
+                                            value="2023-07-23">
+                                        <label class="form-label" for="example-date">Date</label>
+                                        <input class="form-control" id="example-date" type="date" name="date"
+                                            value="2023-07-23">
+
+                                        <label class="form-label">Centro de Costo</label>
+                                        <select class="custom-select form-control">
+                                            <option selected="">administracion</option>
+                                            <option value="1">Proyectos</option>
+                                            <option value="2">Ingeniería</option>
+                                            <option value="3">I+D</option>
+                                            <option value="">Inmuebles</option>
+                                            <option value="">Personal Alan</option>
+                                            <option value="">Personal Edgar</option>
+                                            <option value="">Operaciones</option>
+                                            <option value="">Comercial</option>
+                                            <option value="">Diseño</option>
+                                        </select>
+
+                                        <label class="form-label">Sucursal</label>
+                                        <select class="custom-select form-control">
+                                            <option selected value="">Monterrey</option>
+                                            <option value="1">Reynosa 1 (Schneider)</option>
+                                            <option value="2">Reynosa 2 (Corning)</option>
+                                            <option value="3">Juárez / Hermosillo</option>
+                                            <option value="">San Luis Potosí</option>
+                                            <option value="">Querétaro</option>
+                                            <option value="">Toluca</option>
+                                            <option value="">CD México</option>
+                                            <option value="">Guadalajara</option>
+                                            <option value="">Aguascalientes</option>
+                                            <option value="">León Guanajuato</option>
+                                            <option value="">Tijuana</option>
+                                            <option value="">Matamoros</option>
+                                            <option value="">Celaya</option>
+                                            <option value="">Puebla</option>
+                                        </select>
+
+                                        <label class="form-label">Puesto</label>
+                                        <select class="custom-select form-control">
+                                            <option selected="">Programador</option>
+                                            <option value="1">Ayudante</option>
+                                            <option value="2">Coordinador</option>
+                                            <option value="3">administracion Obras</option>
+                                            <option value="">Encargado</option>
+                                            <option value="">Residente JR.</option>
+                                            <option value="">Residente SR.</option>
+                                            <option value="">Auxiliar</option>
+                                            <option value="">Y</option>
+                                            <option value="">Gerente</option>
+                                            <option value="">Director</option>
+                                            <option value="">Otro</option>
+                                            <option value="">X</option>
+                                            <option value="">W</option>
+                                            <option value="">U</option>
+                                            <option value="">Compras</option>
+                                        </select>
+
+                                        <label class="form-label">Periodo</label>
+                                        <select class="custom-select form-control">
+                                            <option selected="">Diario</option>
+                                            <option value="1">Semana</option>
+                                            <option value="2">Quincena</option>
+                                            <option value="3">Mes</option>
+                                        </select>
+
+                                        <label class="form-label">Empresa Pagadora</label>
+                                        <select class="custom-select form-control">
+                                            <option selected="">ALAN QUIROGA GAMBOA</option>
+                                            <option value="1">ASESORES EXTERNOS</option>
+                                            <option value="2">CORPORATIVOSD E INMUEBLES SIENA SA DE CV</option>
+                                            <option value="3">DCI</option>
+                                            <option value="">DOT DCD A SA DE CV</option>
+                                            <option value="">DOT DCD ASOCIADOS SA DE CV</option>
+                                            <option value="">DOT DCD B SA DE CV</option>
+                                            <option value="">DOT DCD MEXICO SA DE CV</option>
+                                            <option value="">DOT DCD SA DE CV</option>
+                                            <option value="">EDGAR QUIROGA GAMBOA</option>
+                                            <option value="">EIE***</option>
+                                            <option value="">GIL***</option>
+                                            <option value="">INC***</option>
+                                            <option value="">NEU***</option>
+                                            <option value="">QUIMARRO SERVICIOS SA DE CV</option>
+                                            <option value="">RENTADMIN SA DE CV</option>
+                                            <option value="">TMK***</option>
+                                            <option value="">TXE***</option>
+                                        </select>
+
+                                        <label class="form-label">Sexo </label>
+                                        <select class="custom-select form-control">
+                                            <option selected="">Hombre</option>
+                                            <option value="1">Mujer</option>
+                                           
+                                        </select>
+
+                                        <label class="form-label">Estado Civil</label>
+                                        <select class="custom-select form-control">
+                                            <option selected="">Soltero</option>
+                                            <option value="1">Casado</option>
+                                            <option value="2">Divorciado</option>
+                                            <option value="3">Separado</option>
+                                            <option value="">Concubinato</option>
+                                            <option value="">Union Libre</option>
+                                            <option value="">Otros</option>
+                                        </select>
+
+                                        <label class="form-label">Perfil para App</label>
+                                        <select class="custom-select form-control">
+                                            <option selected="">Ayudante</option>
+                                            <option value="1">Técnico</option>
+                                            <option value="2">Oficinas</option>
+                                        </select>
+
+                                        <label class="form-label">Tipo Indirecto</label>
+                                        <select class="custom-select form-control">
+                                            <option selected="">Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+
+                                        <label class="form-label">Select (custom)</label>
+                                        <select class="custom-select form-control">
+                                            <option selected="">Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+
+
+
+                                        <br><br>
+                                        <button type="button"
+                                            class="btn-outline-info btn-lg btn-block ">Agregar</button>
+                                    </form>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{{#section 'scripts'}}
+
+
+<script>
+	datePickerId.max = new Date().toISOString().split("T")[0];
+</script>
+
+{{/section}}

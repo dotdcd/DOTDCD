@@ -175,6 +175,7 @@ export const renderEmployees = async (req, res) => {
 
 
 //* Render Analytics
+//? Get total of office price
 const getMonto = async () => {
     try {
         const mme = {}
@@ -189,6 +190,7 @@ const getMonto = async () => {
     }
 }
 
+//? Get dates 
 const getDates = async () => {
     try {
         const hoy = new Date()
@@ -213,6 +215,7 @@ const getDates = async () => {
     }
 }
 
+//? Get solds for each month
 const getVentas = async (dates) => {
     try {
         let ventas = []
@@ -227,6 +230,7 @@ const getVentas = async (dates) => {
     }
 }
 
+//? get quotes for each month
 const getCotizaciones = async (dates) => {
     try {
         let cotizaciones = []
@@ -242,6 +246,7 @@ const getCotizaciones = async (dates) => {
     }
 }
 
+//? Get bills for each month
 const getFacturas = async (dates) => {
     try {
         let facturas = []
@@ -257,6 +262,7 @@ const getFacturas = async (dates) => {
     }
 }
 
+//? Get earnings for each month
 const getIngresos = async (dates) => {
     try {
 
@@ -273,6 +279,7 @@ const getIngresos = async (dates) => {
     }
 }
 
+//? Calculate goals for each month
 const calMetas = async (date, minimo) => {
     try {
         const y = date.y - 1
@@ -302,7 +309,7 @@ const calMetas = async (date, minimo) => {
     }
 }
 
-
+//? Get goals for each month
 const getMetas = async (dates, minimo) => {
     try {
         let metas = []
@@ -317,6 +324,37 @@ const getMetas = async (dates, minimo) => {
     }
 }
 
+//? Calculate percentage per office
+const getPercent = async (id) => {
+    try {
+        const percent = await pool.query("SELECT SUM(empleado_sueldo) AS sum FROM empleados WHERE tipo_indirecto_id IN(2, 3, 14, 18) AND empleado_estatus_baja = 0 AND sucursal_id =" + id)
+        const total = await pool.query("SELECT SUM(empleado_sueldo) AS sum FROM empleados WHERE tipo_indirecto_id IN(2, 3, 14, 18) AND empleado_estatus_baja = 0")
+
+        const percentage = (percent[0][0].total == null) ? 0 : Math.round((percent[0][0].total/total[0][0].total)*100)
+
+        return percentage
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+//? Get offices percent
+const getOfficePercent = async () => {
+    try {
+        const offices = await pool.query("SELECT * FROM sucursales")
+        let percent = []
+        for (const office of offices[0]) {
+            const p = await getPercent(office.sucursal_id)
+            if(p != 0) percent.push({id: office.sucursal_id, nombre: office.sucursal_nombre, porcentaje: p})
+        }
+
+        return percent
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+//? Get data and send to client
 export const renderAnalytics = async (req, res) => {
     const dates = await getDates()
     const mme = await getMonto()
@@ -325,6 +363,8 @@ export const renderAnalytics = async (req, res) => {
     const facturas = await getFacturas(dates)
     const ingresos = await getIngresos(dates)
     const metas = await getMetas(dates, mme.minimo)
+    const sucursales = await getOfficePercent()
+    console.log(sucursales)
 
     res.render('analytics/analytics', {dates, mme, ventas, cotizaciones, facturas, ingresos, metas})
 }

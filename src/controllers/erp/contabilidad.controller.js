@@ -20,3 +20,20 @@ export const renderCoBuscar = async(req, res) => {
 
     res.render('contabilidad/inversiones/buscar', {invArray})
 }
+
+
+export const renderEmNuevo = async(req, res) => {
+    res.render('contabilidad/empleados/nuevo')
+}
+
+export const renderEmAsignar = async(req, res) => {
+    res.render('contabilidad/empleados/asignar')
+}
+
+export const renderEmBuscar = async(req, res) => {
+    res.render('contabilidad/empleados/buscar')
+}
+
+export const renderEmTodos = async(req, res) => {
+    res.render('contabilidad/empleados/todos')
+}

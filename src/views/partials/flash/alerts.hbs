@@ -25,3 +25,21 @@
     </div>
 </div>
 {{/if}}
+{{#if success}}
+<div class="alert border-faded bg-transparent text-secondary fade show" role="alert">
+    <div class="d-flex align-items-center">
+        <div class="alert-icon">
+            <span class="icon-stack icon-stack-md">
+                <i class="base-7 icon-stack-3x color-success-600"></i>
+                <i class="fal fa-check icon-stack-1x text-white"></i>
+            </span>
+        </div>
+        <div class="flex-1">
+            <span class="h5 color-success-600">{{success.[0].title}}</span>
+            <br>
+            {{success.[0].message}}
+        </div>
+        <a class="btn btn-outline-success btn-sm btn-w-m close">Review</a>
+    </div>
+</div>
+{{/if}}
