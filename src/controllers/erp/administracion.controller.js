@@ -7,14 +7,18 @@ export const renderAdNuevo = async (req, res) => {
 
 //? marca
 export const renderAdBuscar = async (req, res) => {
+    try {
+        let marcasArray = [] //? <- crear array con let
+        const marcas = await pool.query("SELECT marca_id, marca_descripcion, marca_estatus_baja as marca_status FROM marcas") //? <- consultar a la base de datos
+        marcas[0].forEach(m => {
+            const status = m.marca_status == 0 ? "<span class='badge badge-success badge-pill'>Activo</span>" : "<span class='badge badge-danger badge-pill' >Inactivo</span>"
+            marcasArray.push([m.marca_id, m.marca_descripcion, status, '<center><button type="button" class="btn btn-lg btn-outline-success mr-5" onClick="showModalPut({id: '+m.marca_id+', marca_descripcion: '+"'"+m.marca_descripcion+"'"+', marca_estatus: '+m.marca_status+'})"><i class="fal fa-sync"></i></button>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="showModalDel('+m.marca_id+')"><i class="fal fa-trash-alt"></i></button></center>']) //? <- agregar a array
+        });
     
-    let marcasArray = [] //? <- crear array con let
-    const marcas = await pool.query("SELECT marca_id, marca_descripcion FROM marcas") //? <- consultar a la base de datos
-    marcas[0].forEach(m => {
-        marcasArray.push([m.marca_id, m.marca_descripcion]) //? <- agregar a array
-    });
-
-    return res.render('administracion/marca/buscar', {marcasArray})
+        return res.render('administracion/marca/buscar', {marcasArray}) //? <- renderizar vista
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 export const renderAdProvMarca = async (req, res) => {

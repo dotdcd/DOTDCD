@@ -22,7 +22,7 @@ SELECT  IF(cliente_razon_social = '', 'SIN AGREGAR', cliente_razon_social) as rs
 
 
 
-este es los card porcentajes, el css sigue linkeado
+este es los card porcentajes, el css sigue linkeado (ya no)
 
 <div class="row">
         <div class="col-xl-12">
@@ -93,3 +93,21 @@ este es los card porcentajes, el css sigue linkeado
             </div>
         </div>
     </div>
+
+
+    <div class="alert border-info bg-transparent text-info fade show" role="alert">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="alert-icon">
+                                                            <i class="fal fa-exclamation-triangle"></i>
+                                                        </div>
+                                                        <div class="flex-1">
+                                                            <span class="h5 m-0 fw-700">Compilation error occured! </span>
+                                                        </div>
+                                                        <button type="button" class="btn btn-info btn-pills btn-sm btn-w-m  mr-1">
+                                                            Repair
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger btn-pills btn-sm btn-w-m" data-dismiss="alert" aria-label="Close">
+                                                            Dismiss
+                                                        </button>
+                                                    </div>
+                                                </div>

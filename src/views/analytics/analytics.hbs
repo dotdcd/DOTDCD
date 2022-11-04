@@ -87,7 +87,62 @@
         </div>
     </div>
 
-    
+
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Sucursales <span class="fw-300"><i></i></span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                                    data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Close"></button>
+                    </div>
+                </div>
+                
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        
+                        <div class="container-fluid">
+                            <div class="row">
+
+
+                                {{#each sucursales}}
+                                    <div class="col-3 mt-8 mb-8">
+                                        <a href="/dashboard/analytics/analytics/{{id}}" >
+                                            <div class="card" style="width: 18rem;">
+                                                <div class="card-body">
+                                                    <div class="progress blue">
+                                                        <span class="progress-left">
+                                                            <span class="progress-bar"></span>
+                                                        </span>
+                                                        <span class="progress-right">
+                                                            <span class="progress-bar"></span>
+                                                        </span>
+                                                        <div class="progress-value">{{porcentaje}}%</div>
+                                                    </div>
+                                                    <br>
+                                                    <h2 style="text-align: center;">{{nombre}}</h2>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {{/each}}  
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

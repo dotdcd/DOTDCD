@@ -13,3 +13,23 @@ export const addMarca = async (req, res) => {
         return res.redirect('/dashboard/administracion/marca/nuevo')
     }   
 }
+
+export const updMarca = async (req, res) => {
+    const {marca_id, marca_descripcion, marca_estatus_baja} = req.body
+    try{
+        await pool.query('UPDATE marcas SET ? WHERE marca_id ='+marca_id, {marca_descripcion, marca_estatus_baja})
+        return res.status(200).json({message: 'Marca actualizada correctamente',status: 200})	
+    } catch (error) {
+        return res.status(500).json({message: 'La marca '+marca_descripcion+' ya existe', status: 500})
+    }
+}
+
+export const delMarca = async (req, res) => {
+    const {marca_id} = req.params
+    try{
+        await pool.query('DELETE FROM marcas WHERE marca_id ='+marca_id)
+        return res.status(200).json({message: 'Marca eliminada correctamente',status: 200})	
+    } catch (error) {
+        return res.status(500).json({message: 'No se puede eliminar la marca', status: 500})
+    }
+}

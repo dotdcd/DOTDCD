@@ -251,7 +251,7 @@ const getFacturas = async (dates) => {
     try {
         let facturas = []
         for (const date of dates){
-            const factura = await pool.query("SELECT ROUND(SUM(pesos+(usd*21))) AS total FROM (SELECT ROUND(SUM(IFNULL(factura_subtotal, 0)), 2) AS pesos FROM facturas WHERE facturas.factura_moneda_id = 1 AND MONTH(factura_fecha_alta) = "+date.m+" AND YEAR(factura_fecha_alta) = "+date.y+" AND factura_estatus_baja = 1 AND NOT factura_cliente_id IN(111, 290, 107, 1049, 2584, 3149, 3152, 3154, 3175, 3314, 2369, 3242, 3243) AND factura_empresa_id IN (3, 15, 16, 17, 18)) a, (SELECT ROUND(SUM(IFNULL(factura_subtotal, 0)), 2) AS usd FROM facturas WHERE facturas.factura_moneda_id = 2 AND MONTH(factura_fecha_alta) = "+date.m+" AND YEAR(factura_fecha_alta) = "+date.y+" AND factura_estatus_baja = 1 AND NOT factura_cliente_id IN(111, 290, 107, 1049, 2584, 3149, 3152, 3154, 3175, 3314, 2369, 3242, 3243) AND factura_empresa_id IN (3, 15, 16, 17, 18)) b")
+            const factura = await pool.query("SELECT ROUND(SUM(IF(factura_moneda_id = 2, factura_subtotal * 20, factura_subtotal)), 2) as total FROM facturas WHERE facturas.factura_moneda_id = 1 AND MONTH(factura_fecha_alta) = "+date.m+" AND YEAR(factura_fecha_alta) = "+date.y+" AND factura_estatus_baja = 1 AND NOT factura_cliente_id IN(111, 290, 107, 1049, 2584, 3149, 3152, 3154, 3175, 3314, 2369, 3242, 3243) AND factura_empresa_id IN (3, 15, 16, 17, 18)")
             if(factura[0][0].total == null) facturas.push({total: 0})
             else facturas.push({total: factura[0][0].total})
         }
@@ -327,8 +327,8 @@ const getMetas = async (dates, minimo) => {
 //? Calculate percentage per office
 const getPercent = async (id) => {
     try {
-        const percent = await pool.query("SELECT SUM(empleado_sueldo) AS sum FROM empleados WHERE tipo_indirecto_id IN(2, 3, 14, 18) AND empleado_estatus_baja = 0 AND sucursal_id =" + id)
-        const total = await pool.query("SELECT SUM(empleado_sueldo) AS sum FROM empleados WHERE tipo_indirecto_id IN(2, 3, 14, 18) AND empleado_estatus_baja = 0")
+        const percent = await pool.query("SELECT SUM(empleado_sueldo) AS total FROM empleados WHERE tipo_indirecto_id IN(2, 3, 14, 18) AND empleado_estatus_baja = 0 AND sucursal_id =" + id)
+        const total = await pool.query("SELECT SUM(empleado_sueldo) AS total FROM empleados WHERE tipo_indirecto_id IN(2, 3, 14, 18) AND empleado_estatus_baja = 0")
 
         const percentage = (percent[0][0].total == null) ? 0 : Math.round((percent[0][0].total/total[0][0].total)*100)
 
@@ -341,7 +341,7 @@ const getPercent = async (id) => {
 //? Get offices percent
 const getOfficePercent = async () => {
     try {
-        const offices = await pool.query("SELECT * FROM sucursales")
+        const offices = await pool.query("SELECT * FROM sucursal")
         let percent = []
         for (const office of offices[0]) {
             const p = await getPercent(office.sucursal_id)
@@ -364,9 +364,8 @@ export const renderAnalytics = async (req, res) => {
     const ingresos = await getIngresos(dates)
     const metas = await getMetas(dates, mme.minimo)
     const sucursales = await getOfficePercent()
-    console.log(sucursales)
 
-    res.render('analytics/analytics', {dates, mme, ventas, cotizaciones, facturas, ingresos, metas})
+    res.render('analytics/analytics', {dates, mme, ventas, cotizaciones, facturas, ingresos, metas, sucursales})
 }
 //! End Analytics 
 
