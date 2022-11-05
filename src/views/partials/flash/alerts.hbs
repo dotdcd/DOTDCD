@@ -6,17 +6,16 @@
 
     <div class="d-flex align-items-center">
 
-        <div class="alert-icon width-8">
-            <span class="icon-stack icon-stack-xl">
-                <i class="base-2 icon-stack-3x color-danger-400"></i>
-                <i class="base-10 text-white icon-stack-1x"></i>
-                <i class="ni md-profile color-danger-800 icon-stack-2x"></i>
+        <div class="alert-icon">
+            <span class="icon-stack icon-stack-md">
+                <i class="base-7 icon-stack-3x color-danger-900"></i>
+                <i class="{{iconPrefix}} fa-times icon-stack-1x text-white"></i>
             </span>
         </div>
 
         <div class="flex-1 pl-1">
             <span class="h2">
-                ...Ooops!
+                {{error.[0].title}}
             </span>
             <br>
             {{error.[0].message}}
@@ -26,20 +25,28 @@
 </div>
 {{/if}}
 {{#if success}}
-<div class="alert border-faded bg-transparent text-secondary fade show" role="alert">
+<div class="alert alert-success alert-dismissible fade show">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true"><i class="fa fa-times"></i></span>
+    </button>
+
     <div class="d-flex align-items-center">
-        <div class="alert-icon">
+
+        <div class="alert-icon width-8">
             <span class="icon-stack icon-stack-md">
                 <i class="base-7 icon-stack-3x color-success-600"></i>
                 <i class="fal fa-check icon-stack-1x text-white"></i>
             </span>
         </div>
-        <div class="flex-1">
-            <span class="h5 color-success-600">{{success.[0].title}}</span>
+
+        <div class="flex-1 pl-1">
+            <span class="h2 color-success-600">
+                {{success.[0].title}}
+            </span>
             <br>
             {{success.[0].message}}
         </div>
-        <a class="btn btn-outline-success btn-sm btn-w-m close">Review</a>
+
     </div>
 </div>
 {{/if}}

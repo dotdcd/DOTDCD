@@ -323,16 +323,39 @@ const getMetas = async (dates, minimo) => {
         console.log(error)
     }
 }
+const getPercentBill = async (id, total) => {
+    try {
+        const hoy = new Date()
+        const y = hoy.getFullYear()
+        const m = hoy.getMonth() + 1
+        const dates = await getDates()
+        const bills = []
+        for (const date of dates) {
+            const ingreso = await pool.query("SELECT ROUND(SUM(fp.pago_monto_moneda_cheque), 2) as total FROM facturas_pagos fp INNER JOIN facturas f ON f.factura_id = fp.pago_factura_id INNER JOIN cheques c ON c.cheque_id = fp.pago_cheque_id WHERE f.sucursal_id = "+id+" AND YEAR(c.cheque_fecha_alta) = "+date.y+" AND MONTH(c.cheque_fecha_alta) = "+date.m+" AND c.cheque_comentario NOT LIKE '%Dol%' AND c.cheque_comentario NOT LIKE '%DEV%' AND c.cheque_comentario NOT LIKE '%dlls%' AND c.cheque_estatus_baja = 0 AND c.cheque_ingreso = 1 AND c.cheque_cliente_id NOT IN(111, 290, 107, 1049, 2584, 3149, 3152, 3154, 3175, 3314, 2369, 3242, 3243) AND c.cheque_empresa_id IN (3, 15, 16, 17, 18)")
+
+            const ganancia = (ingreso[0][0].total == null) ? 0 - total : ingreso[0][0].total - total
+            const percent = (ganancia * 100) / total 
+
+            bills.push({date: date.y+'/'+date.m, percent: percent})
+        }
+
+        return bills
+    } catch (error) {
+        console.log(error)
+    }s
+}
 
 //? Calculate percentage per office
 const getPercent = async (id) => {
     try {
+
         const percent = await pool.query("SELECT SUM(empleado_sueldo) AS total FROM empleados WHERE tipo_indirecto_id IN(2, 3, 14, 18) AND empleado_estatus_baja = 0 AND sucursal_id =" + id)
         const total = await pool.query("SELECT SUM(empleado_sueldo) AS total FROM empleados WHERE tipo_indirecto_id IN(2, 3, 14, 18) AND empleado_estatus_baja = 0")
 
         const percentage = (percent[0][0].total == null) ? 0 : Math.round((percent[0][0].total/total[0][0].total)*100)
+        const percentBill = await getPercentBill(id, percent[0][0].total)
 
-        return percentage
+        return {percentage, percentBill}
     } catch (error) {
         console.log(error)
     }
@@ -345,7 +368,7 @@ const getOfficePercent = async () => {
         let percent = []
         for (const office of offices[0]) {
             const p = await getPercent(office.sucursal_id)
-            if(p != 0) percent.push({id: office.sucursal_id, nombre: office.sucursal_nombre, porcentaje: p})
+            if(p.percentage != 0) percent.push({id: office.sucursal_id, nombre: office.sucursal_nombre, porcentaje: p.percentage, porcentajeIngreso: p.percentBill})
         }
 
         return percent

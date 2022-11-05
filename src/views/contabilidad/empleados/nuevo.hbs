@@ -3,7 +3,7 @@
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
                 <h2>
-                    Agregar Proveedor <span class="fw-300"><i></i></span>
+                    Agregar Empleado <span class="fw-300"><i></i></span>
                 </h2>
                 <div class="panel-toolbar">
                     <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
@@ -25,20 +25,25 @@
                                         <label class="form-label" for="simpleinput">
                                             <h3>Agregar Empleado</h3>
                                         </label><br>
-                                        <span>Nombre</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1 display-4"
-                                            placeholder="Ingresa el nombre" autofocus> <br>
+                                        <form method="">
+                                        <span>Nombre(s) / Identificación</span>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                            placeholder="Ingresa el nombre" autofocus>
+                                            <label for="fileInput"> 
+                                            <i class="fal fa-upload"></i>
+                                        </label>
+                                        <input id="fileInput" type="file" style="display:none"> <br><br>
 
                                         <span>Apellido Paterno</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el apellido paterno"> <br>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                            placeholder="Ingresa el apellido paterno"> <br><br>
 
                                         <span>Apellido Materno</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1 "
-                                            placeholder="Ingresa el apellido paterno"> <br>
+                                        <input type="text" id="simpleinput" class="form-control d-inline mb-1" style="width:95% !important"
+                                            placeholder="Ingresa el apellido materno"> <br><br>
 
                                         <span>Tipo de Empleado</span>
-                                        <select class="custom-select form-control">
+                                        <select class="custom-select form-control"  class="form-control d-inline mb-1" style="width:95% !important">
                                             <option selected="">No Aplica</option>
                                             <option value="1">Operación</option>
                                             <option value="2">Staff</option>
@@ -46,54 +51,124 @@
                                         </select><br> <br> 
 
                                         <span>Teléfono</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa teléfono "> <br>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                            placeholder="Ingresa el teléfono "> <br><br>
 
                                         <span>Número de IMSS</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el número de IMSS "> <br>
+                                        <input type="text" id="simpleinput" class="form-control d-inline mb-1" style="width:95% !important"
+                                            placeholder="Ingresa el número de IMSS "> 
+                                        <label for="fileInput"> 
+                                            <i class="fal fa-upload"></i>
+                                        </label>
+                                        <input id="fileInput" type="file" style="display:none"> <br><br>
 
-                                        <span>Dirección</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa usuario y contraseña"> <br>
+                                        <span>Dirección / Comprobante</span>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                            placeholder="Ingresa la dirección de domicilio">
+                                            <label for="fileInput" > 
+                                                <i class="fal fa-upload"></i>
+                                        </label>
+                                        <input id="fileInput" type="file" style="display:none"> <br><br>
 
                                         <span>Sueldo por Periodo</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa sueldo por periodo "> <br>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                            placeholder="Ingresa sueldo por periodo "> <br><br>
 
                                         <span> Sueldo Reportado IMSS </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el sueldo reportado al IMSS"> <br>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                            placeholder="Ingresa el sueldo reportado al IMSS"> <br><br>
 
                                         <span> Cuenta de Depósito IMSS </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa la cuenta de depósito IMSS"><br>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                            placeholder="Ingresa la cuenta de depósito IMSS"><br><br>
 
-                                        <span> Cuenta de Deósito Maquila </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa la cuenta de depósito maquila"><br>
+                                        <span> Cuenta de Depósito Maquila </span>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                            placeholder="Ingresa la cuenta de depósito maquila"><br><br>
 
                                         <span> Cotización Diaria IMSS </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa la cotización diaria IMSS"><br>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                            placeholder="Ingresa la cotización diaria IMSS"><br><br>
 
-                                        <span> RFC </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el RFC"><br>
+                                        <span> RFC / Constancia de Situación Fiscal </span>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                            placeholder="Ingresa el RFC">
+                                            <label for="fileInput"> 
+                                            <i class="fal fa-upload"></i>
+                                        </label>
+                                        <input id="fileInput" type="file" style="display:none"><br><br>
 
                                         <span> CURP </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el CURP"><br>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                               placeholder="Ingresa el CURP">
+                                        <label for="fileInput"> 
+                                            <i class="fal fa-upload"></i>
+                                        </label>
+                                        <input id="fileInput" type="file" style="display:none">
+                                         <br><br>
 
-                                        <label class="form-label" for="example-date">Date</label>
-                                        <input class="form-control" id="example-date" type="date" name="date"
-                                            value="2023-07-23">
-                                        <label class="form-label" for="example-date">Date</label>
-                                        <input class="form-control" id="example-date" type="date" name="date"
-                                            value="2023-07-23">
+                                        <span> Comprobante de Vacunación </span>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                               placeholder="Ingresa el comprobante de vacunacion">
+                                        <label for="fileInput"> 
+                                            <i class="fal fa-upload"></i>
+                                        </label>
+                                        <input id="fileInput" type="file" style="display:none">
+                                         <br><br>
+                                         <span> Carta de Recomendación 1 </span>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                               placeholder="Ingresa la carta de recomendacion 1">
+                                        <label for="fileInput"> 
+                                            <i class="fal fa-upload"></i>
+                                        </label>
+                                        <input id="fileInput" type="file" style="display:none">
+                                         <br><br>
+                                         <span> Carta de Recomendación 2</span>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                               placeholder="Ingresa la carta de recomendacion 2">
+                                        <label for="fileInput"> 
+                                            <i class="fal fa-upload"></i>
+                                        </label>
+                                        <input id="fileInput" type="file" style="display:none">
+                                         <br><br>
+                                         <span> Currículum </span>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                               placeholder="Ingresa el curriculum nombre empleado y subir archivo">
+                                        <label for="fileInput"> 
+                                            <i class="fal fa-upload"></i>
+                                        </label>
+                                        <input id="fileInput" type="file" style="display:none">
+                                         <br><br>
+                                         <span> Fotografía </span>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                               placeholder="Ingresa el nombre y la fotografía">
+                                        <label for="fileInput"> 
+                                            <i class="fal fa-upload"></i>
+                                        </label>
+                                        <input id="fileInput" type="file" style="display:none">
+                                         <br><br>
+                                        <span> Contacto de Emergencia </span>
+                                        <input type="text" id="simpleinput"  class="form-control d-inline mb-1" style="width:95% !important"
+                                               placeholder="Ingresa el contacto de emergencia">
+                                        <label for="fileInput"> 
+                                            <i class="fal fa-upload"></i>
+                                        </label>
+                                        <input id="fileInput" type="file" style="display:none">
+                                         <br><br>
+
+                                        <span for="example-date">Fecha de Nacimiento /  Acta de Nacimiento</span>
+                                        <input  class="form-control d-inline mb-1" style="width:95% !important" id="example-date" type="date" name="date"
+                                            value=""> <label for="fileInput"> 
+                                            <i class="fal fa-upload"></i>
+                                        </label>
+                                        <input id="fileInput" type="file" style="display:none">
+                                        <br><br>
+                                        <span for="example-date">Fecha de Ingreso</span>
+                                        <input  class="form-control d-inline mb-1" style="width:95% !important" id="example-date" type="date" name="date"
+                                            value="">
 <br>
                                         <label >Centro de Costo</label>
-                                        <select class="custom-select form-control">
+                                        <select  class="form-control d-inline mb-1" style="width:95% !important">
                                             <option selected="">administracion</option>
                                             <option value="1">Proyectos</option>
                                             <option value="2">Ingeniería</option>
@@ -104,10 +179,10 @@
                                             <option value="">Operaciones</option>
                                             <option value="">Comercial</option>
                                             <option value="">Diseño</option>
-                                        </select>
+                                        </select> <br>
 <br>
                                         <label >Sucursal</label>
-                                        <select class="custom-select form-control">
+                                        <select  class="form-control d-inline mb-1" style="width:95% !important">
                                             <option selected value="">Monterrey</option>
                                             <option value="1">Reynosa 1 (Schneider)</option>
                                             <option value="2">Reynosa 2 (Corning)</option>
@@ -124,9 +199,10 @@
                                             <option value="">Celaya</option>
                                             <option value="">Puebla</option>
                                         </select>
+                                        <br>
 <br>
                                         <label >Puesto</label>
-                                        <select class="custom-select form-control">
+                                        <select  class="form-control d-inline mb-1" style="width:95% !important">
                                             <option selected="">Programador</option>
                                             <option value="1">Ayudante</option>
                                             <option value="2">Coordinador</option>
@@ -144,17 +220,19 @@
                                             <option value="">U</option>
                                             <option value="">Compras</option>
                                         </select>
+                                        <br>
 <br>
                                         <label >Periodo</label>
-                                        <select class="custom-select form-control">
+                                        <select  class="form-control d-inline mb-1" style="width:95% !important">
                                             <option selected="">Diario</option>
                                             <option value="1">Semana</option>
                                             <option value="2">Quincena</option>
                                             <option value="3">Mes</option>
                                         </select>
+                                        <br>
 <br>
                                         <label >Empresa Pagadora</label>
-                                        <select class="custom-select form-control">
+                                        <select  class="form-control d-inline mb-1" style="width:95% !important">
                                             <option selected="">ALAN QUIROGA GAMBOA</option>
                                             <option value="1">ASESORES EXTERNOS</option>
                                             <option value="2">CORPORATIVOSD E INMUEBLES SIENA SA DE CV</option>
@@ -174,16 +252,17 @@
                                             <option value="">TMK***</option>
                                             <option value="">TXE***</option>
                                         </select>
+                                        <br>
 <br>
                                         <label >Sexo </label>
-                                        <select class="custom-select form-control">
+                                        <select  class="form-control d-inline mb-1" style="width:95% !important">
                                             <option selected="">Hombre</option>
                                             <option value="1">Mujer</option>
                                            
                                         </select>
-<br>
+<br>                                    <br>
                                         <label >Estado Civil</label>
-                                        <select class="custom-select form-control">
+                                        <select  class="form-control d-inline mb-1" style="width:95% !important">
                                             <option selected="">Soltero</option>
                                             <option value="1">Casado</option>
                                             <option value="2">Divorciado</option>
@@ -192,16 +271,17 @@
                                             <option value="">Union Libre</option>
                                             <option value="">Otros</option>
                                         </select>
-<br>
+<br>                                       <br>
                                         <label >Perfil para App</label>
-                                        <select class="custom-select form-control">
+                                        <select  class="form-control d-inline mb-1" style="width:95% !important">
                                             <option selected="">Ayudante</option>
                                             <option value="1">Técnico</option>
                                             <option value="2">Oficinas</option>
                                         </select>
+                                        <br>
 <br>
                                         <label >Tipo Indirecto</label>
-                                        <select class="custom-select form-control">
+                                        <select  class="form-control d-inline mb-1" style="width:95% !important">
                                             <option selected="">Director</option>
                                             <option value="1">Técnico</option>
                                             <option value="2">Indirecto de Campo</option>
@@ -222,9 +302,11 @@
                                             <option value="">Supervisor / Comercial</option>
                                         </select>
 
+                                        
+
                                         <br><br>
-                                        <button type="button"
-                                            class="btn-outline-info btn-lg btn-block ">Agregar</button>
+                                        <button type="submit"
+                                            class="btn-outline-info btn-lg btn-block ">Guardar</button>
                                     </form>
                                     <div class="col-md-3"></div>
                                 </div>
@@ -236,9 +318,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 {{#section 'scripts'}}
 

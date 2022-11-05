@@ -1,3 +1,6 @@
+{{#section 'head'}}
+    <link rel="stylesheet" href="../../public/css/circularPro">
+{{/section}}
 <div class="col-xl-12">
 
     <div class="row">
@@ -114,28 +117,15 @@
 
 
                                 {{#each sucursales}}
-                                    <div class="col-3 mt-8 mb-8">
-                                        <a href="/dashboard/analytics/analytics/{{id}}" >
-                                            <div class="card" style="width: 18rem;">
-                                                <div class="card-body">
-                                                    <div class="progress blue">
-                                                        <span class="progress-left">
-                                                            <span class="progress-bar"></span>
-                                                        </span>
-                                                        <span class="progress-right">
-                                                            <span class="progress-bar"></span>
-                                                        </span>
-                                                        <div class="progress-value">{{porcentaje}}%</div>
-                                                    </div>
-                                                    <br>
-                                                    <h2 style="text-align: center;">{{nombre}}</h2>
-                                                </div>
+                                    <div class="mt-8">
+                                        {{#each porcentajeIngreso}}
+                                            <div class="mt-8 ml-8">
+                                                <h1>{{date}}</h1>
+                                                <h2>{{percent}}</h2>
                                             </div>
-                                        </a>
+                                        {{/each}}
                                     </div>
-                                {{/each}}  
-
-                                
+                                {{/each}}
                             </div>
                         </div>
                     </div>

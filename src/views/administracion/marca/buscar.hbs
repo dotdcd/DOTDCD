@@ -98,7 +98,6 @@
 					url: '/administracion/marca/delMarca/' + id,
 					dataType: 'json',
 					success: function (resp) {
-						console.log(resp)
 						if (resp.status == 200) {
 							swal.fire({
 								title: "Marca eliminada",
@@ -112,7 +111,6 @@
 						}
 					},
 					error: function (resp) {
-						console.log(resp)
 						swal.fire("Error!", resp.message, "error");
 					}
 				});
