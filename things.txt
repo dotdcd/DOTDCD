@@ -1,3 +1,63 @@
+
+
+https://codepen.io/HummixX/pen/RPeROM
+
+
+campos
+
+nombre
+nombreDoc
+aPaterno
+aMaterno
+sexo
+eCivil
+fNacimiento
+fNacimientoDoc
+curp
+curpDoc
+cCovid
+cCovidDoc
+foto
+fotoDoc
+direccion
+direccionDoc
+dirDoc
+cEmergencia
+cEmergenciaDoc
+
+=19
+=19
+
+
+
+numeroImss
+numeroImssDoc
+sueldoImss
+CotImss
+sueldoPeriodo
+cuentaDepImss
+rfc
+rfcDoc
+tipoEmpleado
+tipoIndirecto
+puesto
+sucursal
+sueldoPeriodo
+fIngreso
+cartaRec1
+cartRec1Doc
+cartaRec2
+cartRec2Doc
+curriculum
+curriculumDoc
+cuentaDepMaquila
+empresaPagadora
+centroCostos
+perfilApp
+
+=24
+=24
+
 https://codepen.io/alejandroayala6/pen/WNrWZBq
 
 SELECT m.marca_descripcion as marca, p.proveedor_razon_social as proveedor FROM marcas_proveedores mp
@@ -111,3 +171,31 @@ este es los card porcentajes, el css sigue linkeado (ya no)
                                                         </button>
                                                     </div>
                                                 </div>
+
+
+
+
+
+const datePickerRef = document.querySelector('[data-date-picker]');
+window.CarbonComponents.DatePicker.init(datePickerRef);
+const datePicker = window.CarbonComponents.DatePicker.components.get(datePickerRef);
+
+datePicker.calendar.set('minDate', '03-01-2018');
+datePicker.calendar.set('maxDate', '03-31-2018');
+
+<!-- Basic with calendar -->
+<div class="bx--form-item">
+  <div data-date-picker data-date-picker-type="single" class="bx--date-picker bx--date-picker--single">
+    <div class="bx--date-picker-container">
+      <label for="date-picker-3" class="bx--label">Label</label>
+      <svg data-date-picker-icon class="bx--date-picker__icon" width="14" height="16" viewBox="0 0 14 16">
+      <path d="M0 5h14v1H0V5zm3-5h1v4H3V0zm7 0h1v4h-1V0zM0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v12a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 0 14.5v-12zm1 0v12a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5v-12a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5z"
+        fill-rule="nonzero" />
+    </svg>
+      <input type="text" id="date-picker-3" class="bx--date-picker__input" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="mm/dd/yyyy" data-date-picker-input />
+      <div class="bx--form-requirement">
+       Invalid date format.
+      </div>
+    </div>
+  </div>
+</div>

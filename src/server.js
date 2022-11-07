@@ -2,17 +2,21 @@ import express from 'express'
 import { engine } from 'express-handlebars';
 import handlebars from 'handlebars';
 import path from 'path';
-import flash from 'connect-flash';	
+import flash from 'connect-flash';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
-import {fileURLToPath} from 'url';
+import { fileURLToPath } from 'url';
 import { PORT } from './config.js';
+import multer from 'multer';
+import { v4 as uuidv4 } from 'uuid';
+import fs from 'fs';
 
 //? Importar rutas
 import rutasAnalytics from './routes/analytics.routes.js';
 import rutasErp from './routes/erp.routes.js';
 import rutasIndex from './routes/index.routes.js';
 import rutasMarcas from './routes/marcas.routes.js';
+import employeesRoutes from './routes/employees.routes.js';
 
 
 const app = express();
@@ -33,18 +37,18 @@ app.engine('.hbs', engine({
     layoutsDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
     helpers: {
-        section: function(name, options){
-            if(!this._sections) this._sections = {};
+        section: function (name, options) {
+            if (!this._sections) this._sections = {};
             this._sections[name] = options.fn(this);
             return null;
         },
-        json: function(obj) {
+        json: function (obj) {
             return JSON.stringify(obj);
         },
-        multiply: function(num1, num2){
+        multiply: function (num1, num2) {
             return num1 * num2
         },
-        money: function(num){
+        money: function (num) {
             const money = new Intl.NumberFormat('en-US').format(num)
             return money
         }
@@ -59,7 +63,7 @@ app.set('view engine', '.hbs');
 
 //? Midlewares
 app.use(express.json());
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
 app.use(session({
     secret: 'secret',
@@ -68,10 +72,24 @@ app.use(session({
 }));
 app.use(flash());
 
+//* File path to directory upload & rename file with uuid & multer
+//TODO: Change directory for contract upload
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        const fpath = (file.fieldname === 'image') ? path.join(__dirname, 'uploads/img/', req.body.userid)  :  path.join(__dirname, 'uploads/files/', req.body.userid)
+        fs.mkdirSync(fpath, { recursive: true })
+        cb(null, fpath)
+    },
+    filename: (req, file, cb) => {
+        cb(null, uuidv4()) //? <-- Rename file with uuid
+    }
+})
+app.use(multer({ storage }).any());
+
 //? Connect - Flash (For show alerts in handlebars & express)
 app.use((req, res, next) => {
     res.locals.error = req.flash('error');
-    res.locals.success = req.flash('success');	
+    res.locals.success = req.flash('success');
     next();
 })
 
@@ -80,7 +98,7 @@ app.use(rutasAnalytics);
 app.use(rutasErp);
 app.use(rutasIndex);
 app.use(rutasMarcas);
-
+app.use(employeesRoutes);
 
 
 //? Statics files
