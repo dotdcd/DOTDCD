@@ -76,12 +76,13 @@ app.use(flash());
 //TODO: Change directory for contract upload
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const fpath = (file.fieldname === 'image') ? path.join(__dirname, 'uploads/img/', req.body.userid)  :  path.join(__dirname, 'uploads/files/', req.body.userid)
+        req.body.uuid= uuidv4();
+        const fpath = (file.fieldname === 'foto') ? path.join(__dirname, 'uploads/img/'+ req.body.uuid)  :  path.join(__dirname, 'uploads/files/'+ req.body.uuid);
         fs.mkdirSync(fpath, { recursive: true })
         cb(null, fpath)
     },
-    filename: (req, file, cb) => {
-        cb(null, uuidv4()) //? <-- Rename file with uuid
+    filename: (req, file, cb, filename) => {
+        cb(null, uuidv4() + path.extname(file.originalname)) //? <-- Rename file with uuid
     }
 })
 app.use(multer({ storage }).any());

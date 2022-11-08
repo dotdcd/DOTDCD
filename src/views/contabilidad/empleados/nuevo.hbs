@@ -19,27 +19,31 @@
                     <div id="metasAll">
                         <div class="row">
                             <div class="container" style="width: 100% !important;">
-                                <form class="container">
-                                    <h3 class="d-block mb-5 text-center pb-2"  style="border-bottom: 1px solid rgb(190, 182, 182);">Datos Personales</h3>
+                                <form class="container"  enctype="multipart/form-data" method="post" action="/addEmployee">
+                                    <h3 class="d-block mb-5 text-center pb-2"
+                                        style="border-bottom: 1px solid rgb(190, 182, 182);">Datos Personales</h3>
                                     <div class="row mb-3">
-                                        <div class="col-4 col-md-12 col-lg-12 db-block">
+                                        <div class="col-4 db-block">
                                             <span>Nombre(s) / Identificación</span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline" name="nombre"
+                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                                name="empleado_nombre" maxlength="20" required
                                                 style="width:95% !important" placeholder="Ingresa el nombre" autofocus>
                                             <label for="fileInput">
                                                 <i class="fal fa-upload"></i>
                                             </label>
-                                            <input id="fileInput" type="file" style="display:none" name="nombreDoc">
+                                            <input id="fileInput" type="file" style="display:none" name="ine">
                                         </div>
                                         <div class="col-4">
                                             <span>Apellido Paterno</span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline " name="aPaterno"
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                name="empleado_paterno" maxlength="15" required
                                                 style="width:95% !important" placeholder="Ingresa el apellido paterno">
 
                                         </div>
                                         <div class="col-4">
                                             <span>Apellido Materno</span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline " name="aMaterno"
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                name="empleado_materno" maxlength="15" required
                                                 style="width:95% !important" placeholder="Ingresa el apellido materno">
 
                                         </div>
@@ -48,7 +52,8 @@
                                     <div class="row mb-3">
                                         <div class="col-4">
                                             <label>Sexo </label>
-                                            <select class="form-control d-inline " style="width:95% !important" name="sexo">
+                                            <select class="form-control d-inline " style="width:95% !important"
+                                                name="empleado_sexo_id">
                                                 <option value="1" selected>Hombre</option>
                                                 <option value="2">Mujer</option>
 
@@ -56,7 +61,8 @@
                                         </div>
                                         <div class="col-4">
                                             <label>Estado Civil</label>
-                                            <select class="form-control d-inline " style="width:95% !important" name="eCivil">
+                                            <select class="form-control d-inline " style="width:95% !important"
+                                                name="empleado_estado_civil_id">
                                                 <option value="1">Soltero</option>
                                                 <option value="2">Casado</option>
                                                 <option value="3">Divorciado</option>
@@ -68,12 +74,13 @@
                                         </div>
                                         <div class="col-4">
                                             <span for="example-date">Fecha de Nacimiento / Acta de Nacimiento</span>
-                                            <input class="form-control d-inline " style="width:95% !important" name="fNacimiento"
-                                                id="example-date" type="date" name="fNacimiento" value=""> <label
-                                                for="fileInput">
+                                            <input class="form-control d-inline " style="width:95% !important"
+                                                name="empleado_nacimiento" id="example-date" type="date"
+                                                 value=""> <label for="fileInput">
                                                 <i class="fal fa-upload"></i>
                                             </label>
-                                            <input id="fileInput" type="file" style="display:none" name="fNacimientoDoc">
+                                            <input id="fileInput" type="file" style="display:none"
+                                                name="actaNacimiento">
 
 
                                         </div>
@@ -81,116 +88,121 @@
                                     <div class="row mb-3">
                                         <div class="col-4"> <span> CURP </span>
                                             <input type="text" id="simpleinput" class="form-control d-inline "
-                                                style="width:95% !important" placeholder="Ingresa el CURP" name="curp">
+                                                maxlength="19" required style="width:95% !important"
+                                                placeholder="Ingresa el CURP" name="empleado_curp">
                                             <label for="fileInput">
                                                 <i class="fal fa-upload"></i>
                                             </label>
-                                            <input id="fileInput" type="file" style="display:none" name="curpDoc">
+                                            <input id="fileInput" type="file" style="display:none" name="curp">
                                         </div>
 
                                         <div class="col-4">
                                             <span> Comprobante de Vacunación </span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline "
-                                                style="width:95% !important"
-                                                placeholder="Ingresa el comprobante de vacunacion"
-                                                name="cCovid">
-                                            <label for="fileInput">
-                                                <i class="fal fa-upload"></i>
-                                            </label>
-                                            <input id="fileInput" type="file" style="display:none" name="cCovidDoc">
+
+
+                                            <input id="fileInput" type="file" style="" name="covid">
                                         </div>
                                         <div class="col-4">
-                                            <span> Fotografía </span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline "
-                                                style="width:95% !important"
-                                                placeholder="Ingresa el nombre y la fotografía" name="foto">
-                                            <label for="fileInput">
-                                                <i class="fal fa-upload"></i>
-                                            </label>
-                                            <input id="fileInput" type="file" style="display:none" name="fotoDoc">
+                                            <span> Fotografía </span><br>
+
+                                            <input id="fileInput" type="file" style=" width:95% !important" name="foto">
                                         </div>
                                     </div>
                                     <div class="row mb-6">
-                                        <div class="col-4"><span>Dirección / Comprobante</span>
+                                        <div class="col-6"><span>Dirección / Comprobante</span>
                                             <input type="text" id="simpleinput" class="form-control d-inline"
                                                 style="width:95% !important"
-                                                placeholder="Ingresa la dirección de domicilio" name="direccion">
+                                                placeholder="Ingresa la dirección de domicilio"
+                                                name="empleado_direccion">
                                             <label for="fileInput">
                                                 <i class="fal fa-upload"></i>
                                             </label>
-                                            <input id="fileInput" type="file" style="display:none" name="direccionDoc">
+                                            <input id="fileInput" type="file" style="display:none" name="domicilio">
                                         </div>
-                                        <div class="col-4"><span>Teléfono</span>
+                                        <div class="col-6"><span>Teléfono</span>
                                             <input type="text" id="simpleinput" class="form-control d-inline "
-                                                style="width:95% !important" placeholder="Ingresa el teléfono" name="dirDoc">
+                                                style="width:95% !important" placeholder="Ingresa el teléfono"
+                                                name="empleado_telefono">
 
                                         </div>
-                                        <div class="col-4">
-                                            <span> Contacto de Emergencia </span>
+
+                                    </div>
+                                    <h3 class="mb-6 mt-1 text-center pb-2"
+                                        style="border-bottom: 1px solid rgb(190, 182, 182);">Contacto de emergencia</h3>
+
+                                    <div class="row mb-6">
+                                        <div class="col-6">
+                                            <span> Nombre </span><br>
                                             <input type="text" id="simpleinput" class="form-control d-inline"
-                                                style="width:95% !important"
-                                                placeholder="Ingresa el contacto de emergencia" name="cEmergencia">
-                                            <label for="fileInput">
-                                                <i class="fal fa-upload"></i>
-                                            </label>
-                                            <input id="fileInput" type="file" style="display:none" name="cEmergenciaDoc"> 
+                                                style="width:95% !important" placeholder="Nombre"
+                                                name="empleado_contacto_emergencia_nombre">
+                                        </div>
+                                        <div class="col-6">
+                                            <span> Telefono </span><br>
+                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                                style="width:95% !important" placeholder="Nombre"
+                                                name="empleado_contacto_emergencia_telefono">
                                         </div>
                                     </div>
 
-                                    
 
-                                    <h3 class="mb-6 mt-1 text-center pb-2" style="border-bottom: 1px solid rgb(190, 182, 182);">Datos Laborales</h3>
+
+                                    <h3 class="mb-6 mt-1 text-center pb-2"
+                                        style="border-bottom: 1px solid rgb(190, 182, 182);">Datos Laborales</h3>
 
                                     <div class="row mb-2">
                                         <div class="col-4">
                                             <span>Número de IMSS</span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline " name="numeroImss"
-                                                style="width:95% !important" placeholder="Ingresa el número de IMSS ">
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                name="empleado_imss" style="width:95% !important"
+                                                placeholder="Ingresa el número de IMSS ">
                                             <label for="fileInput">
                                                 <i class="fal fa-upload"></i>
                                             </label>
-                                            <input id="fileInput" type="file" style="display:none" name="numeroImssDoc">
+                                            <input id="fileInput" type="file" style="display:none" name="numeroImss">
                                         </div>
                                         <div class="col-4">
                                             <span> Sueldo Reportado IMSS </span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline " name="sueldoImss"
-                                                style="width:95% !important"
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                name="empleado_sueldo_imss" style="width:95% !important"
                                                 placeholder="Ingresa el sueldo reportado al IMSS">
                                         </div>
                                         <div class="col-4">
                                             <span> Cotización Diaria IMSS </span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline" name="CotImss"
-                                                style="width:95% !important"
+                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                                name="empleado_diario" style="width:95% !important"
                                                 placeholder="Ingresa la cotización diaria IMSS">
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-4">
                                             <span>Sueldo por Periodo</span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline" name="sueldoPeriodo"
-                                                style="width:95% !important" placeholder="Ingresa sueldo por periodo ">
+                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                                name="empleado_periodo_id" style="width:95% !important"
+                                                placeholder="Ingresa sueldo por periodo ">
                                         </div>
                                         <div class="col-4">
                                             <span> Cuenta de Depósito IMSS </span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline" name="cuentaDepImss"
-                                                style="width:95% !important"
+                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                                name="empleado_cuenta_deposito" style="width:95% !important"
                                                 placeholder="Ingresa la cuenta de depósito IMSS">
                                         </div>
                                         <div class="col-4">
                                             <span> RFC / Constancia de Situación Fiscal </span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline " name="rfc"
-                                                style="width:95% !important" placeholder="Ingresa el RFC">
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                name="empleado_rfc" required style="width:95% !important"
+                                                placeholder="Ingresa el RFC">
                                             <label for="fileInput">
                                                 <i class="fal fa-upload"></i>
                                             </label>
-                                            <input id="fileInput" type="file" style="display:none" name="rfcDoc">
+                                            <input id="fileInput" type="file" style="display:none" name="rfc">
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-4">
                                             <span>Tipo de Empleado</span>
-                                            <select class="custom-select form-control" class="form-control d-inline" name="tipoEmpleado"
-                                                style="width:95% !important">
+                                            <select class="custom-select form-control" class="form-control d-inline"
+                                                name="empleado_actividad_tipo" style="width:95% !important">
                                                 <option selected="">No Aplica</option>
                                                 <option value="1">Operación</option>
                                                 <option value="2">Staff</option>
@@ -199,7 +211,8 @@
                                         </div>
                                         <div class="col-4">
                                             <label>Tipo Indirecto</label>
-                                            <select class="form-control d-inline " style="width:95% !important" name="tipoIndirecto">
+                                            <select class="form-control d-inline " style="width:95% !important"
+                                                name="tipo_indirecto_id">
                                                 <option value="1">Director</option>
                                                 <option value="2">Técnico</option>
                                                 <option value="3">Indirecto de Campo</option>
@@ -222,7 +235,8 @@
                                         </div>
                                         <div class="col-4">
                                             <label>Puesto</label>
-                                            <select class="form-control d-inline " style="width:95% !important" name="puesto">
+                                            <select class="form-control d-inline " style="width:95% !important"
+                                                name="empleado_puesto_id">
                                                 <option value="1">Programador</option>
                                                 <option value="2">Ayudante</option>
                                                 <option value="3">Coordinador</option>
@@ -245,7 +259,8 @@
                                     <div class="row mb-2">
                                         <div class="col-4">
                                             <label>Sucursal</label>
-                                            <select class="form-control d-inline " style="width:95% !important" name="sucursal">
+                                            <select class="form-control d-inline " style="width:95% !important"
+                                                name="sucursal_id">
                                                 <option selected value="1">Monterrey</option>
                                                 <option value="2">Reynosa 1 (Schneider)</option>
                                                 <option value="3">Reynosa 2 (Corning)</option>
@@ -265,56 +280,59 @@
                                         </div>
                                         <div class="col-4">
                                             <span>Sueldo por Periodo</span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline " name="sueldoPeriodo"
-                                                style="width:95% !important" placeholder="Ingresa sueldo por periodo ">
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                name="empleado_sueldo" style="width:95% !important"
+                                                placeholder="Ingresa sueldo por periodo ">
                                         </div>
                                         <div class="col-4">
                                             <span for="example-date">Fecha de Ingreso</span>
-                                            <input class="form-control d-inline " style="width:95% !important" 
-                                                id="example-date" type="date" name="fIngreso" value="" max="2005-01-01">
+                                            <input class="form-control d-inline " style="width:95% !important" required
+                                                id="example-date" type="date" name="empleado_fecha_alta" value=""
+                                                max="2005-01-01">
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-4"> <span> Carta de Recomendación 1</span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline" name="cartaRec1"
-                                                style="width:95% !important"
+                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                                name="empleado_recomendacion1" style="width:95% !important"
                                                 placeholder="Ingresa la carta de recomendacion 1">
                                             <label for="fileInput">
                                                 <i class="fal fa-upload"></i>
                                             </label>
-                                            <input id="fileInput" type="file" style="display:none" name="cartRec1Doc">
+                                            <input id="fileInput" type="file" style="display:none" name="carta1">
                                         </div>
                                         <div class="col-4"><span> Carta de Recomendación 2 </span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline" name="cartaRec2"
-                                                style="width:95% !important"
+                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                                name="empleado_recomendacion2" style="width:95% !important"
                                                 placeholder="Ingresa la carta de recomendacion 2">
                                             <label for="fileInput">
                                                 <i class="fal fa-upload"></i>
                                             </label>
-                                            <input id="fileInput" type="file" style="display:none" name="cartaRec2Doc">
+                                            <input id="fileInput" type="file" style="display:none" name="carta2">
                                         </div>
                                         <div class="col-4">
                                             <span> Currículum </span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline" name="curriculum"
-                                                style="width:95% !important"
+                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                                name="empleado_curriculum" style="width:95% !important"
                                                 placeholder="Ingresa el curriculum nombre empleado y subir archivo">
                                             <label for="fileInput">
                                                 <i class="fal fa-upload"></i>
                                             </label>
-                                            <input id="fileInput" type="file" style="display:none" name="curriculumDoc">
+                                            <input id="fileInput" type="file" style="display:none" name="curriculum">
 
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-4">
                                             <span> Cuenta de Depósito Maquila </span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline " name="cuentaDepMaquila"
-                                                style="width:95% !important"
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                name="empleado_cuenta_deposito_maquila" style="width:95% !important"
                                                 placeholder="Ingresa la cuenta de depósito maquila">
                                         </div>
                                         <div class="col-4">
                                             <label>Empresa Pagadora</label>
-                                            <select class="form-control d-inline " style="width:95% !importan; cursor:pointer" name="empresaPagadora">
+                                            <select class="form-control d-inline "
+                                                style="width:95% !importan; cursor:pointer" name="empleado_empresa_id">
                                                 <option value="8" disabled="disabled">ALAN QUIROGA GAMBOA</option>
                                                 <option value="20">ASESORES EXTERNOS</option>
                                                 <option value="6">CORPORATIVOSD E INMUEBLES SIENA SA DE CV</option>
@@ -337,7 +355,8 @@
                                         </div>
                                         <div class="col-4">
                                             <label>Centro de Costo</label>
-                                            <select class="form-control d-inline " style="width:95% !important" name="centroCostos">
+                                            <select class="form-control d-inline " style="width:95% !important"
+                                                name="empleado_centrodecostos_id">
                                                 <option value="1">administracion</option>
                                                 <option value="2">Proyectos</option>
                                                 <option value="3">Ingeniería</option>
@@ -356,7 +375,8 @@
                                         <div class="col-4"></div>
                                         <div class="col-4">
                                             <label>Perfil para App</label>
-                                            <select class="form-control d-inline " style="width:95% !important" name="perfilApp">
+                                            <select class="form-control d-inline " style="width:95% !important"
+                                                name="empleado_perfil_app">
                                                 <option value="1">Ayudante</option>
                                                 <option value="2">Técnico</option>
                                                 <option value="3">Oficinas</option>
