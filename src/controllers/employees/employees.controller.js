@@ -12,8 +12,10 @@ export const addEmployee = async (req, res) => {
             })
         }
 
+        if(!req.body.id) req.body.id = await pool.query("SELECT empleado_id as id FROM empleados ORDER BY id DESC LIMIT 1")
+
         await pool.query("INSERT INTO empleados SET ?", {
-            empleado_id: (req.body.uuid) ? req.body.uuid : uuidv4(),
+            empleado_id: req.body.id,
             empleado_nombre: (!req.body.empleado_nombre) ? 0 : req.body.empleado_nombre,
             empleado_paterno: (!req.body.empleado_paterno) ? 0 : req.body.empleado_paterno,
             empleado_materno: (!req.body.empleado_materno) ? 0 : req.body.empleado_materno,

@@ -10,6 +10,7 @@ import { PORT } from './config.js';
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
+import {pool} from './db.js';
 
 //? Importar rutas
 import rutasAnalytics from './routes/analytics.routes.js';
@@ -75,9 +76,11 @@ app.use(flash());
 //* File path to directory upload & rename file with uuid & multer
 //TODO: Change directory for contract upload
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        req.body.uuid= uuidv4();
-        const fpath = (file.fieldname === 'foto') ? path.join(__dirname, 'uploads/img/'+ req.body.uuid)  :  path.join(__dirname, 'uploads/files/'+ req.body.uuid);
+    destination: async (req, file, cb) => {
+        const id = await pool.query("SELECT empleado_id as id FROM empleados ORDER BY id DESC LIMIT 1");
+        req.body.id = id[0][0].id+1;
+        console.log(req.body.id);
+        const fpath = (file.fieldname === 'foto') ? path.join(__dirname, 'uploads/img/'+ req.body.id)  :  path.join(__dirname, 'uploads/files/'+ req.body.id);
         fs.mkdirSync(fpath, { recursive: true })
         cb(null, fpath)
     },
