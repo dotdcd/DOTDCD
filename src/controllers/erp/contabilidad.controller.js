@@ -69,7 +69,7 @@ const getPeriod = async() => {
 export const renderEmployee = async(req, res) => {
     try {
         const {id} = req.params
-        const filesNeeded = ['foto', 'nacimiento', 'ine', 'curp', 'domicilio', 'imss', 'rfc', 'rec1', 'rec2', 'cv', 'covid', 'contrato', 'contrato anterior']
+        const filesNeeded = ['foto', 'nacimiento', 'ine', 'curp', 'domicilio', 'imss', 'rfc', 'rec1', 'rec2', 'cv', 'covid', 'contratos', 'contrato anterior']
         const employee = await pool.query("Select *, DATE_FORMAT(empleado_nacimiento, '%Y-%m-%d') as nacimiento, DATE_FORMAT(empleado_entrada, '%Y-%m-%d') as ingreso from empleados WHERE empleado_id = ?", [id])
         let files = []
 
