@@ -49,7 +49,7 @@ export const addEmployee = async (req, res) => {
             })
         }
 
-        return res.status(200).json('Archivo subido correctamente');
+        return res.redirect('/dashboard/contabilidad/empleados/buscar');
     } catch (error) {
         console.log(error)
         req.flash('error', {title: 'error', message: error});

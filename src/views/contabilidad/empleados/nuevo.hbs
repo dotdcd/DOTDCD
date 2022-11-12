@@ -205,7 +205,7 @@
                                             <span>Tipo de Empleado</span>
                                             <select class="custom-select form-control" class="form-control d-inline"
                                                 name="empleado_actividad_tipo" style="width:95% !important">
-                                                <option value="" selected></option>
+                                                <option value=""></option>
                                                 <option value="0">No Aplica</option>
                                                 <option value="1">Operación</option>
                                                 <option value="2">Staff</option>
@@ -215,49 +215,21 @@
                                         <div class="col-4">
                                             <label>Tipo Indirecto</label>
                                             <select class="form-control d-inline " style="width:95% !important"
-                                                name="tipo_indirecto_id">
-                                                <option selected></option>
-                                                <option value="1">Director</option>
-                                                <option value="2">Técnico</option>
-                                                <option value="3">Indirecto de Campo</option>
-                                                <option value="4">Indirecto de Oficina</option>
-                                                <option value="5">Depas Admon</option>
-                                                <option value="6">Depas Comercial</option>
-                                                <option value="7">Depas Mtto</option>
-                                                <option value="8">Depas Limpieza</option>
-                                                <option value="9">Obra Admon</option>
-                                                <option value="10">Obra Civil</option>
-                                                <option value="11">Obra Acabados</option>
-                                                <option value="12">Obra Instalaciones</option>
-                                                <option value="13">Obra Carpinteria</option>
-                                                <option value="14">Encargado Técnico</option>
-                                                <option value="15">Administración</option>
-                                                <option value="16">Comercial</option>
-                                                <option value="17">I+D</option>
-                                                <option value="18">Supervisor / Comercial</option>
+                                                name="tipo_indirecto_id" >
+                                                <option value=""></option>
+                                                {{#each tipoEmpleado}}
+                                                    <option value="{{id}}">{{nombre}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                         <div class="col-4">
                                             <label>Puesto</label>
                                             <select class="form-control d-inline " style="width:95% !important"
                                                 name="empleado_puesto_id">
-                                                <option value="" selected></option>
-                                                <option value="1">Programador</option>
-                                                <option value="2">Ayudante</option>
-                                                <option value="3">Coordinador</option>
-                                                <option value="4">administracion Obras</option>
-                                                <option value="5">Encargado</option>
-                                                <option value="6">Residente JR.</option>
-                                                <option value="7">Residente SR.</option>
-                                                <option value="8">Auxiliar</option>
-                                                <option value="9">Y</option>
-                                                <option value="10">Gerente</option>
-                                                <option value="11">Director</option>
-                                                <option value="12">Otro</option>
-                                                <option value="13">X</option>
-                                                <option value="14">W</option>
-                                                <option value="15">U</option>
-                                                <option value="16">Compras</option>
+                                                <option value=""></option>
+                                                {{#each puesto}}
+                                                    <option value="{{id}}">{{nombre}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                     </div>
@@ -267,31 +239,19 @@
                                             <select class="form-control d-inline " style="width:95% !important"
                                                 name="sucursal_id">
                                                 <option value="" selected></option>
-                                                <option value="1">Monterrey</option>
-                                                <option value="2">Reynosa 1 (Schneider)</option>
-                                                <option value="3">Reynosa 2 (Corning)</option>
-                                                <option value="4">Juárez / Hermosillo</option>
-                                                <option value="6">San Luis Potosí</option>
-                                                <option value="7">Querétaro</option>
-                                                <option value="8">Toluca</option>
-                                                <option value="9">CD México</option>
-                                                <option value="10">Guadalajara</option>
-                                                <option value="11">Aguascalientes</option>
-                                                <option value="12">León Guanajuato</option>
-                                                <option value="13">Tijuana</option>
-                                                <option value="14">Matamoros</option>
-                                                <option value="15">Celaya</option>
-                                                <option value="16">Puebla</option>
+                                                {{#each sucursal}}
+                                                    <option value="{{id}}">{{nombre}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                         <div class="col-4">
                                             <label>Perfil para App</label>
                                             <select class="form-control d-inline " style="width:95% !important"
                                                 name="empleado_perfil_app">
-                                                <option value="" selected></option>
-                                                <option value="1">Ayudante</option>
-                                                <option value="2">Técnico</option>
-                                                <option value="3">Oficinas</option>
+                                                <option value=""></option>
+                                                <option value="1" >Ayudante</option>
+                                                <option value="2" >Técnico</option>
+                                                <option value="3" >Oficinas</option>
                                             </select>
                                         </div>
                                         <div class="col-4">
@@ -330,44 +290,37 @@
                                             <label>Empresa Pagadora</label>
                                             <select class="form-control d-inline "
                                                 style="width:95% !importan; cursor:pointer" name="empleado_empresa_id">
-                                                <option value="" selected></option>
-                                                <option value="8" disabled="disabled">ALAN QUIROGA GAMBOA</option>
-                                                <option value="20">ASESORES EXTERNOS</option>
-                                                <option value="6">CORPORATIVOSD E INMUEBLES SIENA SA DE CV</option>
-                                                <option value="9">DCI</option>
-                                                <option value="15">DOT DCD A SA DE CV</option>
-                                                <option value="18">DOT DCD ASOCIADOS SA DE CV</option>
-                                                <option value="16">DOT DCD B SA DE CV</option>
-                                                <option value="17">DOT DCD MEXICO SA DE CV</option>
-                                                <option value="3">DOT DCD SA DE CV</option>
-                                                <option value="8" disabled="disabled">EDGAR QUIROGA GAMBOA</option>
-                                                <option value="13" disabled="disabled">EIE***</option>
-                                                <option value="14" disabled="disabled">GIL***</option>
-                                                <option value="12" disabled="disabled">INC***</option>
-                                                <option value="11" disabled="disabled">NEU***</option>
-                                                <option value="14">QUIMARRO SERVICIOS SA DE CV</option>
-                                                <option value="15">RENTADMIN SA DE CV</option>
-                                                <option value="4" disabled="disabled">TMK***</option>
-                                                <option value="5" disabled="disabled">TXE***</option>
+                                                <option value=""></option>
+                                                {{#each empresa}}
+                                                    <option value="{{id}}">{{nombre}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                         <div class="col-4">
                                             <label>Centro de Costo</label>
-                                            <select class="form-control d-inline " style="width:95% !important"
+                                             <select class="form-control d-inline " style="width:95% !important"
                                                 name="empleado_centrodecostos_id">
-                                                <option value="" selected></option>
-                                                <option value="1">administracion</option>
-                                                <option value="2">Proyectos</option>
-                                                <option value="3">Ingeniería</option>
-                                                <option value="4">I+D</option>
-                                                <option value="5">Inmuebles</option>
-                                                <option value="6">Personal Alan</option>
-                                                <option value="7">Personal Edgar</option>
-                                                <option value="8">Operaciones</option>
-                                                <option value="9">Comercial</option>
-                                                <option value="10">Diseño</option>
+                                                <option value=""></option>
+                                                {{#each centroCostos}}
+                                                    <option value="{{id}}">{{nombre}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4"></div>
+                                        <div class="col-4">
+                                            <label class="form-label">Periodo</label>
+                                                    <select class="custom-select form-control" name="empleado_periodo_id">
+                                                        <option value=""></option>
+                                                        {{#each period}}
+                                                            <option value="{{id}}">{{nombre}}</option>
+                                                        {{/each}}
+                                                        
+                                                    </select>
+                                        </div>
+                                        <div class="col-4"></div>
 
                                     </div>
                                     

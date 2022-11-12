@@ -69,13 +69,13 @@ const getPeriod = async() => {
 export const renderEmployee = async(req, res) => {
     try {
         const {id} = req.params
-        const filesNeeded = ['foto', 'nacimiento', 'ine', 'curp', 'domicilio', 'imss', 'rfc', 'rec1', 'rec2', 'cv', 'covid']
+        const filesNeeded = ['foto', 'nacimiento', 'ine', 'curp', 'domicilio', 'imss', 'rfc', 'rec1', 'rec2', 'cv', 'covid', 'contrato', 'contrato anterior']
         const employee = await pool.query("Select *, DATE_FORMAT(empleado_nacimiento, '%Y-%m-%d') as nacimiento, DATE_FORMAT(empleado_entrada, '%Y-%m-%d') as ingreso from empleados WHERE empleado_id = ?", [id])
         let files = []
 
         for(let i = 0; i < filesNeeded.length; i++) {
             const file = await pool.query("SELECT * FROM USERS_FILES WHERE type = ? AND userId = ?", [filesNeeded[i], id])
-            files.push((file[0].length > 0) ? [file[0][0].type, file[0][0].file, '<button class="btn btn-outline-primary">Ver</button>'] : [filesNeeded[i], '<span class="badge badge-warning badge-pill">Documento no disponible</span>', '<input type="file" name="'+filesNeeded[i]+'" />'])
+            files.push((file[0].length > 0) ? [file[0][0].type, file[0][0].file, '<a class="btn btn-outline-primary" href="/uploads/'+file[0][0].type+'/'+file[0][0].file+'">Ver</a>'] : [filesNeeded[i], '<span class="badge badge-warning badge-pill">Documento no disponible</span>', '<input type="file" name="'+filesNeeded[i]+'" />'])
         }
 
         const estadoCivil = await getEstadoCivil()
@@ -124,7 +124,16 @@ export const renderContEmployee = async(req, res) => {
 }
 
 export const renderEmNuevo = async(req, res) => {
-    res.render('contabilidad/empleados/nuevo')
+
+    const estadoCivil = await getEstadoCivil()
+    const tipoEmpleado = await getTipoEmpleado()
+    const puesto = await getPuesto()
+    const sucursal = await getSucursal()
+    const empresa = await getEmpresa()
+    const centroCostos = await getCentrodeCosto()
+    const period = await getPeriod()
+
+    res.render('contabilidad/empleados/nuevo', {estadoCivil, tipoEmpleado, puesto, sucursal, empresa, centroCostos, period})
 }
 
 export const renderEmAsignar = async(req, res) => {
