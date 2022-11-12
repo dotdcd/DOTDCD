@@ -10,7 +10,10 @@ import { PORT } from './config.js';
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
-import {pool} from './db.js';
+
+//? Import helpers
+import { uploadFiles, updFiles } from './helpers/multer.js';
+import {helpers} from './helpers/handlebars.js';
 
 //? Importar rutas
 import rutasAnalytics from './routes/analytics.routes.js';
@@ -27,7 +30,7 @@ app.set('port', PORT);
 
 //? Setup views directory
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+export const __dirname = path.dirname(__filename);
 app.set('views', path.join(__dirname, 'views'));
 
 //? Handlebars Settings
@@ -37,23 +40,7 @@ app.engine('.hbs', engine({
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
-    helpers: {
-        section: function (name, options) {
-            if (!this._sections) this._sections = {};
-            this._sections[name] = options.fn(this);
-            return null;
-        },
-        json: function (obj) {
-            return JSON.stringify(obj);
-        },
-        multiply: function (num1, num2) {
-            return num1 * num2
-        },
-        money: function (num) {
-            const money = new Intl.NumberFormat('en-US').format(num)
-            return money
-        }
-    },
+    helpers: helpers,
     extname: '.hbs',
     handlebars: handlebars
 }));
@@ -77,10 +64,8 @@ app.use(flash());
 //TODO: Change directory for contract upload
 const storage = multer.diskStorage({
     destination: async (req, file, cb) => {
-        const id = await pool.query("SELECT empleado_id as id FROM empleados ORDER BY id DESC LIMIT 1");
-        req.body.id = id[0][0].id+1;
-        console.log(req.body.id);
-        const fpath = (file.fieldname === 'foto') ? path.join(__dirname, 'uploads/img/'+ req.body.id)  :  path.join(__dirname, 'uploads/files/'+ req.body.id);
+        const fpath = (req.body.vid) ? await updFiles(req.body.vid, file.fieldname) : await uploadFiles('path', file.fieldname);
+        req.body.id =  (req.body.vid) ? req.body.vid : await uploadFiles('id');
         fs.mkdirSync(fpath, { recursive: true })
         cb(null, fpath)
     },

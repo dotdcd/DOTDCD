@@ -1,3 +1,11 @@
+CREATE TABLE `USERS_FILES` (
+  `id` int(11) AUTOINCREMENT PRIMARY KEY,
+  `type` varchar(150) DEFAULT NULL,
+  `file` varchar(250) DEFAULT NULL,
+  `userId` varchar(255) DEFAULT NULL
+) 
+
+
 
 
 https://codepen.io/HummixX/pen/RPeROM
@@ -9,11 +17,11 @@ https://codepen.io/HummixX/pen/RPeROM
 
 
 
-empleado_covid
-empleado_contactoEmergencia
-empleado_recomendacion1
-empleado_recomendacion2
-empleado_curriculum
+    empleado_covid
+    empleado_contactoEmergencia
+    empleado_recomendacion1
+    empleado_recomendacion2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+    empleado_curriculum
 
 //docs
 covid

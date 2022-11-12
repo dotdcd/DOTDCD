@@ -1,0 +1,389 @@
+<form action="/updEmployee/{{empleado.empleado_id}}" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Buscar / Editar Empleado <span class="fw-300"><i></i></span> 
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                            data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                            data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                            data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <div id="metasAll">
+                            <div class="row">
+                                <div class="container" style="width: 100% !important;">
+
+                                    <h3 class="d-block mb-5 text-center pb-2"
+                                        style="border-bottom: 1px solid rgb(190, 182, 182);">Datos Personales</h3>
+                                    <div class="row mb-3">
+                                        <div class="col-4 db-block">
+                                            <span>Nombre(s) / Identificación</span>
+                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                                name="empleado_nombre" maxlength="20" required style="width:95% !important"
+                                                placeholder="Ingresa el nombre" value="{{empleado.empleado_nombre}}"
+                                                autofocus>
+                                        </div>
+                                        <div class="col-4">
+                                            <span>Apellido Paterno</span>
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                name="empleado_paterno" maxlength="15" required style="width:95% !important"
+                                                placeholder="Ingresa el apellido paterno"
+                                                value="{{empleado.empleado_paterno}}">
+
+                                        </div>
+                                        <div class="col-4">
+                                            <span>Apellido Materno</span>
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                name="empleado_materno" maxlength="15" required style="width:95% !important"
+                                                placeholder="Ingresa el apellido materno" value="{{empleado.empleado_materno}}">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-4">
+                                            <label>Sexo </label>
+                                            <select class="form-control d-inline " style="width:95% !important"
+                                                name="empleado_sexo_id">
+                                                <option value="0" {{#if (is empleado.empleado_sexo_id 0)}} selected {{/if}}>
+                                                </option>
+                                                <option value="1" {{#if (is empleado.empleado_sexo_id 1)}} selected {{/if}}>
+                                                    Hombre</option>
+                                                <option value="2" {{#if (is empleado.empleado_sexo_id 2)}} selected {{/if}}>
+                                                    Mujer</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <label>Estado Civil</label>
+                                            <select class="form-control d-inline " style="width:95% !important"
+                                                name="empleado_estado_civil_id">
+                                                <option value=""></option>
+                                                {{#each estadoCivil}}
+                                                <option value="{{id}}" {{#if (is id ../empleado.empleado_estado_civil_id)}} selected {{/if}}>{{nombre}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <span for="example-date">Fecha de Nacimiento / Acta de Nacimiento</span>
+                                            <input class="form-control d-inline " style="width:95% !important"
+                                                name="empleado_nacimiento" id="example-date" type="date" max="2005-01-01"
+                                                value="{{empleado.nacimiento}}">
+
+
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-4"> <span> CURP </span>
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                maxlength="19" required style="width:95% !important"
+                                                placeholder="Ingresa el CURP" name="empleado_curp"
+                                                value="{{empleado.empleado_curp}}">
+
+                                        </div>
+
+                                        <div class="col-4">
+
+
+
+
+                                        </div>
+                                        <div class="col-4">
+
+                                        </div>
+                                    </div>
+                                    <div class="row mb-6">
+                                        <div class="col-6"><span>Dirección / Comprobante</span>
+                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                                style="width:95% !important" placeholder="Ingresa la dirección de domicilio"
+                                                name="empleado_direccion" value="{{empleado.empleado_direccion}}">
+
+                                        </div>
+                                        <div class="col-6"><span>Teléfono</span>
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                style="width:95% !important" placeholder="Ingresa el teléfono"
+                                                name="empleado_telefono" value="{{empleado.empleado_telefono}}">
+
+                                        </div>
+
+                                    </div>
+                                    <h3 class="mb-6 mt-1 text-center pb-2"
+                                        style="border-bottom: 1px solid rgb(190, 182, 182);">Contacto de emergencia</h3>
+
+                                    <div class="row mb-6">
+                                        <div class="col-6">
+                                            <span> Nombre </span><br>
+                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                                style="width:95% !important" placeholder="Nombre"
+                                                name="empleado_contacto_emergencia_nombre" value="{{empleado.empleado_contacto_emergencia_nombre}}">
+                                        </div>
+                                        <div class="col-6">
+                                            <span> Telefono </span><br>
+                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                                style="width:95% !important" placeholder="Telefono"
+                                                name="empleado_contacto_emergencia_telefono" value="{{empleado.empleado_contacto_emergencia_telefono}}">
+                                        </div>
+                                    </div>
+
+
+
+                                    <h3 class="mb-6 mt-1 text-center pb-2"
+                                        style="border-bottom: 1px solid rgb(190, 182, 182);">Datos Laborales</h3>
+
+                                    <div class="row mb-2">
+                                        <div class="col-4">
+                                            <span>Número de IMSS</span>
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                name="empleado_imss" style="width:95% !important"
+                                                placeholder="Ingresa el número de IMSS " value="{{empleado.empleado_imss}}">
+
+                                        </div>
+                                        <div class="col-4">
+                                            <span> Sueldo Reportado IMSS </span>
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                name="empleado_sueldo_imss" style="width:95% !important"
+                                                placeholder="Ingresa el sueldo reportado al IMSS" value="{{empleado.empleado_sueldo_imss}}">
+                                        </div>
+                                        <div class="col-4">
+                                            <span> Cotización Diaria IMSS </span>
+                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                                name="empleado_diario" style="width:95% !important"
+                                                placeholder="Ingresa la cotización diaria IMSS" value="{{empleado.empleado_diario}}">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4">
+                                            <span>Sueldo por Periodo</span>
+                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                                name="empleado_sueldo" style="width:95% !important"
+                                                placeholder="Ingresa sueldo por periodo " value="{{empleado.empleado_sueldo}}">
+                                        </div>
+                                        <div class="col-4">
+                                            <span> Cuenta de Depósito IMSS </span>
+                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                                name="empleado_cuenta_deposito" style="width:95% !important"
+                                                placeholder="Ingresa la cuenta de depósito IMSS" value="{{empleado.empleado_cuenta_deposito}}">
+                                        </div>
+                                        <div class="col-4">
+                                            <span> RFC / Constancia de Situación Fiscal </span>
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                name="empleado_rfc" required style="width:95% !important"
+                                                placeholder="Ingresa el RFC" value="{{empleado.empleado_rfc}}">
+
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4">
+                                            <span>Tipo de Empleado</span>
+                                            <select class="custom-select form-control" class="form-control d-inline"
+                                                name="empleado_actividad_tipo" style="width:95% !important">
+                                                <option value=""></option>
+                                                <option value="0" {{#if (is empleado.empleado_actividad_tipo 0)}} selected {{/if}}>No Aplica</option>
+                                                <option value="1" {{#if (is empleado.empleado_actividad_tipo 1)}} selected {{/if}}>Operación</option>
+                                                <option value="2" {{#if (is empleado.empleado_actividad_tipo 2)}} selected {{/if}}>Staff</option>
+                                                <option value="3" {{#if (is empleado.empleado_actividad_tipo 3)}} selected {{/if}}>Corporativo</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <label>Tipo Indirecto</label>
+                                            <select class="form-control d-inline " style="width:95% !important"
+                                                name="tipo_indirecto_id" >
+                                                <option value=""></option>
+                                                {{#each tipoEmpleado}}
+                                                    <option value="{{id}}" {{#if (is ../empleado.tipo_indirecto_id id)}} selected {{/if}}>{{nombre}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <label>Puesto</label>
+                                            <select class="form-control d-inline " style="width:95% !important"
+                                                name="empleado_puesto_id">
+                                                <option value=""></option>
+                                                {{#each puesto}}
+                                                    <option value="{{id}}" {{#if (is ../empleado.empleado_puesto_id id)}} selected {{/if}}>{{nombre}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4">
+                                            <label>Sucursal</label>
+                                            <select class="form-control d-inline " style="width:95% !important"
+                                                name="sucursal_id">
+                                                <option value="" selected></option>
+                                                {{#each sucursal}}
+                                                    <option value="{{id}}" {{#if (is ../empleado.sucursal_id id)}} selected {{/if}}>{{nombre}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <label>Perfil para App </label>
+                                            <select class="form-control d-inline " style="width:95% !important"
+                                                name="empleado_perfil_app">
+                                                <option value=""></option>
+                                                <option value="1" {{#if (is empleado.empleado_perfil_app 1)}} selected {{/if}}>Ayudante</option>
+                                                <option value="2" {{#if (is empleado.empleado_perfil_app 2)}} selected {{/if}}>Técnico</option>
+                                                <option value="3" {{#if (is empleado.empleado_perfil_app 3)}} selected {{/if}}>Oficinas</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <span for="example-date">Fecha de Ingreso</span>
+                                            <input class="form-control d-inline " style="width:95% !important" required
+                                                id="example-date" type="date" name="empleado_entrada" value="{{empleado.ingreso}}">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4">
+
+
+
+                                        </div>
+                                        <div class="col-4">
+
+
+
+                                        </div>
+                                        <div class="col-4">
+
+
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-4">
+                                            <span> Cuenta de Depósito Maquila </span>
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                name="empleado_cuenta_deposito_maquila" style="width:95% !important"
+                                                placeholder="Ingresa la cuenta de depósito maquila" value="{{empleado.empleado_cuenta_deposito_maquila}}">
+                                        </div>
+                                        <div class="col-4">
+                                            <label>Empresa Pagadora</label>
+                                            <select class="form-control d-inline "
+                                                style="width:95% !importan; cursor:pointer" name="empleado_empresa_id">
+                                                <option value=""></option>
+                                                {{#each empresa}}
+                                                    <option value="{{id}}" {{#if (is ../empleado.empleado_empresa_id id)}} selected {{/if}}>{{nombre}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <label>Centro de Costo</label>
+                                            <select class="form-control d-inline " style="width:95% !important"
+                                                name="empleado_centrodecostos_id">
+                                                <option value=""></option>
+                                                {{#each centroCostos}}
+                                                    <option value="{{id}}" {{#if (is ../empleado.empleado_centrodecostos_id id)}} selected {{/if}}>{{nombre}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-4"></div>
+                                        <div class="col-4">
+                                            <label class="form-label">Periodo</label>
+                                                    <select class="custom-select form-control" name="empleado_periodo_id">
+                                                        <option value=""></option>
+                                                        {{#each period}}
+                                                            <option value="{{id}}" {{#if (is ../empleado.empleado_periodo_id id)}} selected {{/if}}>{{nombre}}</option>
+                                                        {{/each}}
+                                                        
+                                                    </select>
+                                        </div>
+                                        <div class="col-4"></div>
+
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--DT-->
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Empleados <span class="fw-300"><i>DOTDCD</i></span>
+                    </h2>
+                    <div class="panel-toolbar">
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                            data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                            data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                            data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <!-- datatable start -->
+                        <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                            <thead class="bg-primary-600">
+                                <tr>
+                                    <th>Documento</th>
+                                    <th>Nombre</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <!-- datatable end -->
+                        <div class="row mt-6">
+                            <div class="col-4"></div>
+                            <div class="col-4">
+                                <button type="submit" class="btn-outline-info btn-lg w-100 ">Guardar</button>
+                            </div>
+                            <div class="col-4"></div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!--DT-->
+{{#section 'scripts'}}
+<script src="/js/datagrid/datatables/datatables.bundle.js"></script>
+<script src="/js/datagrid/datatables/datatables.export.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+    const docs = {{{ json files }}}
+
+    // Data table
+    $(document).ready(function () {
+    // initialize datatable
+    $('#dt-basic-example').dataTable(
+        {
+            data: docs,
+            responsive: true,
+            lengthChange: true,
+            dom:
+                "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        });
+    });
+
+    
+</script>
+{{/section}}

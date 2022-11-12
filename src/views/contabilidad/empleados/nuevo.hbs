@@ -54,7 +54,8 @@
                                             <label>Sexo </label>
                                             <select class="form-control d-inline " style="width:95% !important"
                                                 name="empleado_sexo_id">
-                                                <option value="1" selected>Hombre</option>
+                                                <option value="" selected></option>
+                                                <option value="1" >Hombre</option>
                                                 <option value="2">Mujer</option>
 
                                             </select>
@@ -63,6 +64,7 @@
                                             <label>Estado Civil</label>
                                             <select class="form-control d-inline " style="width:95% !important"
                                                 name="empleado_estado_civil_id">
+                                                <option value="" selected></option>
                                                 <option value="1">Soltero</option>
                                                 <option value="2">Casado</option>
                                                 <option value="3">Divorciado</option>
@@ -75,7 +77,7 @@
                                         <div class="col-4">
                                             <span for="example-date">Fecha de Nacimiento / Acta de Nacimiento</span>
                                             <input class="form-control d-inline " style="width:95% !important"
-                                                name="empleado_nacimiento" id="example-date" type="date"
+                                                name="empleado_nacimiento" id="example-date" type="date" max="2005-01-01"
                                                  value=""> <label for="fileInput">
                                                 <i class="fal fa-upload"></i>
                                             </label>
@@ -203,7 +205,8 @@
                                             <span>Tipo de Empleado</span>
                                             <select class="custom-select form-control" class="form-control d-inline"
                                                 name="empleado_actividad_tipo" style="width:95% !important">
-                                                <option selected="">No Aplica</option>
+                                                <option value="" selected></option>
+                                                <option value="0">No Aplica</option>
                                                 <option value="1">Operación</option>
                                                 <option value="2">Staff</option>
                                                 <option value="3">Corporativo</option>
@@ -213,6 +216,7 @@
                                             <label>Tipo Indirecto</label>
                                             <select class="form-control d-inline " style="width:95% !important"
                                                 name="tipo_indirecto_id">
+                                                <option selected></option>
                                                 <option value="1">Director</option>
                                                 <option value="2">Técnico</option>
                                                 <option value="3">Indirecto de Campo</option>
@@ -237,6 +241,7 @@
                                             <label>Puesto</label>
                                             <select class="form-control d-inline " style="width:95% !important"
                                                 name="empleado_puesto_id">
+                                                <option value="" selected></option>
                                                 <option value="1">Programador</option>
                                                 <option value="2">Ayudante</option>
                                                 <option value="3">Coordinador</option>
@@ -261,7 +266,8 @@
                                             <label>Sucursal</label>
                                             <select class="form-control d-inline " style="width:95% !important"
                                                 name="sucursal_id">
-                                                <option selected value="1">Monterrey</option>
+                                                <option value="" selected></option>
+                                                <option value="1">Monterrey</option>
                                                 <option value="2">Reynosa 1 (Schneider)</option>
                                                 <option value="3">Reynosa 2 (Corning)</option>
                                                 <option value="4">Juárez / Hermosillo</option>
@@ -279,46 +285,37 @@
                                             </select>
                                         </div>
                                         <div class="col-4">
-                                            <span>Sueldo por Periodo</span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline "
-                                                name="empleado_sueldo" style="width:95% !important"
-                                                placeholder="Ingresa sueldo por periodo ">
+                                            <label>Perfil para App</label>
+                                            <select class="form-control d-inline " style="width:95% !important"
+                                                name="empleado_perfil_app">
+                                                <option value="" selected></option>
+                                                <option value="1">Ayudante</option>
+                                                <option value="2">Técnico</option>
+                                                <option value="3">Oficinas</option>
+                                            </select>
                                         </div>
                                         <div class="col-4">
                                             <span for="example-date">Fecha de Ingreso</span>
                                             <input class="form-control d-inline " style="width:95% !important" required
                                                 id="example-date" type="date" name="empleado_fecha_alta" value=""
-                                                max="2005-01-01">
+                                                >
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-4"> <span> Carta de Recomendación 1</span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline"
-                                                name="empleado_recomendacion1" style="width:95% !important"
-                                                placeholder="Ingresa la carta de recomendacion 1">
-                                            <label for="fileInput">
-                                                <i class="fal fa-upload"></i>
-                                            </label>
-                                            <input id="fileInput" type="file" style="display:none" name="carta1">
+                                            
+                                            
+                                            <input id="fileInput" type="file"  name="carta1">
                                         </div>
                                         <div class="col-4"><span> Carta de Recomendación 2 </span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline"
-                                                name="empleado_recomendacion2" style="width:95% !important"
-                                                placeholder="Ingresa la carta de recomendacion 2">
-                                            <label for="fileInput">
-                                                <i class="fal fa-upload"></i>
-                                            </label>
-                                            <input id="fileInput" type="file" style="display:none" name="carta2">
+                                            
+                                            
+                                            <input id="fileInput" type="file"  name="carta2">
                                         </div>
                                         <div class="col-4">
-                                            <span> Currículum </span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline"
-                                                name="empleado_curriculum" style="width:95% !important"
-                                                placeholder="Ingresa el curriculum nombre empleado y subir archivo">
-                                            <label for="fileInput">
-                                                <i class="fal fa-upload"></i>
-                                            </label>
-                                            <input id="fileInput" type="file" style="display:none" name="curriculum">
+                                            <span> Currículum </span><br>
+                                            
+                                            <input id="fileInput" type="file"  name="curriculum">
 
                                         </div>
                                     </div>
@@ -333,6 +330,7 @@
                                             <label>Empresa Pagadora</label>
                                             <select class="form-control d-inline "
                                                 style="width:95% !importan; cursor:pointer" name="empleado_empresa_id">
+                                                <option value="" selected></option>
                                                 <option value="8" disabled="disabled">ALAN QUIROGA GAMBOA</option>
                                                 <option value="20">ASESORES EXTERNOS</option>
                                                 <option value="6">CORPORATIVOSD E INMUEBLES SIENA SA DE CV</option>
@@ -357,6 +355,7 @@
                                             <label>Centro de Costo</label>
                                             <select class="form-control d-inline " style="width:95% !important"
                                                 name="empleado_centrodecostos_id">
+                                                <option value="" selected></option>
                                                 <option value="1">administracion</option>
                                                 <option value="2">Proyectos</option>
                                                 <option value="3">Ingeniería</option>
@@ -371,19 +370,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="row mb-2">
-                                        <div class="col-4"></div>
-                                        <div class="col-4">
-                                            <label>Perfil para App</label>
-                                            <select class="form-control d-inline " style="width:95% !important"
-                                                name="empleado_perfil_app">
-                                                <option value="1">Ayudante</option>
-                                                <option value="2">Técnico</option>
-                                                <option value="3">Oficinas</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-4"></div>
-                                    </div>
+                                    
 
                                     <div class="row mt-6">
                                         <div class="col-4"></div>
