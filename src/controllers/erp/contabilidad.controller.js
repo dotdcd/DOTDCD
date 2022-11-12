@@ -75,7 +75,7 @@ export const renderEmployee = async(req, res) => {
 
         for(let i = 0; i < filesNeeded.length; i++) {
             const file = await pool.query("SELECT * FROM USERS_FILES WHERE type = ? AND userId = ?", [filesNeeded[i], id])
-            files.push((file[0].length > 0) ? [file[0][0].type, file[0][0].file, '<a class="btn btn-outline-primary" href="/uploads/'+file[0][0].type+'/'+file[0][0].file+'">Ver</a>'] : [filesNeeded[i], '<span class="badge badge-warning badge-pill">Documento no disponible</span>', '<input type="file" name="'+filesNeeded[i]+'" />'])
+            files.push((file[0].length > 0) ? [file[0][0].type, file[0][0].file, '<a class="btn btn-outline-primary" href="/dashboard/documento/'+file[0][0].id+'">Ver</a>'] : [filesNeeded[i], '<span class="badge badge-warning badge-pill">Documento no disponible</span>', '<input type="file" name="'+filesNeeded[i]+'" />'])
         }
 
         const estadoCivil = await getEstadoCivil()
@@ -115,14 +115,6 @@ export const renderEmBuscar = async(req, res) => {
 }
 
 
-export const renderEmTodos = async(req, res) => {
-    res.render('contabilidad/empleados/todos')
-}
-
-export const renderContEmployee = async(req, res) => {
-    res.render('contabilidad/empleados/contrato')
-}
-
 export const renderEmNuevo = async(req, res) => {
 
     const estadoCivil = await getEstadoCivil()
@@ -136,6 +128,12 @@ export const renderEmNuevo = async(req, res) => {
     res.render('contabilidad/empleados/nuevo', {estadoCivil, tipoEmpleado, puesto, sucursal, empresa, centroCostos, period})
 }
 
+export const renderDoc = async(req, res) => {
+    const {id} = req.params
+    const file = await pool.query("SELECT * FROM USERS_FILES WHERE id = ?", [id])
+    return res.render('contabilidad/empleados/viewDoc', {file: file[0][0]})
+}
+
 export const renderEmAsignar = async(req, res) => {
     res.render('contabilidad/empleados/asignar')
 }
@@ -146,4 +144,12 @@ export const renderCoNuevo = async(req, res) => {
 
 export const renderCoRequerir = async(req, res) => {
     res.render('contabilidad/inversiones/requerir')
+}
+
+export const renderEmTodos = async(req, res) => {
+    res.render('contabilidad/empleados/todos')
+}
+
+export const renderContEmployee = async(req, res) => {
+    res.render('contabilidad/empleados/contrato')
 }

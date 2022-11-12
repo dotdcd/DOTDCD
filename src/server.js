@@ -64,8 +64,10 @@ app.use(flash());
 //TODO: Change directory for contract upload
 const storage = multer.diskStorage({
     destination: async (req, file, cb) => {
+        console.log(req.body.vid)
         const fpath = (req.body.vid) ? await updFiles(req.body.vid, file.fieldname) : await uploadFiles('path', file.fieldname);
         req.body.id =  (req.body.vid) ? req.body.vid : await uploadFiles('id');
+        console.log(fpath)
         fs.mkdirSync(fpath, { recursive: true })
         cb(null, fpath)
     },
@@ -91,7 +93,7 @@ app.use(employeesRoutes);
 
 
 //? Statics files
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 export default app;

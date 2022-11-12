@@ -1,4 +1,5 @@
 <form action="/updEmployee/{{empleado.empleado_id}}" method="post" enctype="multipart/form-data">
+<input type="text" style="display: none;" name="vid" value="{{empleado.empleado_id}}" placeholder=""/>
     <div class="row">
         <div class="col-xl-12">
             <div id="panel-1" class="panel">
@@ -337,7 +338,7 @@
                     <h2>
                         Empleados <span class="fw-300"><i>DOTDCD</i></span>
                     </h2>
-                    <div class="panel-toolbar">
+                    <div class="panel-toolbar"> 
                         <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
                             data-original-title="Collapse"></button>
                         <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"

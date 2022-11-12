@@ -1,0 +1,34 @@
+{{#section 'head'}}
+    <script type="text/javascript" src='/js/lib/webviewer.min.js'></script>
+{{/section}}
+
+<div id="viewer" class="h-100">
+
+</div>
+
+{{#section 'scripts'}}
+
+    <script>
+        //esto es un comentario para que se vea chido
+        WebViewer({
+            path: '/js/lib', // path to the PDF.js Express'lib' folder on your server
+            licenseKey: 'Ba9FI7prl8aAU2xDQRv4',
+            initialDoc: '/uploads/files/{{file.userId}}/{{file.file}}',
+            // initialDoc: '/path/to/my/file.pdf',  // You can also use documents on your server
+        }, document.getElementById('viewer'))
+            .then(instance => {
+                // now you can access APIs through the WebViewer instance
+                const { Core, UI } = instance;
+
+                // adding an event listener for when a document is loaded
+                Core.documentViewer.addEventListener('documentLoaded', () => {
+                    console.log('document loaded');
+                });
+
+                // adding an event listener for when the page number has changed
+                Core.documentViewer.addEventListener('pageNumberUpdated', (pageNumber) => {
+                    console.log(`Page number is: ${pageNumber}`);
+                });
+            });
+    </script>
+{{/section}}

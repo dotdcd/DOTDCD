@@ -40,7 +40,9 @@ export const addEmployee = async (req, res) => {
             sucursal_id: (!req.body.sucursal_id) ? 0 : req.body.sucursal_id,
             tipo_indirecto_id: (!req.body.tipo_indirecto_id) ? 0 : req.body.tipo_indirecto_id,
             empleado_contacto_emergencia_nombre: (!req.body.empleado_contacto_emergencia_nombre) ? 0 : req.body.empleado_contacto_emergencia_nombre,
-            empleado_contacto_emergencia_telefono: (!req.body.empleado_contacto_emergencia_telefono) ? 0 : req.body.empleado_contacto_emergencia_telefono
+            empleado_contacto_emergencia_telefono: (!req.body.empleado_contacto_emergencia_telefono) ? 0 : req.body.empleado_contacto_emergencia_telefono,
+            empleado_usuario: (!req.body.empleado_usuario) ? 0 : req.body.empleado_usuario,
+            empleado_password: (!req.body.empleado_password) ? 0 : req.body.empleado_password
         })
 
         if (req.files) {
@@ -85,6 +87,8 @@ export const uptEmployee = async (req, res) => {
             empleado_cuenta_deposito: req.body.empleado_cuenta_deposito,
             empleado_cuenta_deposito_maquila: req.body.empleado_cuenta_deposito_maquila,
             empleado_periodo_id: req.body.empleado_periodo_id,
+            empleado_usuario: req.body.empleado_usuario,
+            empleado_password: req.body.empleado_password,
             empleado_diario: req.body.empleado_diario,
             empleado_rfc: req.body.empleado_rfc,
             empleado_curp: req.body.empleado_curp,
