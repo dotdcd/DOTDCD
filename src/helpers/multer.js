@@ -1,14 +1,13 @@
 import path from 'path';
 import {pool} from '../db.js';
-import { fileURLToPath } from 'url'
-import fs from 'fs';
+import fs from 'fs-extra';
 import { __dirname } from '../server.js';
 
 export const updFiles = async (id, type) => {
     try {
         const fpath = (type == 'foto') ? path.join(__dirname, 'uploads/img/'+ id) : path.join(__dirname, 'uploads/files/'+ id);
         const isUploaded = await pool.query("SELECT * FROM USERS_FILES WHERE type = ? AND userId = ?", [type, id])
-        if(isUploaded[0].length > 0) fs.unlinkSync(fpath + '\\' + isUploaded[0][0].file)
+        if(isUploaded[0].length > 0) fs.removeSync(fpath + '\\' + isUploaded[0][0].file)
         return fpath
     } catch (error) {
         console.log(error)

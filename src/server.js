@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url';
 import { PORT } from './config.js';
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
-import fs from 'fs';
+import fs from 'fs-extra';
 
 //? Import helpers
 import { uploadFiles, updFiles } from './helpers/multer.js';
@@ -64,11 +64,9 @@ app.use(flash());
 //TODO: Change directory for contract upload
 const storage = multer.diskStorage({
     destination: async (req, file, cb) => {
-        console.log(req.body.vid)
         const fpath = (req.body.vid) ? await updFiles(req.body.vid, file.fieldname) : await uploadFiles('path', file.fieldname);
         req.body.id =  (req.body.vid) ? req.body.vid : await uploadFiles('id');
-        console.log(fpath)
-        fs.mkdirSync(fpath, { recursive: true })
+        fs.mkdirsSync(fpath, { recursive: true })
         cb(null, fpath)
     },
     filename: (req, file, cb, filename) => {
@@ -91,9 +89,26 @@ app.use(rutasIndex);
 app.use(rutasMarcas);
 app.use(employeesRoutes);
 
-
 //? Statics files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+//? Error pages
+app.use((req, res) => {
+    res.status(404)
+
+    if (req.accepts('html')) {
+        res.render('errors/error', { layout: 'auth', error: '404', url: req.url, message: 'Página no encontrada' })
+        return;
+    }
+
+    if (req.accepts('json')) {
+        res.send({ error: 'Not found' });
+        return;
+    }
+
+    res.type('txt').send('Not found');
+});
 
 export default app;

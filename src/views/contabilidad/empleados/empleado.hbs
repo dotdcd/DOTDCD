@@ -21,7 +21,12 @@
                         <div id="metasAll">
                             <div class="row">
                                 <div class="container" style="width: 100% !important;">
-
+                                    <div class="d-flex flex-column align-items-center justify-content-center p-4">
+                                <img src="https://cdn.pixabay.com/photo/2016/08/31/11/54/icon-1633249_960_720.png" class="rounded-circle shadow-2 img-thumbnail mb-3" alt="" style="height: 150px; width:150px;">
+                                <h5 class="mb-0 fw-700 text-center mt-3">
+                               {{empleado.empleado_nombre}} {{empleado.empleado_paterno}} {{empleado.empleado_materno}}
+                            </h5>                         
+                            </div>
                                     <h3 class="d-block mb-5 text-center pb-2"
                                         style="border-bottom: 1px solid rgb(190, 182, 182);">Datos Personales</h3>
                                     <div class="row mb-3">
@@ -40,7 +45,7 @@
                                                 value="{{empleado.empleado_paterno}}">
 
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-4 ">
                                             <span>Apellido Materno</span>
                                             <input type="text" id="simpleinput" class="form-control d-inline "
                                                 name="empleado_materno" maxlength="15" required style="width:95% !important"
@@ -133,8 +138,6 @@
                                                 name="empleado_contacto_emergencia_telefono" value="{{empleado.empleado_contacto_emergencia_telefono}}">
                                         </div>
                                     </div>
-
-
 
                                     <h3 class="mb-6 mt-1 text-center pb-2"
                                         style="border-bottom: 1px solid rgb(190, 182, 182);">Datos Laborales</h3>
@@ -369,8 +372,6 @@
                                 <button type="submit" class="btn-outline-info btn-lg w-100 ">Guardar</button>
                             </div>
                             <div class="col-4"></div>
-
-
                         </div>
                     </div>
                 </div>
@@ -384,8 +385,46 @@
 <script src="/js/datagrid/datatables/datatables.bundle.js"></script>
 <script src="/js/datagrid/datatables/datatables.export.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.5/dist/sweetalert2.all.min.js"></script>
 
 <script>
+
+    		function showModalDel(id) {
+		swal.fire({
+			title: '¿Estas seguro?',
+			text: "Esta acción no se puede deshacer! \n ¿Deseas continuar?",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, eliminar!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+					type: 'DELETE',
+					url: '/dltFile/' + id,
+					dataType: 'json',
+					success: function (resp) {
+						if (resp.status == 200) {
+							swal.fire({
+								title: "Archivo eliminado",
+								text: resp.message,
+								preConfirm() {
+									location.reload();
+								}
+							})
+						} else {
+							swal.fire("Error!", resp.message, "error");
+						}
+					},
+					error: function (resp) {
+						swal.fire("Error!", resp.message, "error");
+					}
+				});
+			}
+		})
+	}
+
     const docs = {{{ json files }}}
 
     // Data table
@@ -403,6 +442,5 @@
         });
     });
 
-    
 </script>
 {{/section}}

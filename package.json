@@ -52,7 +52,7 @@
     "express-session": "^1.17.3",
     "flot": "^4.2.3",
     "flot-spline": "0.0.1",
-    "fs": "^0.0.1-security",
+    "fs-extra": "^10.1.0",
     "handlebars": "^4.7.3",
     "handlebars-extend-block": "^1.0.0",
     "i18next-client": "^1.11.4",

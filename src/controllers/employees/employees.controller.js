@@ -1,10 +1,12 @@
 import { pool } from '../../db.js'
-import fs from 'fs';
+import fs from 'fs-extra';
+import { __dirname } from '../../server.js';
+import path from 'path';
 
 
 export const addEmployee = async (req, res) => {
     try {
-        
+
         await pool.query("INSERT INTO empleados SET ?", {
             empleado_id: req.body.id,
             empleado_nombre: (!req.body.empleado_nombre) ? 0 : req.body.empleado_nombre,
@@ -54,7 +56,7 @@ export const addEmployee = async (req, res) => {
         return res.redirect('/dashboard/contabilidad/empleados/buscar');
     } catch (error) {
         console.log(error)
-        req.flash('error', {title: 'error', message: error});
+        req.flash('error', { title: 'error', message: error });
         return res.redirect('/dashboard/contabilidad/empleados/nuevo');
     }
 }
@@ -63,9 +65,9 @@ export const uptEmployee = async (req, res) => {
     try {
         const { id } = req.params
 
-        if(req.files){
-            req.files.map(async(file)=> {
-                await pool.query('INSERT INTO USERS_FILES SET ? ON DUPLICATE KEY UPDATE file = ?', [{file: file.filename, type: file.fieldname, userId: id}, file.filename])
+        if (req.files) {
+            req.files.map(async (file) => {
+                await pool.query('INSERT INTO USERS_FILES SET ? ON DUPLICATE KEY UPDATE file = ?', [{ file: file.filename, type: file.fieldname, userId: id }, file.filename])
             })
         }
         // Exclude some item from req.body
@@ -109,7 +111,7 @@ export const uptEmployee = async (req, res) => {
             empleado_contacto_emergencia_telefono: req.body.empleado_contacto_emergencia_telefono
         }, id]);
 
-        return res.redirect('/dashboard/contabilidad/empleados/'+id);
+        return res.redirect('/dashboard/contabilidad/empleados/' + id);
     } catch (error) {
         console.log(error)
     }
@@ -119,12 +121,27 @@ export const dltEmployee = async (req, res) => {
     try {
         const { id } = req.params
         await pool.query('DELETE FROM empleados WHERE empleado_id = ?', [id])
-        await pool.query('DELETE FROM USERS_FILES WHERE empleadoId = ?', [id])
-        fs.unlinkSync('../../uploads/images/' + req.params.id)
-        fs.unlinkSync('../../uploads/files/' + req.params.id)
-        req.flash('success', {title: 'Empleado eliminado', message: 'El empleado se ha eliminado correctamente'})
-        res.redirect('/dashboard/contabilidad/empleados/buscar')
+        await pool.query('DELETE FROM USERS_FILES WHERE userId = ?', [id])
+        fs.removeSync(path.join(__dirname, '/uploads/files/'+ id+'/'))
+        fs.removeSync(path.join(__dirname, '/uploads/img/'+ id+'/'))
+
+        return res.status(200).json({ message: 'Empleado eliminado', status: 200 })
     } catch (error) {
+        console.log(error)
+    }
+}
+
+export const dltFile = async (req, res) => {
+    try { 
+        const { id } = req.params
+        const file = await pool.query('SELECT * FROM USERS_FILES WHERE id = ?', [id])
+        const type = (file[0][0].type != 'foto') ? 'files' : 'img'
+        await pool.query('DELETE FROM USERS_FILES WHERE id = ?', [id])
+        fs.removeSync(path.join(__dirname, '/uploads/'+type+'/' + file[0][0].userId + '/' + file[0][0].file))
+
+        return res.status(200).json({ message: 'Archivo eliminado', status: 200})
+    }
+    catch (error) {
         console.log(error)
     }
 }

@@ -75,7 +75,7 @@ export const renderEmployee = async(req, res) => {
 
         for(let i = 0; i < filesNeeded.length; i++) {
             const file = await pool.query("SELECT * FROM USERS_FILES WHERE type = ? AND userId = ?", [filesNeeded[i], id])
-            files.push((file[0].length > 0) ? [file[0][0].type, file[0][0].file, '<a class="btn btn-outline-primary" href="/dashboard/documento/'+file[0][0].id+'">Ver</a>'] : [filesNeeded[i], '<span class="badge badge-warning badge-pill">Documento no disponible</span>', '<input type="file" name="'+filesNeeded[i]+'" />'])
+            files.push((file[0].length > 0) ? [file[0][0].type, file[0][0].file, '<a class="btn btn-outline-primary" href="/dashboard/documento/'+file[0][0].id+'"><i class="fal fa-file-search"></i></a><button class="btn btn-outline-danger" onclick="showModalDel('+file[0][0].id+')" ><i class="fal fa-trash-alt"></i></button>'] : [filesNeeded[i], '<span class="badge badge-warning badge-pill">Documento no disponible</span>', '<input type="file" name="'+filesNeeded[i]+'" />'])
         }
 
         const estadoCivil = await getEstadoCivil()
