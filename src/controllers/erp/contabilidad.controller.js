@@ -109,7 +109,7 @@ export const renderCoBuscar = async(req, res) => {
 
 
 export const renderEmBuscar = async(req, res) => {
-    const empleados = await pool.query("SELECT e.empleado_id, e.empleado_nombre, e.empleado_paterno, e.empleado_materno, e.empleado_imss, e.empleado_rfc, e.empleado_curp, e.empleado_nacimiento, e.empleado_entrada, c.centrodecostos_descripcion as costos, r.empresa_razon_social as empresa, s.sucursal_nombre as sucursal FROM empleados e INNER JOIN centrodecostos c ON e.empleado_centrodecostos_id = c.centrodecostos_id INNER JOIN multiempresa r ON e.empleado_empresa_id = r.empresa_id INNER JOIN sucursal s ON e.sucursal_id = s.sucursal_id")
+    const empleados = await pool.query("SELECT e.empleado_id, e.empleado_nombre, e.empleado_paterno, e.empleado_materno, e.empleado_imss, e.empleado_rfc, e.empleado_curp, e.empleado_nacimiento, e.empleado_entrada, c.centrodecostos_descripcion as costos, r.empresa_razon_social as empresa, s.sucursal_nombre as sucursal FROM empleados e INNER JOIN centrodecostos c ON e.empleado_centrodecostos_id = c.centrodecostos_id INNER JOIN multiempresa r ON e.empleado_empresa_id = r.empresa_id INNER JOIN sucursal s ON e.sucursal_id = s.sucursal_id WHERE e.empleado_estatus_baja = 0")
 
     res.render('contabilidad/empleados/buscar', {empleados: empleados[0]})
 }
@@ -132,6 +132,11 @@ export const renderDoc = async(req, res) => {
     const {id} = req.params
     const file = await pool.query("SELECT * FROM USERS_FILES WHERE id = ?", [id])
     return res.render('contabilidad/empleados/viewDoc', {file: file[0][0]})
+}
+
+export const renderContratos = async(req, res) => {
+    const employees = await pool.query("SELECT e.empleado_id as id, e.empleado_nombre as nombre, CONCAT(e.empleado_paterno, ' ', e.empleado_materno) as apellidos, t.tipo_indirecto_nombre as departamento, s.sucursal_nombre as sucursal, e.empleado_sueldo as sueldo, m.empresa_razon_social as empresa FROM empleados e INNER JOIN sucursal s ON e.sucursal_id = s.sucursal_id INNER JOIN multiempresa m ON e.empleado_empresa_id = m.empresa_id INNER JOIN empleado_tipo_indirecto t ON e.tipo_indirecto_id = t.tipo_indirecto_id WHERE e.empleado_estatus_baja = 0")
+    return res.render('contabilidad/empleados/contratos', {employees: employees[0]})
 }
 
 export const renderEmAsignar = async(req, res) => {

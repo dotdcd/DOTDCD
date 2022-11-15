@@ -5,7 +5,7 @@ import { renderOpNuevo } from '../controllers/erp/operacion.controller.js';
 import { renderAdBuscar, renderAdNuevo, renderAdProvMarca, renderCliBuscar, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar } from '../controllers/erp/administracion.controller.js';
 import { renderCoBuscar, renderCoNuevo, renderCoRequerir } from '../controllers/erp/contabilidad.controller.js';
 import { authenticateUser } from '../middlewares/auth.js';
-import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc } from '../controllers/erp/contabilidad.controller.js'
+import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc, renderContratos } from '../controllers/erp/contabilidad.controller.js'
 
 const rutasErp = Router();
 //?Home Route
@@ -123,6 +123,7 @@ rutasErp.get('/dashboard/contabilidad/empleados/todos', renderEmTodos)
 rutasErp.get('/dashboard/contabilidad/empleados/:id', renderEmployee)
 rutasErp.get('/dashboard/contabilidad/empleados/contrato/:id', renderContEmployee)
 rutasErp.get('/dashboard/documento/:id', renderDoc)
+rutasErp.get('/dashboard/contabilidad/empleados/ver/contratos', renderContratos)
 
 /*
 //?llllllllllllllllllllllllllllll

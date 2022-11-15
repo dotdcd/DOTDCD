@@ -131,6 +131,16 @@ export const dltEmployee = async (req, res) => {
     }
 }
 
+export const dwnEmployee = async (req, res) => {
+    try{
+        const { id } = req.params
+        await pool.query('UPDATE empleados SET empleado_estatus_baja = 1 WHERE empleado_id = ?', [id])
+        return res.status(200).json({ message: 'Empleado dado de baja', status: 200 })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const dltFile = async (req, res) => {
     try { 
         const { id } = req.params
