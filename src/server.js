@@ -89,9 +89,16 @@ app.use(rutasIndex);
 app.use(rutasMarcas);
 app.use(employeesRoutes);
 
+//? PWA Service Worker
+const options = {
+    setHeaders: function (res, path, stat) {
+        res.set('Service-Worker-Allowed', 'https://dotdcd.com.mx/');
+    },
+};
+
 //? Statics files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), options));
 
 
 //? Error pages

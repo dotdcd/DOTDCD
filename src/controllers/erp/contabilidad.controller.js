@@ -109,7 +109,7 @@ export const renderCoBuscar = async(req, res) => {
 
 
 export const renderEmBuscar = async(req, res) => {
-    const empleados = await pool.query("SELECT e.empleado_id, e.empleado_nombre, e.empleado_paterno, e.empleado_materno, e.empleado_imss, e.empleado_rfc, e.empleado_curp, e.empleado_nacimiento, e.empleado_entrada, c.centrodecostos_descripcion as costos, r.empresa_razon_social as empresa, s.sucursal_nombre as sucursal FROM empleados e INNER JOIN centrodecostos c ON e.empleado_centrodecostos_id = c.centrodecostos_id INNER JOIN multiempresa r ON e.empleado_empresa_id = r.empresa_id INNER JOIN sucursal s ON e.sucursal_id = s.sucursal_id WHERE e.empleado_estatus_baja = 0")
+    const empleados = await pool.query("SELECT e.empleado_id, e.empleado_nombre, e.empleado_paterno, e.empleado_materno, e.empleado_imss, e.empleado_rfc, e.empleado_curp, DATE_FORMAT(e.empleado_nacimiento, '%Y-%m-%d') as empleado_nacimiento, DATE_FORMAT(e.empleado_entrada, '%Y-%m-%d') as empleado_entrada, c.centrodecostos_descripcion as costos, r.empresa_razon_social as empresa, s.sucursal_nombre as sucursal FROM empleados e INNER JOIN centrodecostos c ON e.empleado_centrodecostos_id = c.centrodecostos_id INNER JOIN multiempresa r ON e.empleado_empresa_id = r.empresa_id INNER JOIN sucursal s ON e.sucursal_id = s.sucursal_id WHERE e.empleado_estatus_baja = 0")
 
     res.render('contabilidad/empleados/buscar', {empleados: empleados[0]})
 }
@@ -135,8 +135,13 @@ export const renderDoc = async(req, res) => {
 }
 
 export const renderContratos = async(req, res) => {
-    const employees = await pool.query("SELECT e.empleado_id as id, e.empleado_nombre as nombre, CONCAT(e.empleado_paterno, ' ', e.empleado_materno) as apellidos, t.tipo_indirecto_nombre as departamento, s.sucursal_nombre as sucursal, e.empleado_sueldo as sueldo, m.empresa_razon_social as empresa FROM empleados e INNER JOIN sucursal s ON e.sucursal_id = s.sucursal_id INNER JOIN multiempresa m ON e.empleado_empresa_id = m.empresa_id INNER JOIN empleado_tipo_indirecto t ON e.tipo_indirecto_id = t.tipo_indirecto_id WHERE e.empleado_estatus_baja = 0")
-    return res.render('contabilidad/empleados/contratos', {employees: employees[0]})
+    let empleados = []
+    const employees = await pool.query("SELECT e.empleado_id as id, e.empleado_nombre as nombre, CONCAT(e.empleado_paterno, ' ', e.empleado_materno) as apellidos, t.tipo_indirecto_nombre as departamento, s.sucursal_nombre as sucursal, e.empleado_sueldo as sueldo, m.empresa_razon_social as empresa, DATE_FORMAT(e.empleado_entrada, '%Y-%m-%d') as inicio FROM empleados e INNER JOIN sucursal s ON e.sucursal_id = s.sucursal_id INNER JOIN multiempresa m ON e.empleado_empresa_id = m.empresa_id INNER JOIN empleado_tipo_indirecto t ON e.tipo_indirecto_id = t.tipo_indirecto_id WHERE e.empleado_estatus_baja = 0")
+    for (const e of employees[0]) {
+        empleados.push([e.nombre, e.apellidos, e.departamento, e.sucursal, e.empresa, '<select name="periodo"> <option value="1"> 1 mes </option> <option value="3"> 3 meses</option> <option value="6"> 6 meses </option> </select>', e.sueldo, e.sueldo * 2, '<input type="date" name="inicio" value="'+e.inicio+'" disabled/>', '<input type="date" name="vencimiento" />', '<button class="btn btn-outline-success" onclick="contratar('+e.id+')"> Contratar </button>'])
+    }
+    console.log(empleados)
+    return res.render('contabilidad/empleados/contratos', {empleados})
 }
 
 export const renderEmAsignar = async(req, res) => {

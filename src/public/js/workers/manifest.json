@@ -1,14 +1,14 @@
 {
-"name": "#DOTDCD",
-"short_name": "#DOTDCD",
+"name": "DOTDCD - ERP",
+"short_name": "DOTDCD - ERP",
 "description": "Bienvenid@s al ERP de DOTDCD",
 "background_color": "#2B2B2B",
 "theme_color": "#cfeded",
 "orientation": "portrait",
  "display": "standalone",
 "start_url": "https://dotdcd.com.mx/",
-"scope":"./",
- "lang": "en-US",
+"scope":"https://dotdcd.com.mx/",
+ "lang": "es-MX",
  "icons":[
     {
         "src": "/img/pwa/erp16.png",
