@@ -1,70 +1,405 @@
 {{#section 'head'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.css"
+	integrity="sha512-k6op6U+6fzScsVhxntLBg+Ob/Gv64fjNfjuAcNtbngRoi1LKf+aicRaEs3zeTrRuoIkOjGwLf9FR5BR7B3NItw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<style>
+	.card {
+		box-shadow: none !important;
+		border: none !important;
+		text-align: center;
+	}
+
+	.alto {
+		height: 300px !important;
+		width: 100% !important;
+	}
+
+	strong {
+		color: black !important
+	}
+</style>
 {{/section}}
 
-<!--DT-->
-	<div class="row">
-		<div class="col-xl-12">
-			<div id="panel-1" class="panel">
-				<div class="panel-hdr">
-					<h2>
-						<strong>Contratos</strong> <span class="fw-300"><i>DOTDCD</i></span>
-					</h2>
-					<div class="panel-toolbar">
-						<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
-							data-offset="0,10" data-original-title="Collapse"></button>
-						<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
-							data-offset="0,10" data-original-title="Fullscreen"></button>
-						<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
-							data-original-title="Close"></button>
-					</div>
-				</div>
-				<div class="panel-container show">
-					<div class="panel-content">
-						<!-- datatable start -->
-						<table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
-							<thead class="bg-primary-600">
-								<tr>
-                                    <th>Nombre</th>
-									<th>Apellidos</th>
-									<th>Departamento</th>
-                                    <th>Sucursal</th>
-                                    <th>Empresa</th>
-                                    <th>Periodo</th>
-                                    <th>Sueldo QNA</th>
-                                    <th>Sueldo</th>
-                                    <th>F. Ingreso</th>
-                                    <th>Vencimiento de Contrato</th>
-									<th>Acciones</th>
-								</tr>
-							</thead>
-							<tbody>
 
-							</tbody>
-						</table>
-						<!-- datatable end -->
+
+
+
+<!--DT-->
+<div class="row">
+	<div class="col-xl-12">
+		<div id="panel-1" class="panel">
+			<div class="panel-hdr">
+				<h2>
+					<strong>Estatus</strong> <span class="fw-300"><i>DOTDCD</i></span>
+				</h2>
+				<div class="panel-toolbar">
+					<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Collapse"></button>
+					<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+						data-offset="0,10" data-original-title="Fullscreen"></button>
+					<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Close"></button>
+				</div>
+			</div>
+			<div class="panel-container show">
+				<div class="panel-content">
+					<div class="col-xl-12">
+						<h1 class="text-center text-dark mb-3">Estatus de Contratos</h1>
+						<div class="row">
+							<div class="col-sm col-xl-6">
+								<div
+									class="p-3 bg-success-400 rounded overflow-hidden position-relative text-white mb-g">
+									<div class="">
+										<h3 class="display-4 d-block l-h-n m-0 fw-900">
+											<div class="count-up">
+												<i class="fal fa-file-check align-right float-right fa-2x"
+													style="color: #DDDDDD;"></i>
+													<!-- aqui van los activos -->
+												<p class="counter-count font-weight-bold ">{{contracts}}</p>
+											</div>
+											<h3 class=" m-0 l-h-n font-weight-bold ">Contratos Activos</h3>
+										</h3>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm col-xl-6">
+								<div
+									class="p-3 bg-primary-300 rounded overflow-hidden position-relative text-white mb-g">
+									<div class="">
+										<h3 class="display-4 d-block l-h-n m-0 fw-800">
+											<div class="count-up">
+												<i class="fal fa-users align-right float-right fa-2x" style="color: #DDDDDD;"></i>
+													<!-- aqui van los totales -->
+												<p class="counter-count font-weight-bold">{{totals}}</p>
+											</div>
+											<h3 class=" m-0 l-h-n font-weight-bold">Empleados Totales</h3>
+										</h3>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
 
-	<!--DT-->
+<!--DT-->
+<div class="row">
+	<div class="col-xl-12">
+		<div id="panel-1" class="panel">
+			<div class="panel-hdr">
+				<h2>
+					<strong>Crear Contratos</strong> <span class="fw-300"><i>DOTDCD</i></span>
+				</h2>
+				<div class="panel-toolbar">
+					<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Collapse"></button>
+					<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+						data-offset="0,10" data-original-title="Fullscreen"></button>
+					<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Close"></button>
+				</div>
+			</div>
+			<div class="panel-container show">
+				<div class="panel-content">
+					<!-- datatable start -->
+					<table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+						<thead class="bg-primary-600">
+							<tr>
+								<th>Nombre</th>
+								<th>Apellidos</th>
+								<th>Puesto</th>
+								<th>Sucursal</th>
+								<th>Empresa</th>
+								<th>Periodo</th>
+								<th>Sueldo</th>
+								<th>F. Inicio de Contrato</th>
+								<th>Vencimiento de Contrato</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+					<!-- datatable end -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 
+<div class="row">
+	<div class="col-xl-12">
+		<div id="panel-1" class="panel">
+			<div class="panel-hdr">
+				<h2>
+					<strong>Contratos Pendientes</strong> <span class="fw-300"><i>DOTDCD</i></span>
+				</h2>
+				<div class="panel-toolbar">
+					<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Collapse"></button>
+					<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+						data-offset="0,10" data-original-title="Fullscreen"></button>
+					<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Close"></button>
+				</div>
+			</div>
+			<div class="panel-container show">
+				<div class="panel-content">
+					<!-- datatable start -->
+					<table id="dt-reconocimiento" class="table table-bordered table-hover table-striped w-100">
+						<thead class="bg-primary-600">
+							<tr>
+								<th>Nombre</th>
+								<th>Apellidos</th>
+								<th>Departamento</th>
+								<th>Sucursal</th>
+								<th>Empresa</th>
+								<th>Periodo</th>
+								<th>Sueldo</th>
+								<th>F. Ingreso</th>
+								<th>Vencimiento de Contrato</th>
+								<th>F. Firma</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+					<!-- datatable end -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xl-12">
+		<div id="panel-1" class="panel">
+			<div class="panel-hdr">
+				<h2>
+					<strong>Contratos Aceptados</strong> <span class="fw-300"><i>DOTDCD</i></span>
+				</h2>
+				<div class="panel-toolbar">
+					<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Collapse"></button>
+					<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+						data-offset="0,10" data-original-title="Fullscreen"></button>
+					<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Close"></button>
+				</div>
+			</div>
+			<div class="panel-container show">
+				<div class="panel-content">
+					<!-- datatable start -->
+					<table id="dt-actuales" class="table table-bordered table-hover table-striped w-100">
+						<thead class="bg-primary-600">
+							<tr>
+								<th>Nombre</th>
+								<th>Apellidos</th>
+								<th>Departamento</th>
+								<th>Sucursal</th>
+								<th>Empresa</th>
+								<th>Periodo</th>
+								<th>Sueldo</th>
+								<th>F. Ingreso</th>
+								<th>Vencimiento de Contrato</th>
+								<th>F. Firma</th>
+								<th>F. Reconocimiento</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+					<!-- datatable end -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-xl-12">
+		<div id="panel-1" class="panel">
+			<div class="panel-hdr">
+				<h2>
+					<strong>Contratos Aceptados</strong> <span class="fw-300"><i>DOTDCD</i></span>
+				</h2>
+				<div class="panel-toolbar">
+					<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Collapse"></button>
+					<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+						data-offset="0,10" data-original-title="Fullscreen"></button>
+					<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Close"></button>
+				</div>
+			</div>
+			<div class="panel-container show">
+				<div class="panel-content">
+					<!--Formulario-->
+						<div class="row text-center">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-4">
+								<div class="wrapper w-100 h-100 alto">
+									<canvas id="signature-pad" class="signature-pad w-100 alto"
+										style="height:200px !important;border-bottom: 1px solid black; width:90%;   z-index: 1;"></canvas>
+									<p>Firma</p>
+
+								</div>
+							</div>
+							<div class="col-sm-4" style="text-align: left !important;">
+								<label for="nombre"><strong>Nombre</strong></label>
+								<!--inputs-->
+								<input type="text" name="nombre" id="nombre" class="form-control mb-3 mt-1"
+									placeholder="Ingrese el nombre">
+								<label for="Puesto"><strong>Puesto</strong></label>
+								<select name="puesto" id="lvl" class="form-control mb-3 mt-1">
+									<option value="" selected disabled>Puesto</option>
+									<option value="1">Director</option>
+									<option value="2">Testigo 1</option>
+									<option value="3">Testigo 2</option>
+								</select>
+							</div>
+							<div class="col-sm-2"></div>
+
+						</div>
+						<div class="row text-center mb-6">
+							<div class="col-sm-12">
+								<button class="btn btn-outline-info" onclick="addTestify()">Agregar firma</button>
+							</div>
+						</div>
+					<!-- datatable start -->
+					<table id="dt-testifys" class="table table-bordered table-hover table-striped w-100">
+						<thead class="bg-primary-600">
+							<tr>
+								<th>Firma</th>
+								<th>Nombre</th>
+								<th>Puesto</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+					<!-- datatable end -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 {{#section 'scripts'}}
 <script src="/js/datagrid/datatables/datatables.bundle.js"></script>
 <script src="/js/datagrid/datatables/datatables.export.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.5/dist/sweetalert2.all.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+<script src="/controllers/contratos.controller.js"></script>
 <script>
 
-    const contratos = {{{ json empleados }}}
-    console.log(contratos)
+	const contratos = {{{ json empleados }}}
+	const reconocimientos = {{{ json waitContracts }}}
+	const actuales = {{{ json actualContracts }}}
+	const testifys = {{{ json testifys }}}
 
-     // Data table
+
+	var canvas = document.getElementById('signature-pad');
+
+	// Adjust canvas coordinate space taking into account pixel ratio,
+	// to make it look crisp on mobile devices.
+	// This also causes canvas to be cleared.
+	function resizeCanvas() {
+		// When zoomed out to less than 100%, for some very strange reason,
+		// some browsers report devicePixelRatio as less than 1
+		// and only part of the canvas is cleared then.
+		var ratio = Math.max(window.devicePixelRatio || 1, 1);
+		canvas.width = canvas.offsetWidth * ratio;
+		canvas.height = canvas.offsetHeight * ratio;
+		canvas.getContext("2d").scale(ratio, ratio);
+	}
+
+	window.onresize = resizeCanvas;
+	resizeCanvas();
+
+	var signaturePad = new SignaturePad(canvas, {
+		backgroundColor: 'rgb(255, 255, 251)' // necessary for saving image as JPEG; can be removed is only saving as PNG or SVG
+	});
+
+	function clearSignature() {
+		signaturePad.clear();
+	}
+
+	function viewSignature(signature) {
+		Swal.fire({
+			title: 'Firma',
+			text: 'No se toleraran firmas falsas o alteradas',
+			imageUrl: signature,
+			imageWidth: 400,
+			imageHeight: 200,
+			imageAlt: 'Custom image',
+		})
+	}
+
+	async function addTestify() {
+		try {
+			if (signaturePad.isEmpty()) {
+				alert("Please provide a signature first.");
+			}
+			var dataURL = signaturePad.toDataURL();
+			const data = {
+
+				firma: dataURL,
+				nombre: document.querySelector("#nombre").value,
+				lvl: document.querySelector("#lvl").value
+			}
+
+
+			await axios.post('/addTestify', data)
+				.then(function (response) {
+					if (response.status != 200) {
+						Swal.fire(
+							'Oops...!',
+							'No tienes un contrato que firmar, inenta ponerte en contacto con el área de recursos humanos para una aclaración',
+							'error'
+						)
+					}
+					Swal.fire({
+						title: 'Firma Registrada',
+						text: "La firma se ha registrado correctamente",
+						icon: 'success',
+						showCancelButton: false,
+						confirmButtonText: 'Aceptar',
+						showLoaderOnConfirm: true,
+						preConfirm: () => {
+							window.location.reload()
+						}
+					})
+				})
+				.catch(function (error) {
+					Swal.fire(
+						'Firma Existente!',
+						'La firma ya existe, Intente de eliminar una existente',
+						'error'
+					)
+				});
+		} catch (error) {
+			console.log(error)
+		}
+	}
+	// Data table
 	$(document).ready(function () {
 
 
@@ -73,7 +408,7 @@
 			{
 				data: contratos,
 				responsive: true,
-				lengthChange: false,
+				lengthChange: true,
 				dom:
 					"<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
 					"<'row'<'col-sm-12'tr>>" +
@@ -113,6 +448,145 @@
 				]
 			});
 
+
+		// initialize datatable
+		$('#dt-reconocimiento').dataTable(
+			{
+				data: reconocimientos,
+				responsive: true,
+				lengthChange: true,
+				dom:
+					"<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+					"<'row'<'col-sm-12'tr>>" +
+					"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+				buttons: [
+
+					{
+						extend: 'pdfHtml5',
+						text: 'PDF',
+						titleAttr: 'Generate PDF',
+						className: 'btn-outline-danger btn-sm mr-1'
+					},
+					{
+						extend: 'excelHtml5',
+						text: 'Excel',
+						titleAttr: 'Generate Excel',
+						className: 'btn-outline-success btn-sm mr-1'
+					},
+					{
+						extend: 'csvHtml5',
+						text: 'CSV',
+						titleAttr: 'Generate CSV',
+						className: 'btn-outline-primary btn-sm mr-1'
+					},
+					{
+						extend: 'copyHtml5',
+						text: 'Copy',
+						titleAttr: 'Copy to clipboard',
+						className: 'btn-outline-primary btn-sm mr-1'
+					},
+					{
+						extend: 'print',
+						text: 'Print',
+						titleAttr: 'Print Table',
+						className: 'btn-outline-primary btn-sm'
+					}
+				]
+			}
+		);
+
+		// initialize datatable
+		$('#dt-actuales').dataTable(
+			{
+				data: actuales,
+				responsive: true,
+				lengthChange: true,
+				dom:
+					"<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+					"<'row'<'col-sm-12'tr>>" +
+					"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+				buttons: [
+
+					{
+						extend: 'pdfHtml5',
+						text: 'PDF',
+						titleAttr: 'Generate PDF',
+						className: 'btn-outline-danger btn-sm mr-1'
+					},
+					{
+						extend: 'excelHtml5',
+						text: 'Excel',
+						titleAttr: 'Generate Excel',
+						className: 'btn-outline-success btn-sm mr-1'
+					},
+					{
+						extend: 'csvHtml5',
+						text: 'CSV',
+						titleAttr: 'Generate CSV',
+						className: 'btn-outline-primary btn-sm mr-1'
+					},
+					{
+						extend: 'copyHtml5',
+						text: 'Copy',
+						titleAttr: 'Copy to clipboard',
+						className: 'btn-outline-primary btn-sm mr-1'
+					},
+					{
+						extend: 'print',
+						text: 'Print',
+						titleAttr: 'Print Table',
+						className: 'btn-outline-primary btn-sm'
+					}
+				]
+			}
+		);
+
+		$('#dt-testifys').dataTable(
+			{
+				data: testifys,
+				responsive: true,
+				lengthChange: true,
+				dom:
+					"<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+					"<'row'<'col-sm-12'tr>>" +
+					"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+				buttons: [
+
+					{
+						extend: 'pdfHtml5',
+						text: 'PDF',
+						titleAttr: 'Generate PDF',
+						className: 'btn-outline-danger btn-sm mr-1'
+					},
+					{
+						extend: 'excelHtml5',
+						text: 'Excel',
+						titleAttr: 'Generate Excel',
+						className: 'btn-outline-success btn-sm mr-1'
+					},
+					{
+						extend: 'csvHtml5',
+						text: 'CSV',
+						titleAttr: 'Generate CSV',
+						className: 'btn-outline-primary btn-sm mr-1'
+					},
+					{
+						extend: 'copyHtml5',
+						text: 'Copy',
+						titleAttr: 'Copy to clipboard',
+						className: 'btn-outline-primary btn-sm mr-1'
+					},
+					{
+						extend: 'print',
+						text: 'Print',
+						titleAttr: 'Print Table',
+						className: 'btn-outline-primary btn-sm'
+					}
+				]
+			}
+		)
+
 	});
-    </script>
+</script>
+
 {{/section}}

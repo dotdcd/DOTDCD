@@ -78,7 +78,7 @@
                                             <span for="example-date">Fecha de Nacimiento / Acta de Nacimiento</span>
                                             <input class="form-control d-inline " style="width:95% !important"
                                                 name="empleado_nacimiento" id="example-date" type="date" max="2005-01-01"
-                                                 value=""> <label for="fileInput">
+                                                 value="" required> <label for="fileInput">
                                                 <i class="fal fa-upload"></i>
                                             </label>
                                             <input id="fileInput" type="file" style="display:none"
@@ -91,7 +91,7 @@
                                         <div class="col-4"> <span> CURP </span>
                                             <input type="text" id="simpleinput" class="form-control d-inline "
                                                 maxlength="19" required style="width:95% !important"
-                                                placeholder="Ingresa el CURP" name="empleado_curp">
+                                                placeholder="Ingresa el CURP" name="empleado_curp" required>
                                             <label for="fileInput">
                                                 <i class="fal fa-upload"></i>
                                             </label>
@@ -111,7 +111,7 @@
                                         </div>
                                     </div>
                                     <div class="row mb-6">
-                                        <div class="col-6"><span>Dirección / Comprobante</span>
+                                        <div class="col-4"><span>Dirección / Comprobante</span>
                                             <input type="text" id="simpleinput" class="form-control d-inline"
                                                 style="width:95% !important"
                                                 placeholder="Ingresa la dirección de domicilio"
@@ -121,10 +121,16 @@
                                             </label>
                                             <input id="fileInput" type="file" style="display:none" name="domicilio">
                                         </div>
-                                        <div class="col-6"><span>Teléfono</span>
+                                        <div class="col-4"><span>Teléfono</span>
                                             <input type="text" id="simpleinput" class="form-control d-inline "
                                                 style="width:95% !important" placeholder="Ingresa el teléfono"
                                                 name="empleado_telefono">
+
+                                        </div>
+                                         <div class="col-4"><span>Correo</span>
+                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                                style="width:95% !important" placeholder="Ingresa el e-mail"
+                                                name="empleado_email">
 
                                         </div>
 
@@ -137,7 +143,7 @@
                                             <span> Nombre </span><br>
                                             <input type="text" id="simpleinput" class="form-control d-inline"
                                                 style="width:95% !important" placeholder="Nombre"
-                                                name="empleado_contacto_emergencia_nombre">
+                                                name="empleado_contacto_emergencia_nombre" required>
                                         </div>
                                         <div class="col-6">
                                             <span> Telefono </span><br>
@@ -161,27 +167,27 @@
                                             <label for="fileInput">
                                                 <i class="fal fa-upload"></i>
                                             </label>
-                                            <input id="fileInput" type="file" style="display:none" name="numeroImss">
+                                            <input id="fileInput" type="file" style="display:none" name="numeroImss" >
                                         </div>
                                         <div class="col-4">
                                             <span> Sueldo Reportado IMSS </span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline "
+                                            <input type="text" id="sueldoDiario" class="form-control d-inline "
                                                 name="empleado_sueldo_imss" style="width:95% !important"
                                                 placeholder="Ingresa el sueldo reportado al IMSS">
                                         </div>
                                         <div class="col-4">
                                             <span> Cotización Diaria IMSS </span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline"
+                                            <input type="text"  class="form-control d-inline"
                                                 name="empleado_diario" style="width:95% !important"
-                                                placeholder="Ingresa la cotización diaria IMSS">
+                                                placeholder="Ingresa la cotización diaria IMSS" onchange="cDiaria()" id="sueldo">
                                         </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-4">
                                             <span>Sueldo por Periodo</span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline"
-                                                name="empleado_periodo_id" style="width:95% !important"
-                                                placeholder="Ingresa sueldo por periodo ">
+                                            <input type="text"  class="form-control d-inline"
+                                                name="empleado_sueldo" style="width:95% !important"
+                                                placeholder="Ingresa sueldo por periodo " >
                                         </div>
                                         <div class="col-4">
                                             <span> Cuenta de Depósito IMSS </span>
@@ -248,7 +254,7 @@
                                             <label>Perfil para App</label>
                                             <select class="form-control d-inline " style="width:95% !important"
                                                 name="empleado_perfil_app">
-                                                <option value=""></option>
+                                                <option value="" disabled selected></option>
                                                 <option value="1" >Ayudante</option>
                                                 <option value="2" >Técnico</option>
                                                 <option value="3" >Oficinas</option>
@@ -257,7 +263,7 @@
                                         <div class="col-4">
                                             <span for="example-date">Fecha de Ingreso</span>
                                             <input class="form-control d-inline " style="width:95% !important" required
-                                                id="example-date" type="date" name="empleado_fecha_alta" value=""
+                                                id="example-date" type="date" name="empleado_entrada" value=""
                                                 >
                                         </div>
                                     </div>
@@ -281,10 +287,14 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-4">
-                                            <span> Cuenta de Depósito Maquila </span>
-                                            <input type="text" id="simpleinput" class="form-control d-inline "
-                                                name="empleado_cuenta_deposito_maquila" style="width:95% !important"
-                                                placeholder="Ingresa la cuenta de depósito maquila">
+                                            <label class="form-label">Periodo</label>
+                                            <select class="custom-select form-control" name="empleado_periodo_id">
+                                                <option value=""></option>
+                                                {{#each period}}
+                                                    <option value="{{id}}">{{nombre}}</option>
+                                                {{/each}}
+                                                        
+                                            </select>
                                         </div>
                                         <div class="col-4">
                                             <label>Empresa Pagadora</label>
@@ -311,14 +321,7 @@
                                     <div class="row">
                                         <div class="col-4"></div>
                                         <div class="col-4">
-                                            <label class="form-label">Periodo</label>
-                                                    <select class="custom-select form-control" name="empleado_periodo_id">
-                                                        <option value=""></option>
-                                                        {{#each period}}
-                                                            <option value="{{id}}">{{nombre}}</option>
-                                                        {{/each}}
-                                                        
-                                                    </select>
+                                            
                                         </div>
                                         <div class="col-4"></div>
 
@@ -362,7 +365,13 @@
 </div>
 
 {{#section 'scripts'}}
+<script>
+    function cDiaria(){
+        let sueldo = document.getElementById('sueldo').value;
 
+        let sueldoDiario = (sueldo / 1.0452) * 15;
 
-
+        document.getElementById('sueldoDiario').value = sueldoDiario.toFixed(2);
+    }
+</script>
 {{/section}}

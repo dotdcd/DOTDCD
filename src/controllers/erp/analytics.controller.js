@@ -4,7 +4,7 @@ import {colors} from '../../helpers/colors.js'
 //* RENDER Employees
 
 //? Get Total num of employees function
-const getTotal = async () => {
+export const getTotal = async () => {
     const numE = await pool.query("Select count(*) as num from empleados where empleado_estatus_baja = 0")
     return numE[0][0]['num']
 }

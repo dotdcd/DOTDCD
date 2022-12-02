@@ -10,4 +10,6 @@ export const db_URI = {
     database: process.env.DB
 }
 
+export const SECRET = process.env.SECRET || 'secret'
+
 export const PORT = process.env.SPORT || 3000;

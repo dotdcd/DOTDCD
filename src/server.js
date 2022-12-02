@@ -14,6 +14,7 @@ import fs from 'fs-extra';
 //? Import helpers
 import { uploadFiles, updFiles } from './helpers/multer.js';
 import {helpers} from './helpers/handlebars.js';
+import {SECRET} from './config.js';
 
 //? Importar rutas
 import rutasAnalytics from './routes/analytics.routes.js';
@@ -47,6 +48,7 @@ app.engine('.hbs', engine({
 
 //? Template engine
 app.set('view engine', '.hbs');
+app.set('trust proxy', true)
 
 
 //? Midlewares
@@ -54,7 +56,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
 app.use(session({
-    secret: 'secret',
+    secret: SECRET,
     resave: true,
     saveUninitialized: true,
 }));
@@ -79,6 +81,7 @@ app.use(multer({ storage }).any());
 app.use((req, res, next) => {
     res.locals.error = req.flash('error');
     res.locals.success = req.flash('success');
+    res.locals.infoSign = req.flash('infoSign');
     next();
 })
 
@@ -98,6 +101,7 @@ const options = {
 
 //? Statics files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/controllers', express.static(path.join(__dirname, 'controllers\\external-controllers')));  
 app.use(express.static(path.join(__dirname, 'public'), options));
 
 

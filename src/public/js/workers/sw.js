@@ -1,8 +1,4 @@
-const CACHENAME = 'v1_cache_DOTDCD',
-urlsToCache=[
-    '/'
-]
-
+const CACHENAME = 'v1_cache_DOTDCD'
 self.addEventListener('install', e=>{
     e.waitUntil(
         caches.open(CACHENAME)

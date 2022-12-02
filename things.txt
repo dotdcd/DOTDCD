@@ -1,3 +1,12 @@
+
+https://www.godaddy.com/es/help/usar-la-configuracion-del-imap-para-agregar-mi-workspace-email-a-un-cliente-4714
+
+
+
+
+
+
+
 CREATE TABLE `USERS_FILES` (
   `id` int(11) AUTOINCREMENT PRIMARY KEY,
   `type` varchar(150) DEFAULT NULL,
@@ -286,3 +295,8 @@ datePicker.calendar.set('maxDate', '03-31-2018');
     </div>
   </div>
 </div>
+
+
+//!
+
+

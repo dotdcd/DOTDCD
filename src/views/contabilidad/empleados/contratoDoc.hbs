@@ -1,0 +1,377 @@
+{{#section 'head'}}
+<style>
+    .card {
+        box-shadow: none;
+        border: none;
+        text-align: center;
+    }
+
+
+
+    strong {
+        color: black !important
+    }
+</style>
+
+
+{{/section}}
+<div class="container">
+    <div class="row" id="container">
+        <div class="col-12 text-justify bg-white text-dark" style="padding:5vw; color:black !important; !important;">
+            <p class="text-center">
+                <strong class="text-dark font-weight-bold" style="color:black !important">CONTRATO INDIVIDUAL DE TRABAJO
+                    POR TIEMPO
+                    DETERMINADO</strong>
+            </p><br>
+            <p>
+                Celebrado por una parte por <strong class="text-dark font-weight-bold"
+                    style="color:black !important">{{info.empresa}}</strong> a
+                quien en lo sucesivo y para efectos de este contrato se le
+                denominará <strong class="text-dark font-weight-bold" style="color:black !important">EL PATRÓN</strong>
+                representada por <strong class="text-dark font-weight-bold" style="color:black !important">Alan Quiroga
+                    Gamboa </strong> y por la otra parte por
+                <strong class="text-dark font-weight-bold" style="color:black !important">{{info.nombre}}
+                    {{info.apellidos}}</strong> quien en lo sucesivo se le denominará <strong
+                    class="text-dark font-weight-bold" style="color:black !important">EL TRABAJADOR</strong>, contrato
+                el cual se regirá al tenor de
+                las siguientes declaraciones y cláusulas:
+            </p>
+            <p class="text-center">
+                <strong class="text-dark font-weight-bold" style="color:black !important">D E C L A R A C I O N E
+                    S</strong>
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">I.- </strong> Declara el
+                <strong class="text-dark font-weight-bold" style="color:black !important">PATRÓN</strong> ser una
+                persona moral constituida conforme a las
+                leyes del país, y que su
+                representante goza de todas las facultades necesarias para celebrar el presente contrato, sin que a la
+                fecha
+                se le haya revocado o modificado.
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">II.- </strong> Por último,
+                declara que requiere los servicios
+                personales y subordinados del <strong class="text-dark font-weight-bold"
+                    style="color:black !important">TRABAJADOR</strong> en los
+                términos
+                y condiciones que se detallaran en el contenido del presente contrato.
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">III.- </strong> Declara el
+                <strong class="text-dark font-weight-bold" style="color:black !important"> TRABAJADOR</strong> que es
+                una persona física, de nacionalidad
+                mexicana, edad<strong class="text-dark font-weight-bold" style="color:black !important"> {{{ age
+                    info.nacimiento}}} años </strong>, con
+                domicilio
+                en <strong class="text-dark font-weight-bold" style="color:black !important">{{info.direccion}}</strong>
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">IV.- </strong> Sigue
+                declarando el<strong class="text-dark font-weight-bold" style="color:black !important">
+                    TRABAJADOR</strong> que cuenta con las aptitudes y conocimientos
+                para desarrollar el puesto
+                para el cual será contratado.
+            </p>
+            <p class="text-center text-dark" style="color:black !important">
+                <strong class="text-dark font-weight-bold" style="color:black !important"> C L A U S U L A S </strong>
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">PRIMERA.- El
+                    Trabajador</strong> se obliga a prestar sus
+                servicios personales y subordinados al <strong class="text-dark font-weight-bold"
+                    style="color:black !important">PATRÓN</strong> a cuya
+                dirección y dependencia estará sujeto, conviniendo en seguir las instrucciones que de él reciba, con
+                relación a la forma, lugar y tiempo en que deba desarrollar su trabajo, debiendo ejecutar los servicios
+                con
+                intensidad, cuidado y esmero.
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">SEGUNDA.-</strong> El presente
+                contrato se celebra por
+                <strong class="text-dark font-weight-bold" style="color:black !important">Tiempo Determinado</strong> de
+                <strong class="text-dark font-weight-bold" style="color:black !important">{{{period info.periodo}}}
+                </strong>, obligándose el trabajador a
+                prestar los servicios de <strong class="text-dark font-weight-bold"
+                    style="color:black !important">auxiliar técnico</strong> con un
+                periodo de <strong class="text-dark font-weight-bold" style="color:black !important">{{{period
+                    info.periodo}}}</strong>
+                obligándose el trabajador a prestar los servicios de <strong>{{info.puesto}}</strong> con un periodo
+                <strong class="text-dark font-weight-bold" style="color:black !important">{{date info.inicio}} a {{date
+                    info.vencimiento}}</strong>. <br>
+                En consecuencia se trata de un trabajador eventual, pues no constituye una actividad normal o permanente
+                del
+
+                <strong class="text-dark font-weight-bold" style="color:black !important">PATRÓN</strong>, lo anterior
+                con apoyo en lo establecido en
+                el artículo 36 de la Ley Federal del Trabajo.
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">TERCERA.-</strong> El presente
+                contrato se celebra única y
+                exclusivamente para la ejecución de la obra determinada
+                que se detalla en la cláusula que antecede, realizada la cual la empresa dará por terminado este
+                contrato,
+                con apoyo en lo dispuesto en el artículo 53 fracción III de la Ley Federal del Trabajo, sin
+                responsabilidad
+                para el <strong class="text-dark font-weight-bold" style="color:black !important">PATRÓN</strong>,
+                quedando terminado el presente
+                contrato en forma automática sin necesidad de aviso de
+                ninguna especie, ni de ningún otro requisito y cesaran todos sus efectos.
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important"> CUARTA.- El
+                    TRABAJADOR</strong> se obliga a prestar sus
+                servicios personales para la obra determinada que se
+                especifica en la cláusula <strong class="text-dark font-weight-bold"
+                    style="color:black !important">SEGUNDA</strong>, subordinado
+                jurídicamente al <strong class="text-dark font-weight-bold"
+                    style="color:black !important">PATRÓN</strong>, en Calle Paseo Esperanza
+                1208 Col.
+                Valle del Mirador Monterrey Nuevo León CP 64750.
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">QUINTA.-</strong> Las partes
+                acuerdan que el patrón podrá
+                dentro de los primeros treinta días a la firma del presente
+                contrato rescindir el contrato de trabajo si el <strong class="text-dark font-weight-bold"
+                    style="color:black !important">TRABAJADOR</strong> no demuestra que tiene la capacidad,
+                conocimientos o facultades que dijo tener o bien demuestra engaño en los certificados, constancias o
+                referencias presentadas por este.
+            </p>
+
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">SEXTA.- El TRABAJADOR</strong>
+                se obliga a realizar los
+                servicios que el puesto requiera así como actividades conexas
+                a los servicios contratados bajo la Dirección y supervisión del <strong
+                    class="text-dark font-weight-bold" style="color:black !important">PATRÓN</strong> o sus
+                representantes a quienes estará
+                subordinado, obligándose a realizar su trabajo en el tiempo y forma que se le indique.
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">SÉPTIMA.-</strong> La duración
+                de la Jornada de Trabajo será
+                de 48 horas a la semana de lunes a viernes con un
+                horario de labores de 8:00 horas a las 18:00 horas y los sábados de 8:00 a las 13:00 horas. Manifestando
+                el
+                <strong class="text-dark font-weight-bold" style="color:black !important">TRABAJADOR</strong> su
+                conformidad en que la jornada de
+                trabajo sea modificada conforme a las necesidades del <strong class="text-dark font-weight-bold"
+                    style="color:black !important">PATRÓN</strong>
+                en los términos del artículo 59 de la Ley Federal del Trabajo.
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">OCTAVA.- EL
+                    TRABAJADOR</strong> tendrá un salario mensual de
+                <strong class="text-dark font-weight-bold" style="color:black !important">{{info.sueldo}}$ {{{ ntp
+                    info.sueldo }}}</strong> Por jornada
+                de 48
+                horas de trabajo. El salario estipulado se le cubrirá al <strong class="text-dark font-weight-bold"
+                    style="color:black !important">TRABAJADOR</strong> los días 15 y 30 de cada mes (pago
+                electrónico) por lo que el <strong class="text-dark font-weight-bold"
+                    style="color:black !important">TRABAJADOR</strong> se obliga a
+                firmar las constancias de pago respectivas.
+            </p>
+            <p>
+                De lo anterior "La EMPRESA", hará por cuenta de "EL TRABAJADOR" las deducciones legales
+                correspondientes,
+                particularmente a las que se refieren al impuesto sobre la Renta, Seguro Social, etcétera a sí mismo, se
+                harán las aportaciones y altas al IMSS, INFONAVIT, y HACIENDA en los términos de las legislaciones
+                correspondientes.</p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">NOVENA.-</strong> El
+                TRABAJADOR se obliga a laborar horas
+                extras cuando así lo requiera el PATRÓN por escrito, las
+                horas extras serán dentro los máximos legales y se pagarán conforme lo establece la Ley Federal del
+                Trabajo,
+                por lo que el trabajador se abstendrá de laborar horas extras sin autorización por escrito del patrón.
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">DÉCIMA.-</strong> El
+                TRABAJADOR por cada seis días de
+                trabajo, gozará de un día de descanso semanal en forma completa
+                y con goce de salario íntegro, el cual serán los días domingos de cada semana, durante la vigencia y
+                temporalidad de este contrato. Conviniendo el Trabajador de que el día de descanso puede ser cambiado
+                por el
+                <strong class="text-dark font-weight-bold" style="color:black !important">PATRÓN</strong> atendiendo a
+                las necesidades de la empresa.
+            </p>
+            <br><br>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">DECIMA PRIMERA.- El
+                    TRABAJADOR</strong> se obliga a asistir a
+                sus labores, en caso de inasistencia deberá justificar
+                en forma fehaciente su falta lo cual quedara a criterio del <strong class="text-dark font-weight-bold"
+                    style="color:black !important">PATRÓN</strong>, por lo que deberá avisar dentro de una
+                hora de iniciada la jornada el motivo de su inasistencia y acreditar la misma, en caso de enfermedad
+                será
+                únicamente el certificado de incapacidad expedido por el Instituto Mexicano del Seguro Social la que
+                justifique debiendo entregarlo el <strong class="text-dark font-weight-bold"
+                    style="color:black !important">PATRÓN</strong> dentro de
+                las 24 horas siguientes de iniciada la jornada.
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">DECIMA SEGUNDA-</strong> Los
+                permisos se otorgarán a criterio
+                del <strong class="text-dark font-weight-bold" style="color:black !important">PATRÓN</strong> los cuales
+                en su caso serán sin goce de
+                sueldo, si el <strong class="text-dark font-weight-bold"
+                    style="color:black !important">TRABAJADOR</strong> requiere de un permiso
+                deberá comunicarle al patrón con 48 horas de anticipación.
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">DECIMA TERCERA.- El
+                    TRABAJADOR</strong> percibirá por
+                concepto de vacaciones una remuneración proporcional al tiempo
+                de servicios prestados al <strong class="text-dark font-weight-bold"
+                    style="color:black !important">PATRÓN</strong>, con una prima del
+                veinticinco por ciento sobre los salarios
+                correspondientes a los mismos, tomando en cuenta el término de la relación de trabajo, de conformidad
+                con lo
+                dispuesto en los artículos 76, 79 y 80 de la Ley Federal del Trabajo.
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">DECIMA CUARTA.- EL
+                    TRABAJADOR</strong> percibirá además la
+                parte proporcional de aguinaldo equivalente a
+                Quince días de salario del tiempo trabajado, de conformidad con lo establecido en el artículo 87 de la
+                Ley
+                Federal del Trabajo.
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">DECIMA QUINTA.- EL
+                    TRABAJADOR</strong> se obliga a respetar y
+                observar el Reglamento Interior de Trabajo de la
+                empresa, el cual contiene los derechos y obligaciones del <strong class="text-dark font-weight-bold"
+                    style="color:black !important">TRABAJADOR</strong>, Reglamento del cual ha recibido copia.
+            </p>
+            <p>
+                <strong class="text-dark font-weight-bold" style="color:black !important">DECIMA SEXTA.- EL PATRÓN
+                    reconoce</strong> la antigüedad de
+                EL TRABAJADOR a partir del {{{date info.inicio}}}.
+            </p>
+            <p>
+                Leído que fue por ambas partes y enterados de su fuerza y alcance legal, así lo firma por duplicado en
+                Monterrey, Nuevo León, a los <strong class="text-dark font-weight-bold"
+                    style="color:black !important">{{{ cDate }}}</strong></p>
+
+            <div class="row text-center">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="card">
+                        <p>PATRON</p>
+                        <div class="wrapper w-100 h-100 alto">
+                            <img src="{{{asignSign firmas 1}}}" style="height:200px !important; width:90%;">
+                        </div>
+                        <div class="card-body">
+                            <p>{{{asignName firmas 1}}}</p>
+                            <p>
+                                <strong class="text-dark font-weight-bold" style="color:black !important">Representante
+                                    Legal</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="card">
+                        <p>TRABAJADOR</p>
+                        <div class="wrapper w-100 h-100 alto">
+                            <img src="{{info.firma}}" style="height:200px !important; width:90%;">
+                        </div>
+                        <div class="card-body">
+                            <p>{{info.nombre}} {{info.apellidos}}</p>
+                            <p>
+                                <strong class="text-dark font-weight-bold"
+                                    style="color:black !important">Empleado</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+            <h3 class="text-dark font-weight-bold text-center" style="color:black !important">Testigos</h3>
+            </p>
+            <div class="row text-center">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="card">
+                        <div class="wrapper w-100 h-100 alto">
+                            <img src="{{{asignSign firmas 2}}}" style="height:200px !important; width:90%;">
+                        </div>
+                        <div class="card-body">
+                            <p>{{{asignName firmas 2}}}</p>
+                            <p>
+                                <strong class="text-dark font-weight-bold"
+                                    style="color:black !important">Testigo</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="card">
+                        <div class="wrapper w-100 h-100 alto">
+                            <img src="{{{asignSign firmas 3}}}" style="height:200px !important; width:90%;">
+                        </div>
+                        <div class="card-body">
+                            <p>{{{asignName firmas 3}}}</p>
+                            <p>
+                                <strong class="text-dark font-weight-bold"
+                                    style="color:black !important">Testigo</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row text-center">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <button class="btn btn-outline-success btn-lg" id="btnCrearPdf" onclick="printPdf()"> <i class="fal fa-file-download fa-2x"></i></button>
+        
+        <a href="/dashboard/contabilidad/empleados/ver/contratos"><button class="btn btn-outline-info btn-lg"><i class="fal fa-arrow-to-left fa-2x"></i></button></a>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+</div>
+
+
+
+
+
+
+
+{{#section 'scripts'}}
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.11/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"
+    integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    function printPdf() {
+        var element = document.getElementById('container');
+        html2pdf()
+            .set({
+                margin: 1,
+                filename: 'documento.pdf',
+                image: {
+                    type: 'jpeg',
+                    quality: 0.98
+                },
+                html2canvas: {
+                    scale: 3, // A mayor escala, mejores gráficos, pero más peso
+                    letterRendering: true,
+                },
+                jsPDF: {
+                    unit: "in",
+                    format: "a3",
+                    orientation: 'portrait' // landscape o portrait
+                }
+            })
+            .from(element)
+            .save()
+            .catch(err => console.log(err));
+    }
+</script>
+
+{{/section}}

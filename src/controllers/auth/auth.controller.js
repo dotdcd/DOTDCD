@@ -2,11 +2,11 @@ import {pool} from '../../db.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import cookie from 'cookie'
+import {SECRET} from '../../config.js'
 
 //? Login controller
 export const login = async (req, res) => {
     const { username, password } = req.body;
-
 
     const [rows] = await pool.query("SELECT * FROM usuarios WHERE username = '" + username + "'")
     if (![rows][0].length > 0) {
@@ -26,9 +26,10 @@ export const login = async (req, res) => {
     const token = jwt.sign(
         {
             exp: Math.floor(Date.now() / 100) + 60 * 60 * 24 * 30,
-            username
+            username,
+            id: [rows][0][0].id
         },
-        process.env.SECRET
+        SECRET
     )
 
     //? create serialize cookie
@@ -38,7 +39,7 @@ export const login = async (req, res) => {
         sameSite: "strict",
         maxAge: 1000 * 60 * 60 * 24 * 30,
         path: "/"
-    });
+    });   
 
     //? set cookie in header
     req.app.locals = {username: result.username, profile_img: result.profile_img}
@@ -66,5 +67,36 @@ export const logout = async (req, res) => {
         res.redirect('/')
     } catch (error) {
         console.log(error)
+    }
+}
+
+//? register controller
+
+export const addUser = async (req, res) => {
+    const {username, password, id_empleado, status} = req.body
+
+    try {
+
+        const nameVer = await pool.query("SELECT * FROM usuarios WHERE username = '" + username + "'")
+        if (nameVer[0].length > 0) {
+            req.flash('error', { title: 'Usuario Existente!', message: 'Lo sentimos '+username+'!, este nombre de usuario ya esta en uso, intentalo con otro.' })
+            return res.redirect('/dashboard/inicio/usuarios')
+        }
+        
+
+        const salt = await bcrypt.genSalt(10)
+    
+        await pool.query("INSERT INTO usuarios SET ?", {
+            username,
+            password: await bcrypt.hash(password, salt),
+            id_empleado,
+            status
+        })
+
+        req.flash('success', { title: 'Bienvenido!', message: 'Se ha registrado correctamente a '+username+', ahora puede iniciar sesion.' })
+        return res.redirect('/dashboard/inicio/usuarios')
+    } catch (error) {
+        req.flash('error', { title: 'Cuenta Existente!', message: 'Lo sentimos!, este empleado ya tiene una cuenta' })
+        return res.redirect('/dashboard/inicio/usuarios')
     }
 }

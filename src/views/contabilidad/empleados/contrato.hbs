@@ -18,58 +18,59 @@
                 <div class="panel-content">
                     <div class="contrato container" id="divContrato" style="text-align: justify;">
                         <center>
-                        <form action="" method="post">
+                            <form action="" method="post">
 
-                            <label for="empresa">Empresa</label>
-                            <input type="text" name="empresa" id="" placeholder="Ingrese la empresa">
+                                <label for="empresa">Empresa</label>
+                                <input type="text" name="empresa" id="" placeholder="Ingrese la empresa">
 
-                            <label for="nombre">Nombre</label>
-                            <input type="text" name="nombre" id="" placeholder="Ingrese el nombre">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" name="nombre" id="" placeholder="Ingrese el nombre">
 
-                            <label for="edad">Edad</label>
-                            <input type="text" name="edad" id="" placeholder="Ingrese la edad">
+                                <label for="edad">Edad</label>
+                                <input type="text" name="edad" id="" placeholder="Ingrese la edad">
 
-                            <label for="direccion">Direccion</label>
-                            <input type="text" name="direccion" id="" placeholder="Ingrese la direccion">
+                                <label for="direccion">Direccion</label>
+                                <input type="text" name="direccion" id="" placeholder="Ingrese la direccion">
 
-                            <select name="tiempo" id="">
-                                <option value="" selected></option>
-                                <option value="1">1 Mes</option>
-                                <option value="2">3 Meses</option>
-                                <option value="3">6 Meses</option>
-                            </select>
+                                <select name="tiempo" id="">
+                                    <option value="" selected></option>
+                                    <option value="1">1 Mes</option>
+                                    <option value="2">3 Meses</option>
+                                    <option value="3">6 Meses</option>
+                                </select>
 
-                            <label for="sueldo">Sueldo</label>
-                            <input type="text" name="sueldo" id="" placeholder="Ingrese el sueldo">
+                                <label for="sueldo">Sueldo</label>
+                                <input type="text" name="sueldo" id="" placeholder="Ingrese el sueldo">
 
-                            <label for="fecha_firma">Fecha Firma</label>
-                            <input type="date" name="fecha_firma" id="" >
+                                <label for="fecha_firma">Fecha Firma</label>
+                                <input type="date" name="fecha_firma" id="">
 
-                            <label for="fecha_validacion">Fecha de Validacion</label>
-                            <input type="date" name="fecha_validacion" id="">
+                                <label for="fecha_validacion">Fecha de Validacion</label>
+                                <input type="date" name="fecha_validacion" id="">
 
-                        </form>
-                    
-                    
-                        <p>Firmar a continuación:</p>
-                        <canvas id="canvas" style="width: 10px !important, height:500px; border-bottom:1px solid black;"></canvas><br>
-                        <span>Firma</span>
+                            </form>
+
+
+                            <p>Firmar a continuación:</p>
+                            <canvas id="canvas"
+                                style="width: 10px !important, height:500px; border-bottom:1px solid black;"></canvas><br>
+                            <span>Firma</span>
                     </div>
-                        <br>
-                        <button id="btnDescargar" type="button" class="btn btn-lg btn-success">
-                            <span class="fal fa-download mr-1"></span>
-                            Descargar
-                        </button>
+                    <br>
+                    <button id="btnDescargar" type="button" class="btn btn-lg btn-success">
+                        <span class="fal fa-download mr-1"></span>
+                        Descargar
+                    </button>
 
-                        <button id="btnLimpiar" type="button" class="btn btn-lg btn-danger">
-                            <span class="fal fa-times mr-1"></span>
-                            Limpiar
-                        </button>
-                        <button id="btnCrearPdf" type="button" class="btn btn-lg btn-dark">
-                            <span class="fal  fa-eject mr-1"></span>
-                            Generar
-                        </button>
-                        <br>
+                    <button id="btnLimpiar" type="button" class="btn btn-lg btn-danger">
+                        <span class="fal fa-times mr-1"></span>
+                        Limpiar
+                    </button>
+                    <button id="btnCrearPdf" type="button" class="btn btn-lg btn-dark">
+                        <span class="fal  fa-eject mr-1"></span>
+                        Generar
+                    </button>
+                    <br>
 
                 </div>
             </div>
@@ -79,40 +80,70 @@
 
 
 {{#section 'scripts'}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.11/dist/sweetalert2.all.min.js"></script>
 
 <script>
 
     const contrato = document.getElementById('#divContrato');
 
-document.addEventListener("DOMContentLoaded", () => {
-    // Escuchamos el click del botón
-    const $boton = document.querySelector("#btnCrearPdf");
-    $boton.addEventListener("click", () => {
-        const $elementoParaConvertir = document.getElementById('divContrato'); // <-- Aquí puedes elegir cualquier elemento del DOM
-        html2pdf()
-            .set({
-                margin: 1,
-                filename: 'documento.pdf',
-                image: {
-                    type: 'jpeg',
-                    quality: 0.98
-                },
-                html2canvas: {
-                    scale: 3, // A mayor escala, mejores gráficos, pero más peso
-                    letterRendering: true,
-                },
-                jsPDF: {
-                    unit: "in",
-                    format: "a3",
-                    orientation: 'portrait' // landscape o portrait
-                }
-            })
-            .from($elementoParaConvertir)
-            .save()
-            .catch(err => console.log(err));
+    document.addEventListener("DOMContentLoaded", () => {
+        // Escuchamos el click del botón
+        const $boton = document.querySelector("#btnCrearPdf");
+        $boton.addEventListener("click", () => {
+            const $elementoParaConvertir = document.getElementById('divContrato');
+            const filename = 'contrato.pdf' // <-- Aquí puedes elegir cualquier elemento del DOM
+            html2pdf()
+                .set({
+                    filename,
+                    // other options...
+                })
+                .from($elementoParaConvertir)
+                .toPdf()
+                .output('datauristring')
+                .then(async function (pdfBase64) {
+                    const file = new File(
+                        [pdfBase64],
+                        filename,
+                        { type: 'application/pdf' }
+                    );
+
+                    const formData = new FormData();
+                    formData.append("file", file);
+                    axios.post('/addSignature', formData, {
+                        responseType: 'arraybuffer',
+                        headers: {
+                            'Content-Type': 'application/a ',
+                            'Accept': 'application/pdf'
+                        }
+                    })
+                        .then(function (response) {
+                            if (response.status != 200) {
+                                Swal.fire(
+                                    'Oops...!',
+                                    'No tienes un contrato que firmar, inenta ponerte en contacto con el área de recursos humanos para una aclaración',
+                                    'success'
+                                )
+                            }
+                            Swal.fire(
+                                'Firmado!',
+                                'El contrato a sido firmado con éxito!',
+                                'success'
+                            )
+                        })
+                        .catch(function (error) {
+                            Swal.fire(
+                                'Oops...!',
+                                'Algo salio mal!, Intente de nuevo',
+                                'success'
+                            )
+                        });
+                })
+        });
     });
-});
     const $canvas = document.querySelector("#canvas");
     const $btnLimpiar = document.querySelector("#btnLimpiar");
     const $btnGenerarDocumento = document.querySelector("#btnGenerarDocumento");

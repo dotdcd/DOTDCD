@@ -23,8 +23,22 @@
                 {{> include/_page-header}}
                 <main id="js-page-content" role="main" class="page-content">
                     {{> flash/alerts}}
-                    <ol class="breadcrumb page-breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">SmartAdmin</a></li>
+                    <ol class="breadcrumb page-breadcrumb" >
+                        <li class="breadcrumb-item">
+                            <section id="demo" >
+                                <div class="ow-widget">
+                                    <div class="ow-row" style="width: 131px !important;">
+                                        <span class="ow-city-name" ></span>
+                                    </div>
+                                    <div class="ow-row">
+                                        <div class="ow-temp-current pull-left"></div>
+                                        <div class="ow-current-desc pull-left">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
                         <li class="position-absolute pos-top pos-right d-none d-sm-block"><span
                                 class="js-get-date"></span></li>
                     </ol>
@@ -45,7 +59,7 @@
     {{> include/_page-settings}}
     {{> include/_scripts-base-plugins}}
     {{{_sections.scripts}}}
-
+    
 </body>
 
 </html>

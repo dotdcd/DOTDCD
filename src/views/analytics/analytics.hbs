@@ -121,7 +121,7 @@
                                             <div class='icon-stack mr-2'>
                                                 <i class="fal fa-sack-dollar"></i>
                                             </div>
-                                            ${{money total}}
+                                            <p class="counter-count font-weight-bold ">${{money total}}</p>
                                         </div>
                                         <span class="m-0 fs-xs text-muted">MXN</span>
                                     </div> 
@@ -151,6 +151,24 @@
 <script src="/js/statistics/easypiechart/easypiechart.bundle.js"></script>
 
 <script>
+
+
+    //*Contador
+    $('.counter-count').each(function () {
+		$(this).prop('Counter', 100).animate({
+			Counter: $(this).text()
+		}, {
+			//chnage count up speed here
+			duration: 4000,
+			easing: 'swing',
+			step: function (now) {
+				$(this).text(Math.ceil(now));
+			}
+		});
+	});
+
+
+
     var chart = document.getElementById('chart2').getContext('2d')
     var gradientM = chart.createLinearGradient(0, 0, 0, 450);
     gradientM.addColorStop(0, 'rgba(255, 194, 65, 1)');
