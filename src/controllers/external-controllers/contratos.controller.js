@@ -1,5 +1,4 @@
 
-
 const addContract = async (id) => {
     try {
         const form = document.querySelector("#form" + id);

@@ -9,7 +9,7 @@ import { renderOpNuevo } from '../controllers/erp/operacion.controller.js';
 import { renderAdBuscar, renderAdNuevo, renderAdProvMarca, renderCliBuscar, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar } from '../controllers/erp/administracion.controller.js';
 import { renderCoBuscar, renderCoNuevo, renderCoRequerir } from '../controllers/erp/contabilidad.controller.js';
 import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc, renderContratos, renderSignature, renderContrato, renderPastContrato } from '../controllers/erp/contabilidad.controller.js'
-
+import {renderPrefacturar} from '../controllers/administracion/prefactura.controller.js'
 //? Middlewares
 import { authenticateUser, isAdmin } from '../middlewares/auth.js';
 import { authenticateSignature } from '../middlewares/signature.js';
@@ -87,6 +87,7 @@ rutas.get('/dashboard/operacion/folios/pendientes', renderPendientes)
 //?llllllllllllllllllllllllllllll
 rutasErp.get('/dashboard/administracion/clientes/nuevo', [authenticateUser, isAdmin], renderCliNuevo)
 rutasErp.get('/dashboard/administracion/clientes/buscar', [authenticateUser, isAdmin], renderCliBuscar)
+rutasErp.get('/dashboard/administracion/facturas/prefacturar', [authenticateUser, isAdmin], renderPrefacturar)
 /*
 rutas.get('/dashboard/administracion/proveedores', render)
 rutas.get('/dashboard/administracion/proveedores', render)

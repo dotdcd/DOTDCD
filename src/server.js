@@ -23,6 +23,8 @@ import rutasIndex from './routes/index.routes.js';
 import rutasMarcas from './routes/marcas.routes.js';
 import employeesRoutes from './routes/employees.routes.js';
 
+import cron from 'node-cron';
+
 
 const app = express();
 

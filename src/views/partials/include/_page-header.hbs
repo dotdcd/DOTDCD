@@ -4,27 +4,30 @@
 	<!-- we need this logo when user switches to nav-function-top -->
 	{{> include/sidebar/_logo }}
 
-	
+
 	<!-- DOC: nav menu layout change shortcut -->
 	<div class="hidden-md-down dropdown-icon-menu position-relative">
-		<a href="#" class="header-btn btn js-waves-off" data-action="toggle" data-class="nav-function-hidden" title="Hide Navigation">
+		<a href="#" class="header-btn btn js-waves-off" data-action="toggle" data-class="nav-function-hidden"
+			title="Hide Navigation">
 			<i class="fa fa-bars"></i>
 		</a>
 		<ul>
 			<li>
-				<a href="#" class="btn js-waves-off" data-action="toggle" data-class="nav-function-minify" title="Minify Navigation">
+				<a href="#" class="btn js-waves-off" data-action="toggle" data-class="nav-function-minify"
+					title="Minify Navigation">
 					<i class="fa fa-bars-staggered"></i>
 				</a>
 			</li>
 			<li>
-				<a href="#" class="btn js-waves-off" data-action="toggle" data-class="nav-function-fixed" title="Lock Navigation">
+				<a href="#" class="btn js-waves-off" data-action="toggle" data-class="nav-function-fixed"
+					title="Lock Navigation">
 					<i class="fa fa-lock"></i>
 				</a>
 			</li>
 		</ul>
 	</div>
-	
-		
+
+
 	<!-- DOC: mobile button appears during mobile width -->
 	<div class="hidden-lg-up">
 		<a href="#" class="header-btn btn press-scale-down" data-action="toggle" data-class="mobile-nav-on">
@@ -34,7 +37,7 @@
 
 	<div class="ml-auto d-flex">
 
-        		<!-- app settings -->
+		<!-- app settings -->
 		<div class="hidden-md-down">
 			<a href="#" class="header-icon" data-toggle="modal" data-target=".js-modal-settings">
 				<i class="fa fa-gears"></i>
@@ -43,8 +46,13 @@
 
 		<!-- app user menu -->
 		<div>
-			<a href="#" data-toggle="dropdown" title="{{email}}" class="header-icon d-flex align-items-center justify-content-center ml-2">
-				<img src="/img/AQG.jpeg" class="profile-image rounded-circle" alt="{{user}}"> 
+			<a href="#" data-toggle="dropdown" title="{{email}}"
+				class="header-icon d-flex align-items-center justify-content-center ml-2">
+				{{#if (is username "Alan")}}
+				<img src="/img/AQG.jpeg" class="profile-image rounded-circle" alt="{{user}}">
+				{{else}}
+				<i class="fal fa-user-alt fa-3x"></i>
+				{{/if}}
 				<!-- you can also add username next to the avatar with the codes below:
 				<span class="ml-1 mr-1 text-truncate text-truncate-header hidden-xs-down">Me</span>
 				<i class="ni ni-chevron-down hidden-xs-down"></i> -->

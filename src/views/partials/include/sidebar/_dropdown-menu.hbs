@@ -1,7 +1,11 @@
 <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
 	<div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
 		<span class="mr-2">
-			<img src="/img/AQG.jpeg" class="rounded-circle profile-image" alt="{{user}}">
+			{{#if (is username "Alan")}}
+			<img src="/img/AQG.jpeg" class="profile-image rounded-circle" alt="{{user}}">
+			{{else}}
+			<i class="fal fa-user-alt fa-3x"></i>
+			{{/if}}
 		</span>
 		<div class="info-card-text">
 			<div class="fs-lg text-truncate text-truncate-lg">Dr. Alan Quiroga</div>
@@ -19,16 +23,16 @@
 <div class="dropdown-divider m-0"></div>
 
 <a href="#" class="dropdown-item" data-action="app-fullscreen">
-	<span data-i18n="drpdwn.fullscreen">Pantalla Completa</span> 
+	<span data-i18n="drpdwn.fullscreen">Pantalla Completa</span>
 	<i class="float-right text-muted fw-n">F11</i>
 </a>
 <a href="#" class="dropdown-item" data-action="app-print">
-	<span data-i18n="drpdwn.print">Imprimir</span> 
+	<span data-i18n="drpdwn.print">Imprimir</span>
 	<i class="float-right text-muted fw-n">Ctrl + P</i>
 </a>
 
 <div class="dropdown-divider m-0"></div>
 <a class="dropdown-item fw-500 pt-3 pb-3" href="/logout">
-	<span data-i18n="drpdwn.page-logout">Cerrar Sesión</span> 
-	
+	<span data-i18n="drpdwn.page-logout">Cerrar Sesión</span>
+
 </a>

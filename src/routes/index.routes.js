@@ -3,6 +3,7 @@ import { Router } from 'express';
 import { renderIndex, renderHome } from '../controllers/index.controller.js';
 import { login, logout, addUser } from '../controllers/auth/auth.controller.js';
 import {authenticateUser} from '../middlewares/auth.js';
+import {setFestivities} from '../middlewares/festivities.js';
 
 const rutasIndex = Router();
 

@@ -68,7 +68,7 @@ export const helpers = {
         const period = (value == 1) ? '1 mes' : `${value} meses`
         return period
     },
-    date: function (value) {
+    dateWord: function (value) {
         const date = value.split('-')
         const day = date[2]
         const m = date[1].split('0')
