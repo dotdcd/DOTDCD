@@ -16,6 +16,7 @@ import { uploadFiles, updFiles } from './helpers/multer.js';
 import {helpers} from './helpers/handlebars.js';
 import {SECRET} from './config.js';
 import { checkPrefacturas } from './helpers/prefacturasMantenimiento.js';
+import { wpush } from './helpers/web-push.js';
 
 //? Importar rutas
 import rutasAnalytics from './routes/analytics.routes.js';
@@ -111,6 +112,11 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/controllers', express.static(path.join(__dirname, 'controllers\\external-controllers')));  
 app.use(express.static(path.join(__dirname, 'public'), options));
 
+let subscription
+app.post('/subscription', (req, res) => {
+    subscription = req.body
+    res.status(201).json({})
+});
 
 //? Error pages
 app.use((req, res) => {
@@ -129,8 +135,16 @@ app.use((req, res) => {
     res.type('txt').send('Not found');
 });
 
-cron.schedule('5 */24 * * *', () => {
-    checkPrefacturas()
+
+cron.schedule('* * * * *', async () => {
+    const payload = JSON.stringify({
+        title: "My Custom Notification",
+        message: "Hello World"
+    });
+
+    console.log('Sending push notification...')
+
+    await webpush.sendNotification(pushSubscripton, payload);
 });
 
 export default app;

@@ -9,6 +9,8 @@ export const db_URI = {
     port: process.env.PORT_DB,
     database: process.env.DB
 }
+export const PUBLIC_VAPID_KEY = process.env.PUBLIC_VAPID_KEY;
+export const PRIVATE_VAPID_KEY = process.env.PRIVATE_VAPID_KEY;
 
 export const SECRET = process.env.SECRET || 'secret'
 

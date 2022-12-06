@@ -1,6 +1,8 @@
 import {getEmpresa, getSucursal, getCentrodeCosto} from '../erp/contabilidad.controller.js'
 import {pool} from '../../db.js'
+import { polygonLength } from 'd3'
 
+//? render Programar prefacturas page
 const getClientes = async () => {
     const customers = await pool.query('SELECT * FROM clientes')
     return customers[0]
@@ -48,6 +50,29 @@ export const renderPrefacturar = async (req, res) => {
         const moneda = await getMoneda()
         const tipoVenta = await getFactura()
         return res.render('administracion/facturasprefacturas/prefacturar', {sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta})
+    } catch (error) {
+        console.log(error)
+    }
+}
+ //! End render
+
+//? Add prefactura
+
+export const addPrefactura = async (req, res) => {
+    try {
+        await polygonLength.query("INSERT INTO facturas_programadas SET ? ", [req.body])
+        req.flash('success', { title: 'Prefactura Programada!', message: 'La prefactura se ha programado correctamente.' })
+        res.redirect('/administracion/prefacturar')
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const updPrefactura = async (req, res) => {
+    try {
+        await pool.query("UPDATE facturas_programadas SET ? WHERE prefactura_id = ?", [req.body, req.params.id])
+        req.flash('success', { title: 'Prefactura Actualizada!', message: 'La prefactura se ha actualizado correctamente.' })
+        res.redirect('/administracion/prefacturar')
     } catch (error) {
         console.log(error)
     }

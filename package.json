@@ -95,7 +95,8 @@
     "summernote": "^0.8.20",
     "sweetalert2": "^11.6.4",
     "toastr": "^2.1.4",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "web-push": "^3.5.0"
   },
   "devDependencies": {
     "dotenv": "^16.0.3",

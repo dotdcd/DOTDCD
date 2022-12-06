@@ -1,251 +1,311 @@
-<div class="container">
-    <div class="row mt-3 mb-3">
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    <span class="fw-300"><strong>Programar</strong> <i>Prefactura</i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                        data-originalbmnvxzcbhmgchdghjitle="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div class="row text-center ">
+                        <div class="col-12">
+                            <h3 class="display-4">Crear Prefactura</h3>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row mt-3 mb-3">
 
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Empresa</label><br>
-            <select name="" id="" class="form-control">
-                <option selected disabled value="">Seleccionar</option>
-                {{#each empresa}}
-                        <option value="{{id}}">{{nombre}}</option>
-                {{/each}}
-            </select>
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Empresa</label><br>
+                                <select name="factura_empresa_id" id="" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    {{#each empresa}}
+                                    <option value="{{id}}">{{nombre}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Cliente</label><br>
+                                <select name="factura_cliente_id" id="" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    {{#each cliente}}
+                                    <option value="{{cliente_id}}">{{cliente_razon_social}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Descripción</label><br>
+                                <input class="form-control" type="text" name="factura_descripcion" id="" placeholder="Descripción">
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Empleado que Documenta</label><br>
+                                <select name="factura_empleado_id" id="" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-3 mb-3">
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Inversion</label><br>
+                                <select name="factura_inversion_id" id="" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    {{#each inversion}}
+                                    <option value="{{inversion_id}}">{{inversion_clave}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Sucursal</label><br>
+                                <select name="sucursal_id" id="" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    {{#each sucursal}}
+                                    <option value="{{id}}">{{nombre}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Centro de Costo</label><br>
+                                <select name="factura_centrodecostos_id" id="" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    {{#each centroCostos}}
+                                    <option value="{{id}}">{{nombre}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Cotizacion / Proyecto</label><br>
+                                <select name="cotizacion_id" id="" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    {{#each cotizacion}}
+                                    <option value="{{cotizacion_id}}"><strong>( {{cotizacion_id}} ) </strong> {{nombre}}
+                                    </option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-3 mb-3">
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Folio</label><br>
+                                <select name="factura_folio_id" id="" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    {{#each folios}}
+                                    <option value="{{folio_id}}">{{folio_descripcion}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+                            <!-- Se removieron porque no se utilizan o no tenian conexion con la consulta 
+                            Estimacion
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Estimacion</label><br>
+                                <select name="factura_estimacion_id" id="" class="form-control">
+                                    <option selected disabled value="">QUITAR</option>
+                                </select>
+                            </div> 
+
+                            Anticipo 
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Anticipo</label><br>
+                                <select name="factura_anticipo_id" id="" class="form-control">
+                                    <option selected disabled value="">QUITAR</option>
+                                </select>
+                            </div>
+                            -->
+
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Factura / Remision</label><br>
+                                <select name="factura_remisionfactura_id" id="" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    {{#each remision}}
+                                    <option value="{{remisionfactura_id}}">{{remisionfactura_descripcion}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-3 mb-3">
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Moneda</label><br>
+                                <select name="factura_moneda_id" id="" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    {{#each moneda}}
+                                    <option value="{{moneda_id}}">{{moneda_descripcion}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Tipo de Venta</label><br>
+                                <select name="tipo_venta" id="" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    <option value="1">POLIZA</option>
+                                    <option value="2">RENTA</option>
+                                    <option value="3">VENTA</option>
+                                    <option value="4">OBRA</option>
+                                </select>
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Subtotal</label><br>
+                                <input class="form-control" type="text" name="factura_subtotal" id="subtotal" placeholder="Subtotal"
+                                    onchange="total()">
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">IVA</label><br>
+                                <input class="form-control" type="text" name="factura_iva" id="ivaa" placeholder="IVA">
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-3 mb-3">
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Retención IVA</label><br>
+                                <input class="form-control" type="text" name="retencion" id="" placeholder="Retención IVA">
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Retención ISR</label><br>
+                                <input class="form-control" type="text" name="retencion_isr" id="" placeholder="Retención ISR">
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">TOTAL</label><br>
+                                <input class="form-control" type="text" name="factura_total" id="total" placeholder="Total">
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Tipo de cambio</label><br>
+                                <input class="form-control" type="text" name="tipo_cambio" id="" placeholder="Tipo de Cambio">
+                            </div>
+
+                        </div>
+
+
+                        <div class="row mt-3 mb-3">
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Fecha</label><br>
+                                <input class="form-control" type="date" name="factura_fecha_alta" id="">
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Observaciones</label><br>
+                                <input class="form-control" type="text" name="factura_observaciones" id="" placeholder="Observaciones">
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Correo de cliente</label><br>
+                                <input class="form-control" type="text" name="correo" id="" placeholder="E-Mail del Cliente">
+                            </div>
+
+
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Uso de CFDI</label><br>
+                                <select name="uso_cfdi" id="" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    <option value="1">Gastos en General</option>
+                                    <option value="2">Adquisición de mercancías</option>
+                                    <option value="3">Construcciones</option>
+                                    <option value="4">Otros</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-3 mb-3">
+                            <div class="col-md-4 col-sm-6 col-lg-4 mb-3">
+                                <label for="" class="font-weight-bold">UUID</label><br>
+                                <input class="form-control" type="text" name="uuid" id="" placeholder="UUID">
+                            </div>
+
+
+                            <div class="col-md-4 col-sm-6 col-lg-4 mb-3">
+                                <label for="" class="font-weight-bold">Forma de Pago</label><br>
+                                <select name="forma_pago" id="" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    <option value="1">Cheque</option>
+                                    <option value="2">Transferencia</option>
+                                    <option value="3">Efectivo</option>
+                                    <option value="4">Por Definir</option>
+                                </select>
+                            </div>
+
+
+                            <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
+                                <label for="" class="font-weight-bold">Credito de pago negociado</label><br>
+                                <input class="form-control" type="text" name="" id=""
+                                    placeholder="Crédito de Pago Negociado">
+                            </div>
+
+                        </div>
+                        <div class="container mb-5">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12 col-lg-3"></div>
+                                    <div class="col-md-4 col-sm-12 col-lg-6">
+                                        <label for="" class="font-weight-bold">Duración</label><br>
+                                        <input type="number" name="" class="form-control" id="" placeholder="Duracion en meses">
+                                    </div>
+                                <div class="col-md-4 col-sm-12 col-lg-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center mt-5">
+                        <button type="submit" class="btn btn-outline-success btn-lg">Guardar</button>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Cliente</label><br>
-            <select name="" id="" class="form-control">
-                <option selected disabled value="">Seleccionar</option>
-                {{#each cliente}}
-                        <option value="{{cliente_id}}">{{cliente_razon_social}}</option>
-                {{/each}}
-            </select>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Descripción</label><br>
-            <input class="form-control" type="text" name="" id="" placeholder="Descripción">
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Empleado que Documenta</label><br>
-            <select name="" id="" class="form-control">
-                <option selected disabled value="">Seleccionar</option>
-            </select>
-        </div>
-
-    </div>
-
-    <div class="row mt-3 mb-3">
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Inversion</label><br>
-            <select name="" id="" class="form-control">
-                <option selected disabled value="">Seleccionar</option>
-                {{#each inversion}}
-                    <option value="{{inversion_id}}">{{inversion_clave}}</option>
-                {{/each}}
-            </select>
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Sucursal</label><br>
-            <select name="" id="" class="form-control">
-                <option selected disabled value="">Seleccionar</option>
-                {{#each sucursal}}
-                   <option value="{{id}}">{{nombre}}</option>
-                {{/each}}
-            </select>
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Centro de Costo</label><br>
-            <select name="" id="" class="form-control">
-                <option selected disabled value="">Seleccionar</option>
-                {{#each centroCostos}}
-                   <option value="{{id}}">{{nombre}}</option>
-                {{/each}}
-            </select>
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Cotizacion / Proyecto</label><br>
-            <select name="" id="" class="form-control">
-                <option selected disabled value="">Seleccionar</option>
-                {{#each cotizacion}}
-                   <option value="{{cotizacion_id}}"><strong>( {{cotizacion_id}} ) </strong> {{nombre}}</option>
-                {{/each}}
-            </select>
-        </div>
-
-    </div>
-
-    <div class="row mt-3 mb-3">
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Folio</label><br>
-            <select name="" id="" class="form-control">
-                <option selected disabled value="">Seleccionar</option>
-                {{#each folios}}
-                     <option value="{{folio_id}}">{{folio_descripcion}}</option>
-                 {{/each}}
-            </select>
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Estimacion</label><br>
-            <select name="" id="" class="form-control">
-                <option selected disabled value="">QUITAR</option>
-            </select>
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Anticipo</label><br>
-            <select name="" id="" class="form-control">
-                <option selected disabled value="">QUITAR</option>
-            </select>
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Factura / Remision</label><br>
-            <select name="" id="" class="form-control">
-                <option selected disabled value="">Seleccionar</option>
-                {{#each remision}}
-                    <option value="{{remisionfactura_id}}">{{remisionfactura_descripcion}}</option>
-                {{/each}}
-            </select>
-        </div>
-
-    </div>
-
-    <div class="row mt-3 mb-3">
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Moneda</label><br>
-            <select name="" id="" class="form-control">
-                <option selected disabled value="">Seleccionar</option>
-                {{#each moneda}}
-                    <option value="{{moneda_id}}">{{moneda_descripcion}}</option>
-                {{/each}}
-            </select>
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Tipo de Venta</label><br>
-            <select name="" id="" class="form-control">
-                <option selected disabled value="">Seleccionar</option>
-				<option value="1">POLIZA</option>
-				<option value="2">RENTA</option>
-				<option value="3">VENTA</option>
-				<option value="4">OBRA</option>
-            </select>
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Subtotal</label><br>
-            <input class="form-control" type="text" name="" id="" placeholder="Subtotal">
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">IVA</label><br>
-            <input class="form-control" type="text" name="" id="" placeholder="IVA">
-        </div>
-
-    </div>
-
-    <div class="row mt-3 mb-3">
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Retención IVA</label><br>
-            <input class="form-control" type="text" name="" id="" placeholder="Retención IVA">
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Retención ISR</label><br>
-            <input class="form-control" type="text" name="" id="" placeholder="Retención ISR">
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">TOTAL</label><br>
-            <input class="form-control" type="text" name="" id="" placeholder="Total">
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Tipo de cambio</label><br>
-            <input class="form-control" type="text" name="" id="" placeholder="Tipo de Cambio">
-        </div>
-
-    </div>
-
-
-    <div class="row mt-3 mb-3">
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Fecha</label><br>
-            <input class="form-control" type="date" name="" id="">
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Observaciones</label><br>
-            <input class="form-control" type="text" name="" id="" placeholder="Observaciones">
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Correo de cliente</label><br>
-            <input class="form-control" type="text" name="" id="" placeholder="E-Mail del Cliente">
-        </div>
-
-
-        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-            <label for="" class="font-weight-bold">Uso de CFDI</label><br>
-            <select name="" id="" class="form-control">
-                <option selected disabled value="">Seleccionar</option>
-				<option value="1">Gastos en General</option>
-				<option value="2">Adquisición de mercancías</option>
-				<option value="3">Construcciones</option>
-				<option value="4">Otros</option>
-            </select>
-        </div>
-
-    </div>
-
-    <div class="row mt-3 mb-3">
-        <div class="col-md-4 col-sm-6 col-lg-4 mb-3">
-            <label for="" class="font-weight-bold">UUID</label><br>
-            <input class="form-control" type="text" name="" id="" placeholder="UUID">
-        </div>
-
-
-        <div class="col-md-4 col-sm-6 col-lg-4 mb-3">
-            <label for="" class="font-weight-bold">Forma de Pago</label><br>
-            <select name="" id="" class="form-control">
-                <option selected disabled value="">Seleccionar</option>
-				<option value="1">Cheque</option>
-				<option value="2">Transferencia</option>
-				<option value="3">Efectivo</option>
-				<option value="4">Por Definir</option>
-            </select>
-        </div>
-
-
-        <div class="col-md-4 col-sm-6 col-lg-4 mb-3">
-            <label for="" class="font-weight-bold">Credito de pago negociado</label><br>
-            <input class="form-control" type="text" name="" id="" placeholder="Crédito de Pago Negociado">
-        </div>
-
     </div>
 </div>
+{{#section 'scripts'}}
+
+
+<script>
+    function total() {
+        let subtotal = document.getElementById('subtotal').value
+        let iva = subtotal * 0.16
+        let total = parseFloat(iva) + parseFloat(subtotal)
+
+        document.getElementById('ivaa').value = iva.toFixed(2)
+        document.getElementById('total').value = total.toFixed(2)
+    }
+</script>
+{{/section}}
