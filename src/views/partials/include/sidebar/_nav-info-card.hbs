@@ -1,6 +1,6 @@
 {{!-- Infocard --}}
 <div class="info-card">
-	{{#if (is username "Alan")}}
+	{{#if (is session.username "Alan")}}
 		<img src="/img/AQG.jpeg" class="profile-image rounded-circle" alt="{{user}}">
 	{{else}}
 		<i class="fal fa-user-alt fa-3x"></i>
@@ -9,7 +9,7 @@
 	<div class="info-card-text">
 		<a href="#" class="d-flex align-items-center text-white">
 			<span class="text-truncate text-truncate-sm d-inline-block">
-				Dr. {{username}}
+				Dr. {{session.username}}
 			</span>
 		</a>
 		<span class="d-inline-block text-truncate text-truncate-sm">Monterrey, México</span>

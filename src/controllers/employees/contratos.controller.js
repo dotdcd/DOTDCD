@@ -7,18 +7,19 @@ export const addContract = async (req, res) => {
 
         await pool.query("INSERT INTO CONTRATOS SET ? ON DUPLICATE KEY UPDATE periodo = ?, sueldo = ?, fecha_inicio = ?, fecha_fin = ?, empleado_id = ?", [{periodo, sueldo, fecha_inicio: inicio, fecha_fin: vencimiento, empleado_id: id}, periodo, sueldo, inicio, vencimiento, id])
         await pool.query("UPDATE usuarios SET status = 0 WHERE id_empleado = ?", [id])
-        /* const data = {
+        const info = await pool.query("SELECT CONCAT(empleado_nombre, ' ', empleado_paterno, ' ', empleado_materno) as employee, empleado_email FROM empleados WHERE empleado_id = ?", [id])
+        const data = {
             id: id,
             subject: "Firma de contrato ✔",
-            email: 'desarrollo@dotdcd.com',
+            email: info[0][0].empleado_email,
             mail: `
-            <h1>Buen día ${employee} </h1>
+            <h1>Buen día ${info[0][0].employee} </h1>
             <h2>Tu renovación de contrato a comenzado.</h2>
             <p>Para continuar con el proceso de renovación entra al siguiente enlace en las ultimas 24 horas y firma tu contrato</p>
             <a href="https://dotdcd.com.mx">Firmar contrato</a>
         `
-        } */
-        //await sendEmail(data);
+        }
+        await sendEmail(data);
 
 
 

@@ -1,73 +1,251 @@
 <div class="container">
-    <div class="row">
-        <div class="col-sm-1"></div>
+    <div class="row mt-3 mb-3">
 
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Empresa</label><br>
+            <select name="" id="" class="form-control">
+                <option selected disabled value="">Seleccionar</option>
+                {{#each empresa}}
+                        <option value="{{id}}">{{nombre}}</option>
+                {{/each}}
+            </select>
+        </div>
 
-        <div class="col-sm-1"></div>   
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Cliente</label><br>
+            <select name="" id="" class="form-control">
+                <option selected disabled value="">Seleccionar</option>
+                {{#each cliente}}
+                        <option value="{{cliente_id}}">{{cliente_razon_social}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Descripción</label><br>
+            <input class="form-control" type="text" name="" id="" placeholder="Descripción">
+        </div>
+
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Empleado que Documenta</label><br>
+            <select name="" id="" class="form-control">
+                <option selected disabled value="">Seleccionar</option>
+            </select>
+        </div>
+
     </div>
 
-    <div class="row">
-        <div class="col-sm-1"></div>
+    <div class="row mt-3 mb-3">
 
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Inversion</label><br>
+            <select name="" id="" class="form-control">
+                <option selected disabled value="">Seleccionar</option>
+                {{#each inversion}}
+                    <option value="{{inversion_id}}">{{inversion_clave}}</option>
+                {{/each}}
+            </select>
+        </div>
 
-        <div class="col-sm-1"></div>   
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Sucursal</label><br>
+            <select name="" id="" class="form-control">
+                <option selected disabled value="">Seleccionar</option>
+                {{#each sucursal}}
+                   <option value="{{id}}">{{nombre}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Centro de Costo</label><br>
+            <select name="" id="" class="form-control">
+                <option selected disabled value="">Seleccionar</option>
+                {{#each centroCostos}}
+                   <option value="{{id}}">{{nombre}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Cotizacion / Proyecto</label><br>
+            <select name="" id="" class="form-control">
+                <option selected disabled value="">Seleccionar</option>
+                {{#each cotizacion}}
+                   <option value="{{cotizacion_id}}"><strong>( {{cotizacion_id}} ) </strong> {{nombre}}</option>
+                {{/each}}
+            </select>
+        </div>
+
     </div>
 
-    <div class="row">
-        <div class="col-sm-1"></div>
+    <div class="row mt-3 mb-3">
 
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Folio</label><br>
+            <select name="" id="" class="form-control">
+                <option selected disabled value="">Seleccionar</option>
+                {{#each folios}}
+                     <option value="{{folio_id}}">{{folio_descripcion}}</option>
+                 {{/each}}
+            </select>
+        </div>
 
-        <div class="col-sm-1"></div>   
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Estimacion</label><br>
+            <select name="" id="" class="form-control">
+                <option selected disabled value="">QUITAR</option>
+            </select>
+        </div>
+
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Anticipo</label><br>
+            <select name="" id="" class="form-control">
+                <option selected disabled value="">QUITAR</option>
+            </select>
+        </div>
+
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Factura / Remision</label><br>
+            <select name="" id="" class="form-control">
+                <option selected disabled value="">Seleccionar</option>
+                {{#each remision}}
+                    <option value="{{remisionfactura_id}}">{{remisionfactura_descripcion}}</option>
+                {{/each}}
+            </select>
+        </div>
+
     </div>
 
-    <div class="row">
-        <div class="col-sm-1"></div>
+    <div class="row mt-3 mb-3">
 
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Moneda</label><br>
+            <select name="" id="" class="form-control">
+                <option selected disabled value="">Seleccionar</option>
+                {{#each moneda}}
+                    <option value="{{moneda_id}}">{{moneda_descripcion}}</option>
+                {{/each}}
+            </select>
+        </div>
 
-        <div class="col-sm-1"></div>   
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Tipo de Venta</label><br>
+            <select name="" id="" class="form-control">
+                <option selected disabled value="">Seleccionar</option>
+				<option value="1">POLIZA</option>
+				<option value="2">RENTA</option>
+				<option value="3">VENTA</option>
+				<option value="4">OBRA</option>
+            </select>
+        </div>
+
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Subtotal</label><br>
+            <input class="form-control" type="text" name="" id="" placeholder="Subtotal">
+        </div>
+
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">IVA</label><br>
+            <input class="form-control" type="text" name="" id="" placeholder="IVA">
+        </div>
+
     </div>
 
-    <div class="row">
-        <div class="col-sm-1"></div>
+    <div class="row mt-3 mb-3">
 
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Retención IVA</label><br>
+            <input class="form-control" type="text" name="" id="" placeholder="Retención IVA">
+        </div>
 
-        <div class="col-sm-1"></div>   
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Retención ISR</label><br>
+            <input class="form-control" type="text" name="" id="" placeholder="Retención ISR">
+        </div>
+
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">TOTAL</label><br>
+            <input class="form-control" type="text" name="" id="" placeholder="Total">
+        </div>
+
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Tipo de cambio</label><br>
+            <input class="form-control" type="text" name="" id="" placeholder="Tipo de Cambio">
+        </div>
+
     </div>
 
-    <div class="row">
-        <div class="col-sm-1"></div>
 
-        <div class="col-md-2"></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"></div>
-        <div class="col-md-2"><input type="text" name="" id=""></div>
-        <div class="col-md-2"></div>
+    <div class="row mt-3 mb-3">
 
-        <div class="col-sm-1"></div>   
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Fecha</label><br>
+            <input class="form-control" type="date" name="" id="">
+        </div>
+
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Observaciones</label><br>
+            <input class="form-control" type="text" name="" id="" placeholder="Observaciones">
+        </div>
+
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Correo de cliente</label><br>
+            <input class="form-control" type="text" name="" id="" placeholder="E-Mail del Cliente">
+        </div>
+
+
+        <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+            <label for="" class="font-weight-bold">Uso de CFDI</label><br>
+            <select name="" id="" class="form-control">
+                <option selected disabled value="">Seleccionar</option>
+				<option value="1">Gastos en General</option>
+				<option value="2">Adquisición de mercancías</option>
+				<option value="3">Construcciones</option>
+				<option value="4">Otros</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="row mt-3 mb-3">
+        <div class="col-md-4 col-sm-6 col-lg-4 mb-3">
+            <label for="" class="font-weight-bold">UUID</label><br>
+            <input class="form-control" type="text" name="" id="" placeholder="UUID">
+        </div>
+
+
+        <div class="col-md-4 col-sm-6 col-lg-4 mb-3">
+            <label for="" class="font-weight-bold">Forma de Pago</label><br>
+            <select name="" id="" class="form-control">
+                <option selected disabled value="">Seleccionar</option>
+				<option value="1">Cheque</option>
+				<option value="2">Transferencia</option>
+				<option value="3">Efectivo</option>
+				<option value="4">Por Definir</option>
+            </select>
+        </div>
+
+
+        <div class="col-md-4 col-sm-6 col-lg-4 mb-3">
+            <label for="" class="font-weight-bold">Credito de pago negociado</label><br>
+            <input class="form-control" type="text" name="" id="" placeholder="Crédito de Pago Negociado">
+        </div>
+
     </div>
 </div>

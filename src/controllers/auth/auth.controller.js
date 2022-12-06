@@ -42,7 +42,7 @@ export const login = async (req, res) => {
     });   
 
     //? set cookie in header
-    req.app.locals = {username: result.username, profile_img: result.profile_img}
+    req.session.username = result.username
     res.setHeader("Set-Cookie", serialized);
     return res.status(200).redirect('/dashboard')
 
@@ -63,6 +63,7 @@ export const logout = async (req, res) => {
             path: "/",
         });
 
+        req.session.destroy()
         res.setHeader("Set-Cookie", serialized);
         res.redirect('/')
     } catch (error) {

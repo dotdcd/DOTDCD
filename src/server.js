@@ -15,6 +15,7 @@ import fs from 'fs-extra';
 import { uploadFiles, updFiles } from './helpers/multer.js';
 import {helpers} from './helpers/handlebars.js';
 import {SECRET} from './config.js';
+import { checkPrefacturas } from './helpers/prefacturasMantenimiento.js';
 
 //? Importar rutas
 import rutasAnalytics from './routes/analytics.routes.js';
@@ -59,13 +60,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
 app.use(session({
     secret: SECRET,
-    resave: true,
+    resave: false,
     saveUninitialized: true,
 }));
 app.use(flash());
 
 //* File path to directory upload & rename file with uuid & multer
-//TODO: Change directory for contract upload
 const storage = multer.diskStorage({
     destination: async (req, file, cb) => {
         const fpath = (req.body.vid) ? await updFiles(req.body.vid, file.fieldname) : await uploadFiles('path', file.fieldname);
@@ -86,6 +86,11 @@ app.use((req, res, next) => {
     res.locals.infoSign = req.flash('infoSign');
     next();
 })
+
+app.use((req, res, next) => {
+    res.locals.session = req.session || null;
+    next();
+});
 
 //? Routes files
 app.use(rutasAnalytics);
@@ -122,6 +127,10 @@ app.use((req, res) => {
     }
 
     res.type('txt').send('Not found');
+});
+
+cron.schedule('5 */24 * * *', () => {
+    checkPrefacturas()
 });
 
 export default app;

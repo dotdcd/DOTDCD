@@ -32,7 +32,7 @@ const getPuesto = async() => {
     }
 }
 
-const getSucursal = async() => {
+export const getSucursal = async() => {
     try {
         const sucursal = await pool.query("SELECT sucursal_id as id, sucursal_nombre as nombre FROM sucursal");
         return sucursal[0]
@@ -41,7 +41,7 @@ const getSucursal = async() => {
     }
 }
 
-const getEmpresa = async() => {
+export const getEmpresa = async() => {
     try {
         const empresa = await pool.query("SELECT empresa_id as id, empresa_razon_social as nombre FROM multiempresa");
         return empresa[0]
@@ -50,7 +50,7 @@ const getEmpresa = async() => {
     }
 }
 
-const getCentrodeCosto = async() => {
+export const getCentrodeCosto = async() => {
     try {
         const centroCosto = await pool.query("SELECT centrodecostos_id as id, centrodecostos_descripcion as nombre FROM centrodecostos");
         return centroCosto[0]
@@ -210,7 +210,7 @@ const getTestifys = async () => {
         let firmas = []
         const signatures = await pool.query("SELECT * FROM firmas")
         for (const s of signatures[0]) {
-            firmas.push(['<img src="'+s.firma+'"/>', s.nombre, (s.lvl == 1) ? 'Patrón' : (s.lvl == 2) ? 'Testigo 1' : 'Testigo 2', '<button class="btn btn-outline-danger" onclick="dltTestify('+s.id+')"> Eliminar </button>'])
+            firmas.push(['<center><img class="rounded " width="200" height="100" src="'+s.firma+'"/></center>', s.nombre, (s.lvl == 1) ? 'Patrón' : (s.lvl == 2) ? 'Testigo 1' : 'Testigo 2', '<center><button class="btn btn-outline-danger" onclick="dltTestify('+s.id+')"> Eliminar </button></center>'])
         }
         return firmas
     } catch (error) {
