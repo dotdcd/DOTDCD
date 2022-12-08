@@ -24,6 +24,7 @@ import rutasErp from './routes/erp.routes.js';
 import rutasIndex from './routes/index.routes.js';
 import rutasMarcas from './routes/marcas.routes.js';
 import employeesRoutes from './routes/employees.routes.js';
+import administrationRoutes from './routes/administration.routes.js';
 
 import cron from 'node-cron';
 
@@ -99,11 +100,12 @@ app.use(rutasErp);
 app.use(rutasIndex);
 app.use(rutasMarcas);
 app.use(employeesRoutes);
+app.use(administrationRoutes);
 
 //? PWA Service Worker
 const options = {
     setHeaders: function (res, path, stat) {
-        res.set('Service-Worker-Allowed', 'https://dotdcd.com.mx/');
+        res.set('Service-Worker-Allowed', 'http://localhost:5000/');
     },
 };
 
@@ -137,14 +139,7 @@ app.use((req, res) => {
 
 
 cron.schedule('* * * * *', async () => {
-    const payload = JSON.stringify({
-        title: "My Custom Notification",
-        message: "Hello World"
-    });
-
-    console.log('Sending push notification...')
-
-    await webpush.sendNotification(pushSubscripton, payload);
+    //await checkPrefacturas();
 });
 
 export default app;

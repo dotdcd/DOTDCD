@@ -3,13 +3,14 @@ import { pool } from '../db.js'
 export const checkPrefacturas = async (req, res) => {
     try {
         const hoy = new Date();
-        const dia = hoy.getDay();
-        const response = await pool.query('SELECT * FROM facturas_programadas WHERE fecha = ?', [dia]);
+        const dia = hoy.getDate();
+        console.log(dia)
+        const response = await pool.query('SELECT * FROM facturas_programadas WHERE dia_facturacion = ?', [dia]);
 
         if (response.length > 0) {
             for (const i of response[0]) {
                 if (i.meses_facturar > 0) {
-                    await pool.query('INSERT INTON facturas SET ?', {
+                    await pool.query('INSERT INTO facturas SET ?', {
                         factura_empresa_id: i.factura_empresa_id,
                         factura_cliente_id: i.factura_cliente_id,
                         factura_descripcion: i.factura_descripcion,
@@ -19,7 +20,7 @@ export const checkPrefacturas = async (req, res) => {
                         factura_folio_id: i.factura_folio_id,
                         factura_remisionfactura_id: i.factura_remisionfactura_id,
                         factura_moneda_id: i.factura_moneda_id,
-                        factura_subtotalL: i.factura_subtotalL,
+                        factura_subtotal: i.factura_subtotal,
                         factura_iva: i.factura_iva,
                         factura_total: i.factura_total,
                         factura_fecha_alta: i.factura_fecha_alta,
@@ -45,11 +46,13 @@ export const checkPrefacturas = async (req, res) => {
                         dias_credito: i.dias_credito
                     })
 
-                    await pool.query('UPDATE facturas_programadas SET meses_facturar = ? WHERE id = ?', [i.meses_facturar - 1, i.id]);
+                    await pool.query('UPDATE facturas_programadas SET meses_facturar = ? WHERE factura_id = ?', [i.meses_facturar - 1, i.id]);
+
+                    console.log('Factura creada')
                 }
             }
         }
-        res.status(200).json(response.rows);
+        console.log('No hay facturas programadas')
     } catch (e) {
         console.log(e);
     }

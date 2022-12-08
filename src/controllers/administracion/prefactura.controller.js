@@ -37,6 +37,8 @@ const getFactura = async () => {
     const factura = await pool.query('SELECT tipo_venta FROM facturas')
     return factura[0]
 }
+
+
 export const renderPrefacturar = async (req, res) => {
     try {
         const sucursal = await getSucursal()
@@ -60,9 +62,9 @@ export const renderPrefacturar = async (req, res) => {
 
 export const addPrefactura = async (req, res) => {
     try {
-        await polygonLength.query("INSERT INTO facturas_programadas SET ? ", [req.body])
+        await pool.query("INSERT INTO facturas_programadas SET ? ", [req.body])
         req.flash('success', { title: 'Prefactura Programada!', message: 'La prefactura se ha programado correctamente.' })
-        res.redirect('/administracion/prefacturar')
+        res.redirect('/dashboard/administracion/facturas/prefacturar')
     } catch (error) {
         console.log(error)
     }
@@ -72,7 +74,17 @@ export const updPrefactura = async (req, res) => {
     try {
         await pool.query("UPDATE facturas_programadas SET ? WHERE prefactura_id = ?", [req.body, req.params.id])
         req.flash('success', { title: 'Prefactura Actualizada!', message: 'La prefactura se ha actualizado correctamente.' })
-        res.redirect('/administracion/prefacturar')
+        res.redirect('/dashboard/administracion/facturas/prefacturar')
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+//? Render prefacturas programadas
+export const renderMultiremision = async (req, res) => {
+    try {
+        return res.render('administracion/facturasprefacturas/prefacturasprogramadas')
     } catch (error) {
         console.log(error)
     }

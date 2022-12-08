@@ -39,10 +39,11 @@ export const login = async (req, res) => {
         sameSite: "strict",
         maxAge: 1000 * 60 * 60 * 24 * 30,
         path: "/"
-    });   
+    });
 
     //? set cookie in header
     req.session.username = result.username
+    req.session.userId = result.id_empleado
     res.setHeader("Set-Cookie", serialized);
     return res.status(200).redirect('/dashboard')
 

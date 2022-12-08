@@ -3,9 +3,9 @@ import { pool } from "../../db.js";
 
 export const addContract = async (req, res) => {
     try {
-        const { id, periodo, sueldo, inicio, vencimiento } = req.body;
+        const { id, empresa, periodo, sueldo, inicio, vencimiento } = req.body;
 
-        await pool.query("INSERT INTO CONTRATOS SET ? ON DUPLICATE KEY UPDATE periodo = ?, sueldo = ?, fecha_inicio = ?, fecha_fin = ?, empleado_id = ?", [{periodo, sueldo, fecha_inicio: inicio, fecha_fin: vencimiento, empleado_id: id}, periodo, sueldo, inicio, vencimiento, id])
+        await pool.query("INSERT INTO CONTRATOS SET ? ON DUPLICATE KEY UPDATE empresa = ?, periodo = ?, sueldo = ?, fecha_inicio = ?, fecha_fin = ?, empleado_id = ?", [{empresa, periodo, sueldo, fecha_inicio: inicio, fecha_fin: vencimiento, empleado_id: id}, empresa, periodo, sueldo, inicio, vencimiento, id])
         await pool.query("UPDATE usuarios SET status = 0 WHERE id_empleado = ?", [id])
         const info = await pool.query("SELECT CONCAT(empleado_nombre, ' ', empleado_paterno, ' ', empleado_materno) as employee, empleado_email FROM empleados WHERE empleado_id = ?", [id])
         const data = {
@@ -49,7 +49,6 @@ const addpastContract = async (id) => {
         if(contrato[0].length > 0){
             await pool.query("INSERT INTO contratosTotales SET ?", contrato[0][0])
             await pool.query("DELETE FROM CONTRATOS WHERE id = ? AND status = 2", [contrato[0][0].id])
-            console.log('Contrato pasado agregado')
         }
     } catch (error) {
         console.log(error)
@@ -70,7 +69,7 @@ export const aceptContract = async (req, res) => {
         await pool.query("UPDATE CONTRATOS SET status = ?, reconocimiento = ? WHERE id = ?", [status, fecha, id])
         await pool.query("UPDATE usuarios SET status = 1 WHERE id_empleado = ?", [conditon[0][0].empleado_id])
         let sueldo = conditon[0][0].sueldo / 2
-        await pool.query("UPDATE empleados SET empleado_sueldo = ? WHERE empleado_id = ?", [sueldo, conditon[0][0].empleado_id])
+        await pool.query("UPDATE empleados SET empleado_sueldo = ?, empleado_empresa_id = ? WHERE empleado_id = ?", [sueldo, conditon[0][0].empresa, conditon[0][0].empleado_id])
 
         return res.status(200).json({ message: 'Contrato modificado', status: 200 })
     } catch (error) {
@@ -83,7 +82,6 @@ export const declibeContract = async (req, res) => {
     try{
         const { id, status } = req.body;
 
-        console.log(req.body)
 
         await pool.query("UPDATE CONTRATOS SET status = ? WHERE id = ?", [status, id])
 

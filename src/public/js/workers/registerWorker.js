@@ -11,7 +11,7 @@ const subscription = async () => {
     console.log("Listening Push Notifications");
     const subscription = await register.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
+        applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
     });
 
     console.log(subscription);

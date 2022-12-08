@@ -4,6 +4,7 @@ const addContract = async (id) => {
         const form = document.querySelector("#form" + id);
         const data = {
             id: id,
+            empresa: form.empresa.value,
             periodo: form.periodo.value,
             sueldo: form.sueldo.value,
             inicio: form.inicio.value,

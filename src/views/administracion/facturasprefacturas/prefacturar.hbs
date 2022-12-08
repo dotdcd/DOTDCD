@@ -18,9 +18,10 @@
                 <div class="panel-content">
                     <div class="row text-center ">
                         <div class="col-12">
-                            <h3 class="display-4">Crear Prefactura</h3>
+                            <h3 class="display-4">Programar Prefactura</h3>
                         </div>
                     </div>
+                    <form action="/addPrefactura" method="post">
                     <div class="container">
                         <div class="row mt-3 mb-3">
 
@@ -53,12 +54,12 @@
                             <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                 <label for="" class="font-weight-bold">Empleado que Documenta</label><br>
                                 <select name="factura_empleado_id" id="" class="form-control">
-                                    <option selected disabled value="">Seleccionar</option>
+                                    <option value="" selected disabled></option>
+                                    <option value="{{session.userId}}" selected >{{session.username}}</option>
                                 </select>
                             </div>
 
                         </div>
-
                         <div class="row mt-3 mb-3">
 
                             <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
@@ -96,7 +97,7 @@
 
                             <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                 <label for="" class="font-weight-bold">Cotizacion / Proyecto</label><br>
-                                <select name="cotizacion_id" id="" class="form-control">
+                                <select name="factura_proyecto_id" id="" class="form-control">
                                     <option selected disabled value="">Seleccionar</option>
                                     {{#each cotizacion}}
                                     <option value="{{cotizacion_id}}"><strong>( {{cotizacion_id}} ) </strong> {{nombre}}
@@ -119,23 +120,21 @@
                                 </select>
                             </div>
 
-                            <!-- Se removieron porque no se utilizan o no tenian conexion con la consulta 
-                            Estimacion
                             <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                 <label for="" class="font-weight-bold">Estimacion</label><br>
                                 <select name="factura_estimacion_id" id="" class="form-control">
-                                    <option selected disabled value="">QUITAR</option>
+                                    <option selected disabled value="">Seleccionar</option>
                                 </select>
-                            </div> 
+                            </div>
 
-                            Anticipo 
                             <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                 <label for="" class="font-weight-bold">Anticipo</label><br>
                                 <select name="factura_anticipo_id" id="" class="form-control">
-                                    <option selected disabled value="">QUITAR</option>
+                                    <option selected disabled>Seleccionar</option>
+                                    <option value="2" >Anticipo</option>
                                 </select>
                             </div>
-                            -->
+                            
 
 
                             <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
@@ -177,14 +176,14 @@
 
                             <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                 <label for="" class="font-weight-bold">Subtotal</label><br>
-                                <input class="form-control" type="text" name="factura_subtotal" id="subtotal" placeholder="Subtotal"
-                                    onchange="total()">
+                                <input class="form-control" step="0.01" type="text" name="factura_subtotal" id="subtotal" placeholder="Subtotal"
+                                    onchange="totaal()">
                             </div>
 
 
                             <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                 <label for="" class="font-weight-bold">IVA</label><br>
-                                <input class="form-control" type="text" name="factura_iva" id="ivaa" placeholder="IVA">
+                                <input class="form-control" step="0.01" type="text" name="factura_iva" id="ivaa" placeholder="IVA">
                             </div>
 
                         </div>
@@ -205,7 +204,7 @@
 
                             <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                 <label for="" class="font-weight-bold">TOTAL</label><br>
-                                <input class="form-control" type="text" name="factura_total" id="total" placeholder="Total">
+                                <input class="form-control" type="number" step="0.01" name="factura_total" id="total" placeholder="Total">
                             </div>
 
 
@@ -216,11 +215,11 @@
 
                         </div>
 
-
+                        
                         <div class="row mt-3 mb-3">
 
                             <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                <label for="" class="font-weight-bold">Fecha</label><br>
+                                <label for="" class="font-weight-bold">Fecha Alta</label><br>
                                 <input class="form-control" type="date" name="factura_fecha_alta" id="">
                             </div>
 
@@ -271,39 +270,50 @@
 
                             <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
                                 <label for="" class="font-weight-bold">Credito de pago negociado</label><br>
-                                <input class="form-control" type="text" name="" id=""
+                                <input class="form-control" type="text" name="dias_credito" id=""
                                     placeholder="Crédito de Pago Negociado">
                             </div>
 
                         </div>
                         <div class="container mb-5">
                             <div class="row">
-                                <div class="col-md-4 col-sm-12 col-lg-3"></div>
                                     <div class="col-md-4 col-sm-12 col-lg-6">
                                         <label for="" class="font-weight-bold">Duración</label><br>
-                                        <input type="number" name="" class="form-control" id="" placeholder="Duracion en meses">
+                                        <input type="number" name="meses_facturar" class="form-control" id="" placeholder="Duracion en meses">
                                     </div>
-                                <div class="col-md-4 col-sm-12 col-lg-3"></div>
+                                    <div class="col-md-4 col-sm-12 col-lg-6">
+                                        <label for="" class="font-weight-bold">Día del Mes</label><br>
+                                        <input type="number" name="dia_facturacion" class="form-control" id="" placeholder="Día en el que se enviará">
+                                    </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12 text-center mt-5">
                         <button type="submit" class="btn btn-outline-success btn-lg">Guardar</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+                    <a href="/dashboard/administracion/facturas/multiremision"><button class="btn btn-outline-info btn-lg">Ver Facturas Programadas</button></a>
+
+        </div>
+    </div>
+</div>
+
 {{#section 'scripts'}}
-
-
 <script>
-    function total() {
+    
+
+    function totaal() {
         let subtotal = document.getElementById('subtotal').value
         let iva = subtotal * 0.16
         let total = parseFloat(iva) + parseFloat(subtotal)
-
         document.getElementById('ivaa').value = iva.toFixed(2)
         document.getElementById('total').value = total.toFixed(2)
     }

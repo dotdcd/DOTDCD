@@ -7,7 +7,7 @@
 "orientation": "portrait",
  "display": "standalone",
 "start_url": "https://dotdcd.com.mx/",
-"scope":"https://dotdcd.com.mx/",
+"scope":"https:dotdcd.com.mx/",
  "lang": "es-MX",
  "icons":[
     {
