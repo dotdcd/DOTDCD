@@ -19,54 +19,88 @@
                     <div id="metasAll">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-6">
-                                    <form method="post"class="form-group">
-                                        <label class="form-label" for="simpleinput">
-                                            <h3>Agregar Cliente</h3>
+                                <div class="col-md-12">
+                                    <form method="post" class="form-group" action="/addCliente">
+                                        <label class="form-label text-center col-12" for="simpleinput">
+                                            <h3 class="text-center">Agregar Cliente</h3>
                                         </label><br>
-                                        <span>Razón Social</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1 display-4"
-                                            placeholder="Ingresa la razon social" autofocus> <br>
-                                        <span>Calle</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa la calle y número"> <br>
-                                        <span>Colonia</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1 "
-                                            placeholder="Ingresa la colonia"> <br>
-                                        <span> Municipio </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el municipio"> <br>
-                                        <span>Estado</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el estado "> <br>
-                                        <span>Codigo Postal </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el código postal "> <br>
-                                        <span> RFC </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el RFC"> <br>
-                                        <span> Teléfono </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el telefono"> <br>
-                                        <span> Contacto </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el contacto"> <br>
-                                        <span> Contacto de Cobranza </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el contacto de cobranza"><br>
-                                        <span> Correo de Cliente </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el correo del cliente"> <br>
-                                        
-                                        <span> Régimen Fiscal </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el régimen fiscal"> <br>
-                                        <br><br>
-                                        <button type="button"
-                                            class="btn-outline-info btn-lg btn-block ">Agregar</button>
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <span>Razón Social</span>
+                                                    <input type="text" id="simpleinput"
+                                                        class="form-control mb-1 display-4"
+                                                        placeholder="Ingresa la razon social" name="cliente_razon_social" autofocus>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span>Calle</span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa la calle y número" name="cliente_calle">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span>Colonia</span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1 "
+                                                        placeholder="Ingresa la colonia" name="cliente_colonia">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <span> Municipio </span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el municipio" name="cliente_municipio">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span>Estado</span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el estado " name="cliente_estado">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span>Codigo Postal </span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el código postal " name="cliente_codigo_postal">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <span> RFC </span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el RFC" name="cliente_rfc">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span> Teléfono </span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el telefono" name="cliente_telefono">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span> Contacto </span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el contacto" name="cliente_contacto">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <span> Contacto de Cobranza </span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el contacto de cobranza" name="cliente_cobranza">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span> Correo de Cliente </span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el correo del cliente" name="cliente_email">
+                                                </div>
+                                    
+                                            </div>
+                                            <div class="row mt-5">
+                                                <div class="col-4"></div>
+                                                <div class="col-md-4">
+                                                    <button type="submit"
+                                                        class="btn-outline-info btn-lg btn-block ">Agregar</button>
+                                                </div>
+                                                <div class="col-4"></div>
+                                            </div>
+                                        </div>
                                     </form>
-                                    <div class="col-md-3"></div>
                                 </div>
                             </div>
                         </div>

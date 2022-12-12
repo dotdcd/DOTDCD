@@ -303,6 +303,7 @@
                                         <div class="col-4"></div>
 
                                     </div>
+                                    
                                     <h3 class="mb-6 mt-1 text-center pb-2 mt-6" 
                                         style="border-bottom: 1px solid rgb(190, 182, 182);">ERP Legacy</h3>
 
@@ -331,6 +332,8 @@
             </div>
         </div>
     </div>
+
+
     <!--DT-->
     <div class="row">
         <div class="col-xl-12">
@@ -367,7 +370,58 @@
                         <div class="row mt-6">
                             <div class="col-4"></div>
                             <div class="col-4">
-                                <button type="submit" class="btn-outline-info btn-lg w-100 ">Guardar</button>
+                            </div>
+                            <div class="col-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--DT-->
+    <div class="row">
+        <div class="col-xl-12">
+            <div id="panel-1" class="panel">
+                <div class="panel-hdr">
+                    <h2>
+                        Empleados <span class="fw-300"><i>DOTDCD</i></span>
+                    </h2>
+                    <div class="panel-toolbar"> 
+                        <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                            data-original-title="Collapse"></button>
+                        <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                            data-offset="0,10" data-original-title="Fullscreen"></button>
+                        <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                            data-original-title="Close"></button>
+                    </div>
+                </div>
+                <div class="panel-container show">
+                    <div class="panel-content">
+                        <!-- datatable start -->
+                        <table id="dt_documentosv" class="table table-bordered table-hover table-striped w-100">
+                            <thead class="bg-primary-600">
+                                <tr>
+                                    <th>Documento</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <!-- datatable end -->
+                        <div class="row">
+                                        <div class="col-12">
+                                            <input type="file" name="varios" class="form-control" multiple="multiple">
+
+                                        </div>
+                                    </div>
+                        <div class="row mt-6">
+                            <div class="col-4"></div>
+                            <div class="col-4">
+                                <button type="submit" class="btn-outline-info btn-lg w-100 mt-3 mb-3">Guardar</button>
                             </div>
                             <div class="col-4"></div>
                         </div>
@@ -435,6 +489,7 @@
 <script>
     const contratos = {{{ json pContracts }}}
     const docs = {{{ json files }}}
+    const dc = {{{ json documents }}}
 
     function showModalDel(id) {
 		swal.fire({
@@ -478,6 +533,18 @@
         $('#dt-basic-example').dataTable(
             {
                 data: docs,
+                responsive: true,
+                lengthChange: true,
+                dom:
+                    "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+            }
+        );
+
+        $('#dt_documentosv').dataTable(
+            {
+                data: dc,
                 responsive: true,
                 lengthChange: true,
                 dom:

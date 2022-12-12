@@ -46,7 +46,11 @@ export const addEmployee = async (req, res) => {
 
         if (req.files) {
             req.files.map(async (file) => {
-                await pool.query("INSERT INTO  USERS_FILES SET ?", { type: file.fieldname, file: file.filename, userId: req.body.id })
+                if (file.fieldname != 'varios') {
+                    await pool.query("INSERT INTO USERS_FILES SET ?", { type: file.fieldname, file: file.filename, userId: req.body.id })
+                } else {
+                    await pool.query("INSERT INTO documentos SET ?", { type: file.fieldname, file: file.filename, userId: req.body.id })
+                }
             })
         }
 
@@ -64,7 +68,11 @@ export const uptEmployee = async (req, res) => {
 
         if (req.files) {
             req.files.map(async (file) => {
-                await pool.query('INSERT INTO USERS_FILES SET ? ON DUPLICATE KEY UPDATE file = ?', [{ file: file.filename, type: file.fieldname, userId: id }, file.filename])
+                if (file.fieldname != 'varios') {
+                    await pool.query('INSERT INTO USERS_FILES SET ? ON DUPLICATE KEY UPDATE file = ?', [{ file: file.filename, type: file.fieldname, userId: id }, file.filename])
+                } else {
+                    await pool.query("INSERT INTO documentos SET ?", { type: file.fieldname, file: file.filename, userId: id })
+                }
             })
         }
         // Exclude some item from req.body
@@ -119,8 +127,8 @@ export const dltEmployee = async (req, res) => {
         const { id } = req.params
         await pool.query('DELETE FROM empleados WHERE empleado_id = ?', [id])
         await pool.query('DELETE FROM USERS_FILES WHERE userId = ?', [id])
-        fs.removeSync(path.join(__dirname, '/uploads/files/'+ id+'/'))
-        fs.removeSync(path.join(__dirname, '/uploads/img/'+ id+'/'))
+        fs.removeSync(path.join(__dirname, '/uploads/files/' + id + '/'))
+        fs.removeSync(path.join(__dirname, '/uploads/img/' + id + '/'))
 
         return res.status(200).json({ message: 'Empleado eliminado', status: 200 })
     } catch (error) {
@@ -129,7 +137,7 @@ export const dltEmployee = async (req, res) => {
 }
 
 export const dwnEmployee = async (req, res) => {
-    try{
+    try {
         const { id } = req.params
         await pool.query('UPDATE empleados SET empleado_estatus_baja = 1 WHERE empleado_id = ?', [id])
         return res.status(200).json({ message: 'Empleado dado de baja', status: 200 })
@@ -139,14 +147,14 @@ export const dwnEmployee = async (req, res) => {
 }
 
 export const dltFile = async (req, res) => {
-    try { 
+    try {
         const { id } = req.params
         const file = await pool.query('SELECT * FROM USERS_FILES WHERE id = ?', [id])
         const type = (file[0][0].type != 'foto') ? 'files' : 'img'
         await pool.query('DELETE FROM USERS_FILES WHERE id = ?', [id])
-        fs.removeSync(path.join(__dirname, '/uploads/'+type+'/' + file[0][0].userId + '/' + file[0][0].file))
+        fs.removeSync(path.join(__dirname, '/uploads/' + type + '/' + file[0][0].userId + '/' + file[0][0].file))
 
-        return res.status(200).json({ message: 'Archivo eliminado', status: 200})
+        return res.status(200).json({ message: 'Archivo eliminado', status: 200 })
     }
     catch (error) {
         console.log(error)

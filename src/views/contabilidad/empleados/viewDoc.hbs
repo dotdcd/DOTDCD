@@ -9,11 +9,12 @@
 {{#section 'scripts'}}
 
     <script>
+        
         //esto es un comentario para que se vea chido
         WebViewer({
             path: '/js/lib', // path to the PDF.js Express'lib' folder on your server
             licenseKey: 'Ba9FI7prl8aAU2xDQRv4',
-            initialDoc: '/uploads/files/{{file.userId}}/{{file.file}}',
+            initialDoc: '/uploads/{{type}}/{{file.userId}}/{{file.file}}',
             // initialDoc: '/path/to/my/file.pdf',  // You can also use documents on your server
         }, document.getElementById('viewer'))
             .then(instance => {

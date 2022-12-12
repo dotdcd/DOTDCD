@@ -44,6 +44,7 @@
 			</div>
 		</div>
 	</div>
+	<hr>
 	
 
 
@@ -108,7 +109,7 @@
 		// initialize datatable
 		$('#dt-basic-example').dataTable(
 			{
-				data: [{{#each empleados}} [ '{{empleado_nombre}}', '{{empleado_paterno}}', '{{empleado_materno}}', '{{empleado_imss}}', '{{empleado_rfc}}', '{{empleado_nacimiento}}', '{{empleado_entrada}}', '{{costos}}', '{{empresa}}', '{{sucursal}}', '<a class="btn btn-outline-primary w-100 mb-2" href="/dashboard/contabilidad/empleados/{{empleado_id}}"><i class="fal fa-chevron-square-up"></i></a> <a class="btn btn-outline-success w-100 mb-2" href="/dashboard/contabilidad/empleados/contrato/{{empleado_id}}"><i class="fal fa-file-alt"></i></a> <button class="btn btn-outline-danger w-100" onclick="showModalDel({{empleado_id}})" ><i class="fal fa-arrow-square-down"></i></button>' ], {{/each}}],
+				data: [{{#each empleados}} [ '{{empleado_nombre}}', '{{empleado_paterno}}', '{{empleado_materno}}', '{{empleado_imss}}', '{{empleado_rfc}}', '{{empleado_nacimiento}}', '{{empleado_entrada}}', '{{costos}}', '{{empresa}}', '{{sucursal}}', '<a class="btn btn-outline-primary w-100 mb-2" href="/dashboard/contabilidad/empleados/{{empleado_id}}"><i class="fal fa-chevron-square-up"></i></a> <button class="btn btn-outline-danger w-100" onclick="showModalDel({{empleado_id}})" ><i class="fal fa-arrow-square-down"></i></button>' ], {{/each}}],
 				responsive: true,
 				lengthChange: false,
 				dom:

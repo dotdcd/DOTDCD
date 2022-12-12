@@ -11,6 +11,7 @@ export const checkPrefacturas = async (req, res) => {
             for (const i of response[0]) {
                 if (i.meses_facturar > 0) {
                     await pool.query('INSERT INTO facturas SET ?', {
+                        factura_id: 8507,
                         factura_empresa_id: i.factura_empresa_id,
                         factura_cliente_id: i.factura_cliente_id,
                         factura_descripcion: i.factura_descripcion,
@@ -46,13 +47,23 @@ export const checkPrefacturas = async (req, res) => {
                         dias_credito: i.dias_credito
                     })
 
-                    await pool.query('UPDATE facturas_programadas SET meses_facturar = ? WHERE factura_id = ?', [i.meses_facturar - 1, i.id]);
+                    const newM = i.meses_facturar - 1;
 
+                    if (newM > 0) {
+                        await pool.query('UPDATE facturas_programadas SET meses_facturar = ? WHERE factura_id = ?', [newM, i.factura_id])
+                        console.log('Factura creada y meses restantes actualizados')
+                    } else {
+                        await pool.query('UPDATE facturas_programadas SET meses_facturar = ? WHERE factura_id = ?', [newM, i.factura_id])
+                        await pool.query('DELETE FROM facturas_programadas WHERE factura_id = ?', [i.factura_id])
+                        console.log('Factura creada y prefactura eliminada')
+                    }
                     console.log('Factura creada')
                 }
             }
+        } else {
+            console.log('No hay prefacturas para hoy')
         }
-        console.log('No hay facturas programadas')
+        
     } catch (e) {
         console.log(e);
     }

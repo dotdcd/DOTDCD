@@ -89,10 +89,14 @@ export const renderEmployee = async(req, res) => {
         const filesNeeded = ['foto', 'nacimiento', 'ine', 'curp', 'domicilio', 'imss', 'rfc', 'Infonavit', 'Otros', 'cv', 'covid', 'contratos', 'contrato anterior']
         const employee = await pool.query("Select *, DATE_FORMAT(empleado_nacimiento, '%Y-%m-%d') as nacimiento, DATE_FORMAT(empleado_entrada, '%Y-%m-%d') as ingreso from empleados WHERE empleado_id = ?", [id])
         let files = []
-
         for(let i = 0; i < filesNeeded.length; i++) {
             const file = await pool.query("SELECT * FROM USERS_FILES WHERE type = ? AND userId = ?", [filesNeeded[i], id])
             files.push((file[0].length > 0) ? [file[0][0].type, file[0][0].file, '<a class="btn btn-outline-primary" href="/dashboard/documento/'+file[0][0].id+'"><i class="fal fa-file-search"></i></a><button class="btn btn-outline-danger" onclick="showModalDel('+file[0][0].id+')" ><i class="fal fa-trash-alt"></i></button>'] : [filesNeeded[i], '<span class="badge badge-warning badge-pill">Documento no disponible</span>', '<input type="file" name="'+filesNeeded[i]+'" />'])
+        }
+        let documents = []
+        const docs = await pool.query("SELECT * FROM documentos WHERE userId = ?", [id])
+        for (const doc of docs[0]) {
+            documents.push([doc.file, '<a class="btn btn-outline-primary" href="/dashboard/documento/v/'+doc.id+'"><i class="fal fa-file-search"></i></a><button class="btn btn-outline-danger" onclick="showModalDel('+doc.id+')" ><i class="fal fa-trash-alt"></i></button>'])
         }
 
         const estadoCivil = await getEstadoCivil()
@@ -104,7 +108,7 @@ export const renderEmployee = async(req, res) => {
         const period = await getPeriod()
         const pContracts = await getPastContracts(id)
         
-        return res.render('contabilidad/empleados/empleado', {empleado: employee[0][0], files, estadoCivil, tipoEmpleado, puesto, sucursal, empresa, centroCostos, period, pContracts})
+        return res.render('contabilidad/empleados/empleado', {empleado: employee[0][0], files, estadoCivil, tipoEmpleado, puesto, sucursal, empresa, centroCostos, period, pContracts, documents})
     } catch (error) {
         console.log(error)
     }
@@ -149,7 +153,13 @@ export const renderEmNuevo = async(req, res) => {
 export const renderDoc = async(req, res) => {
     const {id} = req.params
     const file = await pool.query("SELECT * FROM USERS_FILES WHERE id = ?", [id])
-    return res.render('contabilidad/empleados/viewDoc', {file: file[0][0]})
+    return res.render('contabilidad/empleados/viewDoc', {file: file[0][0], type: 'files'})
+}
+
+export const renderDocV = async(req, res) => {
+    const {id} = req.params
+    const file = await pool.query("SELECT * FROM documentos WHERE id = ?", [id])
+    return res.render('contabilidad/empleados/viewDoc', {file: file[0][0], type: 'varios'})
 }
 
 //! Contratos section

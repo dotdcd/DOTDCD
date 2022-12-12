@@ -10,13 +10,13 @@ import { PORT } from './config.js';
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs-extra';
+import morgan from 'morgan'
 
 //? Import helpers
 import { uploadFiles, updFiles } from './helpers/multer.js';
 import {helpers} from './helpers/handlebars.js';
 import {SECRET} from './config.js';
 import { checkPrefacturas } from './helpers/prefacturasMantenimiento.js';
-import { wpush } from './helpers/web-push.js';
 
 //? Importar rutas
 import rutasAnalytics from './routes/analytics.routes.js';
@@ -76,7 +76,8 @@ const storage = multer.diskStorage({
         cb(null, fpath)
     },
     filename: (req, file, cb, filename) => {
-        cb(null, uuidv4() + path.extname(file.originalname)) //? <-- Rename file with uuid
+        const filname = (file.fieldname === 'varios') ? file.originalname + uuidv4() + path.extname(file.originalname) : uuidv4() + path.extname(file.originalname); 
+        cb(null, filname) //? <-- Rename file with uuid
     }
 })
 app.use(multer({ storage }).any());
@@ -94,6 +95,9 @@ app.use((req, res, next) => {
     next();
 });
 
+// ? View request in dev enviroment
+app.use(morgan('dev'))
+
 //? Routes files
 app.use(rutasAnalytics);
 app.use(rutasErp);
@@ -105,7 +109,7 @@ app.use(administrationRoutes);
 //? PWA Service Worker
 const options = {
     setHeaders: function (res, path, stat) {
-        res.set('Service-Worker-Allowed', 'http://localhost:5000/');
+        res.set('Service-Worker-Allowed', 'https://dotdcd.com.mx/');
     },
 };
 
@@ -138,8 +142,8 @@ app.use((req, res) => {
 });
 
 
-cron.schedule('* * * * *', async () => {
-    //await checkPrefacturas();
+cron.schedule('5 */24 * * *', async () => {
+    await checkPrefacturas();
 });
 
 export default app;

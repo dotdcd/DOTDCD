@@ -90,3 +90,16 @@ export const declibeContract = async (req, res) => {
         return res.status(500).json({ message: 'No se encontro contrato', status: 500 })
     }
 }
+
+export const ferifyC = async (req, res) => {
+    try {
+        const docs = await pool.query("SELECT * FROM USERS_FILES WHERE userId = ?", [req.params.id])
+        if(docs[0].length > 0){
+            console.log('si hay documentos')
+        } else {
+            return res.status(200).json({ message: 'No hay documentos', status: 200 })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}

@@ -6,10 +6,9 @@ import { read } from 'fs-extra';
 import { renderEmployees, renderAnalytics, renderProyectos } from '../controllers/erp/analytics.controller.js';
 import { renderUsuarios } from '../controllers/erp/inicio.controller.js';
 import { renderOpNuevo } from '../controllers/erp/operacion.controller.js';
-import { renderAdBuscar, renderAdNuevo, renderAdProvMarca, renderCliBuscar, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar } from '../controllers/erp/administracion.controller.js';
+import { renderAdBuscar, renderAdNuevo, renderVerPprefactura, renderVerPrefacturas, renderAdProvMarca, renderCliBuscar, renderPrefacturas, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar, renderProgPrefacturar, renderDnuevo, renderDbuscar} from '../controllers/erp/administracion.controller.js';
 import { renderCoBuscar, renderCoNuevo, renderCoRequerir } from '../controllers/erp/contabilidad.controller.js';
-import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc, renderContratos, renderSignature, renderContrato, renderPastContrato } from '../controllers/erp/contabilidad.controller.js'
-import {renderPrefacturar, renderMultiremision} from '../controllers/administracion/prefactura.controller.js'
+import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc, renderContratos, renderSignature, renderContrato, renderPastContrato, renderDocV} from '../controllers/erp/contabilidad.controller.js'
 //? Middlewares
 import { authenticateUser, isAdmin } from '../middlewares/auth.js';
 import { authenticateSignature } from '../middlewares/signature.js';
@@ -87,8 +86,10 @@ rutas.get('/dashboard/operacion/folios/pendientes', renderPendientes)
 //?llllllllllllllllllllllllllllll
 rutasErp.get('/dashboard/administracion/clientes/nuevo', [authenticateUser, isAdmin], renderCliNuevo)
 rutasErp.get('/dashboard/administracion/clientes/buscar', [authenticateUser, isAdmin], renderCliBuscar)
-rutasErp.get('/dashboard/administracion/facturas/prefacturar', [authenticateUser, isAdmin], renderPrefacturar)
-rutasErp.get('/dashboard/administracion/facturas/multiremision',[authenticateUser, isAdmin], renderMultiremision)
+rutasErp.get('/dashboard/administracion/facturas/prefacturar', [authenticateUser, isAdmin], renderPrefacturas)
+rutasErp.get('/dashboard/administracion/prefacturas/programar',[authenticateUser, isAdmin], renderProgPrefacturar)
+rutasErp.get('/dashboard/administracion/prefacturas/ver',[authenticateUser, isAdmin], renderVerPrefacturas)
+rutasErp.get('/dashboard/administracion/prefacturas/editar/:id',[authenticateUser, isAdmin], renderVerPprefactura)
 /*
 rutas.get('/dashboard/administracion/proveedores', render)
 rutas.get('/dashboard/administracion/proveedores', render)
@@ -108,11 +109,11 @@ rutasErp.get('/dashboard/administracion/disciplina/buscar', [authenticateUser, i
 rutasErp.get('/dashboard/administracion/proveedores/nuevo', [authenticateUser, isAdmin], renderPBNuevo)
 rutasErp.get('/dashboard/administracion/proveedores/buscar', [authenticateUser, isAdmin], renderPBBuscar)
 
-/*
-rutas.get('/dashboard/administracion/', render)
-rutas.get('/dashboard/administracion/', render)
 
-*/
+rutasErp.get('/dashboard/administracion/dispositivos/nuevo', [authenticateUser, isAdmin], renderDnuevo)
+rutasErp.get('/dashboard/administracion/dispositivos/buscar', [authenticateUser, isAdmin], renderDbuscar)
+
+
 
 //?llllllllllllllllllllllllllllll
 //?Contabilidad Routes
@@ -132,6 +133,7 @@ rutasErp.get('/dashboard/contabilidad/empleados/todos', [authenticateUser, isAdm
 rutasErp.get('/dashboard/contabilidad/empleados/:id', [authenticateUser, isAdmin], renderEmployee)
 rutasErp.get('/dashboard/contabilidad/empleados/contrato/:id', [authenticateUser, isAdmin], renderContEmployee)
 rutasErp.get('/dashboard/documento/:id', [authenticateUser, isAdmin], renderDoc)
+rutasErp.get('/dashboard/documento/v/:id', [authenticateUser, isAdmin], renderDocV)
 rutasErp.get('/dashboard/contabilidad/empleados/ver/contratos', [authenticateUser, isAdmin], renderContratos)
 rutasErp.get('/signature/:id', authenticateSignature, renderSignature)
 rutasErp.get('/dashboard/contabilidad/empleados/ver/contrato/:id', [authenticateUser, isAdmin], renderContrato)
