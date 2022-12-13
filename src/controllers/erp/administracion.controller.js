@@ -1,3 +1,4 @@
+import { render } from 'preact/compat'
 import { pool } from '../../db.js'
 import { getEmpresa, getSucursal, getCentrodeCosto } from '../erp/contabilidad.controller.js'
 
@@ -302,10 +303,31 @@ export const renderCbuscar = async (req, res) => {
 
 //! End render cables 
 
-//? Render Facturas
+//? Render Facturas 
+export const renderFbuscar = async (req, res) => {
+    const prefacturas = await prefactura()
+    return render('administracion/facturas/facturas', { prefacturas })   
+}
 
 //! Render Facturas
 
 //? Render Facturar
+export const renderFacturar = async (req, res) => {
+    try {
+        const sucursal = await getSucursal()
+        const empresa = await getEmpresa()
+        const centroCostos = await getCentrodeCosto()
+        const cliente = await getClientes()
+        const inversion = await getInversion()
+        const cotizacion = await getCotizacion()
+        const folios = await getFolios()
+        const remision = await getPrefacturaRemision()
+        const moneda = await getMoneda()
+        const tipoVenta = await getFactura()
 
+        return res.render('administracion/facturas/facturar', { sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta })
+    } catch (error) {
+        console.log(error)
+    }
+}
 //! End render facturar
