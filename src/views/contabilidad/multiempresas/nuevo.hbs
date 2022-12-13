@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Buscar Disciplina <span class="fw-300"><i>DOTDCD - ERP</i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <form action="/addEmpresa" class="container" method="post">
+                        <div class="row mt-6">
+                            <div class="col-md-6">
+                                <label for="Razon social">Razon Social</label>
+                                <input type="text" class="form-control" name="empresa_razon_social" placeholder="Ingrese la razon social">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Direccion">Direccion</label>
+                                <input type="text" class="form-control" name="empresa_direccion" placeholder="Ingrese la direccion">
+                            </div>
+                        </div>
+
+                        <div class="row mt-6">
+                            <div class="col-md-6">
+                                <label for="Colonia ">Colonia </label>
+                                <input type="text" class="form-control" name="empresa_colonia" placeholder="Ingrese la colonia">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Ciudad y estado">Ciudad y estado</label>
+                                <input type="text" class="form-control" name="empresa_ciudad_estado" placeholder="Ingrese la ciudad y/o estado">
+                            </div>
+                        </div>
+
+                        <div class="row mt-6">
+                            <div class="col-md-4">
+                                <label for="RFC">RFC</label>
+                                <input type="text" class="form-control" name="empresa_rfc" placeholder="Ingrese el rfc">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="Teléfono">Teléfono</label>
+                                <input type="text" class="form-control" name="empresa_telefono" placeholder="Ingrese el telefono">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="Regisrto Patronal">Registro Patronal</label>
+                                <input type="text" class="form-control" name="empresa_registro_patronal" placeholder="Ingrese registro patronal">
+                            </div>
+                        </div>
+
+                        <div class="row mt-6">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4 text-center">
+                                <button type="submit" class="btn btn-primary btn-lg mt-3">Guardar</button>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

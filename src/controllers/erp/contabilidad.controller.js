@@ -115,12 +115,10 @@ export const renderEmployee = async(req, res) => {
 }
 
 export const renderCoBuscar = async(req, res) => {
-
-
     let invArray = []
     const inv = await  pool.query("SELECT inversion_clave as clave, Inversion_descripcion as descripcion, inversion_estatus_baja as estatus FROM `inversiones`")
     inv[0].forEach(i => {
-        const istatus = (i.estatus == 0) ? 'Inactivo' : 'Activo'
+        const istatus = (i.estatus == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>"  : "<span class='badge badge-success badge-pill'>Activo</span>"
         invArray.push([i.clave, i.descripcion, istatus])
     });
 
@@ -326,4 +324,32 @@ export const renderEmTodos = async(req, res) => {
 
 export const renderContEmployee = async(req, res) => {
     res.render('contabilidad/empleados/contrato')
+}
+
+
+//? Render Multiempresas
+export const renderBMultiempresas = async(req, res) => {
+    try {
+        let multiArray = []
+        const empresas = await pool.query("SELECT empresa_razon_social, empresa_direccion, empresa_colonia, empresa_ciudad_estado, empresa_rfc, empresa_telefono, empresa_registro_patronal FROM multiempresa")
+        for (const m of empresas[0]) {
+            const cstatus = (m.status == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
+            multiArray.push([m.empresa_razon_social, m.empresa_direccion, m.empresa_colonia, m.empresa_ciudad_estado, m.empresa_rfc, m.empresa_telefono, m.empresa_registro_patronal, cstatus])
+        }
+        console.log(multiArray)
+        return res.render('contabilidad/multiempresas/buscar', {multiArray})
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const renderNMultiempresas = async(req, res) => {
+    res.render('contabilidad/multiempresas/nuevo')
+}
+
+
+//! End Render Multiempresas
+
+//? render jornadas
+export const renderJornadas = async(req, res) => {
+    res.render('contabilidad/jornadas/jornadas')
 }

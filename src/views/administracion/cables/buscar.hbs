@@ -17,20 +17,11 @@
 			<div class="panel-container show">
 				<div class="panel-content">
 					<!-- datatable start -->
-					<table id="pBuscar" class=" table table-bordered table-hover table-striped w-100">
+					<table id="cablesTable" class=" table table-bordered table-hover table-striped w-100">
 						<thead class="bg-primary-600">
 							<tr>
-								<th>Razón Social</th>
-							    <th>Contacto</th>
-                                <th>Mail de Proveedor</th>
-							    <th>Teléfono</th>
-								<th>Direccion</th>
-								<th>RFC</th>
-                                <th>Web</th>
-                                <th>Usuario y Password</th>
-                                <th>Dias de Credito</th>
-                                <th>Limite de Credito</th>
-                                <th>Tipo de Proveedor</th>
+								<th>Descripcion</th>
+							    <th>Clave</th>
                                 <th>Estatus</th>
 							</tr>
 						</thead>
@@ -51,14 +42,14 @@
 <script src="/js/datagrid/datatables/datatables.export.js"></script>
 
 <script>
-	const provedores = {{{json provBuscar}}}
+	const cables = {{{json cableArray}}}
 	
 $(document).ready(function () {
 
 		// initialize datatable
-		$('#pBuscar').dataTable(
+		$('#cablesTable').dataTable(
 			{
-				data: provedores,
+				data: cables,
 				responsive: true,
 				lengthChange: false,
 				dom:

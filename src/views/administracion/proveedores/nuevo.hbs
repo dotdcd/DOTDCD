@@ -16,55 +16,83 @@
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
-                    <div id="metasAll">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-6">
-                                    <form method="post" class="form-group">
-                                        <label class="form-label" for="simpleinput">
-                                            <h3>Agregar Proveedor</h3>
-                                        </label><br>
-                                        <span>Razón Social</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1 display-4"
-                                            placeholder="Ingresa el razon social" autofocus> <br>
-                                        <span>Dirección</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el direccion"> <br>
-                                        <span>RFC</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1 "
-                                            placeholder="Ingresa el RFC"> <br>
-                                        <span> Teléfono </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el telefono"> <br>
-                                        <span>Contacto</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa contacto "> <br>
-                                        <span>Sitio Web</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa web "> <br>
-                                        <span>Usuario y Contraseña</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa usuario y contraseña"> <br>
-                                        <span>Correo del Proveedor</span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el mail del proveedor"> <br>
-                                        <span> Días de Crédito </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa los dias de credito"> <br>
-                                        <span> Límite de Crédito </span>
-                                        <input type="text" id="simpleinput" class="form-control mb-1"
-                                            placeholder="Ingresa el limite de credito">
-
-                                        <br><br>
-                                        <button type="button"
-                                            class="btn-outline-info btn-lg btn-block ">Agregar</button>
-                                    </form>
-                                    <div class="col-md-3"></div>
-                                </div>
+                    <form action="/addProveedor" method="post" class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <span>Razón Social</span>
+                                <input type="text" id="simpleinput" class="form-control mb-1 display-4"
+                                    placeholder="Ingresa el razon social" autofocus name="proveedor_razon_social"> <br>
+                            </div>
+                            <div class="col-md-4">
+                                <span>Dirección</span>
+                                <input type="text" id="simpleinput" class="form-control mb-1"
+                                    placeholder="Ingresa el direccion" name="proveedor_direccion"> <br>
+                            </div>
+                            <div class="col-md-4">
+                                <span>RFC</span>
+                                <input type="text" id="simpleinput" class="form-control mb-1 "
+                                    placeholder="Ingresa el RFC" name="proveedor_rfc">
                             </div>
                         </div>
-                    </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <span> Teléfono </span>
+                                <input type="text" id="simpleinput" class="form-control mb-1"
+                                    placeholder="Ingresa el telefono" name="proveedor_telefono"> <br>
+
+
+                            </div>
+                            <div class="col-md-4">
+                                <span>Contacto</span>
+                                <input type="text" id="simpleinput" class="form-control mb-1"
+                                    placeholder="Ingresa contacto " name="proveedor_contacto"> <br>
+                            </div>
+                            <div class="col-md-4">
+                                <span>Sitio Web</span>
+                                <input type="text" id="simpleinput" class="form-control mb-1" placeholder="Ingresa web "
+                                    name="proveedor_web"> <br>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <span>Usuario y Contraseña</span>
+                                <input type="text" id="simpleinput" class="form-control mb-1"
+                                    placeholder="Ingresa usuario y contraseña" name="proveedor_usuario_password">
+                                <br>
+
+                            </div>
+                            <div class="col-md-6">
+                                <span>Correo del Proveedor</span>
+                                <input type="text" id="simpleinput" class="form-control mb-1"
+                                    placeholder="Ingresa el mail del proveedor" name="proveedor_contacto_email">
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <span> Días de Crédito </span>
+                                <input type="text" id="simpleinput" class="form-control mb-1"
+                                    placeholder="Ingresa los dias de credito" name="proveedor_dias_credito">
+                                <br>
+
+                            </div>
+                            <div class="col-md-6">
+                                <span> Límite de Crédito </span>
+                                <input type="text" id="simpleinput" class="form-control mb-1"
+                                    placeholder="Ingresa el limite de credito" name="proveedor_limite_credito">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn-outline-info btn-lg btn-block ">Agregar</button>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

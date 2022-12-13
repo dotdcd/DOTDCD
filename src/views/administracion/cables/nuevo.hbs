@@ -3,7 +3,7 @@
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
                 <h2>
-                    Agregar Inversiones <span class="fw-300"><i></i></span>
+                    Agregar Cables <span class="fw-300"><i></i></span>
                 </h2>
                 <div class="panel-toolbar">
                     <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
@@ -21,17 +21,19 @@
                             <div class="row">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
-                                    <form method="post" class="form-group" action="/addInversion">
+                                    <!-- Formulario  -->
+                                    <form class="form-group" method="post" action="/addCables">
                                         <label class="form-label" for="simpleinput">
-                                            <h3>Agregar Inversiones</h3>
-                                        </label><br>
+                                            <h3>Agregar Cables</h3>
+                                        </label><br/>
                                         <span>Nombre</span>
                                         <input type="text" id="simpleinput" class="form-control"
-                                            placeholder="Ingresa el nombre" autofocus name="Inversion_descripcion"><br>
+                                            placeholder="Ingresa el nombre del cable" name="descripcion" autofocus><br/>
                                         <span>Clave</span>
                                         <input type="text" id="simpleinput" class="form-control"
-                                            placeholder="Ingresa la Clave" name="inversion_clave"><br><br>
-                                        <br>
+                                            placeholder="Ingresa la clave del cable" name="clave" ><br><br>
+
+                                        <br><br>
                                         <button type="submit"
                                             class="btn-outline-info btn-lg btn-block ">Agregar</button>
                                     </form>

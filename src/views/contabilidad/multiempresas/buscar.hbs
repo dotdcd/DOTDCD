@@ -3,7 +3,7 @@
 		<div id="panel-1" class="panel">
 			<div class="panel-hdr">
 				<h2>
-					Buscar Proveedores <span class="fw-300"><i>DOTDCD - ERP</i></span>
+					Buscar Empresa <span class="fw-300"><i>DOTDCD - ERP</i></span>
 				</h2>
 				<div class="panel-toolbar">
 					<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
@@ -17,21 +17,16 @@
 			<div class="panel-container show">
 				<div class="panel-content">
 					<!-- datatable start -->
-					<table id="pBuscar" class=" table table-bordered table-hover table-striped w-100">
+					<table id="multiempresa" class=" table table-bordered table-hover table-striped w-100">
 						<thead class="bg-primary-600">
 							<tr>
-								<th>Razón Social</th>
-							    <th>Contacto</th>
-                                <th>Mail de Proveedor</th>
-							    <th>Teléfono</th>
+								<th>Razon Social</th>
 								<th>Direccion</th>
-								<th>RFC</th>
-                                <th>Web</th>
-                                <th>Usuario y Password</th>
-                                <th>Dias de Credito</th>
-                                <th>Limite de Credito</th>
-                                <th>Tipo de Proveedor</th>
-                                <th>Estatus</th>
+								<th>Colonia</th>
+                                <th>Ciudad y estado</th>
+                                <th>RFC</th>
+                                <th>Teléfono</th>
+                                <th>Registro Patronal</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -51,14 +46,15 @@
 <script src="/js/datagrid/datatables/datatables.export.js"></script>
 
 <script>
-	const provedores = {{{json provBuscar}}}
-	
+	const multiempresaData = {{{ json multiArray }}}
+
+
 $(document).ready(function () {
 
 		// initialize datatable
-		$('#pBuscar').dataTable(
+		$('#multiempresa').dataTable(
 			{
-				data: provedores,
+				data: multiempresaData,
 				responsive: true,
 				lengthChange: false,
 				dom:
