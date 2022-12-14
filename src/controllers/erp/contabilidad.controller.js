@@ -310,6 +310,7 @@ export const renderEmAsignar = async(req, res) => {
     res.render('contabilidad/empleados/asignar')
 }
 
+//?Inversiones
 export const renderCoNuevo = async(req, res) => {
     res.render('contabilidad/inversiones/nuevo')
 }
@@ -317,6 +318,31 @@ export const renderCoNuevo = async(req, res) => {
 export const renderCoRequerir = async(req, res) => {
     res.render('contabilidad/inversiones/requerir')
 }
+
+
+const getInversiones = async() => {
+    try {
+        const inversiones = await pool.query("SELECT * FROM inversiones")
+        return inversiones[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const renderCoEditar = async(req, res) => {
+    const {id} = req.params
+    try {
+        const inversion = await pool.query("SELECT * FROM inversiones WHERE inversion_id = ?", [id])
+        const info = inversion[0][0]
+        res.render('contabilidad/inversiones/editar', {info})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+//! fin render inversiones
+
 
 export const renderEmTodos = async(req, res) => {
     res.render('contabilidad/empleados/todos')
@@ -344,6 +370,26 @@ export const renderBMultiempresas = async(req, res) => {
 }
 export const renderNMultiempresas = async(req, res) => {
     res.render('contabilidad/multiempresas/nuevo')
+}
+
+
+const getEmpresas = async (id) => {
+    try {
+        const empresa = await pool.query("SELECT * FROM multiempresa WHERE empresa_id = ?", [id])
+        return empresa[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const renderEMultiempresas = async(req, res) => {
+    try {
+        const {id} = req.params
+        const empresa = await getEmpresas(id)
+        return res.render('contabilidad/multiempresas/editar', {empresa})
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 

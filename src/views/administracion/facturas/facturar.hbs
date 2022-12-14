@@ -3,7 +3,7 @@
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
                 <h2>
-                    <span class="fw-300"><strong>Crear</strong> <i>Prefactura</i></span>
+                    <span class="fw-300"><strong>Timbrar</strong> <i>Factura</i></span>
                 </h2>
                 <div class="panel-toolbar">
                     <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
@@ -16,12 +16,15 @@
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
+                    <div class="panel-tag">
+                        Estas a punto de crear una factura y timbrarla frente al SAT, recuerda que una vez creada no podras modificarla.  LLena los campos con cuidado y verifica que los datos sean correctos antes de dar click al botón de timbrar."
+                    </div>
                     <div class="row text-center ">
                         <div class="col-12">
-                            <h3 class="display-4">Prefacturar</h3>
+                            <h3 class="display-4">Timbrar Facturar</h3>
                         </div>
                     </div>
-                    <form action="/addPrefactura" method="post">
+                    <form action="" method="post">
                         <div class="container">
                             <div class="row mt-3 mb-3">
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
@@ -266,17 +269,14 @@
                                         <option value="1">Gastos en General</option>
                                         <option value="2">Adquisición de mercancías</option>
                                         <option value="3">Construcciones</option>
-                                        <option value="4">Otros</option>
+                                        <option value="4">Pagos</option>
+                                        <option value="5">Otros</option>
                                     </select>
                                 </div>
 
                             </div>
 
                             <div class="row mt-3 mb-3">
-                                <div class="col-md-4 col-sm-6 col-lg-4 mb-3">
-                                    <label for="" class="font-weight-bold">UUID</label><br>
-                                    <input class="form-control" type="text" name="uuid" id="" placeholder="UUID">
-                                </div>
 
 
                                 <div class="col-md-4 col-sm-6 col-lg-4 mb-3">
@@ -300,24 +300,11 @@
                             </div>
                         </div>
                         <div class="col-md-12 text-center mt-5">
-                            <button type="submit" class="btn btn-outline-success btn-lg">Guardar</button>
+                            <button type="submit" class="btn btn-outline-success btn-lg">Timbrar Factura</button>
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-6 text-center">
-            <a href="/dashboard/administracion/prefacturas/ver"><button class="btn btn-outline-primary btn-lg">Ver
-                    Facturas Programadas</button></a>
-
-        </div>
-        <div class="col-6 text-center">
-            <a href="/dashboard/administracion/prefacturas/programar"><button class="btn btn-outline-btn btn-outline-info btn-lg btn-lg">Programar Prefactura</button></a>
-
         </div>
     </div>
 </div>

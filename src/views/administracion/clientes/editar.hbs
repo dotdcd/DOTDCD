@@ -1,0 +1,116 @@
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Editar Cliente <span class="fw-300"><i></i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div id="metasAll">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form method="post" class="form-group" action="/addCliente">
+                                        <label class="form-label text-center col-12" for="simpleinput">
+                                            <h3 class="text-center">Editar Cliente</h3>
+                                        </label><br>
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <span>Razón Social</span>
+                                                    <input type="text" id="simpleinput"
+                                                        class="form-control mb-1 display-4"
+                                                        placeholder="Ingresa la razon social" name="cliente_razon_social" value="{{cliente.cliente_razon_social}}" autofocus>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span>Calle</span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa la calle y número" name="cliente_calle" value="{{cliente.cliente_calle}}">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span>Colonia</span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1 "
+                                                        placeholder="Ingresa la colonia" name="cliente_colonia" value="{{cliente.cliente_colonia}}">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <span> Municipio </span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el municipio" name="cliente_municipio" value="{{cliente.cliente_municipio}}">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span>Estado</span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el estado " name="cliente_estado" value="{{cliente.cliente_estado}}">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span>Codigo Postal </span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el código postal " name="cliente_codigo_postal" value="{{cliente.cliente_codigo_postal}}">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <span> RFC </span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el RFC" name="cliente_rfc" value="{{cliente.cliente_rfc}}">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span> Teléfono </span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el telefono" name="cliente_telefono" value="{{cliente.cliente_telefono}}">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span> Contacto </span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el contacto" name="cliente_contacto" value="{{cliente.cliente_contacto}}">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <span> Contacto de Cobranza </span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el contacto de cobranza" name="cliente_cobranza" value="{{cliente.cliente_cobranza}}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span> Correo de Cliente </span>
+                                                    <input type="text" id="simpleinput" class="form-control mb-1"
+                                                        placeholder="Ingresa el correo del cliente" name="cliente_email" value="{{cliente.cliente_email}}">
+                                                </div>
+                                    
+                                            </div>
+                                            <div class="row mt-5">
+                                                <div class="col-4"></div>
+                                                <div class="col-md-4">
+                                                    <button type="submit"
+                                                        class="btn-outline-info btn-lg btn-block ">Agregar</button>
+                                                </div>
+                                                <div class="col-4"></div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#section scripts}}
+    
+{{/section}}

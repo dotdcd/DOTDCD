@@ -1,5 +1,7 @@
 import { pool } from '../../db.js'
 
+
+//* Agregar cliente
 export const addCliente = async (req, res) => {
     try {
         const hoy = new Date()
@@ -15,3 +17,39 @@ export const addCliente = async (req, res) => {
         return res.redirect('/dashboard/administracion/clientes/nuevo')
     }
 }
+//! Fin Agregar cliente
+
+//* Actualizar cliente
+export const updCliente = async (req, res) => {
+    const { cliente_razon_social, cliente_rfc, cliente_calle, cliente_numero, cliente_codigo_postal, cliente_colonia, cliente_municipio, cliente_estado, cliente_telefono, cliente_email, cliente_contacto, cliente_cobranza } = req.body
+    try {
+        await pool.query('UPDATE clientes SET ? WHERE cliente_id = ?', [req.body])
+        return res.status(200).json({ message: 'Cliente actualizado correctamente', status: 200 })
+    } catch (error) {
+        return res.status(500).json({message: 'No se puede actualizar el cable', status: 500})
+        return res.redirect('/dashboard/administracion/clientes')
+    }
+}
+//! Fin Actualizar cliente
+
+
+//* Eliminar cliente
+export const delCliente = async (req, res) => {
+    const { cliente_id } = req.params
+    try {
+        await pool.query('DELETE FROM clientes WHERE cliente_id = ?', [cliente_id])
+        return res.status(200).json({ message: 'Cliente eliminado correctamente', status: 200 })
+    } catch (error) {
+        req.flash('error', { title: 'Ooops!', message: 'El cliente no se puede eliminar' })
+        return res.redirect('/dashboard/administracion/clientes')
+        return res.status(500).json({message: 'No se puede eliminar el cable', status: 500})
+    }
+}
+//! Fin Eliminar cliente
+
+
+
+
+
+
+

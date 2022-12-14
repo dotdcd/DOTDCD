@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Editar Inversiones <span class="fw-300"><i></i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div id="metasAll">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <form class="form-group" action="/addInversion">
+                                        <label class="form-label" for="simpleinput">
+                                            <h3>Editar Inversiones</h3>
+                                        </label><br>
+                                        <span>Nombre</span>
+                                        <input type="text" id="simpleinput" class="form-control"
+                                            placeholder="Ingresa el nombre" autofocus name="Inversion_descripcion" value="{{info.Inversion_descripcion}}"><br>
+                                        <span>Clave</span>
+                                        <input type="text" id="simpleinput" class="form-control"
+                                            placeholder="Ingresa la Clave" name="inversion_clave" value="{{info.inversion_clave}}"><br>
+                                            
+                                        <span>Estatus</span>
+                                        <select class="form-control" name="inversion_estatus_baja">
+                                            <option value="0">Activo</option>
+                                            <option value="1">Inactivo</option>
+                                        </select><br>
+                                        <br>
+                                        <br>
+                                        <button type="submit"
+                                            class="btn-outline-info btn-lg btn-block ">Agregar</button>
+                                    </form>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

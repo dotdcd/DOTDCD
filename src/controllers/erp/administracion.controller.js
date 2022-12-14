@@ -42,14 +42,34 @@ export const renderCliNuevo = async (req, res) => {
 
 export const renderCliBuscar = async (req, res) => {
     let cliArray = []
-    const cli = await pool.query("SELECT IF(cliente_razon_social = '', 'SIN AGREGAR', cliente_razon_social) as rsocial, IF(cliente_rfc = '', 'SIN AGREGAR', cliente_rfc) as rfc, IF(cliente_calle = '', 'SIN AGREGAR' , cliente_calle) as calle, IF(cliente_colonia = '', 'SIN AGREGAR', cliente_colonia) as colonia, IF(cliente_municipio = '', 'SIN AGREGAR', cliente_municipio) as municipio, IF(cliente_estado = '', 'SIN AGREGAR', cliente_estado) as estado, IF(cliente_codigo_postal = 0, 'pendiente', cliente_codigo_postal) as cp, IF(cliente_telefono = '', 'SIN AGREGAR', cliente_telefono) as telefono, IF(cliente_contacto = '', 'SIN AGREGAR', cliente_contacto) as contacto, IF(cliente_cobranza = '', 'SIN AGREGAR', cliente_cobranza) as cobranza, IF(cliente_estatus_baja = NULL, 'SIN AGREGAR', cliente_estatus_baja) as estatus FROM clientes")
+    const cli = await pool.query("SELECT cliente_id, IF(cliente_razon_social = '', 'SIN AGREGAR', cliente_razon_social) as rsocial, IF(cliente_rfc = '', 'SIN AGREGAR', cliente_rfc) as rfc, IF(cliente_calle = '', 'SIN AGREGAR' , cliente_calle) as calle, IF(cliente_colonia = '', 'SIN AGREGAR', cliente_colonia) as colonia, IF(cliente_municipio = '', 'SIN AGREGAR', cliente_municipio) as municipio, IF(cliente_estado = '', 'SIN AGREGAR', cliente_estado) as estado, IF(cliente_codigo_postal = 0, 'pendiente', cliente_codigo_postal) as cp, IF(cliente_telefono = '', 'SIN AGREGAR', cliente_telefono) as telefono, IF(cliente_contacto = '', 'SIN AGREGAR', cliente_contacto) as contacto, IF(cliente_cobranza = '', 'SIN AGREGAR', cliente_cobranza) as cobranza, IF(cliente_estatus_baja = NULL, 'SIN AGREGAR', cliente_estatus_baja) as estatus FROM clientes")
     cli[0].forEach(c => {
         const cstatus = (c.status == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
-        cliArray.push([c.rsocial, c.rfc, c.calle, c.colonia, c.municipio, c.estado, c.cp, c.telefono, c.contacto, c.cobranza, cstatus])
+        cliArray.push([c.rsocial, c.rfc, c.calle, c.colonia, c.municipio, c.estado, c.cp, c.telefono, c.contacto, c.cobranza, cstatus, '<center><button type="button" class="btn btn-lg btn-outline-success m-1" onClick="showModalPut({id: ' + c.cliente_id + ', marca_descripcion: ' + "'" + c.cliente_razon_social + "'" + ', marca_estatus: ' + c.cliente_estatus_baja + '})"><i class="fal fa-sync"></i></button>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="showModalDel(' + c.cliente_id + ')"><i class="fal fa-trash-alt"></i></button></center>'])
     });
 
     res.render('administracion/clientes/buscar', { cliArray })
 }
+
+//* Editar cliente
+const getCliente = async (id) => {
+    try {
+        const cliente = await pool.query('SELECT * FROM clientes WHERE cliente_id = ?', [id])
+        return cliente[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const renderCliEditar = async (req, res) => {
+    try {
+        const cliente = await getCliente(req.params.id)
+        res.render('administracion/clientes/editar', { cliente })
+    } catch (error) {
+        console.log(error)
+    }
+}
+//! fin editar cliente
+
 
 //? render Programar prefacturas page
 const getClientes = async () => {
@@ -230,6 +250,25 @@ export const renderPBBuscar = async (req, res) => {
         console.log(error)
     }
 }
+
+const getProveedores = async (id) => {
+    try {
+        const proveedores = await pool.query('SELECT * FROM proveedores WHERE proveedor_id = ?', [id])
+        return proveedores[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const renderPBEditar = async (req, res) => {
+    try {
+        const proveedores = await getProveedores(req.params.id)
+        return res.render('administracion/proveedores/editar', { proveedores })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 //! End proveedores
 
 export const renderDCNuevo = async (req, res) => {
@@ -252,6 +291,20 @@ export const renderDCBuscar = async (req, res) => {
     }
 }
 
+
+const getDisciplina = async (id) => {
+    const disciplina = await pool.query('SELECT * FROM familias WHERE familia_id = ?', [id])
+    return disciplina[0][0]
+}
+export const renderDCEditar = async (req, res) => {
+    try {
+        const { id } = req.params
+        const disciplina = await getDisciplina(id)
+        return res.render('administracion/disciplina/editar', { disciplina })
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 //! End render proveedores
 
@@ -301,12 +354,35 @@ export const renderCbuscar = async (req, res) => {
     }
 }
 
+const getCable = async (id) => {
+    try {
+        const cable = await pool.query('SELECT * FROM cable WHERE cable_id = ?', [id])
+        return cable[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const renderCeditar = async (req, res) => {
+    try {
+        const { id } = req.params
+        const cable = await getCable(id)
+        return res.render('administracion/cables/editar', { cable })
+    } catch (error) {
+        console.log(error)
+    }
+}
 //! End render cables 
 
 //? Render Facturas 
-export const renderFbuscar = async (req, res) => {
-    const prefacturas = await prefactura()
-    return render('administracion/facturas/facturas', { prefacturas })   
+
+export const renderFacturas = async (req, res) => {
+    try {
+        const facturas = await vPrefactura()
+        return res.render('administracion/facturas/facturas', { facturas })   
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 //! Render Facturas

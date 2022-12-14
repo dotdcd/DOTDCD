@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Editar Cables <span class="fw-300"><i></i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div id="metasAll">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <!-- Formulario  -->
+                                    <form class="form-group" >
+                                        <label class="form-label" for="simpleinput">
+                                            <h3>Editar Cables</h3>
+                                        </label><br/>
+                                        <span>Nombre</span>
+                                        <input type="text" id="descripcion" class="form-control"
+                                            placeholder="Ingresa el nombre del cable" name="descripcion" autofocus value="{{cable.descripcion}}"><br/>
+                                        <span>Clave</span>
+                                        <input type="text" id="clave" class="form-control"
+                                            placeholder="Ingresa la clave del cable" name="clave" value="{{cable.clave}}"><br> 
+                                        
+                                        <span>Estatus</span>
+                                        <select name="cable_estatus_baja" id="cable_estatus_baja" class="form-control">
+                                            <option value="" disabled></option>
+                                            <option value="1" selected>Activo</option>
+                                            <option value="0">Inactivo</option>
+                                        </select>
+                                        <br><br>
+
+                                        <br><br>
+                                        <button type="button"
+                                            class="btn-outline-info btn-lg btn-block " onclick="subira()">Agregar</button>
+                                    </form>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    console.log("SCRIPTS")
+	 function subira() {
+        await axios.put('/cables/{{cable.id}}', {
+            descripcion: document.getElementById('descripcion').value,
+            clave: document.getElementById('clave').value,
+            estatus_baja: document.getElementById('cable_estatus_baja').value
+        })
+        .then(function (response) {
+            console.log(response);
+            window.location.href = "/cables";
+        })}
+</script>
+{{#section 'scripts'}}
+
+
+{{/section}}
+
+

@@ -30,8 +30,8 @@
 								<th>Teléfono</th>
 								<th>Contacto</th>
 								<th>Correo</th>
-								
 								<th>Estatus</th>
+								<th>Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -49,8 +49,108 @@
 
 <script src="/js/datagrid/datatables/datatables.bundle.js"></script>
 <script src="/js/datagrid/datatables/datatables.export.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.5/dist/sweetalert2.all.min.js"></script>
 
 <script>
+	//? Hice esto pero no jala :( 
+	
+	async function showModalPut(data) {
+		const { value: formValues } = await Swal.fire({
+			title: 'Editar Cliente',
+			html:
+				'<input id="swal-input1" class="swal2-input" value="' + data.cliente_razon_social + '" placeholder="Ingresa el razon social del cliente" required autofocus>' +
+				'<select id="swal-input2" class="swal2-input" required autofocus>' +
+				'<option value="0" ' + (data.cliente_estatus_baja == 0 ? 'selected' : '') + '>Activo</option>' +
+				'<option value="1" ' + (data.cliente_estatus_baja == 1 ? 'selected' : '') + '>Inactivo</option>' +
+				'</select>'+
+				'<input id="swal-input3" class="swal2-input" value="'+ data.cliente_rfc +'">' +
+				'<input id="swal-input4" class="swal2-input" value="'+ data.cliente_calle +'">' +
+				'<input id="swal-input5" class="swal2-input" value="'+ data.cliente_colonia +'">' +
+				'<input id="swal-input6" class="swal2-input" value="'+ data.cliente_municipio +'">' +
+				'<input id="swal-input7" class="swal2-input" value="'+ data.cliente_estado +'">' +
+				'<input id="swal-input8" class="swal2-input" value="'+ data.cliente_codigo_postal +'">' +
+				'<input id="swal-input9" class="swal2-input" value="'+ data.cliente_telefono +'">' +
+				'<input id="swal-input10" class="swal2-input" value="'+ data.cliente_contacto +'">' +
+				'<input id="swal-input11" class="swal2-input" value="'+ data.cliente_correo +'">',
+
+			focusConfirm: false,
+			preConfirm: () => {
+				$.ajax({
+					type: 'PUT',
+					url: '/updCliente',
+					dataType: 'json',
+					data: { 
+						cliente_id: data.cliente_id,
+						cliente_razon_social: $('#swal-input1').val(),
+						cliente_estatus_baja: $('#swal-input2').val(),
+						cliente_rfc: $('#swal-input3').val(),
+						cliente_calle: $('#swal-input4').val(),
+						cliente_colonia: $('#swal-input5').val(),
+						cliente_municipio: $('#swal-input6').val(),
+						cliente_estado: $('#swal-input7').val(),
+						cliente_codigo_postal: $('#swal-input8').val(),
+						cliente_telefono: $('#swal-input9').val(),
+						cliente_contacto: $('#swal-input10').val(),
+						cliente_correo: $('#swal-input11').val()
+						
+					},
+					success: function (resp) {
+						if (resp.status == 200) {
+							swal.fire({
+								title: "Cliente actualizado!",
+								text: resp.message,
+								preConfirm() {
+									location.reload();
+								}
+							})
+						} else {
+							swal.fire("Error!", resp.message, "error");
+						}
+					},
+					error: function (resp) {
+						swal.fire("Error!", resp.message, "error");
+					}
+				});
+			}
+		})
+	}
+	function showModalDel(id) {
+		swal.fire({
+			title: '¿Estas seguro?',
+			text: "Esta acción no se puede deshacer! \n ¿Deseas continuar?",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, eliminar!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+					type: 'DELETE',
+					url: '/administracion/clientes/delCielnte/' + id,
+					dataType: 'json',
+					success: function (resp) {
+						if (resp.status == 200) {
+							swal.fire({
+								title: "Cliente eliminado!",
+								text: resp.message,
+								preConfirm() {
+									location.reload();
+								}
+							})
+						} else {
+							swal.fire("Error!", resp.message, "error");
+						}
+					},
+					error: function (resp) {
+						swal.fire("Error!", resp.message, "error");
+					}
+				});
+			}
+		})
+	}
+
+
 	const cli = {{{ json cliArray }}}
 	console.log(cli)
 	$(document).ready(function () {
