@@ -3,7 +3,7 @@
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
                 <h2>
-                    Editar Disciplina <span class="fw-300"><i>DOTDCD - ERP</i></span>
+                    Editar Empresa <span class="fw-300"><i>DOTDCD - ERP</i></span>
                 </h2>
                 <div class="panel-toolbar">
                     <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
@@ -16,50 +16,71 @@
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
-                    <form action="/addEmpresa" class="container" method="post">
+                    <form action="/updEmpresa/{{empresa.empresa_id}}" class="container" method="post">
+                    <h3 class="text-center">Editar Emprea</h3>
                         <div class="row mt-6">
                             <div class="col-md-6">
                                 <label for="Razon social">Razon Social</label>
-                                <input type="text" class="form-control" name="empresa_razon_social" placeholder="Ingrese la razon social" value="{{empresa.empresa_razon_social}}">
+                                <input type="text" class="form-control" name="empresa_razon_social"
+                                    placeholder="Ingrese la razon social" value="{{empresa.empresa_razon_social}}">
                             </div>
                             <div class="col-md-6">
                                 <label for="Direccion">Direccion</label>
-                                <input type="text" class="form-control" name="empresa_direccion" placeholder="Ingrese la direccion" value="{{empresa.empresa_direccion}}">
+                                <input type="text" class="form-control" name="empresa_direccion"
+                                    placeholder="Ingrese la direccion" value="{{empresa.empresa_direccion}}">
                             </div>
                         </div>
 
                         <div class="row mt-6">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="Colonia ">Colonia </label>
-                                <input type="text" class="form-control" name="empresa_colonia" placeholder="Ingrese la colonia" value="{{empresa.empresa_colonia}}">
+                                <input type="text" class="form-control" name="empresa_colonia"
+                                    placeholder="Ingrese la colonia" value="{{empresa.empresa_colonia}}">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label for="">Estatus</label>
+                                <select class="form-control" name="empresa_estatus_baja" id="">
+                                    <option value="0">Activo</option>
+                                    <option value="1">Inactivo</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
                                 <label for="Ciudad y estado">Ciudad y estado</label>
-                                <input type="text" class="form-control" name="empresa_ciudad_estado" placeholder="Ingrese la ciudad y/o estado" value="{{empresa.empresa_ciudad_estado}}">
+                                <input type="text" class="form-control" name="empresa_ciudad_estado"
+                                    placeholder="Ingrese la ciudad y/o estado"
+                                    value="{{empresa.empresa_ciudad_estado}}">
                             </div>
                         </div>
 
                         <div class="row mt-6">
                             <div class="col-md-4">
                                 <label for="RFC">RFC</label>
-                                <input type="text" class="form-control" name="empresa_rfc" placeholder="Ingrese el rfc" value="{{empresa.empresa_rfc}}">
+                                <input type="text" class="form-control" name="empresa_rfc" placeholder="Ingrese el rfc"
+                                    value="{{empresa.empresa_rfc}}">
                             </div>
                             <div class="col-md-4">
                                 <label for="Teléfono">Teléfono</label>
-                                <input type="text" class="form-control" name="empresa_telefono" placeholder="Ingrese el telefono" value="{{empresa.empresa_telefono}}">
+                                <input type="text" class="form-control" name="empresa_telefono"
+                                    placeholder="Ingrese el telefono" value="{{empresa.empresa_telefono}}">
                             </div>
                             <div class="col-md-4">
                                 <label for="Regisrto Patronal">Registro Patronal</label>
-                                <input type="text" class="form-control" name="empresa_registro_patronal" placeholder="Ingrese registro patronal" value="{{empresa.empresa_registro_patronal}}">
+                                <input type="text" class="form-control" name="empresa_registro_patronal"
+                                    placeholder="Ingrese registro patronal"
+                                    value="{{empresa.empresa_registro_patronal}}">
                             </div>
                         </div>
 
-                        <div class="row mt-6">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-4 text-center">
-                                <button type="submit" class="btn btn-primary btn-lg mt-3">Guardar</button>
+                        <div class="row mt-5">
+                            <div class="col-2"></div>
+                            <div class="col-md-4">
+                                <a href="/dashboard/contabilidad/multiempresas/buscar"><button
+                                        class="btn-outline-danger btn-lg btn-block">Cancelar</button></a>
                             </div>
-                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn-outline-info btn-lg btn-block ">Actualizar</button>
+                            </div>
+                            <div class="col-2"></div>
                         </div>
                     </form>
                 </div>

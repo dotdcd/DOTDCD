@@ -55,11 +55,9 @@
 
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                    <label for="" class="font-weight-bold">Empleado que Documenta</label><br>
-                                    <select name="factura_empleado_id" id="" class="form-control">
-                                        <option value="" selected disabled></option>
-                                        <option value="{{session.userId}}" selected>{{session.username}}</option>
-                                    </select>
+                                    <label for="" class="font-weight-bold">Folio</label><br>
+                                    <input class="form-control" type="text" name="folio" id=""
+                                        placeholder="Folio">
                                 </div>
 
                             </div>
@@ -243,8 +241,8 @@
                             <div class="row mt-3 mb-3">
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                    <label for="" class="font-weight-bold">Fecha Alta</label><br>
-                                    <input class="form-control" type="date" name="factura_fecha_alta" id="">
+                                    <label for="" class="font-weight-bold">Fecha Alta (no menor a 72 horas)</label><br>
+                                    <input class="form-control" type="date" name="factura_fecha_alta" id="" max="{{{maxminDate 1}}}">
                                 </div>
 
 
@@ -279,20 +277,41 @@
                             <div class="row mt-3 mb-3">
 
 
-                                <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
-                                    <label for="" class="font-weight-bold">Clave Producto Servicio</label><br>
-                                    <input class="form-control" type="text" name="clave" id=""
-                                        placeholder="Clave de producto">
-                                </div>
-
                                 <div class="col-md-4 col-sm-6 col-lg-4 mb-3">
                                     <label for="" class="font-weight-bold">Forma de Pago</label><br>
                                     <select name="forma_pago" id="" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
-                                        <option value="1">Cheque</option>
-                                        <option value="2">Transferencia</option>
-                                        <option value="3">Efectivo</option>
-                                        <option value="4">Por Definir</option>
+                                        <option value="01">Efectivo</option>
+                                        <option value="02">Cheque nominativo</option>
+                                        <option value="03">Transferencia electrónica de fondos</option>
+                                        <option value="04">Tarjeta de crédito</option>
+                                        <option value="05">Monedero Electrónico</option>
+                                        <option value="06">Dinero electrónico</option>
+                                        <option value="08">Vales de despensa</option>
+                                        <option value="12">Dación en pago</option>
+                                        <option value="13">Pago por subrogación</option>
+                                        <option value="14">Pago por consignación</option>
+                                        <option value="15">Condonación</option>
+                                        <option value="17">Compensación</option>
+                                        <option value="23">Novación</option>
+                                        <option value="24">Confusión</option>
+                                        <option value="25">Remisión de deuda</option>
+                                        <option value="26">Prescripción o caducidad</option>
+                                        <option value="27">A satisfacción del acreedor</option>
+                                        <option value="28">Tarjeta de débito</option>
+                                        <option value="29">Tarjeta de servicios</option>
+                                        <option value="30">Aplicación de anticipos</option>
+                                        <option value="31">Intermediario pagos</option>
+                                        <option value="99">Por definir</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6 col-lg-4 mb-3">
+                                    <label for="" class="font-weight-bold">Metodo de pago</label><br>
+                                    <select name="mpago" id="" class="form-control">
+                                        <option selected disabled value="">Seleccionar</option>
+                                        <option value="PPD">Pago en parcialidades o diferido</option>
+                                        <option value="PUE">Pago en una sola exhibición</option>
                                     </select>
                                 </div>
 
@@ -303,6 +322,9 @@
                                         placeholder="Crédito de Pago Negociado">
                                 </div>
 
+                            </div>
+                            <div class="row mt-3">
+                                <h1>Conceptos</h1>
                             </div>
                             <div class="row mt-3 mb-3">
 
@@ -329,6 +351,11 @@
                             </div>
                             <div class="row mt-3 mb-3">
 
+                                <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
+                                    <label for="" class="font-weight-bold">Clave Producto Servicio</label><br>
+                                    <input class="form-control" type="text" name="clave" id=""
+                                        placeholder="Clave de producto">
+                                </div>
 
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
                                     <label for="" class="font-weight-bold">Importe</label><br>

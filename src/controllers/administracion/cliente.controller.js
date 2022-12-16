@@ -17,8 +17,10 @@ export const addCliente = async (req, res) => {
 
 //* Actualizar cliente
 export const updCliente = async (req, res) => {
+    const cliente_id = req.params.id
+    const {  cliente_razon_social, cliente_rfc, cliente_calle, cliente_numero, cliente_codigo_postal, cliente_colonia, cliente_municipio, cliente_estado, cliente_telefono, cliente_email, cliente_contacto, cliente_cobranza, cliente_estatus_baja  } = req.params
     try {
-        await pool.query('UPDATE clientes SET ? WHERE cliente_id = ?', [req.body, req.params.id])
+        await pool.query('UPDATE clientes SET ? WHERE cliente_id = '+ cliente_id, [req.body])
         return res.redirect('/dashboard/administracion/clientes/buscar')
     } catch (error) {
         console.log(error)

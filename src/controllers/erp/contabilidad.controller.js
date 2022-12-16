@@ -116,10 +116,10 @@ export const renderEmployee = async(req, res) => {
 
 export const renderCoBuscar = async(req, res) => {
     let invArray = []
-    const inv = await  pool.query("SELECT inversion_clave as clave, Inversion_descripcion as descripcion, inversion_estatus_baja as estatus FROM `inversiones`")
+    const inv = await  pool.query("SELECT inversion_id, inversion_clave as clave, Inversion_descripcion as descripcion, inversion_estatus_baja as estatus FROM `inversiones`")
     inv[0].forEach(i => {
         const istatus = (i.estatus == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>"  : "<span class='badge badge-success badge-pill'>Activo</span>"
-        invArray.push([i.clave, i.descripcion, istatus])
+        invArray.push([i.clave, i.descripcion, istatus, '<center><a href="/dashboard/contabilidad/inversiones/editar/'+i.inversion_id+'"><button type="button" class="btn btn-lg btn-outline-success m-1"><i class="fal fa-sync"></i></button></a> <button type="button" class="btn btn-lg btn-outline-danger" onClick="delInversion(' + i.inversion_id + ')"><i class="fal fa-trash-alt"></i></button></center>'])
     });
 
     res.render('contabilidad/inversiones/buscar', {invArray})
@@ -357,12 +357,11 @@ export const renderContEmployee = async(req, res) => {
 export const renderBMultiempresas = async(req, res) => {
     try {
         let multiArray = []
-        const empresas = await pool.query("SELECT empresa_razon_social, empresa_direccion, empresa_colonia, empresa_ciudad_estado, empresa_rfc, empresa_telefono, empresa_registro_patronal FROM multiempresa")
+        const empresas = await pool.query("SELECT empresa_id, empresa_razon_social, empresa_direccion, empresa_colonia, empresa_ciudad_estado, empresa_rfc, empresa_telefono, empresa_registro_patronal, empresa_estatus_baja FROM multiempresa")
         for (const m of empresas[0]) {
-            const cstatus = (m.status == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
-            multiArray.push([m.empresa_razon_social, m.empresa_direccion, m.empresa_colonia, m.empresa_ciudad_estado, m.empresa_rfc, m.empresa_telefono, m.empresa_registro_patronal, cstatus])
+            const cstatus = (m.empresa_estatus_baja == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
+            multiArray.push([m.empresa_razon_social, m.empresa_direccion, m.empresa_colonia, m.empresa_ciudad_estado, m.empresa_rfc, m.empresa_telefono, m.empresa_registro_patronal, cstatus, '<center><a href="/dashboard/contabilidad/multiempresas/editar/'+m.empresa_id+'"><button type="button" class="btn btn-lg btn-outline-success m-1"><i class="fal fa-sync"></i></button></a> <button type="button" class="btn btn-lg btn-outline-danger" onClick="delEmpresa(' + m.empresa_id + ')"><i class="fal fa-trash-alt"></i></button></center>'])
         }
-        console.log(multiArray)
         return res.render('contabilidad/multiempresas/buscar', {multiArray})
     } catch (error) {
         console.log(error)

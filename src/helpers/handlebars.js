@@ -92,6 +92,17 @@ export const helpers = {
             }
 
         }
+    },
+    maxminDate: function (a) {
+        const hoy = new Date()
+        const current = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate()
+        if (a == 1) {
+            return current
+        } else {
+            const min = hoy.getFullYear() + 1 + '-' + (hoy.getMonth() + 1) + '-' + (hoy.getDate() - 3)
+            console.log(min)
+            return min
+        }
     }
 }
 

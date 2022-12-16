@@ -23,9 +23,9 @@ export const addDisciplina = async (req, res) => {
 
 //* Actualizar familia / disciplina
 export const updDisciplina = async (req, res) => {
+    const { familia_clave, familia_descripcion, familia_estatus_baja } = req.body
     try {
-        const { familia_clave, familia_descripcion } = req.body
-        await pool.query('UPDATE familias set ? WHERE familia_id = ?', [req.body, req.params.id ])
+        await pool.query('UPDATE familias set ? WHERE familia_id = '+req.params.id, { familia_clave, familia_descripcion, familia_estatus_baja })
         req.flash('success', { title: 'Familia / Disciplina actualizada', message: 'La Disciplina se ha actualizado correctamente' })
         return res.redirect('/dashboard/administracion/disciplina/buscar')
     } catch (error) {

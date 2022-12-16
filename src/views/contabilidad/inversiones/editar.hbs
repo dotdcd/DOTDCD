@@ -21,17 +21,19 @@
                             <div class="row">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
-                                    <form class="form-group" action="/addInversion">
+                                    <form action="/updInversion/{{info.inversion_id}}" class="container" method="post">
                                         <label class="form-label" for="simpleinput">
                                             <h3>Editar Inversiones</h3>
                                         </label><br>
                                         <span>Nombre</span>
                                         <input type="text" id="simpleinput" class="form-control"
-                                            placeholder="Ingresa el nombre" autofocus name="Inversion_descripcion" value="{{info.Inversion_descripcion}}"><br>
+                                            placeholder="Ingresa el nombre" autofocus name="Inversion_descripcion"
+                                            value="{{info.Inversion_descripcion}}"><br>
                                         <span>Clave</span>
                                         <input type="text" id="simpleinput" class="form-control"
-                                            placeholder="Ingresa la Clave" name="inversion_clave" value="{{info.inversion_clave}}"><br>
-                                            
+                                            placeholder="Ingresa la Clave" name="inversion_clave"
+                                            value="{{info.inversion_clave}}"><br>
+
                                         <span>Estatus</span>
                                         <select class="form-control" name="inversion_estatus_baja">
                                             <option value="0">Activo</option>

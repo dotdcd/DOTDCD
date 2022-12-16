@@ -17,21 +17,25 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <form action="/updProveedor/{{proveedores.proveedor_id}}" method="post" class="container">
+                    <h1 class="text-center mb-6">Editar Proveedor</h1>
                         <div class="row">
                             <div class="col-md-4">
                                 <span>Razón Social</span>
                                 <input type="text" id="simpleinput" class="form-control mb-1 display-4"
-                                    placeholder="Ingresa el razon social" autofocus name="proveedor_razon_social" value="{{proveedores.proveedor_razon_social}}"> <br>
+                                    placeholder="Ingresa el razon social" autofocus name="proveedor_razon_social"
+                                    value="{{proveedores.proveedor_razon_social}}"> <br>
                             </div>
                             <div class="col-md-4">
                                 <span>Dirección</span>
                                 <input type="text" id="simpleinput" class="form-control mb-1"
-                                    placeholder="Ingresa el direccion" name="proveedor_direccion" value="{{proveedores.proveedor_direccion}}"> <br>
+                                    placeholder="Ingresa el direccion" name="proveedor_direccion"
+                                    value="{{proveedores.proveedor_direccion}}"> <br>
                             </div>
                             <div class="col-md-4">
                                 <span>RFC</span>
                                 <input type="text" id="simpleinput" class="form-control mb-1 "
-                                    placeholder="Ingresa el RFC" name="proveedor_rfc" value="{{proveedores.proveedor_rfc}}" required>
+                                    placeholder="Ingresa el RFC" name="proveedor_rfc"
+                                    value="{{proveedores.proveedor_rfc}}" required>
                             </div>
                         </div>
 
@@ -39,34 +43,46 @@
                             <div class="col-md-4">
                                 <span> Teléfono </span>
                                 <input type="text" id="simpleinput" class="form-control mb-1"
-                                    placeholder="Ingresa el telefono" name="proveedor_telefono"value="{{proveedores.proveedor_telefono}}"> <br>
+                                    placeholder="Ingresa el telefono" name="proveedor_telefono"
+                                    value="{{proveedores.proveedor_telefono}}"> <br>
 
 
                             </div>
                             <div class="col-md-4">
                                 <span>Contacto</span>
                                 <input type="text" id="simpleinput" class="form-control mb-1"
-                                    placeholder="Ingresa contacto " name="proveedor_contacto" value="{{proveedores.proveedor_contacto}}"> <br>
+                                    placeholder="Ingresa contacto " name="proveedor_contacto"
+                                    value="{{proveedores.proveedor_contacto}}"> <br>
                             </div>
                             <div class="col-md-4">
                                 <span>Sitio Web</span>
-                                <input type="text" id="simpleinput" class="form-control mb-1" placeholder="Ingresa web " value="{{proveedores.proveedor_web}}"
-                                    name="proveedor_web"> <br>
+                                <input type="text" id="simpleinput" class="form-control mb-1" placeholder="Ingresa web "
+                                    value="{{proveedores.proveedor_web}}" name="proveedor_web"> <br>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <span>Usuario y Contraseña</span>
                                 <input type="text" id="simpleinput" class="form-control mb-1"
-                                    placeholder="Ingresa usuario y contraseña" name="proveedor_usuario_password" value="{{proveedores.proveedor_user_password}}">
+                                    placeholder="Ingresa usuario y contraseña" name="proveedor_usuario_password"
+                                    value="{{proveedores.proveedor_user_password}}">
                                 <br>
 
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <span>Estatus</span>
+                                <select name="proveedor_estatus_baja" class="form-control" id="">
+                                    <option value="0">Activo</option>
+                                    <option value="1">Inactivo</option>
+                                </select>
+                                <br>
+                            </div>
+                            <div class="col-md-4">
                                 <span>Correo del Proveedor</span>
                                 <input type="text" id="simpleinput" class="form-control mb-1"
-                                    placeholder="Ingresa el mail del proveedor" name="proveedor_contacto_email" value="{{proveedores.proveedor_contacto_email}}">
+                                    placeholder="Ingresa el mail del proveedor" name="proveedor_contacto_email"
+                                    value="{{proveedores.proveedor_contacto_email}}">
                                 <br>
                             </div>
                         </div>
@@ -75,22 +91,26 @@
                             <div class="col-md-6">
                                 <span> Días de Crédito </span>
                                 <input type="text" id="simpleinput" class="form-control mb-1"
-                                    placeholder="Ingresa los dias de credito" name="proveedor_dias_credito" value="{{proveedores.proveedor_dias_credito}}">
+                                    placeholder="Ingresa los dias de credito" name="proveedor_dias_credito"
+                                    value="{{proveedores.proveedor_dias_credito}}">
                                 <br>
 
                             </div>
                             <div class="col-md-6">
                                 <span> Límite de Crédito </span>
                                 <input type="text" id="simpleinput" class="form-control mb-1"
-                                    placeholder="Ingresa el limite de credito" name="proveedor_limite_credito" value="{{proveedores.proveedor_limite_credito}}">
+                                    placeholder="Ingresa el limite de credito" name="proveedor_limite_credito"
+                                    value="{{proveedores.proveedor_limite_credito}}">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn-outline-info btn-lg btn-block ">Agregar</button>
+                        <div class="row mt-5">
+                            <div class="col-md-6">
+                                <a href="/dashboard/administracion/proveedores/buscar"><button type="button"
+                                        class="btn-outline-danger btn-lg btn-block">Cancelar</button></a>
                             </div>
-                            <div class="col-md-4"></div>
+                            <div class="col-md-6">
+                                <button type="" class="btn-outline-info btn-lg btn-block ">Actualizar</button>
+                            </div>
                         </div>
                     </form>
                 </div>

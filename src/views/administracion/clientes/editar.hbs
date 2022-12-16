@@ -79,25 +79,36 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <span> Contacto de Cobranza </span>
                                                     <input type="text" id="simpleinput" class="form-control mb-1"
                                                         placeholder="Ingresa el contacto de cobranza" name="cliente_cobranza" value="{{cliente.cliente_cobranza}}">
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
+                                                    <span>Estatus</span>
+                                                    <select name="cliente_estatus_baja" class="form-control" id="">
+                                                        <option value="0">Activo</option>
+                                                        <option value="1">Inactivo</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4">
                                                     <span> Correo de Cliente </span>
                                                     <input type="text" id="simpleinput" class="form-control mb-1"
                                                         placeholder="Ingresa el correo del cliente" name="cliente_email" value="{{cliente.cliente_email}}">
                                                 </div>
                                     
                                             </div>
+
                                             <div class="row mt-5">
-                                                <div class="col-4"></div>
+                                                <div class="col-2"></div>
+                                                <div class="col-md-4">
+                                                    <a href="/dashboard/administracion/clientes/buscar"><button class="btn-outline-danger btn-lg btn-block">Cancelar</button></a>
+                                                </div>
                                                 <div class="col-md-4">
                                                     <button type="submit"
                                                         class="btn-outline-info btn-lg btn-block ">Actualizar</button>
                                                 </div>
-                                                <div class="col-4"></div>
+                                                <div class="col-2"></div>
                                             </div>
                                         </div>
                                     </form>

@@ -3,7 +3,7 @@
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
                 <h2>
-                    Editar Disciplina <span class="fw-300"><i></i></span>
+                    Editar Marca <span class="fw-300"><i></i></span>
                 </h2>
                 <div class="panel-toolbar">
                     <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
@@ -21,31 +21,24 @@
                             <div class="row">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
-                                    <!-- Formulario  -->
-                                    <form class="form-group container" method="post" action="/updDisciplina/{{disciplina.familia_id}}">
-                                        <label class="form-label text-center" for="simpleinput">
-                                            <h3>Editar Disciplina</h3>
-                                        </label><br/>
-                                        <span>Nombre</span>
-                                        <input type="text" id="simpleinput" class="form-control"
-                                            placeholder="Ingresa el nombre de la disciplina" name="familia_descripcion" autofocus value="{{disciplina.familia_descripcion}}"><br/>
-                                        <span>Clave</span>
-                                        <input type="text" id="simpleinput" class="form-control"
-                                            placeholder="Ingresa la clave de la disciplina" name="familia_clave" value="{{disciplina.familia_clave}}"><br><br>
-                                        
-                                        <span>Estatus</span>
-                                        <select name="familia_estatus_baja" class="form-control" id="">
+                                    <form method="post" class="form-group" action="/updMarca/{{marcas.marca_id}}">
+
+                                    <h1 class="text-center">Editar Marca</h1>
+                                        <label class="form-label" for="simpleinput">
+                                            <span> Nombre de la Marca</span>
+                                        </label>
+                                        <input type="text" id="simpleinput" class="form-control" value="{{marcas.marca_descripcion}}" placeholder="Ingresa el nombre de la marca" name="marca_descripcion" required autofocus><br><br>
+                                        <label for="" class="form-label">Estatus</label>
+                                        <select name="marca_estatus_baja" class="form-control mb-6" id="">
                                             <option value="0">Activo</option>
                                             <option value="1">Inactivo</option>
                                         </select>
-
-                                        <br><br>
                                         <div class="row mt-5">
                                                 <div class="col-md-6">
-                                                    <a href="/dashboard/administracion/disciplina/buscar"><button type="button" class="btn-outline-danger btn-lg btn-block">Cancelar</button></a>
+                                                    <a href="/dashboard/administracion/marca/buscar"><button type="button" class="btn-outline-danger btn-lg btn-block">Cancelar</button></a>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <button type=""
+                                                    <button type="submit"
                                                         class="btn-outline-info btn-lg btn-block ">Actualizar</button>
                                                 </div>
                                             </div>

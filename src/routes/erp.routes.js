@@ -6,7 +6,7 @@ import { read } from 'fs-extra';
 import { renderEmployees, renderAnalytics, renderProyectos } from '../controllers/erp/analytics.controller.js';
 import { renderUsuarios } from '../controllers/erp/inicio.controller.js';
 import { renderOpNuevo } from '../controllers/erp/operacion.controller.js';
-import { renderCeditar, renderPBEditar, renderAdBuscar, renderAdNuevo, renderDCEditar, renderVerPprefactura, renderVerPrefacturas, renderAdProvMarca, renderCliBuscar, renderCliEditar, renderPrefacturas, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar, renderProgPrefacturar, renderDnuevo, renderDbuscar, renderCbuscar, renderCnuevo, renderFacturas, renderFacturar} from '../controllers/erp/administracion.controller.js';
+import { renderDeditar, renderAdEditar, renderCeditar, renderPBEditar, renderAdBuscar, renderAdNuevo, renderDCEditar, renderVerPprefactura, renderVerPrefacturas, renderAdProvMarca, renderCliBuscar, renderCliEditar, renderPrefacturas, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar, renderProgPrefacturar, renderDnuevo, renderDbuscar, renderCbuscar, renderCnuevo, renderFacturas, renderFacturar} from '../controllers/erp/administracion.controller.js';
 import { renderCoBuscar, renderCoNuevo, renderCoRequerir, renderCoEditar, renderEMultiempresas } from '../controllers/erp/contabilidad.controller.js';
 import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc, renderContratos, renderSignature, renderContrato, renderPastContrato, renderDocV, renderNMultiempresas, renderBMultiempresas, renderJornadas} from '../controllers/erp/contabilidad.controller.js'
 
@@ -97,6 +97,7 @@ rutasErp.get('/dashboard/administracion/prefacturas/editar/:id',[authenticateUse
 rutasErp.get('/dashboard/administracion/marca/nuevo', [authenticateUser, isAdmin], renderAdNuevo)
 rutasErp.get('/dashboard/administracion/marca/buscar', [authenticateUser, isAdmin], renderAdBuscar)
 rutasErp.get('/dashboard/administracion/marca/prov_marca', [authenticateUser, isAdmin], renderAdProvMarca)
+rutasErp.get('/dashboard/administracion/marca/editar/:id', [authenticateUser, isAdmin], renderAdEditar)
 
 rutasErp.get('/dashboard/administracion/disciplina/nuevo', [authenticateUser, isAdmin], renderDCNuevo)
 rutasErp.get('/dashboard/administracion/disciplina/buscar', [authenticateUser, isAdmin], renderDCBuscar)
@@ -108,6 +109,7 @@ rutasErp.get('/dashboard/administracion/proveedores/editar/:id', [authenticateUs
 
 rutasErp.get('/dashboard/administracion/dispositivos/nuevo', [authenticateUser, isAdmin], renderDnuevo)
 rutasErp.get('/dashboard/administracion/dispositivos/buscar', [authenticateUser, isAdmin], renderDbuscar)
+rutasErp.get('/dashboard/administracion/dispositivos/editar/:id', [authenticateUser, isAdmin], renderDeditar)
 
 rutasErp.get('/dashboard/administracion/cables/nuevo', [authenticateUser, isAdmin], renderCnuevo)
 rutasErp.get('/dashboard/administracion/cables/buscar', [authenticateUser, isAdmin], renderCbuscar)

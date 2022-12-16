@@ -25,10 +25,10 @@ export const updProveedor = async (req, res) => {
     try {
         await pool.query('UPDATE proveedores set ? WHERE proveedor_id = ?', [req.body, req.params.id])
         req.flash('success', { title: 'Proveedor actualizado', message: 'El proveedor se ha actualizado correctamente' })
-        return res.redirect('/dashboard/administracion/proveedores/editar/'+req.params.id)
+        return res.redirect('/dashboard/administracion/proveedores/buscar')
     } catch (error) {
         req.flash('error', { title: 'Ooops!', message: 'El proveedor ' + proveedor_razon_social + ' ya existe' })
-        return res.redirect('/dashboard/administracion/proveedores/editar/'+req.params.id)
+        return res.redirect('/dashboard/administracion/proveedores/buscar')
     }
 }
 //! fin editar proveedor
