@@ -3,7 +3,7 @@
 		<div id="panel-1" class="panel">
 			<div class="panel-hdr">
 				<h2>
-					Buscar Proveedores <span class="fw-300"><i>DOTDCD - ERP</i></span>
+					Buscar Cables <span class="fw-300"><i>DOTDCD - ERP</i></span>
 				</h2>
 				<div class="panel-toolbar">
 					<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
@@ -23,6 +23,7 @@
 								<th>Descripcion</th>
 							    <th>Clave</th>
                                 <th>Estatus</th>
+								<th>Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -37,10 +38,12 @@
 </div>
 
 {{#section 'scripts'}}
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
 <script src="/js/datagrid/datatables/datatables.bundle.js"></script>
 <script src="/js/datagrid/datatables/datatables.export.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.5/dist/sweetalert2.all.min.js"></script>
+
+<script src="/controllers/administration.controller.js"></script>
 
 <script>
 

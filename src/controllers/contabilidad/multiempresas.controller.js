@@ -15,3 +15,28 @@ export const addEmpresa = async (req, res) => {
         return res.redirect('/dashboard/contabilidad/multiempresas/nuevo')
     }
 }
+
+
+export const updateEmpresa = async (req, res) => {
+    try {
+        await pool.query('UPDATE multiempresa set ? WHERE id = ?', [req.body, req.params.id])
+        req.flash('success', { title: 'Empresa actualizada', message: 'La empresa se ha actualizado correctamente' })
+        return res.redirect('/dashboard/contabilidad/multiempresas')
+    } catch (error) {
+        console.log(error)
+        req.flash('error', { title: 'Ooops!', message: 'La empresa no se ha podido actualizar' })
+        return res.redirect('/dashboard/contabilidad/multiempresas')
+    }
+}
+//! no redireccionar a la misma pagina
+export const deleteEmpresa = async (req, res) => {
+    try {
+        await pool.query('DELETE FROM multiempresa WHERE id = ?', [req.params.id])
+        req.flash('success', { title: 'Empresa eliminada', message: 'La empresa se ha eliminado correctamente' })
+        return res.redirect('/dashboard/contabilidad/multiempresas')
+    } catch (error) {
+        console.log(error)
+        req.flash('error', { title: 'Ooops!', message: 'La empresa no se ha podido eliminar' })
+        return res.redirect('/dashboard/contabilidad/multiempresas')
+    }   
+}

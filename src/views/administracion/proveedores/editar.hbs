@@ -16,7 +16,7 @@
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
-                    <form action="/addProveedor" method="post" class="container">
+                    <form action="/updProveedor/{{proveedores.proveedor_id}}" method="post" class="container">
                         <div class="row">
                             <div class="col-md-4">
                                 <span>Razón Social</span>
@@ -31,7 +31,7 @@
                             <div class="col-md-4">
                                 <span>RFC</span>
                                 <input type="text" id="simpleinput" class="form-control mb-1 "
-                                    placeholder="Ingresa el RFC" name="proveedor_rfc" value="{{proveedores.proveedor_rfc}}">
+                                    placeholder="Ingresa el RFC" name="proveedor_rfc" value="{{proveedores.proveedor_rfc}}" required>
                             </div>
                         </div>
 

@@ -3,7 +3,7 @@
 		<div id="panel-1" class="panel">
 			<div class="panel-hdr">
 				<h2>
-					Usuarios <span class="fw-300"><i>DOTDCD - ERP</i></span>
+					Marcas <span class="fw-300"><i>DOTDCD - ERP</i></span>
 				</h2>
 				<div class="panel-toolbar">
 					<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
@@ -23,7 +23,7 @@
 								<th>ID</th>
 								<th>Marca</th>
 								<th>Estatus</th>
-								<th style="width:20%; text-align:center">Accion</th>
+								<th style="width:20%; text-align:center">Acciones</th>
 							</tr>
 							
 						</thead>
@@ -40,6 +40,7 @@
 
 {{#section 'scripts'}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.5/dist/sweetalert2.all.min.js"></script>
+
 <script>
 	const marcas = {{{ json marcasArray }}};
 
@@ -57,7 +58,7 @@
 			preConfirm: () => {
 				$.ajax({
 					type: 'PUT',
-					url: '/administracion/marca/updMarca',
+					url: '/administracion/marca/updPMarca',
 					dataType: 'json',
 					data: { marca_id: data.id, marca_descripcion: $('#swal-input1').val(), marca_estatus_baja: $('#swal-input2').val() },
 					success: function (resp) {
@@ -94,7 +95,7 @@
 			if (result.isConfirmed) {
 				$.ajax({
 					type: 'DELETE',
-					url: '/administracion/marca/delMarca/' + id,
+					url: '/administracion/marca/delPMarca/' + id,
 					dataType: 'json',
 					success: function (resp) {
 						if (resp.status == 200) {

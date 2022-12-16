@@ -1,5 +1,5 @@
-import {pool} from '../db.js'
-import {SW_SAPIENS_URL, SW_TOKEN} from '../config.js'
+import {pool} from '../../db.js'
+import {SW_SAPIENS_URL, SW_TOKEN} from '../../config.js'
 import axios from 'axios'
 
 const getClientInfo = async (id) => {
@@ -11,103 +11,113 @@ const getClientInfo = async (id) => {
     }
 }
 
-export const addPrefactura = async (req, res) => {
+const uploaToDB = async (data) => {
+    try {
+        await pool.query('INSERT INTO facturas SET ?', [data])
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const addFactura = async (req, res) => {
     try {
         const test = true
 
         const client = await getClientInfo(req.body.cliente_id)
 
-        await axios.post(`${SW_SAPIENS_URL}/v3/cfdi33/issue/json/v4`, {
+        const data = {
+          Version: "4.0",
+          FormaPago: "01",
+          Serie: "SW",
+          Folio: "1213113",
+          Fecha: req.body.factura_fecha_alta,
+          MetodoPago: "PUE",
+          Sello: "",
+          NoCertificado: "",
+          Certificado: "",
+          CondicionesDePago: "CondicionesDePago",
+          SubTotal: req.body.factura_total,
+          Descuento: "0.00",
+          Moneda: (req.body.factura_moneda_id == 1) ? "MXN" : "USD",
+          TipoCambio: req.body.tipo_cambio,
+          Total: req.body.factura_total,
+          TipoDeComprobante: "I",
+          Exportacion: "01",
+          LugarExpedicion: "45610",
+          Emisor: {
+            Rfc: (test == true) ? "EKU9003173C9" : client.cliente_rfc,
+            Nombre: (test == true) ? "ESCUELA KEMPER URGATE" : client.cliente_nombre,
+            RegimenFiscal: "601"
+          },
+          Receptor: {
+            Rfc: "EKU9003173C9",
+            Nombre: "ESCUELA KEMPER URGATE",
+            DomicilioFiscalReceptor: "26015",
+            RegimenFiscalReceptor: "601",
+            UsoCFDI: (req.body.uso_cfdi == 4) ? "CP01" : "G01"
+          },
+          Conceptos: [
+            {
+              ClaveProdServ: req.body.clave,
+              NoIdentificacion: "None",
+              Cantidad: req.body.cantidad,
+              ClaveUnidad: req.body.cUnidad,
+              Unidad: req.body.unidad,
+              Descripcion: req.body.factura_descripcion,
+              ValorUnitario: req.body.vUnitario,
+              Importe: req.body.importe,
+              Descuento: req.body.descuento,
+              ObjetoImp: "04",
+          }
+        ],
+      }
+
+        await axios.post(`${SW_SAPIENS_URL}/v3/cfdi33/issue/json/v4`, data, {
             headers: {
                 'Content-Type': 'application/jsontoxml;',
-                'Access-Control-Allow-Origin': '*',
-                'Authorization': `Bearer ${SW_TOKEN}`
-            },
-            data: {
-                Version: "4.0",
-                FormaPago: "01",
-                Serie: "SW",
-                Folio: "123456",
-                Fecha: "2022-09-12T00:00:00",
-                MetodoPago: "PUE",
-                Sello: "",
-                NoCertificado: "",
-                Certificado: "",
-                CondicionesDePago: "CondicionesDePago",
-                SubTotal: req.body.factura_subtotal,
-                Descuento: "0.00",
-                Moneda: (req.body.factura_moneda_id == 1) ? "MXN" : "USD",
-                TipoCambio: req.body.tipo_cambio,
-                Total: req.body.factura_total,
-                TipoDeComprobante: "I",
-                Exportacion: "01",
-                LugarExpedicion: "45610",
-                Emisor: {
-                  Rfc: (test == true) ? "H&E951128469" : client.cliente_rfc,
-                  Nombre: (test == true) ? "HERRERIA & ELECTRICOS" : client.cliente_nombre,
-                  RegimenFiscal: "601"
-                },
-                Receptor: {
-                  Rfc: "EKU9003173C9",
-                  Nombre: "ESCUELA KEMPER URGATE",
-                  DomicilioFiscalReceptor: "26015",
-                  RegimenFiscalReceptor: "601",
-                  UsoCFDI: (client[0].uso_cfdi == 4) ? "CPO1" : "G01"
-                },
-                Conceptos: [
-                  {
-                    ClaveProdServ: "50211503",
-                    NoIdentificacion: "None",
-                    Cantidad: "1.0",
-                    ClaveUnidad: "H87",
-                    Unidad: "Pieza",
-                    Descripcion: "Cigarros",
-                    ValorUnitario: "10.00",
-                    Importe: "10.00",
-                    Descuento: "0.00",
-                    ObjetoImp: "02",
-                    Impuestos: {
-                      Traslados: [
-                        {
-                          Base: "1",
-                          Importe: "1",
-                          Impuesto: "002",
-                          TasaOCuota: "0.160000",
-                          TipoFactor: "Tasa"
-                        }
-                      ],
-                      Retenciones: [
-                        {
-                          Base: "1",
-                          Importe: "1",
-                          Impuesto: "002",
-                          TasaOCuota: "0.040000",
-                          TipoFactor: "Tasa"
-                        }
-                      ]
-                    }
-                  }
-                ],
-                Impuestos: {
-                  TotalImpuestosTrasladados: "1.00",
-                  TotalImpuestosRetenidos: "1.00",
-                  Retenciones: [
-                    {
-                      Importe: "1.00",
-                      Impuesto: "002"
-                    }
-                  ],
-                  Traslados: [
-                    {
-                      Base: "1.00",
-                      Importe: "1.00",
-                      Impuesto: "002",
-                      TasaOCuota: "0.160000",
-                      TipoFactor: "Tasa"
-                    }
-                  ]
-                }
+                'Authorization': `Bearer T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGRPd0VpaU92M2JEeVI4ZktFRThLQlg0blV6VktZL1M3b2pIc3JhYlRVbi8rUG9iaXUzK3VMWHU2cEYvcHlJUHNzZXprL0dTNzlqN0VacCtmd0dtelVMRjd4dmFiRnoxRGJRcmJNV3cyVnZtVklXaGlGM1JIOHNmLzE4eGhCRzdlbzFUMzJnVmJyUlFQYzJwYUtnQmdhZDNhNGZ6bVJRV1VqYVVwd1ZoNlZLRnZJN0d0MDhoU21oVy8rVnNxTnBqOGpuQklUYTIrMEdqRHJEV3BxRENhQWlTRFB2ZXhRVHJxQktFWW1JZW9tVlBQU0g2cDEvZ0tKVXRDNHBxRXFRS3RVTDhiTzdRcUM4c1F5bG1Xb0taNDVtTUlwTWtRQVJJdW8wbGRDUHFhWUtTMlB5Z3NPQVpCQ0Y3eDhFLytMN3ZUVzBzYWowdG5PNVU0NTQxaElYa2d0R3NPME9abkFVekRIcDloTm9wNFVTN2M4VjZtczBhMHBUZHJZU1ZFQUlaOVI.tSQqJnADDxRCmAW0X_qlhhlWDaeC4yYpxiG0RlEXBQg`
             }
+        })
+        .then(async (response) => {
+            console.log(response)
+            if (response.status == 200) {
+                const data = {
+                  factura_empresa_id: req.body.factura_empresa_id,
+                  factura_cliente_id: req.body.factura_cliente_id,
+                  factura_descripcion: req.body.factura_descripcion,
+                  factura_empleado_id: 1156,
+                  factura_centrodecostos_id: req.body.factura_centrodecostos_id,
+                  factura_proyecto_id: req.body.factura_proyecto_id,
+                  factura_folio_id: req.body.factura_folio_id,
+                  factura_remisionfactura_id: req.body.factura_remisionfactura_id,
+                  factura_moneda_id: req.body.factura_moneda_id,
+                  factura_subtotal: req.body.factura_subtotal,
+                  factura_iva: req.body.factura_iva,
+                  factura_total: req.body.factura_total,
+                  factura_fecha_alta: req.body.factura_fecha_alta,
+                  factura_observaciones: req.body.factura_observaciones,
+                  retencion: req.body.retencion,
+                  retencion_isr: req.body.retencion_isr,
+                  tipo_venta: req.body.tipo_venta,
+                  tipo_cambio: req.body.tipo_cambio,
+                  factura_anticipo_id: req.body.factura_anticipo_id,
+                  factura_inversion_id: req.body.factura_inversion_id,
+                  correo: req.body.correo,
+                  uso_cfdi: req.body.uso_cfdi,
+                  uuid: response.data.data.uuid,
+                  cadena_sat: response.data.data.cadenaOriginalSAT,
+                  sello_sat: response.data.data.selloSAT,
+                  sello_cfdi: response.data.data.selloCFDI,
+                  qr: response.data.data.qrCode,
+                }
+                await uploaToDB(data)
+                res.status(200).json({message: 'Factura agregada correctamente'})
+            } else {
+                res.status(400).json({message: 'Error al agregar la factura'})
+            }
+        })
+        .catch((error) => {
+            console.log(error)
         })
     } catch (error) {
         console.log(error)

@@ -22,7 +22,7 @@
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
                                     <!-- Formulario  -->
-                                    <form class="form-group" >
+                                    <form class="form-group" action="/updCables/{{cable.cable_id}}" method="post">
                                         <label class="form-label" for="simpleinput">
                                             <h3>Editar Cables</h3>
                                         </label><br/>
@@ -42,8 +42,8 @@
                                         <br><br>
 
                                         <br><br>
-                                        <button type="button"
-                                            class="btn-outline-info btn-lg btn-block " onclick="subira()">Agregar</button>
+                                        <button type="submit"
+                                            class="btn-outline-info btn-lg btn-block " >Agregar</button>
                                     </form>
                                     <div class="col-md-3"></div>
                                 </div>
@@ -55,22 +55,5 @@
         </div>
     </div>
 </div>
-<script>
-    console.log("SCRIPTS")
-	 function subira() {
-        await axios.put('/cables/{{cable.id}}', {
-            descripcion: document.getElementById('descripcion').value,
-            clave: document.getElementById('clave').value,
-            estatus_baja: document.getElementById('cable_estatus_baja').value
-        })
-        .then(function (response) {
-            console.log(response);
-            window.location.href = "/cables";
-        })}
-</script>
-{{#section 'scripts'}}
-
-
-{{/section}}
 
 

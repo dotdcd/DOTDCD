@@ -25,12 +25,12 @@ export const addDisciplina = async (req, res) => {
 export const updDisciplina = async (req, res) => {
     try {
         const { familia_clave, familia_descripcion } = req.body
-        await pool.query('UPDATE familias set ? WHERE familia_clave = ?', [req.body, familia_clave])
+        await pool.query('UPDATE familias set ? WHERE familia_id = ?', [req.body, req.params.id ])
         req.flash('success', { title: 'Familia / Disciplina actualizada', message: 'La Disciplina se ha actualizado correctamente' })
-        return res.redirect('/dashboard/administracion/disciplina')
+        return res.redirect('/dashboard/administracion/disciplina/buscar')
     } catch (error) {
         req.flash('error', { title: 'Ooops!', message: 'La familia / disciplina ' + familia_descripcion + ' ya existe' })
-        return res.redirect('/dashboard/administracion/disciplina')
+        return res.redirect('/dashboard/administracion/disciplina/buscar')
     }
 }
 
@@ -47,13 +47,11 @@ export const updDisciplina = async (req, res) => {
 
 export const delDisciplina = async (req, res) => {
     try {
-        const { familia_clave } = req.params
-        await pool.query('DELETE FROM familias WHERE familia_clave = ?', [familia_clave])
-        req.flash('success', { title: 'Familia / Disciplina eliminada', message: 'La Disciplina se ha eliminado correctamente' })
-        return res.redirect('/dashboard/administracion/disciplina')
+        
+        await pool.query('DELETE FROM familias WHERE familia_id = ?', [req.params.id])
+        return res.status(200).json({ message: 'La familia / disciplina se ha eliminado correctamente' })
     } catch (error) {
-        req.flash('error', { title: 'Ooops!', message: 'La familia / disciplina no se ha podido eliminar' })
-        return res.redirect('/dashboard/administracion/disciplina')
+        return res.status(500).json({ message: 'La familia / disciplina no se ha podido eliminar' })
     }
 }
 

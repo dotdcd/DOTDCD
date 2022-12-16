@@ -97,7 +97,7 @@ app.use((req, res, next) => {
 });
 
 // ? View request in dev enviroment
-app.use(morgan('dev'))
+//app.use(morgan('dev'))
 
 //? Routes files
 app.use(rutasAnalytics);

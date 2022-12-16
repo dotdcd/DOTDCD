@@ -4,7 +4,7 @@
 		<div id="panel-1" class="panel">
 			<div class="panel-hdr">
 				<h2>
-					Buscar Proveedor <span class="fw-300"><i>DOTDCD - ERP</i></span>
+					Buscar Proveedor por Marca<span class="fw-300"><i>DOTDCD - ERP</i></span>
 				</h2>
 				<div class="panel-toolbar">
 					<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
@@ -24,6 +24,7 @@
 								<th>marca</th>
                                 <th>Proveedor</th>
                                 <th>Estatus</th>
+								<th>Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -41,9 +42,90 @@
 
 <script src="/js/datagrid/datatables/datatables.bundle.js"></script>
 <script src="/js/datagrid/datatables/datatables.export.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.5/dist/sweetalert2.all.min.js"></script>
 
 <script>
 	const prov = {{{json provArray}}}
+
+
+
+
+	async function showModalPut(data) {
+		const { value: formValues } = await Swal.fire({
+			title: 'Editar Marca',
+			html:
+				'<input id="swal-input1" class="swal2-input" value="' + data.proveedoresxmarca_marca_id + '" placeholder="Ingresa el nombre de la marca" required autofocus>' +
+				'<select id="swal-input2" class="swal2-input" required autofocus>' +
+				'<option value="0" ' + (data.marca_estatus == 0 ? 'selected' : '') + '>Activo</option>' +
+				'<option value="1" ' + (data.marca_estatus == 1 ? 'selected' : '') + '>Inactivo</option>' +
+				'</select>',
+			focusConfirm: false,
+			preConfirm: () => {
+				$.ajax({
+					type: 'PUT',
+					url: '/administracion/marca/updMarca',
+					dataType: 'json',
+					data: { marca_id: data.id, marca_descripcion: $('#swal-input1').val(), marca_estatus_baja: $('#swal-input2').val() },
+					success: function (resp) {
+						if (resp.status == 200) {
+							swal.fire({
+								title: "Marca actualizada",
+								text: resp.message,
+								preConfirm() {
+									location.reload();
+								}
+							})
+						} else {
+							swal.fire("Error!", resp.message, "error");
+						}
+					},
+					error: function (resp) {
+						swal.fire("Error!", resp.message, "error");
+					}
+				});
+			}
+		})
+	}
+
+	function showModalDel(id) {
+		swal.fire({
+			title: '¿Estas seguro?',
+			text: "Esta acción no se puede deshacer! \n ¿Deseas continuar?",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, eliminar!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+					type: 'DELETE',
+					url: '/administracion/marca/delMarca/' + id,
+					dataType: 'json',
+					success: function (resp) {
+						if (resp.status == 200) {
+							swal.fire({
+								title: "Marca eliminada",
+								text: resp.message,
+								preConfirm() {
+									location.reload();
+								}
+							})
+						} else {
+							swal.fire("Error!", resp.message, "error");
+						}
+					},
+					error: function (resp) {
+						swal.fire("Error!", resp.message, "error");
+					}
+				});
+			}
+		})
+	}
+
+
+
+
 	$(document).ready(function () {
 
 		// initialize datatable

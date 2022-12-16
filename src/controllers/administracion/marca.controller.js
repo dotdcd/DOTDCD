@@ -33,3 +33,15 @@ export const delMarca = async (req, res) => {
         return res.status(500).json({message: 'No se puede eliminar la marca', status: 500})
     }
 }
+
+
+
+export const delPMarca = async (req, res) => {
+    const {	proveedoresxmarca_marca_id} = req.params
+    try{
+        await pool.query('DELETE marcas_proveedores WHERE proveedoresxmarca_marca_id ='+ proveedoresxmarca_marca_id)
+        return res.status(200).json({message: 'Marca eliminada correctamente',status: 200})	
+    } catch (error) {
+        return res.status(500).json({message: 'No se puede eliminar la marca', status: 500})
+    }
+}

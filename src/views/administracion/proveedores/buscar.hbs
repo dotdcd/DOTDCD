@@ -32,6 +32,7 @@
                                 <th>Limite de Credito</th>
                                 <th>Tipo de Proveedor</th>
                                 <th>Estatus</th>
+								<th>Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -49,7 +50,10 @@
 
 <script src="/js/datagrid/datatables/datatables.bundle.js"></script>
 <script src="/js/datagrid/datatables/datatables.export.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.5/dist/sweetalert2.all.min.js"></script>
 
+<script src="/controllers/administration.controller.js"></script>
 <script>
 	const provedores = {{{json provBuscar}}}
 	

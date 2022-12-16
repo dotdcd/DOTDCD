@@ -24,7 +24,7 @@
                             <h3 class="display-4">Timbrar Facturar</h3>
                         </div>
                     </div>
-                    <form action="" method="post">
+                    <form method="post" action="/addFactura">
                         <div class="container">
                             <div class="row mt-3 mb-3">
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
@@ -279,6 +279,12 @@
                             <div class="row mt-3 mb-3">
 
 
+                                <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
+                                    <label for="" class="font-weight-bold">Clave Producto Servicio</label><br>
+                                    <input class="form-control" type="text" name="clave" id=""
+                                        placeholder="Clave de producto">
+                                </div>
+
                                 <div class="col-md-4 col-sm-6 col-lg-4 mb-3">
                                     <label for="" class="font-weight-bold">Forma de Pago</label><br>
                                     <select name="forma_pago" id="" class="form-control">
@@ -295,6 +301,45 @@
                                     <label for="" class="font-weight-bold">Credito de pago negociado</label><br>
                                     <input class="form-control" type="text" name="dias_credito" id=""
                                         placeholder="Crédito de Pago Negociado">
+                                </div>
+
+                            </div>
+                            <div class="row mt-3 mb-3">
+
+
+                                <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
+                                    <label for="" class="font-weight-bold">Cantidad</label><br>
+                                    <input class="form-control" type="text" name="cantidad" id=""
+                                        placeholder="Cantidad">
+                                </div>
+
+                                <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
+                                    <label for="" class="font-weight-bold">Clave de unidad</label><br>
+                                    <input class="form-control" type="text" name="cUnidad" id=""
+                                        placeholder="Clave de unidad">
+                                </div>
+
+
+                                <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
+                                    <label for="" class="font-weight-bold">Valor unitario</label><br>
+                                    <input class="form-control" type="text" name="vUnitario" id=""
+                                        placeholder="Valor unitario">
+                                </div>
+
+                            </div>
+                            <div class="row mt-3 mb-3">
+
+
+                                <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
+                                    <label for="" class="font-weight-bold">Importe</label><br>
+                                    <input class="form-control" type="text" name="importe" id=""
+                                        placeholder="Importe">
+                                </div>
+
+                                <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
+                                    <label for="" class="font-weight-bold">Descuento</label><br>
+                                    <input class="form-control" type="text" name="descuento" id=""
+                                        placeholder="Descuento">
                                 </div>
 
                             </div>

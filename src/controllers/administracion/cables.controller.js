@@ -23,11 +23,11 @@ export const addCables = async (req, res) => {
 export const updCables = async (req, res) => {
     const {cable_id, descripcion, clave} = req.body
     try {
-        await pool.query('UPDATE cable SET ? WHERE cable_id ='+cable_id, {descripcion, clave})
-        return res.status(200).json({message: 'Cable actualizado correctamente',status: 200})
+        await pool.query('UPDATE cable SET ? WHERE cable_id ='+req.params.id , {descripcion, clave})
+        return res.redirect('/dashboard/administracion/cables/editar/'+req.params.id)
     } catch (error) {
         req.flash('error', { title: 'Ooops!', message: 'El cable ' + Clave + ' ya existe' })
-        return res.redirect('/dashboard/administracion/cables')
+        return res.redirect('/dashboard/administracion/cables/editar/'+req.params.id)
     }
 }
 //! fin de actualizar cables
@@ -36,10 +36,10 @@ export const updCables = async (req, res) => {
 export const delCables = async (req, res) => {
     const {cable_id} = req.params
     try{
-        await pool.query('DELETE FROM cable WHERE cable_id ='+cable_id)
-        return res.status(200).json({message: 'Cable eliminado correctamente',status: 200})
+        await pool.query('DELETE FROM cable WHERE cable_id ='+req.params.id)
+        return res.status(200).json({ message: 'El cable se ha eliminado correctamente', status: 200 })
     } catch (error) {
-        return res.status(500).json({message: 'No se puede eliminar el cable', status: 500})
+        return res.status(500).json({ message: 'Ooops! Algo salió mal', status: 500 })
     }
 }
 //! fin de eliminar cables
