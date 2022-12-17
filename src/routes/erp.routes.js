@@ -6,7 +6,7 @@ import { read } from 'fs-extra';
 import { renderEmployees, renderAnalytics, renderProyectos } from '../controllers/erp/analytics.controller.js';
 import { renderUsuarios } from '../controllers/erp/inicio.controller.js';
 import { renderOpNuevo } from '../controllers/erp/operacion.controller.js';
-import { renderDeditar, renderAdEditar, renderCeditar, renderPBEditar, renderAdBuscar, renderAdNuevo, renderDCEditar, renderVerPprefactura, renderVerPrefacturas, renderAdProvMarca, renderCliBuscar, renderCliEditar, renderPrefacturas, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar, renderProgPrefacturar, renderDnuevo, renderDbuscar, renderCbuscar, renderCnuevo, renderFacturas, renderFacturar} from '../controllers/erp/administracion.controller.js';
+import { renderDeditar, renderAdEditar, renderCeditar, renderPBEditar, renderAdBuscar, renderAdNuevo, renderDCEditar, renderVerPprefactura, renderVerPrefacturas, renderAdProvMarca, renderCliBuscar, renderCliEditar, renderPrefacturas, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar, renderProgPrefacturar, renderDnuevo, renderDbuscar, renderCbuscar, renderCnuevo, renderFacturas, renderFacturar, verFactura} from '../controllers/erp/administracion.controller.js';
 import { renderCoBuscar, renderCoNuevo, renderCoRequerir, renderCoEditar, renderEMultiempresas } from '../controllers/erp/contabilidad.controller.js';
 import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc, renderContratos, renderSignature, renderContrato, renderPastContrato, renderDocV, renderNMultiempresas, renderBMultiempresas, renderJornadas} from '../controllers/erp/contabilidad.controller.js'
 
@@ -118,6 +118,7 @@ rutasErp.get('/dashboard/administracion/cables/editar/:id', [authenticateUser, i
 //?Facturas
 rutasErp.get('/dashboard/administracion/facturas', [authenticateUser, isAdmin], renderFacturas)
 rutasErp.get('/dashboard/administracion/facturas/nuevo', [authenticateUser, isAdmin], renderFacturar)
+rutasErp.get('/dashboard/administracion/facturas/:id', [authenticateUser, isAdmin], verFactura)
 
 //?llllllllllllllllllllllllllllll
 //?Contabilidad Routes

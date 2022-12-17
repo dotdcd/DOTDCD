@@ -1,6 +1,6 @@
-import { render } from 'preact/compat'
 import { pool } from '../../db.js'
 import { getEmpresa, getSucursal, getCentrodeCosto } from '../erp/contabilidad.controller.js'
+import axios from 'axios'
 
 //?marca
 export const renderAdNuevo = async (req, res) => {
@@ -408,9 +408,22 @@ export const renderCeditar = async (req, res) => {
 
 //? Render Facturas 
 
+const vfactura = async () => {
+    try {
+        const prefacturas = await pool.query("SELECT f.factura_id as id, CONCAT('(', c.cotizacion_id, ')', ' - ', c.cotizacion_proyecto, '	' )  as proyectos,  CONCAT('$', f.factura_total) as total FROM cotizaciones AS c JOIN facturas AS f ON c.cotizacion_id = f.factura_proyecto_id GROUP BY id")
+        let prefactura = []
+        for (const i of prefacturas[0]) {
+            prefactura.push([i.id, i.proyectos, i.total, '<button class="btn btn-outline-info" href="/dashboard/administracion/facturas/'+i.id+'"><i class="fas fa-edit"></i></button>'])
+        }
+        return prefactura
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const renderFacturas = async (req, res) => {
     try {
-        const facturas = await vPrefactura()
+        const facturas = await vfactura()
         return res.render('administracion/facturas/facturas', { facturas })   
     } catch (error) {
         console.log(error)
@@ -440,6 +453,50 @@ export const renderFacturar = async (req, res) => {
 }
 //! End render facturar
 
+//? Render ver Factura
+const getTimbrado = async (id) => {
+    try {
+        const timbrado = await pool.query('SELECT * FROM facturas WHERE factura_id = ?', [id])
+        return timbrado[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getXml = async (uuid) => {
+    try {
+        const response = await axios.get('http://api.test.sw.com.mx/datawarehouse/v1/live/' + uuid, {
+            headers: {
+                'Authorization': `Bearer T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGRPd0VpaU92M2JEeVI4ZktFRThLQlg0blV6VktZL1M3b2pIc3JhYlRVbi8rUG9iaXUzK3VMWHU2cEYvcHlJUHNzZXprL0dTNzlqN0VacCtmd0dtelVMRjd4dmFiRnoxRGJRcmJNV3cyVnZtVklXaGlGM1JIOHNmLzE4eGhCRzdlbzFUMzJnVmJyUlFQYzJwYUtnQmdhZDNhNGZ6bVJRV1VqYVVwd1ZoNlZLRnZJN0d0MDhoU21oVy8rVnNxTnBqOGpuQklUYTIrMEdqRHJEV3BxRENhQWlTRFB2ZXhRVHJxQktFWW1JZW9tVlBQU0g2cDEvZ0tKVXRDNHBxRXFRS3RVTDhiTzdRcUM4c1F5bG1Xb0taNDVtTUlwTWtRQVJJdW8wbGRDUHFhWUtTMlB5Z3NPQVpCQ0Y3eDhFLytMN3ZUVzBzYWowdG5PNVU0NTQxaElYa2d0R3NPME9abkFVekRIcDloTm9wNFVTN2M4VjZtczBhMHBUZHJZU1ZFQUlaOVI.tSQqJnADDxRCmAW0X_qlhhlWDaeC4yYpxiG0RlEXBQg`
+            }
+        })
+        return response.data.data.records[0].urlXml
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const verFactura = async (req, res) => {
+    try {
+        const sucursal = await getSucursal()
+        const empresa = await getEmpresa()
+        const centroCostos = await getCentrodeCosto()
+        const cliente = await getClientes()
+        const inversion = await getInversion()
+        const cotizacion = await getCotizacion()
+        const folios = await getFolios()
+        const remision = await getPrefacturaRemision()
+        const moneda = await getMoneda()
+        const tipoVenta = await getFactura()
+        const prefactura = await getTimbrado(req.params.id)
+        const xml = await getXml(prefactura.uuid)
+        return res.render('administracion/facturas/ver', { sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta, prefactura, xml })
+    } catch (error) {
+        console.log(error)
+    }
+}
+//! End render ver factura
 
 export const renderDeditar = async (req, res) => {
     try {

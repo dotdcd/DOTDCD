@@ -22,9 +22,11 @@ const uploaToDB = async (data) => {
 export const addFactura = async (req, res) => {
     try {
         const test = true
+        console.log(req.session.userId)
 
         const client = await getClientInfo(req.body.cliente_id)
 
+        const employee = req.session.userId
         const data = {
           Version: "4.0",
           FormaPago: req.body.forma_pago,
@@ -79,13 +81,12 @@ export const addFactura = async (req, res) => {
             }
         })
         .then(async (response) => {
-            console.log(response)
             if (response.status == 200) {
                 const data = {
                   factura_empresa_id: req.body.factura_empresa_id,
                   factura_cliente_id: req.body.factura_cliente_id,
                   factura_descripcion: req.body.factura_descripcion,
-                  factura_empleado_id: 1156,
+                  factura_empleado_id: employee,
                   factura_centrodecostos_id: req.body.factura_centrodecostos_id,
                   factura_proyecto_id: req.body.factura_proyecto_id,
                   factura_folio_id: req.body.factura_folio_id,
@@ -111,15 +112,21 @@ export const addFactura = async (req, res) => {
                   qr: response.data.data.qrCode,
                 }
                 await uploaToDB(data)
-                res.status(200).json({message: 'Factura agregada correctamente'})
+                req.flash('success', {message: 'Factura timbrada correctamente', title: 'Factura Timbrada'})
+                return res.redirect('/dashboard/administracion/facturas')
             } else {
-                res.status(400).json({message: 'Error al agregar la factura'})
+                req.flash('error', {message: 'Error al timbrar la factura', title: 'Error'})
+                return res.redirect('/dashboard/administracion/facturas/nuevo')
             }
         })
         .catch((error) => {
             console.log(error)
+            req.flash('error', {message: 'Error al timbrar la factura', title: 'Error'})
+            return res.redirect('/dashboard/administracion/facturas/nuevo')
         })
     } catch (error) {
         console.log(error)
+        req.flash('error', {message: 'Error al timbrar la factura', title: 'Error'})
+        return res.redirect('/dashboard/administracion/facturas/nuevo')
     }
 }

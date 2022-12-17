@@ -63,7 +63,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
 app.use(session({
     secret: SECRET,
-    resave: false,
+    resave: true,
     saveUninitialized: true,
 }));
 app.use(flash());
