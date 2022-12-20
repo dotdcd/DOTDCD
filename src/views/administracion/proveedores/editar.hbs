@@ -73,8 +73,8 @@
                             <div class="col-md-4">
                                 <span>Estatus</span>
                                 <select name="proveedor_estatus_baja" class="form-control" id="">
-                                    <option value="0">Activo</option>
-                                    <option value="1">Inactivo</option>
+                                    <option value="0" {{#if proveedores.proveedor_estatus_baja}} selected {{/if}}>Activo</option>
+                                    <option value="1" {{#if proveedores.proveedor_estatus_baja}} selected {{/if}}>Inactivo</option>
                                 </select>
                                 <br>
                             </div>

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {addEmpresa, updateEmpresa, deleteEmpresa } from '../controllers/contabilidad/multiempresas.controller.js';
 import {addInversion, deleteInversion, updInversion} from '../controllers/contabilidad/inversion.controller.js';
+import {addBanco, deleteBanco, updBanco} from '../controllers/contabilidad/bancos.controller.js';
 const contabilidadRoutes = Router();
 
 //?Add Empresa
@@ -20,4 +21,15 @@ contabilidadRoutes.post('/updInversion/:id', updInversion);
 
 //!del inversion
 contabilidadRoutes.delete('/delInversion/:id', deleteInversion);
+
+
+
+//?add banco
+contabilidadRoutes.post('/addCbancaria', addBanco);
+
+//*upd banco
+contabilidadRoutes.post('/updCuenta/:id', updBanco);
+
+//!del banco
+contabilidadRoutes.delete('/delCuenta/:id', deleteBanco);
 export default contabilidadRoutes;

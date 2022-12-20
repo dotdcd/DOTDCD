@@ -61,3 +61,34 @@ const delInversion = async(id) => {
         return e
     }
 }
+
+const delCuenta = async(id) => {
+    try {
+        swal.fire({
+            title: '¿Estas seguro?',
+            text: "Esta acción no se puede deshacer! \n ¿Deseas continuar?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await axios.delete('/delCuenta/' + id)
+                    .then(function (response) {
+                        swal.fire(
+                            'Eliminado!',
+                            'La cuenta ha sido eliminada correctamente.',
+                            'success'
+                        )
+                        location.reload();
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        })
+    } catch (e) {
+        return e
+    }
+}

@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Editar Cuenta Bancaria <span class="fw-300"><i>DOTDCD - ERP</i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div id="metasAll">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <!-- Formulario  -->
+                                    <form class="form-group" method="post"
+                                        action="/updCuenta/{{bancoinfo.banco_cuenta_id}}">
+                                        <label class="form-label col-12" for="simpleinput">
+                                            <h3 class="text-center">Editar Cuenta Bancaria</h3>
+                                        </label><br /><br /><br />
+                                        <span>Número de cuenta</span>
+                                        <input type="text" id="simpleinput" class="form-control"
+                                            placeholder="" name="banco_cuenta_numero"
+                                            value="{{bancoinfo.banco_cuenta_numero}}" autofocus><br />
+                                        <span>Banco</span>
+                                        <input type="text" id="simpleinput" class="form-control"
+                                            placeholder="" name="banco_cuenta_banco"
+                                            value="{{bancoinfo.banco_cuenta_banco}}"><br />
+
+                                        <span>CLABE</span>
+                                        <input type="text" class="form-control" name="banco_cuenta_clabe"
+                                            value="{{bancoinfo.banco_cuenta_clabe}}"><br />
+
+                                        <span>Descripcion de la Cuenta</span>
+                                        <input type="text" class="form-control" name="banco_cuenta_comentario"
+                                            value="{{bancoinfo.banco_cuenta_comentario}}"><br />
+
+                                        <span>Cuenta Contable (Contacto)</span>
+                                        <input type="text" class="form-control" name="banco_cuenta_contacto"
+                                            value="{{bancoinfo.banco_cuenta_contacto}}"><br />
+
+                                        <span>Saldo Inicial</span>
+                                        <input type="text" class="form-control" name="banco_cuenta_saldo_inicial"
+                                            value="{{bancoinfo.banco_cuenta_saldo_inicial}}"><br />
+
+                                        <span>Límite de Crédito</span>
+                                        <input type="text" class="form-control" name="banco_cuenta_limite_credito"
+                                            value="{{bancoinfo.banco_cuenta_limite_credito}}"><br />
+
+                                        <span>Moneda</span>
+                                        
+                                        <select name="banco_cuenta_moneda_id" id="" class="form-control">
+                                                                                        
+                                            {{#each moneda}}
+
+                                            <option value="{{moneda_id}}" {{#if (is ../bancoinfo.banco_cuenta_moneda_id this.moneda_id)}} selected {{/if}}>{{moneda_descripcion}}</option>
+                                            {{/each}}
+                                            
+                                        </select><br />
+
+                                        <span>Empresa Pagadora</span><!--Empresas loop-->
+                                        <select name="banco_empresa_id" id="" class="form-control">
+                                            {{#each empresaa}}
+                                            <option value="{{id}}">{{nombre}}</option>
+                                            {{/each}}
+                                        </select><br />
+
+                                        <span>Tipo de Cuenta</span>
+                                        <select name="banco_cuenta_tipo_id" id="" class="form-control">
+                                            {{#each tipo}}
+                                            <option value="{{ide}}">{{nombree}}</option>
+                                            {{/each}}
+                                        </select> <br>
+                                        <span>Estatus</span>
+                                        <select name="banco_cuenta_estatus_baja" id="" class="form-control">
+                                            <option value="0" {{#if (is bancoinfo.banco_cuenta_estatus_baja 0)}} selected
+                                                {{/if}}>Activo</option>
+                                            <option value="1" {{#if (is bancoinfo.banco_cuenta_estatus_baja 1)}} selected
+                                                {{/if}}>Inactivo</option>
+                                        </select> <br>
+
+                                        <br><br>
+                                        <div class="row mt-5">
+                                            <div class="col-2"></div>
+                                            <div class="col-md-4">
+                                                <a href="/dashboard/contabilidad/bancos/cuentas/buscar"><button class="btn-outline-danger btn-lg btn-block">Cancelar</button></a>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="submit"
+                                                    class="btn-outline-info btn-lg btn-block ">Actualizar</button>
+                                            </div>
+                                            <div class="col-2"></div>
+                                        </div>
+                                    </form>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

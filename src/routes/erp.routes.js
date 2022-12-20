@@ -7,7 +7,7 @@ import { renderEmployees, renderAnalytics, renderProyectos } from '../controller
 import { renderUsuarios } from '../controllers/erp/inicio.controller.js';
 import { renderOpNuevo } from '../controllers/erp/operacion.controller.js';
 import { renderDeditar, renderAdEditar, renderCeditar, renderPBEditar, renderAdBuscar, renderAdNuevo, renderDCEditar, renderVerPprefactura, renderVerPrefacturas, renderAdProvMarca, renderCliBuscar, renderCliEditar, renderPrefacturas, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar, renderProgPrefacturar, renderDnuevo, renderDbuscar, renderCbuscar, renderCnuevo, renderFacturas, renderFacturar, verFactura} from '../controllers/erp/administracion.controller.js';
-import { renderCoBuscar, renderCoNuevo, renderCoRequerir, renderCoEditar, renderEMultiempresas } from '../controllers/erp/contabilidad.controller.js';
+import { renderCoBuscar, renderCoNuevo, renderCoRequerir, renderCoEditar, renderEMultiempresas, renderBBuscar, renderBNuevo, renderBEditar } from '../controllers/erp/contabilidad.controller.js';
 import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc, renderContratos, renderSignature, renderContrato, renderPastContrato, renderDocV, renderNMultiempresas, renderBMultiempresas, renderJornadas} from '../controllers/erp/contabilidad.controller.js'
 
 //? Middlewares
@@ -153,11 +153,12 @@ rutasErp.get('/dashboard/contabilidad/multiempresas/editar/:id', [authenticateUs
 //?Jornadas
 rutasErp.get('/dashboard/contabilidad/jornadas/ver', [authenticateUser, isAdmin], renderJornadas)
 
-/*
-//?llllllllllllllllllllllllllllll
-//?Reportes Routes
-//?llllllllllllllllllllllllllllll
-*/
+
+
+//? Bancos
+rutasErp.get('/dashboard/contabilidad/bancos/cuentas/nuevo', [authenticateUser, isAdmin], renderBNuevo)
+rutasErp.get('/dashboard/contabilidad/bancos/cuentas/buscar', [authenticateUser, isAdmin], renderBBuscar)
+rutasErp.get('/dashboard/contabilidad/bancos/cuentas/editar/:id', [authenticateUser, isAdmin], renderBEditar)
 
 //! TESTING ROUTES
 rutasErp.get('/testing/:id', async (req, res) => {

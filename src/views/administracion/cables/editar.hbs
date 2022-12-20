@@ -35,8 +35,8 @@
                                         
                                         <span>Estatus</span>
                                         <select name="cable_estatus_baja" id="cable_estatus_baja" class="form-control">
-                                            <option value="0" >Activo</option>
-                                            <option value="1">Inactivo</option>
+                                            <option value="0" {{#if cable.cable_estatus_baja}} selected {{/if}} >Activo</option>
+                                            <option value="1" {{#if cable.cable_estatus_baja}} selected {{/if}}>Inactivo</option>
                                         </select>
                                         <br><br>
 

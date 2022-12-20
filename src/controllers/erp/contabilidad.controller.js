@@ -43,7 +43,7 @@ export const getSucursal = async() => {
 
 export const getEmpresa = async() => {
     try {
-        const empresa = await pool.query("SELECT empresa_id as id, empresa_razon_social as nombre FROM multiempresa");
+        const empresa = await pool.query("SELECT empresa_id as id, empresa_razon_social as nombre FROM multiempresa WHERE empresa_estatus_baja = 0");
         return empresa[0]
     } catch (error) {
         console.log(error)
@@ -398,3 +398,79 @@ export const renderEMultiempresas = async(req, res) => {
 export const renderJornadas = async(req, res) => {
     res.render('contabilidad/jornadas/jornadas')
 }
+
+
+
+//? render Bancos
+
+
+
+export const renderBBuscar = async (req, res) => {
+    try {
+        let cuentasArray = []
+        const cuentas = await pool.query("SELECT banco_cuenta_id, banco_cuenta_banco, banco_cuenta_numero, banco_cuenta_contacto, banco_cuenta_clabe, banco_cuenta_comentario, banco_cuenta_saldo_inicial, banco_cuenta_limite_credito, banco_cuenta_moneda_id, (SELECT moneda_descripcion FROM monedas WHERE moneda_id = banco_cuenta_moneda_id) as moneda, banco_empresa_id, (SELECT empresa_razon_social FROM multiempresa WHERE empresa_id = banco_empresa_id) as empresa, banco_cuenta_tipo_id, (SELECT cuenta_tipo_descripcion FROM bancos_cuentas_tipos WHERE cuenta_tipo_id = banco_cuenta_tipo_id) as tipo, banco_cuenta_estatus_baja FROM bancos_cuentas")
+        for (const b of cuentas[0]) {
+            const csstatus = (b.banco_cuenta_estatus_baja == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
+            cuentasArray.push([b.banco_cuenta_numero, b.banco_cuenta_banco, b.banco_cuenta_clabe, b.banco_cuenta_comentario, b.banco_cuenta_contacto, b.banco_cuenta_saldo_inicial, b.banco_cuenta_limite_credito, b.moneda, b.empresa, b.tipo, csstatus, '<center><a href="/dashboard/contabilidad/bancos/cuentas/editar/'+b.banco_cuenta_id+'"><button type="button" class="btn btn-lg btn-outline-success m-1"><i class="fal fa-sync"></i></button></a> <button type="button" class="btn btn-lg btn-outline-danger" onClick="delCuenta(' + b.banco_cuenta_id + ')"><i class="fal fa-trash-alt"></i></button></center>'])
+        }
+        
+        return res.render('contabilidad/bancos/cuentas/buscar', { cuentasArray })
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+const getMoneda = async (id) => {
+    try {
+        const moneda = await pool.query("SELECT * FROM monedas ")
+        return moneda[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getTipoCuenta = async (id) => {
+    try {
+        const tipo = await pool.query("SELECT cuenta_tipo_id as ide, cuenta_tipo_descripcion as nombree FROM bancos_cuentas_tipos ")
+        return tipo[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const renderBNuevo = async(req, res) => {
+    try{
+        const empresaa = await getEmpresa()
+        const moneda = await getMoneda()
+        const tipo = await getTipoCuenta()
+        res.render('contabilidad/bancos/cuentas/nueva', {empresaa, moneda, tipo})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+export const renderBEditar = async(req, res) => {
+    const {id} = req.params.id
+    try {
+        
+        const banco = await pool.query("SELECT banco_cuenta_id, banco_cuenta_banco, banco_cuenta_numero, banco_cuenta_clabe, banco_cuenta_comentario, banco_cuenta_contacto, banco_cuenta_MM, banco_cuenta_saldo_inicial, banco_cuenta_limite_credito, banco_cuenta_moneda_id, banco_empresa_id, banco_cuenta_tipo_id, banco_cuenta_estatus_baja FROM bancos_cuentas WHERE banco_cuenta_id = ?", [req.params.id])
+        const bancoinfo = banco[0][0]
+        const empresaa = await getEmpresa()
+        const moneda = await getMoneda()
+        const tipo = await getTipoCuenta()
+        res.render('contabilidad/bancos/cuentas/editar', {bancoinfo, empresaa, moneda, tipo})
+    } catch (error) {
+        console.log(error)
+    }
+}
+

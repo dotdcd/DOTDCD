@@ -17,7 +17,7 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <form action="/updEmpresa/{{empresa.empresa_id}}" class="container" method="post">
-                    <h3 class="text-center">Editar Emprea</h3>
+                    <h3 class="text-center">Editar Empresa</h3>
                         <div class="row mt-6">
                             <div class="col-md-6">
                                 <label for="Razon social">Razon Social</label>
@@ -40,8 +40,8 @@
                             <div class="col-md-4">
                                 <label for="">Estatus</label>
                                 <select class="form-control" name="empresa_estatus_baja" id="">
-                                    <option value="0">Activo</option>
-                                    <option value="1">Inactivo</option>
+                                    <option value="0" {{#if empresa.empresa_estatus_baja}} selected {{/if}}>Activo</option>
+                                    <option value="1" {{#if empresa.empresa_estatus_baja}} selected {{/if}}>Inactivo</option>
                                 </select>
                             </div>
                             <div class="col-md-4">

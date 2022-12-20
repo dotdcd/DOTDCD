@@ -36,13 +36,24 @@
 
                                         <span>Estatus</span>
                                         <select class="form-control" name="inversion_estatus_baja">
-                                            <option value="0">Activo</option>
-                                            <option value="1">Inactivo</option>
+                                            <option value="0" {{#if info.inversion_estatus_baja}} selected {{/if}}>
+                                                Activo</option>
+                                            <option value="1" {{#if info.inversion_estatus_baja}} selected {{/if}}>
+                                                Inactivo</option>
                                         </select><br>
                                         <br>
                                         <br>
-                                        <button type="submit"
-                                            class="btn-outline-info btn-lg btn-block ">Agregar</button>
+                                        <div class="row mt-5">
+                                            <div class="col-2"></div>
+                                            <div class="col-md-4">
+                                                <a href="/dashboard/contabilidad/inversiones/buscar"><button class="btn-outline-danger btn-lg btn-block">Cancelar</button></a>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="submit"
+                                                    class="btn-outline-info btn-lg btn-block ">Actualizar</button>
+                                            </div>
+                                            <div class="col-2"></div>
+                                        </div>
                                     </form>
                                     <div class="col-md-3"></div>
                                 </div>
