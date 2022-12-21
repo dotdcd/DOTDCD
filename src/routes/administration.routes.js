@@ -1,12 +1,15 @@
 import { Router } from "express";
+
+import { authenticateUser, isAdmin } from "../middlewares/auth.js";
+
 import { addPrefactura } from "../controllers/administracion/prefactura.controller.js";
 import { addCliente, updCliente, delCliente} from "../controllers/administracion/cliente.controller.js";
 import { addDisciplina, updDisciplina, delDisciplina} from "../controllers/administracion/disciplina.controller.js";
 import { addProveedor, updProveedor, delProveedor } from "../controllers/administracion/proveedor.controller.js";
 import { addCables, updCables, delCables } from "../controllers/administracion/cables.controller.js";
 import { addDispositivo, updDispositivo, delDispositivo } from "../controllers/administracion/dispositivo.controller.js";
-import { addFactura } from "../controllers/administracion/facturas.contrroller.js";
-import {addMarca, updMarca, delMarca} from "../controllers/administracion/marca.controller.js";
+import { addFactura, cancelFactura } from "../controllers/administracion/facturas.contrroller.js";
+import {addMarca, updMarca, delMarca, addProveedorMarca, delPMarca} from "../controllers/administracion/marca.controller.js";
 const administrationRoutes = Router();
 
 //? Prefactura Functions Routes
@@ -73,11 +76,15 @@ administrationRoutes.delete('/delCables/:id', delCables)
 
 //? Timbrado facturas
 
-administrationRoutes.post('/addFactura', addFactura)
+administrationRoutes.post('/addFactura', [authenticateUser, isAdmin], addFactura)
+administrationRoutes.put('/cancelFactura/:id', [authenticateUser, isAdmin], cancelFactura)
 
 //! End timbrado facturas
 
+//?add proveedor por marca
+administrationRoutes.post('/addprvMarca', addProveedorMarca)
 
-
+//!del proveedor por marca
+administrationRoutes.delete('/delPMarca/:id', delPMarca)
 // Path: prefactura.controller.js
 export default administrationRoutes;

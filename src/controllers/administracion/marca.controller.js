@@ -39,11 +39,25 @@ export const delMarca = async (req, res) => {
 
 
 export const delPMarca = async (req, res) => {
-    const {	proveedoresxmarca_marca_id} = req.params
+    const {	id} = req.params.id
     try{
-        await pool.query('DELETE marcas_proveedores WHERE proveedoresxmarca_marca_id ='+ proveedoresxmarca_marca_id)
+        await pool.query('DELETE FROM marcas_proveedores WHERE proveedoresxmarca_marca_id = ?', [req.params.id])
         return res.status(200).json({message: 'Marca eliminada correctamente',status: 200})	
     } catch (error) {
         return res.status(500).json({message: 'No se puede eliminar la marca', status: 500})
     }
 }
+
+export const addProveedorMarca = async (req, res) => {
+    const {proveedoresxmarca_proveedor_id, proveedoresxmarca_marca_id} = req.body
+    try { 
+        await pool.query('INSERT INTO marcas_proveedores set ?', [req.body])
+        req.flash('success', {title: 'Proveedor agregado', message: 'El proveedor se ha agregado correctamente'})
+        return res.redirect('/dashboard/administracion/marca/prov_marca/nuevo')
+    } catch (error) {
+        console.log(error)
+        req.flash('error', {title: 'Ooops!', message: 'El proveedor ya existe'})
+        return res.redirect('/dashboard/administracion/marca/prov_marca/nuevo')
+    }
+}
+

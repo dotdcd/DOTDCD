@@ -51,12 +51,49 @@ export const renderAdProvMarca = async (req, res) => {
 
     try {
         let provArray = []
-        const prov = await pool.query('SELECT m.marca_id, m.marca_descripcion as marca, p.proveedor_razon_social as proveedor, p.proveedor_estatus_baja as estatus FROM marcas_proveedores mp INNER JOIN marcas m ON m.marca_id = mp.proveedoresxmarca_marca_id INNER JOIN proveedores p ON p.proveedor_id = mp.proveedoresxmarca_marca_id')
+        const prov = await pool.query('SELECT proveedoresxmarca_marca_id, (SELECT marca_id FROM marcas WHERE marca_id = proveedoresxmarca_marca_id) as id, proveedoresxmarca_proveedor_id, (SELECT marca_descripcion FROM marcas WHERE marca_id = proveedoresxmarca_marca_id) as nombre, (SELECT proveedor_estatus_baja FROM proveedores WHERE proveedor_id = proveedoresxmarca_proveedor_id ) as estatus, (SELECT proveedor_razon_social FROM proveedores WHERE proveedor_id = proveedoresxmarca_proveedor_id) as razon FROM marcas_proveedores')
         prov[0].forEach(p => {
-            const status = (p.prov_status == 0) ? "<span class='badge badge-success badge-pill'>Activo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
-            provArray.push([p.marca, p.proveedor, status, '<center><a href="/dashboard/administracion/editar'+marca_id+'"><button type="button" class="btn btn-lg btn-outline-success m-1"><i class="fal fa-sync"></i></button></a> <button type="button" class="btn btn-lg btn-outline-danger" onClick="showModalDel(' + p.marca_id + ')"><i class="fal fa-trash-alt"></i></button></center>'])
+            const status = (p.estatus == 0) ? "<span class='badge badge-success badge-pill'>Activo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
+            provArray.push([p.nombre, p.razon, status, '<center><a href="/dashboard/administracion/marca/prov_marca/nuevo"><button type="button" class="btn btn-lg btn-outline-success m-1"><i class="fal fa-light fa-plus"></i></button></a> <button type="button" class="btn btn-lg btn-outline-danger" onClick="delprovMarca(' + p.id + ')"><i class="fal fa-trash-alt"></i></button></center>'])
         });
         res.render('administracion/marca/prov_marca', { provArray})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const renderEprovMarca = async (req, res) => {
+    try {
+        const { id } = req.params
+        const marcas = await getmarca(id)
+        const proveedores = await getProveedores()
+        res.render('administracion/marca/editar_prov_marca', { marcas, proveedores })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getMarcas = async () => {
+    try {
+        const marcas = await pool.query('SELECT * FROM marcas')
+        return marcas[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+const getProv = async () => {
+    try {
+        const proveedores = await pool.query('SELECT * FROM proveedores')
+        return proveedores[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const renderAdProvMarcaNuevo = async (req, res) => {
+    try {
+        const marcas = await getMarcas()
+        const proveedores = await getProv()
+        res.render('administracion/marca/nuevo_prov_marca', { marcas, proveedores })
     } catch (error) {
         console.log(error)
     }
@@ -432,6 +469,15 @@ export const renderFacturas = async (req, res) => {
 
 //! Render Facturas
 
+const getClaveProducto = async () => {
+    try {
+        const clave = await pool.query('SELECT * FROM catalogo_servicio')
+        return clave[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 //? Render Facturar
 export const renderFacturar = async (req, res) => {
     try {
@@ -445,8 +491,9 @@ export const renderFacturar = async (req, res) => {
         const remision = await getPrefacturaRemision()
         const moneda = await getMoneda()
         const tipoVenta = await getFactura()
+        const catalogo = await getClaveProducto()
 
-        return res.render('administracion/facturas/facturar', { sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta })
+        return res.render('administracion/facturas/facturar', { sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta, catalogo })
     } catch (error) {
         console.log(error)
     }
@@ -507,3 +554,27 @@ export const renderDeditar = async (req, res) => {
         console.log(error)
     }
 }
+
+
+//? render Productos y servicios
+const getProductos = async () => {
+    try {
+        const productos = await pool.query('SELECT producto_id, producto_codigo, producto_descripcion, producto_tipo_id, producto_material_tipo, producto_familia_id, producto_modelo, producto_marca_id, producto_ficha_tecnica_path, producto_unidad_id, producto_moneda_id, producto_costo, producto_mo, producto_costo_fecha, producto_icampo, producto_ioficina, producto_hm, producto_financiero, producto_utilidad, producto_precio_venta, producto_serie_id, producto_precio_tarjeta, producto_fecha_alta, producto_fecha_baja, producto_ultima_modificacion, producto_estatus_baja, moneda_id, moneda_descripcion, moneda_cotizacion, dispositivo_id, usuario_modifico FROM productos JOIN monedas ON moneda_id = producto_moneda_id ORDER BY `productos`.`producto_id` DESC')
+        return productos[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const renderProdBuscar = async (req, res) => {
+    try {
+        let parray = []
+        const productos = await pool.query('SELECT producto_id, producto_codigo, producto_descripcion, producto_tipo_id, producto_material_tipo, producto_familia_id, producto_modelo, producto_marca_id, producto_ficha_tecnica_path, producto_unidad_id, producto_moneda_id, producto_costo, producto_mo, producto_costo_fecha, producto_icampo, producto_ioficina, producto_hm, producto_financiero, producto_utilidad, producto_precio_venta, producto_serie_id, producto_precio_tarjeta, producto_fecha_alta, producto_fecha_baja, producto_ultima_modificacion, producto_estatus_baja, moneda_id, moneda_descripcion, moneda_cotizacion, dispositivo_id, usuario_modifico FROM productos JOIN monedas ON moneda_id = producto_moneda_id ORDER BY `productos`.`producto_id` DESC')
+        for (const pr of productos[0]) {
+            parray.push([pr.producto_descripcion, pr.producto_codigo, pr.producto_tipo_id, pr.producto_familia_id, pr.dispositivo_id, pr.producto_modelo, pr.producto_marca_id, pr.producto_unidad_id, pr.producto_serie_id, pr.producto_moneda_id, pr.producto_costo, pr.producto_costo_fecha, pr.producto_precio_tarjeta, 'Funcion Deprecated','Funcion Deprecated', '- Porcentajes pendientes -', '<center><a href="/dashboard/administracion/productos/editar/" class="btn btn-lg btn-outline-success m-1" ><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delProducto()"><i class="fal fa-trash-alt"></i></button><center>'])
+        }
+        return res.render('administracion/productos/buscar', { parray })
+    } catch (error) {
+        console.log(error)
+    }
+}
+

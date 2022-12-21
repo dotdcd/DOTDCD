@@ -463,7 +463,7 @@ export const renderBEditar = async(req, res) => {
     const {id} = req.params.id
     try {
         
-        const banco = await pool.query("SELECT banco_cuenta_id, banco_cuenta_banco, banco_cuenta_numero, banco_cuenta_clabe, banco_cuenta_comentario, banco_cuenta_contacto, banco_cuenta_MM, banco_cuenta_saldo_inicial, banco_cuenta_limite_credito, banco_cuenta_moneda_id, banco_empresa_id, banco_cuenta_tipo_id, banco_cuenta_estatus_baja FROM bancos_cuentas WHERE banco_cuenta_id = ?", [req.params.id])
+        const banco = await pool.query("SELECT banco_cuenta_id, banco_cuenta_banco, banco_cuenta_numero, banco_cuenta_clabe, banco_cuenta_comentario, banco_cuenta_contacto, banco_cuenta_MM, banco_cuenta_saldo_inicial, banco_cuenta_limite_credito, banco_cuenta_moneda_id, banco_empresa_id, banco_cuenta_tipo_id, banco_cuenta_estatus_baja FROM bancos_cuentas WHERE banco_cuenta_id = ?", [id])
         const bancoinfo = banco[0][0]
         const empresaa = await getEmpresa()
         const moneda = await getMoneda()

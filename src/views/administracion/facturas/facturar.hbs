@@ -353,8 +353,12 @@
 
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
                                     <label for="" class="font-weight-bold">Clave Producto Servicio</label><br>
-                                    <input class="form-control" type="text" name="clave" id=""
-                                        placeholder="Clave de producto">
+                                    <select name="clave" id="" class="form-control">
+                                        <option selected disabled value="">Seleccionar</option>
+                                        {{#each catalogo}}
+                                            <option value="{{id_sat}}">{{servicio}}</option>
+                                        {{/each}}
+                                    </select>
                                 </div>
 
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">

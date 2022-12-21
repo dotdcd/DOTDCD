@@ -5,8 +5,8 @@ import { read } from 'fs-extra';
 //? Controllers
 import { renderEmployees, renderAnalytics, renderProyectos } from '../controllers/erp/analytics.controller.js';
 import { renderUsuarios } from '../controllers/erp/inicio.controller.js';
-import { renderOpNuevo } from '../controllers/erp/operacion.controller.js';
-import { renderDeditar, renderAdEditar, renderCeditar, renderPBEditar, renderAdBuscar, renderAdNuevo, renderDCEditar, renderVerPprefactura, renderVerPrefacturas, renderAdProvMarca, renderCliBuscar, renderCliEditar, renderPrefacturas, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar, renderProgPrefacturar, renderDnuevo, renderDbuscar, renderCbuscar, renderCnuevo, renderFacturas, renderFacturar, verFactura} from '../controllers/erp/administracion.controller.js';
+import {  renderOpProyNuevo,renderOpProyBuscar } from '../controllers/erp/operacion.controller.js';
+import { renderEprovMarca, renderAdProvMarcaNuevo, renderDeditar, renderAdEditar, renderCeditar, renderPBEditar, renderAdBuscar, renderAdNuevo, renderDCEditar, renderVerPprefactura, renderVerPrefacturas, renderAdProvMarca, renderCliBuscar, renderCliEditar, renderPrefacturas, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar, renderProgPrefacturar, renderDnuevo, renderDbuscar, renderCbuscar, renderCnuevo, renderFacturas, renderFacturar, verFactura, renderProdBuscar} from '../controllers/erp/administracion.controller.js';
 import { renderCoBuscar, renderCoNuevo, renderCoRequerir, renderCoEditar, renderEMultiempresas, renderBBuscar, renderBNuevo, renderBEditar } from '../controllers/erp/contabilidad.controller.js';
 import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc, renderContratos, renderSignature, renderContrato, renderPastContrato, renderDocV, renderNMultiempresas, renderBMultiempresas, renderJornadas} from '../controllers/erp/contabilidad.controller.js'
 
@@ -41,45 +41,14 @@ rutas.get('/dashboard/inicio/respaldo', renderRespaldo)
 //*llllllllllllllllllllllll
 //? */
 
-rutasErp.get('/dashboard/operacion/proyectos/nuevo', [authenticateUser, isAdmin], renderOpNuevo)
-/*
-rutas.get('/dashboard/operacion/proyecto/control_cambios', renderOpControl)
-rutas.get('/dashboard/operacion/proyecto/buscar', renderOpBuscar)
-//?requisicion
-rutas.get('/dashboard/operacion/proyecto/requisicion/nueva',renderReqNueva)
-rutas.get('/dashboard/operacion/proyecto/requisicion/buscar',renderReqBuscar)
-rutas.get('/dashboard/operacion/proyecto/requisicion/eliminar',renderReqEliminar)
-//?operacion routes
-rutas.get('/dashboard/operacion/proyecto/estimacion', renderOpEstimacion)
-rutas.get('/dashboard/operacion/proyecto/asignar_empleados', renderOpEmpleados)
-rutas.get('/dashboard/operacion/proyecto/reporte_cotizacion', renderOpCotizacion)
-rutas.get('/dashboard/operacion/proyecto/autorizar', renderOpAutorizar)
-
-//*lllllllllllllllllllllll
-//*Autorizar
-//*lllllllllllllllllllllll
-//?Autorizar
-rutas.get('/dashboard/operacion/autorizar/proyecto_cambios',render)
+//rutasErp.get('/dashboard/operacion/proyectos/nuevo', [authenticateUser, isAdmin], renderOpNuevo)
 
 
-//*lllllllllllllllllllllll
-//*SubContratos
-//*lllllllllllllllllllllll
-//?SubContratos
-rutas.get('/dashboard/operacion/subcontratos/nuevo',renderSubNuevo)
-rutas.get('/dashboard/operacion/subcontratos/buscar',renderSubBuscar)
-rutas.get('/dashboard/operacion/subcontratos/ordenes_compra',renderSubOrdCompra)
-rutas.get('/dashboard/operacion/subcontratos/estimaciones',renderSubEstimaciones)
-rutas.get('/dashboard/operacion/subcontratos/pagos',renderSubPagos)
-rutas.get('/dashboard/operacion/subcontratos/anticipos',renderSubAnticipos)
+//?Operacion Routes
+//rutasErp.get('/dashboard/operacion/proyectos/nuevo', [authenticateUser, isAdmin], renderOpProyNuevo)
+rutasErp.get('/dashboard/operacion/proyectos/buscar', [authenticateUser, isAdmin], renderOpProyBuscar)
 
-//*lllllllllllllllllllllll
-//*Folios
-//*lllllllllllllllllllllll
-//?Folios
-rutas.get('/dashboard/operacion/folios/nuevo', renderNuevo)
-rutas.get('/dashboard/operacion/folios/pendientes', renderPendientes)
-*/
+
 
 
 //?llllllllllllllllllllllllllllll
@@ -96,8 +65,10 @@ rutasErp.get('/dashboard/administracion/prefacturas/editar/:id',[authenticateUse
 
 rutasErp.get('/dashboard/administracion/marca/nuevo', [authenticateUser, isAdmin], renderAdNuevo)
 rutasErp.get('/dashboard/administracion/marca/buscar', [authenticateUser, isAdmin], renderAdBuscar)
-rutasErp.get('/dashboard/administracion/marca/prov_marca', [authenticateUser, isAdmin], renderAdProvMarca)
 rutasErp.get('/dashboard/administracion/marca/editar/:id', [authenticateUser, isAdmin], renderAdEditar)
+rutasErp.get('/dashboard/administracion/marca/prov_marca', [authenticateUser, isAdmin], renderAdProvMarca)
+rutasErp.get('/dashboard/administracion/marca/prov_marca/editar/:id', [authenticateUser, isAdmin], renderEprovMarca)
+rutasErp.get('/dashboard/administracion/marca/prov_marca/nuevo', [authenticateUser, isAdmin], renderAdProvMarcaNuevo)
 
 rutasErp.get('/dashboard/administracion/disciplina/nuevo', [authenticateUser, isAdmin], renderDCNuevo)
 rutasErp.get('/dashboard/administracion/disciplina/buscar', [authenticateUser, isAdmin], renderDCBuscar)
@@ -120,6 +91,13 @@ rutasErp.get('/dashboard/administracion/facturas', [authenticateUser, isAdmin], 
 rutasErp.get('/dashboard/administracion/facturas/nuevo', [authenticateUser, isAdmin], renderFacturar)
 rutasErp.get('/dashboard/administracion/facturas/:id', [authenticateUser, isAdmin], verFactura)
 
+
+//?Productos y Servicios
+rutasErp.get('/dashboard/administracion/productos/buscar', [authenticateUser, isAdmin], renderProdBuscar)
+
+/*
+rutasErp.get('/dashboard/administracion/productos/nuevo', [authenticateUser, isAdmin], renderProdNuevo)
+rutasErp.get('/dashboard/administracion/productos/editar/:id', [authenticateUser, isAdmin], renderProdEditar)*/
 //?llllllllllllllllllllllllllllll
 //?Contabilidad Routes
 //?llllllllllllllllllllllllllllll

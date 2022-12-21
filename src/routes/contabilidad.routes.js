@@ -32,4 +32,18 @@ contabilidadRoutes.post('/updCuenta/:id', updBanco);
 
 //!del banco
 contabilidadRoutes.delete('/delCuenta/:id', deleteBanco);
+
+
+
+/*
+
+//?add proyecto 
+ contabilidadRoutes.post('/addProyecto', addProyecto);
+
+//*upd proyecto
+contabilidadRoutes.post('/updProyecto/:id', updProyecto);
+
+//!del proyecto
+contabilidadRoutes.delete('/delProyecto/:id', deleteProyecto);
+*/
 export default contabilidadRoutes;
