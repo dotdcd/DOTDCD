@@ -10,6 +10,7 @@ import { addCables, updCables, delCables } from "../controllers/administracion/c
 import { addDispositivo, updDispositivo, delDispositivo } from "../controllers/administracion/dispositivo.controller.js";
 import { addFactura, cancelFactura } from "../controllers/administracion/facturas.contrroller.js";
 import {addMarca, updMarca, delMarca, addProveedorMarca, delPMarca} from "../controllers/administracion/marca.controller.js";
+import {addProducto, updProducto, delProducto} from "../controllers/administracion/producto.controller.js";
 const administrationRoutes = Router();
 
 //? Prefactura Functions Routes
@@ -86,5 +87,18 @@ administrationRoutes.post('/addprvMarca', addProveedorMarca)
 
 //!del proveedor por marca
 administrationRoutes.delete('/delPMarca/:id', delPMarca)
+
+
+
+//? add producto o servicio
+administrationRoutes.post('/addProducto', addProducto)
+
+//* upd producto o servicio
+administrationRoutes.post('/updProducto/:id', updProducto)
+
+//! del producto o servicio
+administrationRoutes.delete('/delProducto/:id', delProducto)
+
+
 // Path: prefactura.controller.js
 export default administrationRoutes;

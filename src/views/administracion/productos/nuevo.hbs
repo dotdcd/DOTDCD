@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Agregar Producto o Servicio <span class="fw-300"><i>DOTDCD - ERP</i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div id="metasAll">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <!-- Formulario  -->
+                                    <form class="form-group" method="post" action="/addProducto">
+                                        <label class="form-label col-12" for="simpleinput">
+                                            <h3 class="text-center">Agregar Producto o Servicio</h3>
+                                        </label><br /><br /><br />
+
+                                        <span>Descripcion</span>
+                                        <input type="text" id="simpleinput" class="form-control" placeholder=""
+                                            name="producto_descripcion" autofocus><br />
+                                        <span>Código</span>
+                                        <input type="text" id="simpleinput" class="form-control" placeholder=""
+                                            name="producto_codigo"><br />
+
+                                        <span>Tipo</span>
+                                        
+                                        <select name="producto_tipo_id" class="form-control" id="">
+
+                                        </select>
+
+                                        <span>Tipo de Material</span>
+                                        <input type="text" class="form-control" name="producto_material_tipo"><br />
+
+                                        <span>Familia / Disciplina</span>
+                                        <select name="producto_familia_id" class="form-control" id="">
+
+                                        </select>
+
+                                        <span>Dispositivo</span>
+                                        <select name="dispositivo_id" class="form-control" id="">
+
+                                        </select>
+
+                                        <span>Modelo</span>
+                                        <input type="text" class="form-control" name="producto_modelo"><br />
+
+                                        <span>Marca</span>
+                                        <input type="text" class="form-control" name="producto_marca_id"><br />
+
+                                        <span>Unidad</span>
+                                        <input type="text" class="form-control" name="producto_unidad_id"><br />
+
+                                        <span>Maneja Series</span>
+                                        <select name="producto_serie_id" class="form-control" id="">
+
+                                        </select> <br>
+
+                                        <span>Moneda</span>
+                                        <select name="banco_cuenta_moneda_id" id="" class="form-control">
+
+                                            {{#each moneda}}
+
+                                            <option value="{{moneda_id}}">{{moneda_descripcion}}</option>
+                                            {{/each}}
+
+                                        </select><br />
+                                        <span>Costo de Compra</span>
+                                        <input type="text" class="form-control" name="producto_costo"><br />
+
+                                        <span>Fecha de Costo</span>
+                                        <input type="date" class="form-control" id="datePicker" name="producto_costo_fecha"><br />
+
+                                        <span>Precio Producto a Tarjeta</span>
+                                        <input type="text" class="form-control" name="producto_precio_tarjeta"><br />
+
+                                        <span>M.O. Cant. Jornadas</span>
+                                        <input type="text" class="form-control" name="producto_moneda_id"><br />
+
+                                        <span>Precio Final para Venta</span>
+                                        <input type="text" class="form-control" name="producto_precio_venta"><br />
+                                        <br><br>
+                                        <button type="submit" class="btn-outline-info btn-lg btn-block ">Agregar
+                                            Cuenta</button>
+                                    </form>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#section 'scripts'}}
+
+<script>
+    document.getElementById('datePicker').valueAsDate = new Date();
+
+</script>
+{{/section}}

@@ -6,7 +6,7 @@ import { read } from 'fs-extra';
 import { renderEmployees, renderAnalytics, renderProyectos } from '../controllers/erp/analytics.controller.js';
 import { renderUsuarios } from '../controllers/erp/inicio.controller.js';
 import {  renderOpProyNuevo,renderOpProyBuscar } from '../controllers/erp/operacion.controller.js';
-import { renderEprovMarca, renderAdProvMarcaNuevo, renderDeditar, renderAdEditar, renderCeditar, renderPBEditar, renderAdBuscar, renderAdNuevo, renderDCEditar, renderVerPprefactura, renderVerPrefacturas, renderAdProvMarca, renderCliBuscar, renderCliEditar, renderPrefacturas, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar, renderProgPrefacturar, renderDnuevo, renderDbuscar, renderCbuscar, renderCnuevo, renderFacturas, renderFacturar, verFactura, renderProdBuscar} from '../controllers/erp/administracion.controller.js';
+import { renderEprovMarca, renderProdNuevo,renderProdEditar, renderAdProvMarcaNuevo, renderDeditar, renderAdEditar, renderCeditar, renderPBEditar, renderAdBuscar, renderAdNuevo, renderDCEditar, renderVerPprefactura, renderVerPrefacturas, renderAdProvMarca, renderCliBuscar, renderCliEditar, renderPrefacturas, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar, renderProgPrefacturar, renderDnuevo, renderDbuscar, renderCbuscar, renderCnuevo, renderFacturas, renderFacturar, verFactura, renderProdBuscar} from '../controllers/erp/administracion.controller.js';
 import { renderCoBuscar, renderCoNuevo, renderCoRequerir, renderCoEditar, renderEMultiempresas, renderBBuscar, renderBNuevo, renderBEditar } from '../controllers/erp/contabilidad.controller.js';
 import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc, renderContratos, renderSignature, renderContrato, renderPastContrato, renderDocV, renderNMultiempresas, renderBMultiempresas, renderJornadas} from '../controllers/erp/contabilidad.controller.js'
 
@@ -94,10 +94,10 @@ rutasErp.get('/dashboard/administracion/facturas/:id', [authenticateUser, isAdmi
 
 //?Productos y Servicios
 rutasErp.get('/dashboard/administracion/productos/buscar', [authenticateUser, isAdmin], renderProdBuscar)
-
-/*
 rutasErp.get('/dashboard/administracion/productos/nuevo', [authenticateUser, isAdmin], renderProdNuevo)
-rutasErp.get('/dashboard/administracion/productos/editar/:id', [authenticateUser, isAdmin], renderProdEditar)*/
+rutasErp.get('/dashboard/administracion/productos/editar/:id', [authenticateUser, isAdmin], renderProdEditar)
+
+
 //?llllllllllllllllllllllllllllll
 //?Contabilidad Routes
 //?llllllllllllllllllllllllllllll

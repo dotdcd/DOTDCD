@@ -22,39 +22,29 @@
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
                                     <!-- Formulario  -->
-                                    <form class="form-group" method="post"
-                                        action="/updCuenta/{{bancoinfo.banco_cuenta_id}}">
+                                    <form class="form-group" method="post" action="/updCuenta/{{bancoinfo.banco_cuenta_id}}">
                                         <label class="form-label col-12" for="simpleinput">
                                             <h3 class="text-center">Editar Cuenta Bancaria</h3>
                                         </label><br /><br /><br />
                                         <span>Número de cuenta</span>
-                                        <input type="text" id="simpleinput" class="form-control"
-                                            placeholder="" name="banco_cuenta_numero"
-                                            value="{{bancoinfo.banco_cuenta_numero}}" autofocus><br />
+                                        <input type="text" id="simpleinput" class="form-control" placeholder="" name="banco_cuenta_numero" value="{{bancoinfo.banco_cuenta_numero}}" autofocus><br />
                                         <span>Banco</span>
-                                        <input type="text" id="simpleinput" class="form-control"
-                                            placeholder="" name="banco_cuenta_banco"
-                                            value="{{bancoinfo.banco_cuenta_banco}}"><br />
+                                        <input type="text" id="simpleinput" class="form-control" placeholder="" name="banco_cuenta_banco" value="{{bancoinfo.banco_cuenta_banco}}"><br />
 
                                         <span>CLABE</span>
-                                        <input type="text" class="form-control" name="banco_cuenta_clabe"
-                                            value="{{bancoinfo.banco_cuenta_clabe}}"><br />
+                                        <input type="text" class="form-control" name="banco_cuenta_clabe" value="{{bancoinfo.banco_cuenta_clabe}}"><br />
 
                                         <span>Descripcion de la Cuenta</span>
-                                        <input type="text" class="form-control" name="banco_cuenta_comentario"
-                                            value="{{bancoinfo.banco_cuenta_comentario}}"><br />
+                                        <input type="text" class="form-control" name="banco_cuenta_comentario"value="{{bancoinfo.banco_cuenta_comentario}}"><br />
 
                                         <span>Cuenta Contable (Contacto)</span>
-                                        <input type="text" class="form-control" name="banco_cuenta_contacto"
-                                            value="{{bancoinfo.banco_cuenta_contacto}}"><br />
+                                        <input type="text" class="form-control" name="banco_cuenta_contacto" value="{{bancoinfo.banco_cuenta_contacto}}"><br />
 
                                         <span>Saldo Inicial</span>
-                                        <input type="text" class="form-control" name="banco_cuenta_saldo_inicial"
-                                            value="{{bancoinfo.banco_cuenta_saldo_inicial}}"><br />
+                                        <input type="text" class="form-control" name="banco_cuenta_saldo_inicial" value="{{bancoinfo.banco_cuenta_saldo_inicial}}"><br />
 
                                         <span>Límite de Crédito</span>
-                                        <input type="text" class="form-control" name="banco_cuenta_limite_credito"
-                                            value="{{bancoinfo.banco_cuenta_limite_credito}}"><br />
+                                        <input type="text" class="form-control" name="banco_cuenta_limite_credito" value="{{bancoinfo.banco_cuenta_limite_credito}}"><br />
 
                                         <span>Moneda</span>
                                         
@@ -70,22 +60,20 @@
                                         <span>Empresa Pagadora</span><!--Empresas loop-->
                                         <select name="banco_empresa_id" id="" class="form-control">
                                             {{#each empresaa}}
-                                            <option value="{{id}}">{{nombre}}</option>
+                                            <option value="{{id}}" {{#if (is ../bancoinfo.banco_empresa_id this.id)}} selected {{/if}}>{{nombre}}</option>
                                             {{/each}}
                                         </select><br />
 
                                         <span>Tipo de Cuenta</span>
                                         <select name="banco_cuenta_tipo_id" id="" class="form-control">
                                             {{#each tipo}}
-                                            <option value="{{ide}}">{{nombree}}</option>
+                                            <option value="{{ide}}" {{#if (is ../bancoinfo.banco_cuenta_tipo_id this.ide)}} selected {{/if}}>{{nombree}}</option>
                                             {{/each}}
                                         </select> <br>
                                         <span>Estatus</span>
                                         <select name="banco_cuenta_estatus_baja" id="" class="form-control">
-                                            <option value="0" {{#if (is bancoinfo.banco_cuenta_estatus_baja 0)}} selected
-                                                {{/if}}>Activo</option>
-                                            <option value="1" {{#if (is bancoinfo.banco_cuenta_estatus_baja 1)}} selected
-                                                {{/if}}>Inactivo</option>
+                                            <option value="0" {{#if (is bancoinfo.banco_cuenta_estatus_baja 0)}} selected {{/if}}>Activo</option>
+                                            <option value="1" {{#if (is bancoinfo.banco_cuenta_estatus_baja 1)}} selected {{/if}}>Inactivo</option>
                                         </select> <br>
 
                                         <br><br>

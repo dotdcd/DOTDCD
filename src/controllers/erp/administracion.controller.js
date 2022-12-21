@@ -568,9 +568,10 @@ const getProductos = async () => {
 export const renderProdBuscar = async (req, res) => {
     try {
         let parray = []
-        const productos = await pool.query('SELECT producto_id, producto_codigo, producto_descripcion, producto_tipo_id, producto_material_tipo, producto_familia_id, producto_modelo, producto_marca_id, producto_ficha_tecnica_path, producto_unidad_id, producto_moneda_id, producto_costo, producto_mo, producto_costo_fecha, producto_icampo, producto_ioficina, producto_hm, producto_financiero, producto_utilidad, producto_precio_venta, producto_serie_id, producto_precio_tarjeta, producto_fecha_alta, producto_fecha_baja, producto_ultima_modificacion, producto_estatus_baja, moneda_id, moneda_descripcion, moneda_cotizacion, dispositivo_id, usuario_modifico FROM productos JOIN monedas ON moneda_id = producto_moneda_id ORDER BY `productos`.`producto_id` DESC')
+        const productos = await pool.query('SELECT producto_id, producto_descripcion, producto_codigo, producto_tipo_id, (SELECT tm_tipo FROM tipos_material WHERE tm_id = producto_tipo_id ) as tipo, (SELECT serie_descripcion FROM serie WHERE serie_id = producto_serie_id) as serie, producto_familia_id, (SELECT familia_clave FROM familias WHERE familia_id = producto_familia_id) as familia, producto_modelo, producto_marca_id, (SELECT marca_descripcion FROM marcas WHERE marca_id = producto_marca_id) as marca, producto_unidad_id, (SELECT unidad_descripcion FROM unidades WHERE unidad_id = producto_unidad_id) as unidad, producto_moneda_id, (SELECT moneda_descripcion FROM monedas WHERE moneda_id = producto_moneda_id) as moneda, producto_costo, producto_costo_fecha, producto_precio_tarjeta, producto_mo, producto_precio_venta, producto_estatus_baja FROM productos')
+        // SELECT producto_id, producto_descripcion, producto_codigo, producto_tipo_id, (SELECT tm_tipo FROM tipos_material WHERE tm_id = producto_tipo_id ) as tipo, producto_familia_id, (SELECT familia_clave FROM familias WHERE familia_id = producto_familia_id) as familia, producto_modelo, producto_marca_id, (SELECT marca_descripcion FROM marcas WHERE marca_id = producto_marca_id) as marca, producto_unidad_id, (SELECT unidad_descripcion FROM unidades WHERE unidad_id = producto_unidad_id) as unidad, producto_moneda_id, (SELECT moneda_descripcion FROM monedas WHERE moneda_id = producto_moneda_id) as moneda, producto_costo, producto_costo_fecha, producto_precio_tarjeta, producto_mo, producto_precio_venta, producto_estatus_baja FROM productos
         for (const pr of productos[0]) {
-            parray.push([pr.producto_descripcion, pr.producto_codigo, pr.producto_tipo_id, pr.producto_familia_id, pr.dispositivo_id, pr.producto_modelo, pr.producto_marca_id, pr.producto_unidad_id, pr.producto_serie_id, pr.producto_moneda_id, pr.producto_costo, pr.producto_costo_fecha, pr.producto_precio_tarjeta, 'Funcion Deprecated','Funcion Deprecated', '- Porcentajes pendientes -', '<center><a href="/dashboard/administracion/productos/editar/" class="btn btn-lg btn-outline-success m-1" ><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delProducto()"><i class="fal fa-trash-alt"></i></button><center>'])
+            parray.push([pr.producto_descripcion, pr.producto_codigo, pr.tipo, pr.familia, pr.dispositivo, pr.producto_modelo, pr.marca, pr.unidad, pr.serie, pr.moneda, pr.producto_costo, pr.producto_costo_fecha, pr.producto_precio_tarjeta, pr.producto_mo, '********', '<center><a href="/dashboard/administracion/productos/editar/" class="btn btn-lg btn-outline-success m-1" ><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delProducto()"><i class="fal fa-trash-alt"></i></button><center>'])
         }
         return res.render('administracion/productos/buscar', { parray })
     } catch (error) {
@@ -578,3 +579,21 @@ export const renderProdBuscar = async (req, res) => {
     }
 }
 
+export const renderProdNuevo = async (req, res) => {
+    try {
+        const moneda = await getMoneda()
+        return res.render('administracion/productos/nuevo', {moneda})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const renderProdEditar = async (req, res) => {
+    try {
+        const { id } = req.params
+        const producto = await getProducto(id)
+        return res.render('administracion/productos/editar', { producto })
+    } catch (error) {
+        console.log(error)
+    }
+}
