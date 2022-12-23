@@ -30,45 +30,91 @@
                                         <span>Descripcion</span>
                                         <input type="text" id="simpleinput" class="form-control" placeholder=""
                                             name="producto_descripcion" autofocus><br />
+
                                         <span>Código</span>
                                         <input type="text" id="simpleinput" class="form-control" placeholder=""
                                             name="producto_codigo"><br />
 
                                         <span>Tipo</span>
-                                        
-                                        <select name="producto_tipo_id" class="form-control" id="">
 
-                                        </select>
+                                        <select name="producto_tipo_id" class="form-control" id="">
+                                            <option value="0" selected>Seleccionar</option>
+                                            <option value="1">Equipo Herramienta</option>
+                                            <option value="2">Material</option>
+                                            <option value="3">Servicio</option>
+                                        </select><br />
 
                                         <span>Tipo de Material</span>
-                                        <input type="text" class="form-control" name="producto_material_tipo"><br />
+                                        <select name="producto_material_tipo" class="form-control" id="">
+                                            <option value="0" selected>No aplica</option>
+                                            <option value="1">Tuberia</option>
+                                            <option value="2">Cableado</option>
+                                            <option value="3">Dispositivo</option>
+                                        </select><br />
 
                                         <span>Familia / Disciplina</span>
                                         <select name="producto_familia_id" class="form-control" id="">
+                                            <option value="0" disabled selected>Seleccionar</option>
 
-                                        </select>
+                                            {{#each familia}}
+                                            <option value="{{familia_id}}">{{familia_descripcion}}</option>
+                                            {{/each}}
+                                        </select><br />
 
                                         <span>Dispositivo</span>
                                         <select name="dispositivo_id" class="form-control" id="">
+                                            <option value="0" disabled selected>Seleccionar</option>
 
-                                        </select>
+                                            {{#each dispositivo}}
+                                            <option value="{{dispositivo_id}}">{{descripcion}}</option>
+                                            {{/each}}
+                                        </select><br />
 
                                         <span>Modelo</span>
                                         <input type="text" class="form-control" name="producto_modelo"><br />
 
                                         <span>Marca</span>
-                                        <input type="text" class="form-control" name="producto_marca_id"><br />
+                                        <select name="producto_marca_id" id="" class="form-control">
+                                            <option value="0" disabled selected>Seleccionar</option>
+
+                                            {{#each marca}}
+                                            <option value="{{marca_id}}">{{marca_descripcion}}</option>
+                                            {{/each}}
+                                        </select><br />
 
                                         <span>Unidad</span>
-                                        <input type="text" class="form-control" name="producto_unidad_id"><br />
+                                        
+                                        <select id="unidad_id" name="producto_unidad_id" class="form-control">
+                                            <option value="0" selected disabled>Seleccionar</option>
+                                            <option value="1">Hora</option>
+                                            <option value="2">Juego</option>
+                                            <option value="3">Litro</option>
+                                            <option value="4">Pieza</option>
+                                            <option value="5">Horse Po</option>
+                                            <option value="10">Bobina</option>
+                                            <option value="11">Bolsa</option>
+                                            <option value="12">Caja</option>
+                                            <option value="13">Dia</option>
+                                            <option value="14">Jornada</option>
+                                            <option value="16">Lote</option>
+                                            <option value="18">Metro</option>
+                                            <option value="19">Metro</option>
+                                            <option value="20">Servicio</option>
+                                            <option value="21">Tramo</option>
+                                            <option value="22">Unidad</option>
+                                            <option value="23">NA</option>
+                                        </select><br>
 
                                         <span>Maneja Series</span>
                                         <select name="producto_serie_id" class="form-control" id="">
-
+                                            <option value="0" disabled selected>Seleccionar</option>
+                                            <option value="1">No</option>
+                                            <option value="2">Si</option>
                                         </select> <br>
 
                                         <span>Moneda</span>
-                                        <select name="banco_cuenta_moneda_id" id="" class="form-control">
+                                        <select name="producto_moneda_id" id="" class="form-control">
+                                            <option value="0" disabled selected>Seleccionar</option>
 
                                             {{#each moneda}}
 
@@ -80,13 +126,14 @@
                                         <input type="text" class="form-control" name="producto_costo"><br />
 
                                         <span>Fecha de Costo</span>
-                                        <input type="date" class="form-control" id="datePicker" name="producto_costo_fecha"><br />
+                                        <input type="date" class="form-control" id="datePicker"
+                                            name="producto_costo_fecha"><br />
 
                                         <span>Precio Producto a Tarjeta</span>
                                         <input type="text" class="form-control" name="producto_precio_tarjeta"><br />
 
                                         <span>M.O. Cant. Jornadas</span>
-                                        <input type="text" class="form-control" name="producto_moneda_id"><br />
+                                        <input type="text" class="form-control" name="producto_mo"><br />
 
                                         <span>Precio Final para Venta</span>
                                         <input type="text" class="form-control" name="producto_precio_venta"><br />

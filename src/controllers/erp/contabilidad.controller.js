@@ -372,7 +372,7 @@ export const renderNMultiempresas = async(req, res) => {
 }
 
 
-const getEmpresas = async (id) => {
+const getEmpresaa = async (id) => {
     try {
         const empresa = await pool.query("SELECT * FROM multiempresa WHERE empresa_id = ?", [id])
         return empresa[0][0]
@@ -384,8 +384,8 @@ const getEmpresas = async (id) => {
 export const renderEMultiempresas = async(req, res) => {
     try {
         const {id} = req.params
-        const empresa = await getEmpresas(id)
-        return res.render('contabilidad/multiempresas/editar', {empresa})
+        const empresa = await getEmpresaa(id)
+        return res.render('contabilidad/multiempresas/editar', {empresaa})
     } catch (error) {
         console.log(error)
     }
@@ -475,3 +475,53 @@ export const renderBEditar = async(req, res) => {
     }
 }
 
+//? Render Egresos
+
+const getEmpresas = async () => {
+    const empresas = await pool.query("SELECT empresa_id, empresa_razon_social FROM multiempresa")
+
+    return empresas[0]
+}
+
+const getProveedores = async () => {
+    const proveedores = await pool.query("SELECT proveedor_id, proveedor_razon_social FROM proveedores")
+
+    return proveedores[0]
+}
+
+const getCotizaciones = async () => {
+    try {
+        const cotizaciones = await pool.query("SELECT c.cotizacion_id as id, c.cotizacion_proyecto as proyecto, c.cotizacion_descripcion as descripcion, p.cliente_razon_social as cliente FROM cotizaciones c INNER JOIN clientes p ON p.cliente_id = c.cotizacion_cliente_id")
+        let cotizacion = []
+        for (const c of cotizaciones[0]) {
+            cotizacion.push([c.id, c.proyecto, c.descripcion, c.cliente, '<input type="checkbox" name="cotizacion_id" value="'+c.id+'">'])
+        }
+
+        return cotizacion
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getCuentas = async () => {
+    try {
+        const cuentas = await pool.query("SELECT banco_cuenta_id as id, CONCAT(banco_cuenta_numero, ' - ', banco_cuenta_banco) as cuenta FROM bancos_cuentas")
+
+        return cuentas[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const renderEnuevos = async (req, res) => {
+    try {
+        const empresas = await getEmpresas()
+        const proveedores = await getProveedores()
+        const cotizaciones = await getCotizaciones()
+        const cuentas = await getCuentas()
+        res.render('contabilidad/bancos/egresos/nuevo', {empresas, proveedores, cotizaciones, cuentas})
+    } catch (error) {
+        console.log(error)
+    }
+}
+//!End Render Egresos

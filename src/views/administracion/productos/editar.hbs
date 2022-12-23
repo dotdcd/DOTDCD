@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-xl-12">
         <div id="panel-1" class="panel">
@@ -22,63 +23,103 @@
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
                                     <!-- Formulario  -->
-                                    <form class="form-group" method="post" action="/updProducto/{{}}">
+                                    <form class="form-group" method="post" action="/updProducto/{{producto.producto_id}}">
                                         <label class="form-label col-12" for="simpleinput">
                                             <h3 class="text-center">Editar Producto o Servicio</h3>
                                         </label><br /><br /><br />
 
                                         <span>Descripcion</span>
                                         <input type="text" id="simpleinput" class="form-control" placeholder=""
-                                            name="producto_descripcion" value="{{}}" autofocus><br />
+                                            name="producto_descripcion" value="{{producto.producto_descripcion}}" autofocus><br />
 
                                         <span>Código</span>
-                                        <input type="text" id="simpleinput" value="{{}}" class="form-control" placeholder=""
-                                            name="producto_"><br />
+                                        <input type="text" id="simpleinput" class="form-control" value="{{producto.producto_codigo}}" placeholder=""
+                                            name="producto_codigo"><br />
 
                                         <span>Tipo</span>
-                                        <input type="text" class="form-control" value="{{}}" name="producto_tipo_id"><br />
 
-                                        <span>Tipo de Material</span>
-                                        <input type="text" class="form-control" value="{{}}" name="producto_material_tipo"><br />
-
-                                        <span>Familia / Disciplina</span>
-                                        <input type="text" class="form-control" value="{{}}" name="producto_familia_id"><br />
-
-                                        <span>Dispositivo</span>
-                                        <input type="text" class="form-control" value="{{}}" name="dispositivo_id"><br />
-
-                                        <span>Modelo</span>
-                                        <input type="text" class="form-control" value="{{}}" name="producto_modelo"><br />
-
-                                        <span>Marca</span>
-                                        <input type="text" class="form-control" value="{{}}" name="producto_marca_id"><br />
-
-                                        <span>Unidad</span>
-                                        <input type="text" class="form-control" value="{{}}" name="producto_unidad_id"><br />
-
-                                        <span>Maneja Series</span>
-                                        <input type="text" class="form-control"  value="{{}}" name="producto_serie_id"><br />
-
-                                        <span>Costo de Compra</span>
-                                        <input type="text" class="form-control" value="{{}}" name="producto_costo"><br />
-
-                                        <span>Fecha de Costo</span>
-                                        <input type="text" class="form-control" value="{{}}" name="producto_costo_fecha"><br />
-
-                                        <span>Precio Producto a Tarjeta</span>
-                                        <input type="text" class="form-control" value="{{}}" name="producto_precio_tarjeta"><br />
-
-                                        <span>M.O. Cant. Jornadas</span>
-                                        <input type="text" class="form-control" value="{{}}" name="producto_moneda_id"><br />
-                                        <select name="" id="">
-                                        {{#each monedas}}
-                                        <option value="{{moneda_id}}" >{{moneda_descripcion}}</option>
-                                        {{/each}}
+                                        <select name="producto_tipo_id" class="form-control" id="">
+                                            {{#each tipo}}
+                                            <option value="{{tipo_id}}" {{#if (is ../producto.producto_tipo_id this.tipo_id) }} selected {{/if}}>{{tipo_descripcion}}</option>
+                                            {{/each}}
                                         </select><br />
 
+                                        <span>Tipo de Material</span>
+                                        <select name="producto_material_tipo" class="form-control" id="">
+                                            {{#each material}}
+                                            <option value="{{tm_id}}" {{#if (is ../producto.producto_material_tipo this.tm_id) }} selected {{/if}}>{{tm_tipo}}</option>
+                                            {{/each}}
+                                        </select><br />
+
+                                        <span>Familia / Disciplina</span>
+                                        <select name="producto_familia_id" class="form-control" id="">
+
+                                            {{#each familia}}
+                                            <option value="{{familia_id}}" {{#if (is ../producto.producto_familia_id this.familia_id) }} selected {{/if}}>{{familia_descripcion}}</option>
+                                            {{/each}}
+                                        </select><br />
+
+                                        <span>Dispositivo</span>
+                                        <select name="dispositivo_id" class="form-control" id="">
+
+                                            {{#each dispositivo}}
+                                            <option value="{{dispositivo_id}}" {{#if (is ../producto.dispositivo_id this.dispositivo_id) }} selected {{/if}}>{{descripcion}}</option>
+                                            {{/each}}
+                                        </select><br />
+
+                                        <span>Modelo</span>
+                                        <input type="text" class="form-control" name="producto_modelo" value="{{producto.producto_modelo}}"><br />
+
+                                        <span>Marca</span>
+                                        <select name="producto_marca_id" id="" class="form-control">
+                                            {{#each marca}}
+                                            <option value="{{marca_id}}" {{#if (is ../producto.producto_marca_id this.marca_id) }} selected {{/if}}>{{marca_descripcion}}</option>
+                                            {{/each}}
+                                        </select><br />
+
+                                        <span>Unidad</span>
+                                        
+                                        <select id="unidad_id" name="producto_unidad_id" class="form-control">
+                                            {{#each unidad}}
+                                            <option value="{{unidad_id}}" {{#if (is ../producto.producto_unidad_id this.unidad_id) }} selected {{/if}}>{{unidad_descripcion}}</option>
+                                            {{/each}}
+                                        </select><br>
+
+                                        <span>Maneja Series</span>
+                                        <select name="producto_serie_id" class="form-control" id="">
+                                            
+                                            {{#each serie}}
+                                            <option value="{{serie_id}}" {{#if (is ../producto.producto_serie_id this.serie_id) }} selected {{/if}}>{{serie_descripcion}}</option>
+                                            {{/each}}
+                                        </select> <br>
+
+                                        <span>Moneda</span>
+                                        <select name="producto_moneda_id" id="" class="form-control">
+
+                                            {{#each moneda}}
+
+                                            <option value="{{moneda_id}}" {{#if (is ../producto.producto_moneda_id this.moneda_id) }} selected {{/if}}>{{moneda_descripcion}}</option>
+                                            {{/each}}
+
+                                        </select><br />
+                                        <span>Costo de Compra</span>
+                                        <input type="text" class="form-control" name="producto_costo" value="{{producto.producto_costo}}"><br />
+
+                                        <span>Fecha de Costo</span>
+                                        <input type="date" class="form-control" id="datePicker"
+                                            name="producto_costo_fecha" value="{{producto.producto_costo_fecha}}"><br />
+
+                                        <span>Precio Producto a Tarjeta</span>
+                                        <input type="text" class="form-control" name="producto_precio_tarjeta" value="{{producto.producto_precio_tarjeta}}"><br />
+
+                                        <span>M.O. Cant. Jornadas</span>
+                                        <input type="text" class="form-control" name="producto_mo" value="{{producto.producto_moneda_id}}"><br />
+
+                                        <span>Precio Final para Venta</span>
+                                        <input type="text" class="form-control" name="producto_precio_venta" value="{{producto.producto_precio_venta}}"><br />
                                         <br><br>
-                                        <button type="submit" class="btn-outline-info btn-lg btn-block ">Agregar
-                                            Cuenta</button>
+                                        <button type="submit" class="btn-outline-info btn-lg btn-block ">Actualizar
+                                            </button>
                                     </form>
                                     <div class="col-md-3"></div>
                                 </div>
@@ -90,3 +131,10 @@
         </div>
     </div>
 </div>
+
+{{#section 'scripts'}}
+
+<script>
+
+</script>
+{{/section}}

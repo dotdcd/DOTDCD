@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Editar Producto o Servicio <span class="fw-300"><i>DOTDCD - ERP</i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div id="metasAll">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <!-- Formulario  -->
+                                    <form class="form-group" method="post" action="/updRequisicion/{{r.requisicion_id}}">
+                                        <label class="form-label col-12" for="simpleinput">
+                                            <h3 class="text-center">Editar Requisicion</h3>
+                                        </label><br /><br /><br />
+
+                                        <span>Tipo de requisicion</span>
+                                        <select name="" id="" class="form-control">
+                                        <option value="">asd</option>
+                                        <option value="">asdasd</option>
+                                        </select><br /><br />
+
+                                        <span>Cliente</span>
+                                        <select name="" id="" class="form-control">
+                                        {{#each clientes}}
+                                        <option value="{{cliente_id}}" >{{cliente_razon_social}}</option>
+                                        {{/each}}
+                                        </select><br /><br />
+
+                                        <span>Proyecto / Cotizacion</span>
+                                        <select name="requisicion_cotizacion_id" id="" class="form-control">
+                                        {{#each cotizaciones}}
+                                        <option value="{{cotizacion_id}}" >{{cotizacion_descripcion}}</option>
+                                        {{/each}}
+                                        </select><br />
+
+                                        <span>Inversion</span>
+                                        <select name="" id="" class="form-control">
+                                        {{#each inversion}}
+                                        <option value="{{inversion_id}}" >{{inversion_descripcion}}</option>
+                                        {{/each}}
+                                        </select><br />
+
+                                        <span>Familia / Disciplina</span>
+                                        <select name="" id="" class="form-control">
+                                        {{#each familias}}
+                                        <option value="{{familia_id}}" >{{familia_descripcion}}</option>
+                                        {{/each}}
+                                        </select><br />
+
+                                        <span>Empleado Solicitante</span>
+                                        <select name="requisicion_empleado_id" id="" class="form-control">
+                                        {{#each empleados}}
+                                        <option value="{{empleado_id}}" >{{nombre_completo}}</option>
+                                        {{/each}}
+                                        </select><br />
+
+                                        <span>Fecha</span>
+                                        <input type="date" class="form-control" value="{{r.fecha}}" name="fecha"><br />
+
+                                        <span>Comentarios</span>
+                                        <input type="text" class="form-control" value="{{r.requisicion_comentarios}}" name="requisicion_comentarios"><br />
+
+                                        <br><br>
+                                        <button type="submit" class="btn-outline-info btn-lg btn-block ">Actualizar</button>
+                                    </form>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

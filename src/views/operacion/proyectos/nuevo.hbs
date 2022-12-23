@@ -1,204 +1,115 @@
-<form class="w-full max-w-lg">
-  <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full md:w-2/2 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700  font-bold mb-2 text-base" for="grid-first-name">
-        Cliente
-      </label>
-      <input class="appearance-none block w-full bg-gray-200 text-base text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane">
-    </div>
-    <div class="w-full md:w-2/2 px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-last-name">
-        Contacto
-      </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe">
-    </div>
-  </div>
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Agregar Proyecto <span class="fw-300"><i>DOTDCD - ERP</i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div id="metasAll">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <!-- Formulario  -->
+                                    <form class="form-group" method="post" action="/addProyecto">
+                                        <label class="form-label col-12" for="simpleinput">
+                                            <h3 class="text-center">Agregar Proyecto</h3> 
+                                        </label><br/><br/><br/>
 
-    <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700  font-bold mb-2 text-base" for="grid-state">
-        Empleado
-      </label>
-      <div class="relative">
-        <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-          <option>Empleado 1</option>
-          <option>Empleado 2</option>
-          <option>Empleado 3</option>
-        </select>
-        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                        <span>Cliente</span>
+                                        <select name="cotizacion_cliente_id" class="form-control" id="">
+                                            {{#each clientes}}
+                                                    <option value="{{cliente_id}}">{{cliente_razon_social}}</option>
+                                            {{/each}}
+                                        </select><br/>
+
+                                        <span>Contacto</span>
+                                        <input type="text" id="simpleinput" class="form-control"
+                                            placeholder="" name="cotizacion_contacto" ><br/>
+
+                                        <span>Empleado</span>
+                                        <select name="cotizacion_empleado_id" class="form-control" id="">
+                                            {{#each empleados}}
+                                                    <option value="{{empleado_id}}">{{nombre_completo}}</option>
+                                            {{/each}}
+                                        </select><br/>
+                                        
+                                        <span> Tipo de cotización</span>
+                                        <select name="cotizacion_tipo_id" class="form-control" id="">
+                                          <option value="0"></option>
+                                          <option value="1">Cotización Simple</option>
+                                          <option value="2">Cotizacion de Proyecto</option>
+                                          <option value="3">Poliza</option>
+                                        </select><br/>
+
+                                        <span>Moneda</span>
+                                        <select name="cotizacion_moneda_id" id="" class="form-control">
+                                            {{#each moneda}}
+                                                    <option value="{{moneda_id}}">{{moneda_descripcion}}</option>
+                                            {{/each}}
+                                        </select><br/>
+
+                                        <span>IVA</span>
+                                        <select name="estimacion_iva" id="" class="form-control">
+                                            <option value="0">No</option>
+                                            <option value="1">Si</option>
+                                        </select><br/>
+
+                                        <span>Empresa </span><!--Empresas loop-->
+                                        <select name="cotizacion_empresa_id" id="" class="form-control">
+                                            {{#each empresaa}}
+                                                    <option value="{{id}}">{{empresa_razon_social}}</option>
+                                            {{/each}}
+                                        </select><br/>
+
+                                        <span>Sucursal</span>
+                                        <select name="sucursal_id" class="form-control" id="">
+                                            {{#each sucursales}}
+                                                    <option value="{{sucursal_id}}">{{sucursal_nombre}}</option>
+                                            {{/each}}
+                                        </select><br/>
+
+                                        <span>Nombre del Proyecto</span>
+                                        <input type="text" class="form-control" name=""><br/>
+
+
+
+                                        <span>Descripcion</span>
+                                        <input type="text" class="form-control" name="cotizacion_descripcion"><br/>
+
+                                        <span>Ubicacion de la Obra</span>
+                                        <input type="text" class="form-control" name="cotizacion_ubicacion"><br/>
+
+                                        <span>Condiciones Comerciales</span>
+                                        <input type="text" class="form-control" name="cotizacion_condiciones_comerciales"><br/>
+
+                                        <span>Observaciones</span>
+                                        <input type="text" class="form-control" name="cotizacion_observaciones"><br/>
+
+
+                                        <br><br>
+                                        <button type="submit"
+                                            class="btn-outline-info btn-lg btn-block ">Agregar Proyecto</button>
+                                    </form>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-    <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700  font-bold mb-2 text-base" for="grid-state">
-        Tipo de Cotizacion
-      </label>
-      <div class="relative">
-        <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-base" id="grid-state">
-          <option>Cotizacion Simple</option>
-          <option>Cotizacion Proyecto</option>
-          <option>Cotizacion Poliza</option>
-        </select>
-        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-        </div>
-      </div>
-    </div>
-    <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-state">
-        Moneda
-      </label>
-      <div class="relative">
-        <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-          <option>Peso MXN</option>
-          <option>Dolar USD</option>
-          <option>Euro EUR</option>
-        </select>
-        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-        </div>
-      </div>
-    </div>
-    <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700 text-base font-bold mb-2" for="grid-state">
-        IVA
-      </label>
-      <div class="relative">
-        <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-          <option>si</option>
-          <option>no</option>
-          
-        </select>
-        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-        </div>
-      </div>
-    </div>
-    <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-        Empresa
-      </label>
-      <div class="relative">
-        <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-          <option>DOT DCD SA DE CV</option>
-          <option>CORPORATIVOS E INMUEBLES SIENA SA DE CV</option>
-          <option>ALAN QUIROGA GAMBOA</option>
-          <option>QUIMARRO SERVICIOS SA DE CV</option>
-          <option>DOT DCD A SA DE CV </option>
-          <option>DOT DCD B SA DE CV </option>
-          <option>DOT DCD MEXICO SA DE CV </option>
-          <option>DOT DCD ASOCIADOS SA DE CV </option>
-          <option>RENTADMIN SA DE CV </option>
-          <option>ASESORES EXTERNOS </option>
-          
-        </select>
-        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-        </div>
-      </div>
-    </div>
+</div>
 
-    <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-        Sucursal
-      </label>
-      <div class="relative">
-        <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-          <option>Monterrey</option>
-          <option>Reynosa 1 (Schneider)</option>
-          <option>Reynosa 2 (Corning)</option>
-          <option>Juárez / Hermosillo</option>
-          <option>Her no usar</option>
-          <option>San Luis Potosí</option>
-          <option>Querétaro</option>
-          <option>Toluca</option>
-          <option>Cd. México</option>
-          <option>Guadalajara</option>
-          <option>Aguascalientes</option>
-          <option>León, Guanajuato</option>
-          <option>Tijuana</option>
-          <option>Matamoros</option>
-          <option>Celaya</option>
-          <option>Puebla</option>
-          
-        </select>
-        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-        </div>
-      </div>
-    </div>
-
-
-
-  <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
-        Nombre del Proyecto
-      </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="">
-      <p class="text-gray-600 text-xs italic">Ingresar el Nombre del Proyecto</p>
-    </div>
-    
-  </div>
-
-
-  <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
-        Descripción
-      </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="">
-      <p class="text-gray-600 text-xs italic">Ingresar la Descripción del Proyecto</p>
-    </div>
-  </div>
-
-
-    <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
-        Ubicación de la Obra
-      </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="">
-      <p class="text-gray-600 text-xs italic">Ingresar la Ubicación de la Obra</p>
-    </div>
-  </div>
-
-
-    <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
-        Condiciones Comerciales
-      </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="">
-      <p class="text-gray-600 text-xs italic">Ingresar Condiciones Comerciales</p>
-    </div>
-  </div>
-
-
-    <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full px-3">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
-        Observaciones
-      </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="text" placeholder="">
-      <p class="text-gray-600 text-xs italic">Ingresar Observaciones</p>
-    </div>
-  </div>
-
-  <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-        Cotizacion a Copiar
-      </label>
-      <div class="relative">
-        <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-          <option>-- Seleccione una Cotización si Desea Copiarla  --</option>
-        </select>
-        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-        </div>
-      </div>
-    </div>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded md:w-2/2">
-  Button
-</button>
-</form>

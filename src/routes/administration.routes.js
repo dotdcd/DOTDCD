@@ -84,7 +84,6 @@ administrationRoutes.put('/cancelFactura/:id', [authenticateUser, isAdmin], canc
 
 //?add proveedor por marca
 administrationRoutes.post('/addprvMarca', addProveedorMarca)
-
 //!del proveedor por marca
 administrationRoutes.delete('/delPMarca/:id', delPMarca)
 

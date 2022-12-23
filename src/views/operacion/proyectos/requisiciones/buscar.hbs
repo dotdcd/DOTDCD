@@ -3,7 +3,7 @@
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
                 <h2>
-                    Buscar Dispositivos<span class="fw-300"><i>DOTDCD - ERP</i></span>
+                    Buscar Requisiciones<span class="fw-300"><i>DOTDCD - ERP</i></span>
                 </h2>
                 <div class="panel-toolbar">
                     <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
@@ -17,16 +17,15 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <!-- datatable start -->
-                    <table id="productosTable" class=" table table-bordered table-hover table-striped w-100">
+                    <table id="requisicionTable" class=" table table-bordered table-hover table-striped w-100">
                         <thead class="bg-primary-600">
 							<tr>
-								<th>Descripción</th>
-								<th>Clave</th>
-                                <th>Rendimiento (HH:MIN)</th>
-                                <th>Disciplina</th>
-                                <th>Tipo Cable A</th>
-                                <th>Tipo Cable B</th>
-								<th>Estatus</th>
+								<th>#</th>
+								<th>Proyecto</th>
+                                <th>Fecha</th>
+                                <th>Comentarios</th>
+                                <th>Empleado solicitante</th>
+                                <th>Tipo</th>
                                 <th>Acciones</th>
 							</tr>
 						</thead>
@@ -48,16 +47,16 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.5/dist/sweetalert2.all.min.js"></script>
 
-<script src="/controllers/administration.controller.js"></script>
+<script src="/controllers/operacion.controller.js"></script>
 <script>
-    const data = {{{ json disaa }}}
+    const data = {{{ json requisiciones }}}
 
 
 
     $(document).ready(function () {
 
         // initialize datatable
-        $('#productosTable').dataTable(
+        $('#requisicionTable').dataTable(
             {
                 data: data,
                 responsive: true,

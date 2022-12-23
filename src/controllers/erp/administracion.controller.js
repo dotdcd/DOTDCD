@@ -398,8 +398,19 @@ const getDispositivo = async () => {
 }
 
 export const renderDbuscar = async (req, res) => {
-    const dispositivo = await getDispositivo()
-    res.render('administracion/dispositivos/buscar', getDisciplina)
+    let disaa = []
+
+    try{
+        const dispo = await pool.query('SELECT d.dispositivo_id, d.clave, d.descripcion, d.rendimiento_hr, d.rendimiento_min, f.familia_descripcion as familia, d.dispositivo_estatus_baja, ca.descripcion as cable_a, cb.descripcion as cable_b FROM dispositivo d INNER JOIN familias f ON f.familia_id = d.familia_id INNER JOIN cable ca ON ca.cable_id = d.cable_idA INNER JOIN cable cb ON cb.cable_id = d.cable_idB')
+        for (const d of dispo[0]) {
+            const cstatus = (d.dispositivo_estatus_baja == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
+            disaa.push([d.descripcion, d.clave, d.rendimiento_hr+' : '+d.rendimiento_min, d.familia, d.cable_a, d.cable_b, cstatus, '<center><a href="/dashboard/administracion/dispositivos/editar/'+d.dispositivo_id+'" class="btn btn-lg btn-outline-success m-1" "><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delDispositivo(' + d.dispositivo_id + ')"><i class="fal fa-trash-alt"></i></button></center>'])
+        }
+        return res.render('administracion/dispositivos/buscar', {disaa})
+    }
+    catch(error){
+        console.log(error)
+    }
 }
 //! End render dispositivos
 
@@ -568,10 +579,10 @@ const getProductos = async () => {
 export const renderProdBuscar = async (req, res) => {
     try {
         let parray = []
-        const productos = await pool.query('SELECT producto_id, producto_descripcion, producto_codigo, producto_tipo_id, (SELECT tm_tipo FROM tipos_material WHERE tm_id = producto_tipo_id ) as tipo, (SELECT serie_descripcion FROM serie WHERE serie_id = producto_serie_id) as serie, producto_familia_id, (SELECT familia_clave FROM familias WHERE familia_id = producto_familia_id) as familia, producto_modelo, producto_marca_id, (SELECT marca_descripcion FROM marcas WHERE marca_id = producto_marca_id) as marca, producto_unidad_id, (SELECT unidad_descripcion FROM unidades WHERE unidad_id = producto_unidad_id) as unidad, producto_moneda_id, (SELECT moneda_descripcion FROM monedas WHERE moneda_id = producto_moneda_id) as moneda, producto_costo, producto_costo_fecha, producto_precio_tarjeta, producto_mo, producto_precio_venta, producto_estatus_baja FROM productos')
-        // SELECT producto_id, producto_descripcion, producto_codigo, producto_tipo_id, (SELECT tm_tipo FROM tipos_material WHERE tm_id = producto_tipo_id ) as tipo, producto_familia_id, (SELECT familia_clave FROM familias WHERE familia_id = producto_familia_id) as familia, producto_modelo, producto_marca_id, (SELECT marca_descripcion FROM marcas WHERE marca_id = producto_marca_id) as marca, producto_unidad_id, (SELECT unidad_descripcion FROM unidades WHERE unidad_id = producto_unidad_id) as unidad, producto_moneda_id, (SELECT moneda_descripcion FROM monedas WHERE moneda_id = producto_moneda_id) as moneda, producto_costo, producto_costo_fecha, producto_precio_tarjeta, producto_mo, producto_precio_venta, producto_estatus_baja FROM productos
+        const productos = await pool.query('SELECT p.producto_id as producto_idw, p.producto_descripcion, d.descripcion as dispositivo, p.producto_codigo, p.producto_tipo_id, tm.tm_tipo as tipo, s.serie_descripcion as serie, p.producto_familia_id, f.familia_clave as familias, p.producto_modelo, p.producto_marca_id, m.marca_descripcion as marca, p.producto_unidad_id, u.unidad_descripcion as unidad, mn.moneda_descripcion as moneda, p.producto_costo, p.producto_costo_fecha, p.producto_precio_tarjeta, p.producto_mo, p.producto_precio_venta, p.producto_estatus_baja FROM productos p INNER JOIN dispositivo d ON d.dispositivo_id = p.dispositivo_id INNER JOIN tipos_material tm ON tm.tm_id = p.producto_tipo_id INNER JOIN serie s ON s.serie_id = producto_serie_id INNER JOIN familias f ON f.familia_id = p.producto_familia_id INNER JOIN marcas m ON m.marca_id = p.producto_marca_id INNER JOIN unidades u ON u.unidad_id = p.producto_unidad_id INNER JOIN monedas mn ON mn.moneda_id = p.producto_moneda_id')
+        // (SELECT dispositivo_id FROM dispositivo WHERE dispositivo.dispositivo_id = dispositivo_id) as dispositivo , SELECT producto_id, producto_descripcion, producto_codigo, producto_tipo_id, (SELECT tm_tipo FROM tipos_material WHERE tm_id = producto_tipo_id ) as tipo, producto_familia_id, (SELECT familia_clave FROM familias WHERE familia_id = producto_familia_id) as familia, producto_modelo, producto_marca_id, (SELECT marca_descripcion FROM marcas WHERE marca_id = producto_marca_id) as marca, producto_unidad_id, (SELECT unidad_descripcion FROM unidades WHERE unidad_id = producto_unidad_id) as unidad, producto_moneda_id, (SELECT moneda_descripcion FROM monedas WHERE moneda_id = producto_moneda_id) as moneda, producto_costo, producto_costo_fecha, producto_precio_tarjeta, producto_mo, producto_precio_venta, producto_estatus_baja FROM productos
         for (const pr of productos[0]) {
-            parray.push([pr.producto_descripcion, pr.producto_codigo, pr.tipo, pr.familia, pr.dispositivo, pr.producto_modelo, pr.marca, pr.unidad, pr.serie, pr.moneda, pr.producto_costo, pr.producto_costo_fecha, pr.producto_precio_tarjeta, pr.producto_mo, '********', '<center><a href="/dashboard/administracion/productos/editar/" class="btn btn-lg btn-outline-success m-1" ><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delProducto()"><i class="fal fa-trash-alt"></i></button><center>'])
+            parray.push([pr.producto_descripcion, pr.producto_codigo, pr.tipo, pr.familias, pr.dispositivo, pr.producto_modelo, pr.marca, pr.unidad, pr.serie, pr.moneda, pr.producto_costo, pr.producto_costo_fecha, pr.producto_precio_tarjeta, pr.producto_mo, '********', '<center><a href="/dashboard/administracion/productos/editar/'+pr.producto_idw+'" class="btn btn-lg btn-outline-success m-1" ><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delProductos('+pr.producto_idw+')"><i class="fal fa-trash-alt"></i></button><center>'])
         }
         return res.render('administracion/productos/buscar', { parray })
     } catch (error) {
@@ -579,20 +590,92 @@ export const renderProdBuscar = async (req, res) => {
     }
 }
 
-export const renderProdNuevo = async (req, res) => {
+const getFamilias = async () => {
     try {
-        const moneda = await getMoneda()
-        return res.render('administracion/productos/nuevo', {moneda})
+        const familias = await pool.query('SELECT familia_id, familia_clave, familia_descripcion FROM familias')
+        return familias[0]
     } catch (error) {
         console.log(error)
     }
 }
 
+const getDispositivos = async () => {
+    try {
+        const dispositivos = await pool.query('SELECT dispositivo_id, descripcion FROM dispositivo')
+        return dispositivos[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const renderProdNuevo = async (req, res) => {
+    try {
+        const moneda = await getMoneda()
+        const dispositivo = await getDispositivos()
+        const familia = await getFamilias()
+        const marca = await getMarcas()
+
+        return res.render('administracion/productos/nuevo', {moneda, dispositivo, familia, marca})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getProducto = async (id) => {
+    try {
+        const producto = await pool.query('SELECT producto_id, producto_descripcion,producto_material_tipo, FORMAT (producto_costo_fecha, "dd-MM-yy") as producto_costo_fecha, producto_serie_id, dispositivo_id, producto_codigo, producto_tipo_id, producto_familia_id, producto_modelo, producto_marca_id, producto_unidad_id, producto_moneda_id, producto_costo, producto_costo_fecha, producto_precio_tarjeta, producto_mo, producto_precio_venta, producto_estatus_baja FROM productos WHERE producto_id = ?', [id])
+        return producto[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getUnidad = async () => {
+    try {
+        const unidad = await pool.query('SELECT unidad_id, unidad_descripcion FROM unidades')
+        return unidad[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getSeries = async () => {
+    try {
+        const series = await pool.query('SELECT serie_id, serie_descripcion FROM serie')
+        return series[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+const getMaterial = async () => {
+    try {
+        const material = await pool.query('SELECT tm_id, tm_tipo FROM tipos_material')
+        return material[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const tipe = async () => {
+    try {
+        const tipo = await pool.query('SELECT tipo_id, tipo_descripcion FROM tipos_insumo')
+        return tipo[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const renderProdEditar = async (req, res) => {
     try {
-        const { id } = req.params
-        const producto = await getProducto(id)
-        return res.render('administracion/productos/editar', { producto })
+        const { id } = req.params.id
+        const producto = await getProducto(req.params.id)
+        const moneda = await getMoneda()
+        const dispositivo = await getDispositivos()
+        const familia = await getFamilias()
+        const marca = await getMarcas()
+        const unidad = await getUnidad()
+        const serie = await getSeries()
+        const material = await getMaterial()
+        const tipo = await tipe()
+        return res.render('administracion/productos/editar', {producto ,moneda, dispositivo, familia, marca, unidad, serie, material, tipo})
     } catch (error) {
         console.log(error)
     }

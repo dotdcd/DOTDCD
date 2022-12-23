@@ -1,0 +1,142 @@
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Alta Egresos <span class="fw-300"><i>DOTDCD - ERP</i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div id="metasAll">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <!-- Formulario  -->
+                                    <form class="form-group" method="post" action="/updRequisicion/{{r.requisicion_id}}">
+                                        <label class="form-label col-12" for="simpleinput">
+                                            <h3 class="text-center">Editar Requisicion</h3>
+                                        </label><br /><br /><br />
+
+                                        <span>Empresa</span>
+                                        <select name="" id="" class="form-control">
+                                        {{#each empresa}}
+                                        <option value="{{empresa_id}}" >{{empresa_razon_social}}</option>
+                                        {{/each}}
+                                        </select><br />
+
+                                        <span>Cuenta de Banco</span>
+                                        <select name="" id="" class="form-control">
+                                        {{#each clientes}}
+                                        <option value="{{cliente_id}}" >{{cliente_razon_social}}</option>
+                                        {{/each}}
+                                        </select><br /><br />
+
+                                        <span>Tipo de Cambio</span>
+                                        <input type="text" class="form-control"> <br>
+
+                                        <span>Proveedor</span>
+                                        <select name="" id="" class="form-control">
+                                        {{#each proveedores}}
+                                        <option value="{{proveedor_id}}" >{{proveedor_razon_social}}</option>
+                                        {{/each}}   
+                                        </select><br />
+                                        
+                                        <span>Facturas Asociadas a cheque</span>
+                                        <select name="" id="" class="form-control">
+                                        {{#each facturas}}
+                                        <option value="{{factura_id}}" >{{factura_descripcion}}</option>
+                                        {{/each}}
+                                        </select><br />
+
+                                        <span>Ordenes pendientes</span>
+                                        <select name="" id="" class="form-control">
+                                        {{#each ordenes}}
+                                        <option value="{{orden_id}}" >{{orden_descripcion}}</option>
+                                        {{/each}}
+                                        </select><br />
+
+                                        <span>Monto del Cheque</span>
+                                        <input type="text" class="form-control"> <br>
+
+                                        <span>Cuenta Contable Banco</span>
+                                        <select name="" id="" class="form-control">
+                                        {{#each cuentas}}
+                                        <option value="{{cuenta_id}}" >{{cuenta_descripcion}}</option>
+                                        {{/each}}
+                                        </select><br />
+
+                                        <span>Cuenta Contable Banco</span>
+                                        <select name="" id="" class="form-control">
+                                        {{#each cuentas}}
+                                        <option value="{{cuenta_id}}" >{{cuenta_descripcion}}</option>
+                                        {{/each}}
+                                        </select><br />
+
+                                        <span>Cuenta Banco Cargo/Abono</span>
+                                        <input type="text" class="form-control"> <br>
+
+                                        <span>Subtotal</span>
+                                        <input type="text" class="form-control"> <br>
+
+                                        <span>Cuenta Contable Venta</span>
+                                        <select name="" id="" class="form-control">
+                                        {{#each cuentas}}
+                                        <option value="{{cuenta_id}}" >{{cuenta_descripcion}}</option>
+                                        {{/each}}
+                                        </select><br />
+
+                                        <span>Cta Venta Cargo/Abono</span>
+                                        <select name="" id="">
+                                        <option value="0">Cargo</option>
+                                        <option value="1">Abono</option>
+                                        </select><br>
+
+                                        <span>IVA</span>
+                                        <input type="text" class="form-control"> <br>
+
+
+
+                                        <span>Cuenta Contable Impuesto</span>
+                                        <select name="" id="" class="form-control">
+                                        {{#each cuentas}}
+                                        <option value="{{cuenta_id}}" >{{cuenta_descripcion}}</option>
+                                        {{/each}}
+                                        </select><br />
+
+                                        <span>Cta Impuesto Cargo/Abono</span>
+                                        
+
+                                        <span>Proyecto / Cotizacion</span>
+                                        <select name="requisicion_cotizacion_id" id="" class="form-control">
+                                        {{#each cotizaciones}}
+                                        <option value="{{cotizacion_id}}" >{{cotizacion_descripcion}}</option>
+                                        {{/each}}
+                                        </select><br />
+
+                                        
+
+                                        
+
+                                        <br><br>
+                                        <button type="submit" class="btn-outline-info btn-lg btn-block ">Actualizar</button>
+                                    </form>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
