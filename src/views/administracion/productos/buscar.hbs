@@ -16,6 +16,86 @@
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            <table>
+                                <tr>
+                                    <th>Concepto</th>
+                                    <th>Costo Material</th>
+                                    <th>Costo M.O.</th>
+                                    <th>Costo Total</th>
+                                </tr>
+                                <tr>
+                                    <th>Precio</th>
+                                    <th id="precio"></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <th>Herr. Menor</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+
+                                </tr>
+                                <tr>
+                                    <th>Costo Directo</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <th>Indirecto Campo</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <th>Ind. Oficina</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <th>Total indirectos</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <th>Subtotal(1)</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+
+                                <tr>
+                                    <th>Financiamiento</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <th>Subtotal(2)</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <th>Utilidad</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                     <!-- datatable start -->
                     <table id="productosTable" class=" table table-bordered table-hover table-striped w-100">
                         <thead class="bg-primary-600">
@@ -35,14 +115,26 @@
                                 <th>Precio Producto a Tarjeta</th>
                                 <th>M.O. Cant. Jornadas</th>
                                 <th>Porcentajes</th>
+                                <th>% Herr. Menor </th>
+                                <th>% Ind. Cpo. </th>
+                                <th>% Ind. Of. </th>
+                                <th>% Financ. </th>
+                                <th>% Utilidad</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-
                         </tbody>
+
                     </table>
                     <!-- datatable end -->
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            <table>
+                                <h2>2</h2>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,7 +152,11 @@
 <script>
     const data = {{{ json parray }}}
 
-
+    function calcular(producto_precio_tarjeta, utilidad, icampo, ioficina, hm, financiero, producto_mo) {
+        console.log(producto_precio_tarjeta, utilidad, icampo, ioficina, hm, financiero, producto_mo)
+        
+        document.getElementById("precio").innerHTML = producto_precio_tarjeta;
+    }
 
     $(document).ready(function () {
 

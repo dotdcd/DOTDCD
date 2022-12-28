@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { sendEmail } from "../controllers/auth/nodemailer.js";
-import { addEmployee, uptEmployee, dltEmployee, dltFile, dwnEmployee} from "../controllers/employees/employees.controller.js";
+import { addEmployee, uptEmployee, dltEmployee, dltFile, dwnEmployee, dltDoc} from "../controllers/employees/employees.controller.js";
 import { addContract, addSignature, aceptContract, declibeContract } from "../controllers/employees/contratos.controller.js";
 import { addSignatureT, updSignatureT, dltSignatureT } from "../controllers/signatures/signatures.controller.js";
 
@@ -10,6 +10,7 @@ employeesRoutes.post('/addEmployee', addEmployee)
 employeesRoutes.post('/updEmployee/:id', uptEmployee)
 employeesRoutes.delete('/dltEmployee/:id', dltEmployee)
 employeesRoutes.delete('/dltFile/:id', dltFile)
+employeesRoutes.delete('/dltDoc/:id', dltDoc)
 employeesRoutes.delete('/dwnEmployee/:id', dwnEmployee)
 
 //? Contracts

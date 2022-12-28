@@ -114,12 +114,34 @@
 
                                         <span>M.O. Cant. Jornadas</span>
                                         <input type="text" class="form-control" name="producto_mo" value="{{producto.producto_moneda_id}}"><br />
+                                        
+                                        <span>% Ind. Cpo.</span>
+                                        <input type="text" class="form-control" name="producto_icampo" value="{{producto.producto_icampo}}"><br />
+
+                                        <span>% Ind. Of.</span>
+                                        <input type="text" class="form-control" name="producto_ioficina" value="{{producto.producto_ioficina}}"><br />
+
+                                        <span>% Herramienta Menor</span>
+                                        <input type="text" class="form-control" name="producto_hm" value="{{producto.producto_hm}}"><br />
+
+                                        <span>% Financ.</span>
+                                        <input type="text" class="form-control" name="producto_financiero" value="{{producto.producto_financiero}}"><br />
+
+                                        <span>% Utilidad</span>
+                                        <input type="text" class="form-control" name="producto_utilidad" value="{{producto.producto_utilidad}}"><br />
 
                                         <span>Precio Final para Venta</span>
                                         <input type="text" class="form-control" name="producto_precio_venta" value="{{producto.producto_precio_venta}}"><br />
                                         <br><br>
-                                        <button type="submit" class="btn-outline-info btn-lg btn-block ">Actualizar
-                                            </button>
+                                        <div class="row mt-5">
+                                                <div class="col-md-6">
+                                                    <a href="/dashboard/administracion/productos/buscar"><button type="button" class="btn-outline-danger btn-lg btn-block">Cancelar</button></a>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button type="submit"
+                                                        class="btn-outline-info btn-lg btn-block ">Actualizar</button>
+                                                </div>
+                                            </div>
                                     </form>
                                     <div class="col-md-3"></div>
                                 </div>

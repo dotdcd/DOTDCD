@@ -160,3 +160,14 @@ export const dltFile = async (req, res) => {
         console.log(error)
     }
 }
+
+export const dltDoc = async (req, res) => {
+    try {
+        await pool.query("DELETE FROM documentos WHERE id = ?", [req.params.id])
+        return res.status(200).json({ message: 'Documento eliminado', status: 200 })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: 'Error al eliminar documento', status: 500 })
+
+    }
+}
