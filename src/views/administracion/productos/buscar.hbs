@@ -154,8 +154,9 @@
 
     function calcular(producto_precio_tarjeta, utilidad, icampo, ioficina, hm, financiero, producto_mo) {
         console.log(producto_precio_tarjeta, utilidad, icampo, ioficina, hm, financiero, producto_mo)
-        
+(parseFloat(jornada)) * mo
         document.getElementById("precio").innerHTML = producto_precio_tarjeta;
+        document.getElementById("costoMo").innerHTML = producto_mo;
     }
 
     $(document).ready(function () {

@@ -43,6 +43,27 @@ export const renderOpProyNuevo= async(req, res) => {
     }
 }
 
+const getCotizacionClase = async() => {
+    const cotizacionClase = await pool.query("SELECT * FROM cotizaciones_clases")
+    return cotizacionClase[0]
+}
+
+export const renderOpProyEditar = async(req, res) => {
+    try {
+        const moneda = await getMoneda()
+        const sucursales = await getSucursal()
+        const empresaa = await getEmpresa()
+        const clientes = await getCliente()
+        const empleados = await getEmpleado()
+        const clase = await getCotizacionClase()
+        const { id } = req.params
+        const proyecto = await pool.query("SELECT * FROM cotizaciones WHERE cotizacion_id = ?", [id])
+        const p = proyecto[0][0]
+        res.render('operacion/proyectos/editar', { p, clientes, sucursales, empresaa, moneda, empleados, clase})
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const renderOpProyBuscar= async(req, res) => {
     try {
         let proyArr = []
@@ -50,7 +71,7 @@ export const renderOpProyBuscar= async(req, res) => {
         for (const p of proyectos[0]) {
             const cstatus = (p.cotizacion_estatus_baja == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
             const cautorizada = (p.cotizacion_autorizada_estatus == 0) ? "<span class='badge badge-success badge-pill'>Autorizada</span>" : "<span class='badge badge-danger badge-pill'>No Autorizada</span>"
-            proyArr.push([p.cotizacion_id, p.cliente_razon_social, p.cotizacion_fecha_alta, p.cotizacion_proyecto, p.nombre_completo, cstatus, cautorizada, '<center><a href="/dashboard/operacion/proyectos/editar/'+p.cotizacion_id+'" class="btn btn-lg btn-outline-success m-1" "><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delProyecto(' + p.cotizacion_id + ')"><i class="fal fa-trash-alt"></i></button></center>'])
+            proyArr.push([p.cotizacion_id, p.cliente_razon_social, p.cotizacion_fecha_alta, p.cotizacion_proyecto, p.nombre_completo, cstatus, cautorizada, '<center><a href="/dashboard/operacion/proyectos/editar/'+p.cotizacion_id+'" class="btn btn-lg btn-outline-success m-1" "><i class="fal fa-sync"></i></a>  <form method="post"><a class="btn btn-lg btn-outline-danger" href="/delProyecto/'+p.cotizacion_id+'"><i class="fal fa-light fa-circle-minus"></i></a></form></center>'])
         }   
         
         res.render('operacion/proyectos/buscar', { proyArr })
@@ -131,3 +152,5 @@ export const renderOpReqEditar = async(req, res) => {
     }
 }
 //! Render Requisiciones
+
+//? render pro
