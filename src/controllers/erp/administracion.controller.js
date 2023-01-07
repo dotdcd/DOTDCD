@@ -556,6 +556,29 @@ export const verFactura = async (req, res) => {
 }
 //! End render ver factura
 
+//? render factura pdf
+
+const getTaxInfo = async (id) => {
+    try {
+        const timbrado = await pool.query('SELECT * FROM facturas WHERE factura_id = ?', [id])
+        return timbrado[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const renderTaxPdf = async (req, res) => {
+    try {
+        const {id} = req.params
+        const taxInfo = await getTaxInfo(id)
+        return res.render('administracion/facturas/pdf', {taxInfo})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+//! end render factura pdf
+
 export const renderDeditar = async (req, res) => {
     try {
         const { id } = req.params
@@ -579,11 +602,14 @@ const getProductos = async () => {
 export const renderProdBuscar = async (req, res) => {
     try {
         let parray = []
-        const productos = await pool.query('SELECT p.producto_id as producto_idw, p.producto_descripcion, p.producto_icampo as icampo, p.producto_ioficina as ioficina, p.producto_hm as hm, p.producto_financiero as financiero, p.producto_utilidad as utilidad, d.descripcion as dispositivo, p.producto_codigo, p.producto_tipo_id, tm.tm_tipo as tipo, s.serie_descripcion as serie, p.producto_familia_id, f.familia_clave as familias, p.producto_modelo, p.producto_marca_id, m.marca_descripcion as marca, p.producto_unidad_id, u.unidad_descripcion as unidad, mn.moneda_descripcion as moneda, p.producto_costo, p.producto_costo_fecha, p.producto_precio_tarjeta, p.producto_mo, p.producto_precio_venta, p.producto_estatus_baja FROM productos p INNER JOIN dispositivo d ON d.dispositivo_id = p.dispositivo_id INNER JOIN tipos_material tm ON tm.tm_id = p.producto_tipo_id INNER JOIN serie s ON s.serie_id = producto_serie_id INNER JOIN familias f ON f.familia_id = p.producto_familia_id INNER JOIN marcas m ON m.marca_id = p.producto_marca_id INNER JOIN unidades u ON u.unidad_id = p.producto_unidad_id INNER JOIN monedas mn ON mn.moneda_id = p.producto_moneda_id')
-        // (SELECT dispositivo_id FROM dispositivo WHERE dispositivo.dispositivo_id = dispositivo_id) as dispositivo , SELECT producto_id, producto_descripcion, producto_codigo, producto_tipo_id, (SELECT tm_tipo FROM tipos_material WHERE tm_id = producto_tipo_id ) as tipo, producto_familia_id, (SELECT familia_clave FROM familias WHERE familia_id = producto_familia_id) as familia, producto_modelo, producto_marca_id, (SELECT marca_descripcion FROM marcas WHERE marca_id = producto_marca_id) as marca, producto_unidad_id, (SELECT unidad_descripcion FROM unidades WHERE unidad_id = producto_unidad_id) as unidad, producto_moneda_id, (SELECT moneda_descripcion FROM monedas WHERE moneda_id = producto_moneda_id) as moneda, producto_costo, producto_costo_fecha, producto_precio_tarjeta, producto_mo, producto_precio_venta, producto_estatus_baja FROM productos
+        const jornada = await pool.query("SELECT SUM((jornada_costo * jornada_porcentaje) / 100) AS costo_jornada, moneda_cotizacion FROM jornadas LEFT JOIN monedas ON moneda_id = 2")
+        
+        const productos = await pool.query('SELECT p.producto_id as producto_idw, p.producto_descripcion, p.producto_icampo as icampo, p.producto_ioficina as ioficina, p.producto_hm as hm, p.producto_financiero as financiero, p.producto_utilidad as utilidad, p.producto_ultima_modificacion, p.usuario_modifico, d.descripcion as dispositivo, p.producto_codigo, p.producto_tipo_id, tm.tm_tipo as tipo, s.serie_descripcion as serie, p.producto_familia_id, f.familia_clave as familias, p.producto_modelo, p.producto_marca_id, m.marca_descripcion as marca, p.producto_unidad_id, u.unidad_descripcion as unidad, mn.moneda_descripcion as moneda, mn.moneda_cotizacion as Mcot, p.producto_costo, p.producto_costo_fecha, p.producto_precio_tarjeta, p.producto_mo, p.producto_precio_venta, p.producto_estatus_baja as baja FROM productos p  INNER JOIN dispositivo d ON d.dispositivo_id = p.dispositivo_id  INNER JOIN tipos_material tm ON tm.tm_id = p.producto_tipo_id  INNER JOIN serie s ON s.serie_id = producto_serie_id  INNER JOIN familias f ON f.familia_id = p.producto_familia_id  INNER JOIN marcas m ON m.marca_id = p.producto_marca_id  INNER JOIN unidades u ON u.unidad_id = p.producto_unidad_id  INNER JOIN monedas mn ON mn.moneda_id = p.producto_moneda_id ORDER BY p.producto_id DESC')
         for (const pr of productos[0]) {
-            parray.push([pr.producto_descripcion, pr.producto_codigo, pr.tipo, pr.familias, pr.dispositivo, pr.producto_modelo, pr.marca, pr.unidad, pr.serie, pr.moneda, pr.producto_costo, pr.producto_costo_fecha, pr.producto_precio_tarjeta, pr.producto_mo, '********', pr.utilidad, pr.icampo, pr.ioficina, pr.hm, pr.financiero,'<center><a href="/dashboard/administracion/productos/editar/'+pr.producto_idw+'" class="btn btn-lg btn-outline-success m-1" ><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delProductos('+pr.producto_idw+')"><i class="fal fa-trash-alt"></i></button><center> <p> <button class="btn btn-primary" type="button" data-toggle="collapse"data-target="#collapseExample" aria-expanded="false" onclick="calcular('+pr.producto_precio_tarjeta+','+ pr.utilidad+','+ pr.icampo+','+ pr.ioficina+','+ pr.hm+','+ pr.financiero+','+pr.producto_mo+')" aria-controls="collapseExample">Tabla de Ìndices</button></p>'])
+            const cstatus = (pr.producto_estatus_baja == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
+            parray.push([pr.producto_descripcion, pr.producto_codigo, pr.tipo, pr.familias, pr.dispositivo, pr.producto_modelo, pr.marca, pr.unidad, pr.serie, pr.moneda, pr.producto_costo, pr.producto_costo_fecha, pr.producto_precio_tarjeta, pr.producto_mo, cstatus, pr.producto_ultima_modificacion, pr.utilidad, pr.icampo, pr.ioficina, pr.hm, pr.financiero,'<center><a href="/dashboard/administracion/productos/editar/'+pr.producto_idw+'" class="btn btn-lg btn-outline-success m-1" ><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delProductos('+pr.producto_idw+')"><i class="fal fa-trash-alt"></i></button><center> <p> <button class="btn btn-primary" type="button" data-toggle="collapse"data-target="#collapseExample" aria-expanded="false" onclick="calcular('+pr.producto_precio_tarjeta+','+ pr.utilidad+','+ pr.icampo+','+ pr.ioficina+','+ pr.hm+','+ pr.financiero+','+pr.producto_mo+','+pr.Mcot+')" aria-controls="collapseExample">Tabla de Ìndices</button></p>'])
         }
+        
         return res.render('administracion/productos/buscar', { parray })
     } catch (error) {
         console.log(error)
@@ -607,14 +633,24 @@ const getDispositivos = async () => {
         console.log(error)
     }
 }
+
+const getTipo = async () => {
+    try {
+        const tipo = await pool.query('SELECT * FROM tipos_insumo')
+        return tipo[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const renderProdNuevo = async (req, res) => {
     try {
         const moneda = await getMoneda()
         const dispositivo = await getDispositivos()
         const familia = await getFamilias()
         const marca = await getMarcas()
-
-        return res.render('administracion/productos/nuevo', {moneda, dispositivo, familia, marca})
+        const tipo = await getTipo()
+        return res.render('administracion/productos/nuevo', {moneda, dispositivo, familia, marca, tipo})
     } catch (error) {
         console.log(error)
     }
@@ -623,6 +659,7 @@ export const renderProdNuevo = async (req, res) => {
 const getProducto = async (id) => {
     try {
         const producto = await pool.query('SELECT producto_id, producto_descripcion,producto_material_tipo, FORMAT (producto_costo_fecha, "dd-MM-yy") as producto_costo_fecha, producto_serie_id, dispositivo_id, producto_codigo, producto_tipo_id, producto_familia_id, producto_modelo, producto_marca_id, producto_unidad_id, producto_moneda_id, producto_costo, producto_costo_fecha, producto_precio_tarjeta, producto_mo, producto_precio_venta, producto_estatus_baja, producto_hm, producto_ioficina, producto_icampo, producto_financiero, producto_utilidad FROM productos WHERE producto_id = ?', [id])
+        
         return producto[0][0]
     } catch (error) {
         console.log(error)

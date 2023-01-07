@@ -16,86 +16,6 @@
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
-                    <div class="collapse" id="collapseExample">
-                        <div class="card card-body">
-                            <table>
-                                <tr>
-                                    <th>Concepto</th>
-                                    <th>Costo Material</th>
-                                    <th>Costo M.O.</th>
-                                    <th>Costo Total</th>
-                                </tr>
-                                <tr>
-                                    <th>Precio</th>
-                                    <th id="precio"></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th>Herr. Menor</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-
-                                </tr>
-                                <tr>
-                                    <th>Costo Directo</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th>Indirecto Campo</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th>Ind. Oficina</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th>Total indirectos</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th>Subtotal(1)</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-
-                                <tr>
-                                    <th>Financiamiento</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th>Subtotal(2)</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th>Utilidad</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th>Total</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
                     <!-- datatable start -->
                     <table id="productosTable" class=" table table-bordered table-hover table-striped w-100">
                         <thead class="bg-primary-600">
@@ -114,7 +34,8 @@
                                 <th>Fecha de Costo</th>
                                 <th>Precio Producto a Tarjeta</th>
                                 <th>M.O. Cant. Jornadas</th>
-                                <th>Porcentajes</th>
+                                <th>Estatus</th>
+                                <th>Fecha de Modificación</th>
                                 <th>% Herr. Menor </th>
                                 <th>% Ind. Cpo. </th>
                                 <th>% Ind. Of. </th>
@@ -128,18 +49,148 @@
 
                     </table>
                     <!-- datatable end -->
-                    <div class="collapse" id="collapseExample">
-                        <div class="card card-body">
-                            <table>
-                                <h2>2</h2>
-                            </table>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Tabla<span class="fw-300"><i>DOTDCD - ERP</i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <!-- datatable start -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <table class="table table-bordered">
+                                    <tr class="table-success">
+                                        <th>Concepto</th>
+                                        <th>Costo Material</th>
+                                        <th>Costo M.O.</th>
+                                        <th>Costo Total</th>
+                                    </tr>
+                                    <tr >
+                                        <th class="thead-light">Precio</th>
+                                        <th id="v00"></th>
+                                        <th id="v01"></th>
+                                        <th id="v02"></th>
+                                    </tr>
+                                    <tr class="table-success">
+                                        <th>Herr. Menor</th>
+                                        <th id="v10"></th>
+                                        <th id="v11"></th>
+                                        <th id="v12"></th>
+
+                                    </tr>
+                                    <tr >
+                                        <th class="thead-light">Costo Directo</th>
+                                        <th id="v20"></th>
+                                        <th id="v21"></th>
+                                        <th id="v22"></th>
+                                    </tr>
+                                    <tr class="table-success">
+                                        <th>Indirecto Campo</th>
+                                        <th id="v30"></th>
+                                        <th id="v31"></th>
+                                        <th id="v32"></th>
+                                    </tr>
+                                    <tr >
+                                        <th class="thead-light">Ind. Oficina</th>
+                                        <th id="v40"></th>
+                                        <th id="v41"></th>
+                                        <th id="v42"></th>
+                                    </tr>
+                                    <tr class="table-success">
+                                        <th>Total indirectos</th>
+                                        <th id="v50"></th>
+                                        <th id="v51"></th>
+                                        <th id="v52"></th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Subtotal(1)</th>
+                                        <th id="v50a"></th>
+                                        <th id="v51a"></th>
+                                        <th id="v52a"></th>
+                                    </tr>
+
+                                    <tr class="table-success">
+                                        <th>Financiamiento</th>
+                                        <th id="v60"></th>
+                                        <th id="v61"></th>
+                                        <th id="v62"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="thead-light">Subtotal(2)</th>
+                                        <th id="v70"></th>
+                                        <th id="v71"></th>
+                                        <th id="v72"></th>
+                                    </tr>
+                                    <tr class="table-success">
+                                        <th>Utilidad</th>
+                                        <th id="v80"></th>
+                                        <th id="v81"></th>
+                                        <th id="v82"></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="thead-light">Total</th>
+                                        <th id="v90"></th>
+                                        <th id="v91"></th>
+                                        <th id="v92"></th>
+                                    </tr>
+                                    <tr class="table-success">
+                                        <th class="thead-light">Precio Final para Venta: </th>
+
+                                    </tr>
+                                    <tr>
+                                        <th id="ventaf" style="color: green;"></th>
+ 
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                    </div>
+                    <!-- datatable end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {{#section 'scripts'}}
 
@@ -152,12 +203,138 @@
 <script>
     const data = {{{ json parray }}}
 
-    function calcular(producto_precio_tarjeta, utilidad, icampo, ioficina, hm, financiero, producto_mo) {
-        console.log(producto_precio_tarjeta, utilidad, icampo, ioficina, hm, financiero, producto_mo)
-(parseFloat(jornada)) * mo
-        document.getElementById("precio").innerHTML = producto_precio_tarjeta;
-        document.getElementById("costoMo").innerHTML = producto_mo;
+    function calcular(producto_precio_tarjeta, utilidad, icampo, ioficina, hm, financiero, producto_mo, Mcot) {
+
+        var jornada = 100 * 21
+        
+
+        var moneda_pesos = Mcot;
+        var ventat = parseFloat(producto_precio_tarjeta)
+        var mo = parseFloat(producto_mo)
+        var icampo = parseFloat(icampo)
+        var ioficina = parseFloat(ioficina)
+        var hm = parseFloat(hm)
+        var financiero = parseFloat(financiero)
+        var utilidad = parseFloat(utilidad)
+
+
+
+        var v00 = 0;
+        var v01 = 0;
+        var v02 = 0;
+        var v10 = 0;
+        var v11 = 0;
+        var v12 = 0;
+        var v20 = 0;
+        var v21 = 0;
+        var v22 = 0;
+        var v30 = 0;
+        var v31 = 0;
+        var v32 = 0;
+        var v40 = 0;
+        var v41 = 0;
+        var v42 = 0;
+        var v50 = 0;
+        var v51 = 0;
+        var v52 = 0;
+        var v50a = 0;
+        var v51a = 0;
+        var v52a = 0;
+        var v60 = 0;
+        var v61 = 0;
+        var v62 = 0;
+        var v70 = 0;
+        var v71 = 0;
+        var v72 = 0;
+        var v80 = 0;
+        var v81 = 0;
+        var v82 = 0;
+        var v90 = 0;
+        var v91 = 0;
+        var v92 = 0;
+        v00 = roundToTwo(ventat);
+        //? aqui el v01 calcula el Costo MO que esta en la tabla, pero no se como hacer para que se multiplique por la cantidad de jornadas
+        v01 = roundToTwo(((parseFloat(jornada) * mo) / moneda_pesos)); // obtener total de tabla de jornadas
+        v02 = roundToTwo(((v00) + (v01)));
+        v10 = roundToTwo(0);
+        v11 = roundToTwo((v01 * hm) / 100);
+        v12 = roundToTwo((v10) + (v11));
+        v20 = roundToTwo((v00) + (v10));
+        v21 = roundToTwo((v01) + (v11));
+        v22 = roundToTwo((v20) + (v21));
+        v30 = roundToTwo((icampo * v20) / 100);
+        v31 = roundToTwo((icampo * v21) / 100);
+        v32 = roundToTwo(v30 + v31);
+        v40 = roundToTwo((ioficina * v20) / 100);
+        v41 = roundToTwo((ioficina * v21) / 100);
+        v42 = roundToTwo(v40 + v41);
+        v50 = roundToTwo(v30 + v40);
+        v51 = roundToTwo(v31 + v41);
+        v52 = roundToTwo(v50 + v51);
+        v50a = roundToTwo(v20 + v50);
+        v51a = roundToTwo(v21 + v51);
+        v52a = roundToTwo(v50a + v51a);
+        v60 = roundToTwo((v50a * financiero) / 100);
+        v61 = roundToTwo((v51a * financiero) / 100);
+        v62 = roundToTwo(v60 + v61);
+        v70 = roundToTwo(v50a + v60);
+        v71 = roundToTwo(v51a + v61);
+        v72 = roundToTwo(v70 + v71);
+        //v80			= roundToTwo((v70 * utilidad)/100);
+        //v81			= roundToTwo((v71 * utilidad)/100);
+        v80 = roundToTwo((v50a * utilidad) / 100);
+        v81 = roundToTwo((v51a * utilidad) / 100);
+        v82 = roundToTwo(v80 + v81);
+        v90 = roundToTwo(v70 + v80);
+        v91 = roundToTwo(v71 + v81);
+        v92 = roundToTwo(v90 + v91);
+        document.getElementById("v00").innerHTML = String(v00);
+        document.getElementById("v01").innerHTML = String(v01);
+        document.getElementById("v02").innerHTML = String(v02);
+        document.getElementById("v11").innerHTML = String(v11);
+        document.getElementById("v12").innerHTML = String(v12);
+        document.getElementById("v20").innerHTML = String(v20);
+        document.getElementById("v21").innerHTML = String(v21);
+        document.getElementById("v22").innerHTML = String(v22);
+        document.getElementById("v30").innerHTML = String(v30);
+        document.getElementById("v31").innerHTML = String(v31);
+        document.getElementById("v32").innerHTML = String(v32);
+        document.getElementById("v40").innerHTML = String(v40);
+        document.getElementById("v41").innerHTML = String(v41);
+        document.getElementById("v42").innerHTML = String(v42);
+        document.getElementById("v50").innerHTML = String(v50);
+        document.getElementById("v51").innerHTML = String(v51);
+        document.getElementById("v52").innerHTML = String(v52);
+        document.getElementById("v50a").innerHTML = String(v50a);
+        document.getElementById("v51a").innerHTML = String(v51a);
+        document.getElementById("v52a").innerHTML = String(v52a);
+        document.getElementById("v60").innerHTML = String(v60);
+        document.getElementById("v61").innerHTML = String(v61);
+        document.getElementById("v62").innerHTML = String(v62);
+        document.getElementById("v70").innerHTML = String(v70);
+        document.getElementById("v71").innerHTML = String(v71);
+        document.getElementById("v72").innerHTML = String(v72);
+        document.getElementById("v80").innerHTML = String(v80);
+        document.getElementById("v81").innerHTML = String(v81);
+        document.getElementById("v82").innerHTML = String(v82);
+        document.getElementById("v90").innerHTML = String(v90);
+        document.getElementById("v91").innerHTML = String(v91);
+        document.getElementById("v92").innerHTML = String(v92);
+        document.getElementById("ventaf").innerHTML = String(v92);
     }
+
+
+    function roundToTwo(value) {
+        if (parseFloat(value) > 0) {
+            return (Math.round(value * 100) / 100);
+        } else {
+            return 0.00;
+        }
+    }
+
+
+
+
 
     $(document).ready(function () {
 
@@ -166,7 +343,7 @@
             {
                 data: data,
                 responsive: true,
-                lengthChange: false,
+                lengthChange: true,
                 dom:
                     "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
                     "<'row'<'col-sm-12'tr>>" +

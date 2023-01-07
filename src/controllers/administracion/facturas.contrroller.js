@@ -22,7 +22,7 @@ const uploaToDB = async (data) => {
 
 export const addFactura = async (req, res) => {
     try {
-        const test = true
+        const test = false
  
         const employee = req.body.info.id_empleado
 
@@ -53,7 +53,7 @@ export const addFactura = async (req, res) => {
                 LugarExpedicion: "45610",
                 Emisor: {
                     Rfc: (test == true) ? "EKU9003173C9" : client.cliente_rfc,
-                    Nombre: (test == true) ? "ESCUELA KEMPER URGATE" : client.cliente_nombre,
+                    Nombre: (test == true) ? "ESCUELA KEMPER URGATE" : client.cliente_razon_social,
                     RegimenFiscal: "601"
                 },
                 Receptor: {
@@ -82,7 +82,7 @@ export const addFactura = async (req, res) => {
             await axios.post(`${SW_SAPIENS_URL}/v3/cfdi33/issue/json/v4`, data, {
                 headers: {
                     'Content-Type': 'application/jsontoxml;',
-                    'Authorization': `Bearer T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGRPd0VpaU92M2JEeVI4ZktFRThLQlg0blV6VktZL1M3b2pIc3JhYlRVbi8rUG9iaXUzK3VMWHU2cEYvcHlJUHNzZXprL0dTNzlqN0VacCtmd0dtelVMRjd4dmFiRnoxRGJRcmJNV3cyVnZtVklXaGlGM1JIOHNmLzE4eGhCRzdlbzFUMzJnVmJyUlFQYzJwYUtnQmdhZDNhNGZ6bVJRV1VqYVVwd1ZoNlZLRnZJN0d0MDhoU21oVy8rVnNxTnBqOGpuQklUYTIrMEdqRHJEV3BxRENhQWlTRFB2ZXhRVHJxQktFWW1JZW9tVlBQU0g2cDEvZ0tKVXRDNHBxRXFRS3RVTDhiTzdRcUM4c1F5bG1Xb0taNDVtTUlwTWtRQVJJdW8wbGRDUHFhWUtTMlB5Z3NPQVpCQ0Y3eDhFLytMN3ZUVzBzYWowdG5PNVU0NTQxaElYa2d0R3NPME9abkFVekRIcDloTm9wNFVTN2M4VjZtczBhMHBUZHJZU1ZFQUlaOVI.tSQqJnADDxRCmAW0X_qlhhlWDaeC4yYpxiG0RlEXBQg`
+                    'Authorization': 'Bearer T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGRCNXoxZ3J4SFBqMHg3VWR1UEVYajlpZUxwbjhmY0I2UXN3b1lRV3M4UnJteitUcCtEZTYvZXNrZ25zcUo1MUl0VzR4RzcyTTNIWERmbnhGYTBUYTdEMFpQSko1bS9VOHVXY3Y2MlZFcmZydUgxOC9HQ1ZHb1lCdExNK3pKUHI2dEtHOUE3UnQzaGI4UVJXRTVLWWIvbjJ6QlFpMTlLbmtpdi96c3VRZ3VjQlViN01sZitkVzVuSFE3OWQ1VWM4emxVSXBuNXpvWjFqNFN1SmQ5bTNQdUZ0dGJGOStpQkFIT1dHRDJoR1ZucXhlLzZXZWhweHRoN0xYUTltR2QyK1lFbjVsVmZyVUZKSXpYTHZ1Y2J6SzZxUXpGK0owYnJsS0VHd1dWcTFuT1hyUm1hNXhPQ1dBZ29NS2tGWWRReWl2aC9oWTMxYVZKbTV4bFhBS3NGNGdKWVMzaVdaNUo5R25DQ240aml5bDJhWjhyR0prOFlmaDZKZzFwSmhXOFJkQ1k.aoSIitFZCOpUTtBZxpZR4XrCCriT8SJhO2wRIpq4kD8'
                 }
             })
             .then(async (response) => {
@@ -178,7 +178,7 @@ export const cancelFactura = async (req, res) => {
             await axios.post(`${SW_SAPIENS_URL}/cfdi33/cancel/EKU9003173C9/${uuid}/${req.body.motivo}/`, {
                 headers: {
                     'Content-Type': 'application/jsontoxml;',
-                    'Authorization': `Bearer T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGRPd0VpaU92M2JEeVI4ZktFRThLQlg0blV6VktZL1M3b2pIc3JhYlRVbi8rUG9iaXUzK3VMWHU2cEYvcHlJUHNzZXprL0dTNzlqN0VacCtmd0dtelVMRjd4dmFiRnoxRGJRcmJNV3cyVnZtVklXaGlGM1JIOHNmLzE4eGhCRzdlbzFUMzJnVmJyUlFQYzJwYUtnQmdhZDNhNGZ6bVJRV1VqYVVwd1ZoNlZLRnZJN0d0MDhoU21oVy8rVnNxTnBqOGpuQklUYTIrMEdqRHJEV3BxRENhQWlTRFB2ZXhRVHJxQktFWW1JZW9tVlBQU0g2cDEvZ0tKVXRDNHBxRXFRS3RVTDhiTzdRcUM4c1F5bG1Xb0taNDVtTUlwTWtRQVJJdW8wbGRDUHFhWUtTMlB5Z3NPQVpCQ0Y3eDhFLytMN3ZUVzBzYWowdG5PNVU0NTQxaElYa2d0R3NPME9abkFVekRIcDloTm9wNFVTN2M4VjZtczBhMHBUZHJZU1ZFQUlaOVI.tSQqJnADDxRCmAW0X_qlhhlWDaeC4yYpxiG0RlEXBQg`
+                    'Authorization': 'Bearer T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGRCNXoxZ3J4SFBqMHg3VWR1UEVYajlpZUxwbjhmY0I2UXN3b1lRV3M4UnJteitUcCtEZTYvZXNrZ25zcUo1MUl0VzR4RzcyTTNIWERmbnhGYTBUYTdEMFpQSko1bS9VOHVXY3Y2MlZFcmZydUgxOC9HQ1ZHb1lCdExNK3pKUHI2dEtHOUE3UnQzaGI4UVJXRTVLWWIvbjJ6QlFpMTlLbmtpdi96c3VRZ3VjQlViN01sZitkVzVuSFE3OWQ1VWM4emxVSXBuNXpvWjFqNFN1SmQ5bTNQdUZ0dGJGOStpQkFIT1dHRDJoR1ZucXhlLzZXZWhweHRoN0xYUTltR2QyK1lFbjVsVmZyVUZKSXpYTHZ1Y2J6SzZxUXpGK0owYnJsS0VHd1dWcTFuT1hyUm1hNXhPQ1dBZ29NS2tGWWRReWl2aC9oWTMxYVZKbTV4bFhBS3NGNGdKWVMzaVdaNUo5R25DQ240aml5bDJhWjhyR0prOFlmaDZKZzFwSmhXOFJkQ1k.aoSIitFZCOpUTtBZxpZR4XrCCriT8SJhO2wRIpq4kD8'
                 }
             })
             .then(async (response) => {

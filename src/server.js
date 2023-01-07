@@ -27,6 +27,7 @@ import employeesRoutes from './routes/employees.routes.js';
 import administrationRoutes from './routes/administration.routes.js';
 import contabilidadRoutes from './routes/contabilidad.routes.js';
 import operacionRoutes from './routes/operacion.routes.js';
+import bancosRoutes from './routes/bancos.routes.js';
 
 import cron from 'node-cron';
 
@@ -109,6 +110,7 @@ app.use(employeesRoutes);
 app.use(administrationRoutes);
 app.use(contabilidadRoutes);
 app.use(operacionRoutes);
+app.use(bancosRoutes);
 //* listo 
 
 //? PWA Service Worker

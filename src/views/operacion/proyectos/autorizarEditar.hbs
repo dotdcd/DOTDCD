@@ -1,0 +1,197 @@
+<div class="row">
+	<div class="col-xl-12">
+		<div id="panel-1" class="panel">
+			<div class="panel-hdr">
+				<h2>
+					Buscar Proyectos <span class="fw-300"><i>DOTDCD - ERP</i></span>
+				</h2>
+				<div class="panel-toolbar">
+					<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Collapse"></button>
+					<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+						data-offset="0,10" data-original-title="Fullscreen"></button>
+					<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Close"></button>
+				</div>
+			</div>
+			<div class="panel-container show">
+				<div class="panel-content">
+					<!-- datatable start -->
+					<form action="/updAutorizacion/{{p.cotizacion_id}}" class="container" method="post">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="proyecto">Cliente</label>
+									<select name="cotizacion_cliente_id" id="" class="form-control">
+										{{#each clientes}}
+										<option value="{{cliente_id}}" {{#if (is ../p.cotizacion_cliente_id cliente_id)
+											}} selected {{/if}}>{{cliente_razon_social}}</option>
+										{{/each}}
+									</select><br>
+
+									<label for="Contacto">Contacto</label>
+									<input type="text" class="form-control" id="" name="cotizacion_contacto"
+										placeholder="" value="{{p.cotizacion_contacto}}"><br>
+
+									<label for="proyecto">Autorizado por:</label>
+									<input type="text" class="form-control" id="" name="cotizacion_autorizador"
+										placeholder="" value="{{p.cotizacion_autorizador}}"><br>
+
+									<label for="proyecto">Cotizado por:</label>
+									<select name="cotizacion_empleado_id" id="" class="form-control">
+										{{#each empleados}}
+										<option value="{{empleado_id}}" {{#if (is../p.cotizacion_empleado_id
+											empleado_id) }} selected {{/if}}>{{nombre_completo}}</option>
+										{{/each}}
+									</select><br>
+
+									<label for="proyecto">Proyecto</label>
+									<input type="text" class="form-control" value="{{p.cotizacion_proyecto}}"><br>
+
+									<label for="proyecto">Sucursal</label>
+									<select name="sucursal_id" class="form-control" id="">
+										{{#each sucursales}}
+										<option value="{{sucursal_id}}" {{#if (is../p.sucursal_id sucursal_id) }}
+											selected {{/if}}>{{sucursal_nombre}}</option>
+										{{/each}}
+									</select><br>
+
+									<label for="proyecto">Forma de Autorizacion</label>
+									<input type="text" class="form-control" id="" name="cotizacion_forma" placeholder=""
+										value="{{p.cotizacion_forma}}"><br>
+
+									<label for="proyecto">Centro de Costo</label>
+									<select name="cotizacion_centrodecostos_id" class="form-control" id="">
+										{{#each centroCostos}}
+										<option value="{{centrodecostos_id}}" {{#if (is../p.cotizacion_centrodecostos_id
+											centrodecostos_id) }} selected {{/if}}>{{centrodecostos_descripcion}}
+										</option>
+										{{/each}}
+									</select><br>
+
+									<label for="proyecto">Fecha de Autorizacion</label>
+									<input type="date" class="form-control" id="" name="cotizacion_fecha_autorizada"
+										placeholder="" value="{{f.cotizacion_fecha_autorizada}}"><br>
+
+									<label for="proyecto">Fecha Inicio</label>
+									<input type="date" class="form-control" id="" name="fecha_inicio" placeholder=""
+										value="{{f.fecha_inicio}}"><br>
+
+									<label for="proyecto">Fecha de Término</label>
+									<input type="date" class="form-control" id="" name="fecha_termino" placeholder=""
+										value="{{f.fecha_termino}}"><br>
+
+									<label for="proyecto">Contacto de Cobranza</label>
+									<input type="text" class="form-control" id="" name="cotizacion_cobranza"
+										placeholder="" value="{{p.cotizacion_cobranza}}"><br>
+
+									<label for="proyecto">Tel. de Cobranza</label>
+									<input type="text" class="form-control" id="" name="tel_cobranza" placeholder=""
+										value="{{p.tel_cobranza}}"><br>
+
+									<label for="proyecto">Datos de Cobranza</label>
+									<input type="text" class="form-control" id="" name="datos_cobranza" placeholder=""
+										value="{{p.datos_cobranza}}"><br>
+
+									<label for="proyecto">Contacto de Obra</label>
+									<input type="text" class="form-control" id="" name="cotizacion_contacto_obra"
+										placeholder="" value="{{p.cotizacion_contacto_obra}}"><br>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="proyecto">Arq. Responsable</label>
+									<select name="cotizacion_arq_responsable" class="form-control" id="">
+										{{#each empleados}}
+										<option value="{{empleado_id}}" {{#if (is../p.cotizacion_arq_responsable
+											empleado_id) }} selected {{/if}}>{{nombre_completo}}</option>
+										{{/each}}
+									</select><br>
+
+									<label for="proyecto">Ing. Responsable</label>
+									<select name="cotizacion_encargado" class="form-control" id="">
+										{{#each empleados}}
+										<option value="{{empleado_id}}" {{#if (is../p.cotizacion_encargado
+											empleado_id) }} selected {{/if}}>{{nombre_completo}}</option>
+										{{/each}}
+									</select><br>
+
+									<label for="proyecto">Estatus</label>
+									<select name="cotizacion_autorizada_estatus" class="form-control" id="">
+										<option value="0" {{#if (is p.cotizacion_autorizada_estatus 0)}} selected
+											{{/if}}>Cotizada</option>
+										<option value="1" {{#if (is p.cotizacion_autorizada_estatus 1)}} selected
+											{{/if}}>Autorizada</option>
+										<option value="2" {{#if (is p.cotizacion_autorizada_estatus 2)}} selected
+											{{/if}}>Terminada</option>
+										<option value="9" {{#if (is p.cotizacion_autorizada_estatus 9)}} selected
+											{{/if}}>Poliza</option>
+									</select><br>
+
+									<label for="proyecto">VIGENTE/BAJA</label>
+									<select name="cotizacion_estatus_baja" class="form-control" id="">
+										<option value="0" {{#if (is p.cotizacion_estatus_baja 0)}} selected {{/if}}>
+											VIGENTE</option>
+										<option value="1" {{#if (is p.cotizacion_estatus_baja 1) }} selected {{/if}}>
+											BAJA</option>
+									</select><br>
+
+									<label for="liquidada">Liquidada</label>
+									<input type="checkbox" name="liquidada_sn" id="liquidada" class="form-control"
+										value="1" {{#if (is p.liquidada_sn 1)}} checked {{/if}}><br>
+
+									<label for="siroc">SIROC</label>
+									<input type="checkbox" name="siroc_sn" id="siroc" class="form-control" value="1"
+										{{#if (is p.siroc_sn 1)}} checked {{/if}}><br>
+
+									<label for="proyecto">Total</label>
+									<input type="text" class="form-control" id="" name="total" placeholder=""
+										value="{{p.total}}"><br>
+
+									<label for="proyecto">Costo</label>
+									<input type="text" class="form-control" id="" name="costo" placeholder=""
+										value="{{p.costo}}"><br>
+
+									<label for="proyecto">% PF</label>
+									<input type="text" class="form-control" id="" name="pf" placeholder=""
+										value="{{p.pf}}"><br>
+
+									<label for="proyecto">Facturado</label>
+									<input type="text" class="form-control" id="" name="" placeholder=""><br>
+
+									<label for="proyecto">Por facturar</label>
+									<input type="text" class="form-control" id="" name="" placeholder=""><br>
+
+									<label for="proyecto">Comprado</label>
+									<input type="text" class="form-control" id="" name="" placeholder=""><br>
+
+									<label for="proyecto">Por comprar</label>
+									<input type="text" class="form-control" id="" name="" placeholder=""><br>
+
+									<label for="proyecto">Cobrado</label>
+									<input type="text" class="form-control" id="" name="" placeholder=""><br>
+
+									<label for="proyecto">Por cobrar</label>
+									<input type="text" class="form-control" id="" name="" placeholder=""><br>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<button type="submit" class="btn btn-info btn-lg btn-block">Guardar</button>
+							</div>
+							<div class="col-md-6">
+								<a href="/dashboard/operacion/proyectos/autorizar"
+									class="btn btn-danger btn-lg btn-block">Cancelar</a>
+
+							</div>
+						</div>
+					</form>
+					<!-- datatable end -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

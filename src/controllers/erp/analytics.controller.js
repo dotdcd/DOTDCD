@@ -251,7 +251,7 @@ const getFacturas = async (dates) => {
     try {
         let facturas = []
         for (const date of dates){
-            const factura = await pool.query("SELECT ROUND(SUM(IF(factura_moneda_id = 2, factura_subtotal * 20, factura_subtotal)), 2) as total FROM facturas WHERE facturas.factura_moneda_id = 1 AND MONTH(factura_fecha_alta) = "+date.m+" AND YEAR(factura_fecha_alta) = "+date.y+" AND factura_estatus_baja = 1 AND NOT factura_cliente_id IN(111, 290, 107, 1049, 2584, 3149, 3152, 3154, 3175, 3314, 2369, 3242, 3243) AND factura_empresa_id IN (3, 15, 16, 17, 18)")
+            const factura = await pool.query("SELECT ROUND(SUM(IF(factura_moneda_id = 2, factura_subtotal * 20, factura_subtotal)), 2) as total FROM facturas WHERE MONTH(factura_fecha_alta) = "+date.m+" AND YEAR(factura_fecha_alta) = "+date.y+" AND factura_estatus_baja = 1 AND NOT factura_cliente_id IN(111, 290, 107, 1049, 2584, 3149, 3152, 3154, 3175, 3314, 2369, 3242, 3243) AND factura_empresa_id IN (3, 15, 16, 17, 18)")
             if(factura[0][0].total == null) facturas.push({total: 0})
             else facturas.push({total: factura[0][0].total})
         }

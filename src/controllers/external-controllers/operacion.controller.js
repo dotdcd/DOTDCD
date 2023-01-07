@@ -43,7 +43,7 @@ const delProyecto = async(id) => {
             confirmButtonText: 'Si, eliminar!'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await axios.post('/delProyecto/' + id)
+                await axios.post('/delProyecto', id)
                     .then(function (response) {
                         swal.fire(
                             'Eliminado!',

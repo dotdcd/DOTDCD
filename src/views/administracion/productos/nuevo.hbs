@@ -19,149 +19,273 @@
                     <div id="metasAll">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-6">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-8">
                                     <!-- Formulario  -->
-                                    <form class="form-group" method="post" action="/addProducto">
-                                        <label class="form-label col-12" for="simpleinput">
-                                            <h3 class="text-center">Agregar Producto o Servicio</h3>
-                                        </label><br /><br /><br />
+                                    <label class="form-label col-12" for="simpleinput">
+                                        <h3 class="text-center">Agregar Producto o Servicio</h3>
+                                    </label><br /><br /><br />
+                                    <form class="form-group container-fluid" method="post" action="/addProducto">
 
-                                        <span>Descripcion</span>
-                                        <input type="text" id="simpleinput" class="form-control" placeholder=""
-                                            name="producto_descripcion" autofocus><br />
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <span>Descripcion</span>
+                                                <input type="text" id="simpleinput" class="form-control" placeholder=""
+                                                    name="producto_descripcion" autofocus><br />
 
-                                        <span>Código</span>
-                                        <input type="text" id="simpleinput" class="form-control" placeholder=""
-                                            name="producto_codigo"><br />
+                                                <span>Código</span>
+                                                <input type="text" id="codigoG" class="form-control" placeholder=""
+                                                    name="producto_codigo"  ><br />
 
-                                        <span>Tipo</span>
+                                                <span>Tipo</span>
+                                                <select name="producto_tipo_id" class="form-control" id="tipo"
+                                                    onchange="codigo()">
+                                                    <option value="1">Equipo Herramienta</option>
+                                                    <option value="2">Material</option>
+                                                    <option value="3">Servicio</option>
+                                                </select><br />
 
-                                        <select name="producto_tipo_id" class="form-control" id="">
-                                            <option value="0" selected>Seleccionar</option>
-                                            <option value="1">Equipo Herramienta</option>
-                                            <option value="2">Material</option>
-                                            <option value="3">Servicio</option>
-                                        </select><br />
+                                                <span>Tipo de Material</span>
+                                                <select name="producto_material_tipo" class="form-control" id="">
+                                                    <option value="0" selected>No aplica</option>
+                                                    <option value="1">Tuberia</option>
+                                                    <option value="2">Cableado</option>
+                                                    <option value="3">Dispositivo</option>
+                                                </select><br />
 
-                                        <span>Tipo de Material</span>
-                                        <select name="producto_material_tipo" class="form-control" id="">
-                                            <option value="0" selected>No aplica</option>
-                                            <option value="1">Tuberia</option>
-                                            <option value="2">Cableado</option>
-                                            <option value="3">Dispositivo</option>
-                                        </select><br />
+                                                <span>Familia / Disciplina</span>
+                                                <select name="producto_familia_id" class="form-control" id="familia"
+                                                    onchange="codigo()">
 
-                                        <span>Familia / Disciplina</span>
-                                        <select name="producto_familia_id" class="form-control" id="">
-                                            <option value="0" disabled selected>Seleccionar</option>
+                                                    {{#each familia}}
+                                                    <option value="{{familia_id}}">{{familia_descripcion}}</option>
+                                                    {{/each}}
+                                                </select><br />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <span>Dispositivo</span>
+                                                <select name="dispositivo_id" class="form-control" id="">
 
-                                            {{#each familia}}
-                                            <option value="{{familia_id}}">{{familia_descripcion}}</option>
-                                            {{/each}}
-                                        </select><br />
+                                                    {{#each dispositivo}}
+                                                    <option value="{{dispositivo_id}}">{{descripcion}}</option>
+                                                    {{/each}}
+                                                </select><br />
 
-                                        <span>Dispositivo</span>
-                                        <select name="dispositivo_id" class="form-control" id="">
-                                            <option value="0" disabled selected>Seleccionar</option>
+                                                <span>Modelo</span>
+                                                <input type="text" class="form-control" id="modelo"
+                                                    name="producto_modelo" onchange="codigo()"><br />
 
-                                            {{#each dispositivo}}
-                                            <option value="{{dispositivo_id}}">{{descripcion}}</option>
-                                            {{/each}}
-                                        </select><br />
+                                                <span>Marca</span>
+                                                <select name="producto_marca_id" id="" class="form-control">
 
-                                        <span>Modelo</span>
-                                        <input type="text" class="form-control" name="producto_modelo"><br />
+                                                    {{#each marca}}
+                                                    <option value="{{marca_id}}">{{marca_descripcion}}</option>
+                                                    {{/each}}
+                                                </select><br />
 
-                                        <span>Marca</span>
-                                        <select name="producto_marca_id" id="" class="form-control">
-                                            <option value="0" disabled selected>Seleccionar</option>
+                                                <span>Unidad</span>
 
-                                            {{#each marca}}
-                                            <option value="{{marca_id}}">{{marca_descripcion}}</option>
-                                            {{/each}}
-                                        </select><br />
+                                                <select id="unidad_id" name="producto_unidad_id" class="form-control">
+                                                    <option value="0" selected disabled>Seleccionar</option>
+                                                    <option value="1">Hora</option>
+                                                    <option value="2">Juego</option>
+                                                    <option value="3">Litro</option>
+                                                    <option value="4">Pieza</option>
+                                                    <option value="5">Horse Po</option>
+                                                    <option value="10">Bobina</option>
+                                                    <option value="11">Bolsa</option>
+                                                    <option value="12">Caja</option>
+                                                    <option value="13">Dia</option>
+                                                    <option value="14">Jornada</option>
+                                                    <option value="16">Lote</option>
+                                                    <option value="18">Metro</option>
+                                                    <option value="19">Metro</option>
+                                                    <option value="20">Servicio</option>
+                                                    <option value="21">Tramo</option>
+                                                    <option value="22">Unidad</option>
+                                                    <option value="23">NA</option>
+                                                </select><br>
 
-                                        <span>Unidad</span>
-                                        
-                                        <select id="unidad_id" name="producto_unidad_id" class="form-control">
-                                            <option value="0" selected disabled>Seleccionar</option>
-                                            <option value="1">Hora</option>
-                                            <option value="2">Juego</option>
-                                            <option value="3">Litro</option>
-                                            <option value="4">Pieza</option>
-                                            <option value="5">Horse Po</option>
-                                            <option value="10">Bobina</option>
-                                            <option value="11">Bolsa</option>
-                                            <option value="12">Caja</option>
-                                            <option value="13">Dia</option>
-                                            <option value="14">Jornada</option>
-                                            <option value="16">Lote</option>
-                                            <option value="18">Metro</option>
-                                            <option value="19">Metro</option>
-                                            <option value="20">Servicio</option>
-                                            <option value="21">Tramo</option>
-                                            <option value="22">Unidad</option>
-                                            <option value="23">NA</option>
-                                        </select><br>
+                                                <span>Maneja Series</span>
+                                                <select name="producto_serie_id" class="form-control" id="">
+                                                    <option value="0" disabled selected>Seleccionar</option>
+                                                    <option value="1">No</option>
+                                                    <option value="2">Si</option>
+                                                </select> <br>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <span>Moneda</span>
+                                                <select name="producto_moneda_id" id="" class="form-control">
+                                                    <option value="0" disabled selected>Seleccionar</option>
 
-                                        <span>Maneja Series</span>
-                                        <select name="producto_serie_id" class="form-control" id="">
-                                            <option value="0" disabled selected>Seleccionar</option>
-                                            <option value="1">No</option>
-                                            <option value="2">Si</option>
-                                        </select> <br>
+                                                    {{#each moneda}}
 
-                                        <span>Moneda</span>
-                                        <select name="producto_moneda_id" id="" class="form-control">
-                                            <option value="0" disabled selected>Seleccionar</option>
+                                                    <option value="{{moneda_id}}">{{moneda_descripcion}}</option>
+                                                    {{/each}}
 
-                                            {{#each moneda}}
+                                                </select><br />
+                                                <span>Costo de Compra</span>
+                                                <input type="text" class="form-control" name="producto_costo"><br />
 
-                                            <option value="{{moneda_id}}">{{moneda_descripcion}}</option>
-                                            {{/each}}
+                                                <span>Fecha de Costo</span>
+                                                <input type="date" class="form-control" id="datePicker"
+                                                    name="producto_costo_fecha"><br />
 
-                                        </select><br />
-                                        <span>Costo de Compra</span>
-                                        <input type="text" class="form-control" name="producto_costo"><br />
+                                                <span>Precio Producto a Tarjeta</span>
+                                                <input type="text" class="form-control" id="producto_precio_tarjeta"
+                                                    name="producto_precio_tarjeta" onchange="calcular()"><br />
 
-                                        <span>Fecha de Costo</span>
-                                        <input type="date" class="form-control" id="datePicker"
-                                            name="producto_costo_fecha"><br />
-
-                                        <span>Precio Producto a Tarjeta</span>
-                                        <input type="text" class="form-control" name="producto_precio_tarjeta"><br />
-
-                                        <span>M.O. Cant. Jornadas</span>
-                                        <input type="text" class="form-control" name="producto_mo"><br />
-
-
-
-                                        <span>% Ind. Cpo.</span>
-                                        <input type="text" class="form-control" name="producto_icampo"><br />
-
-                                        <span>% Ind. Of.</span>
-                                        <input type="text" class="form-control" name="producto_ioficina"><br />
-
-                                        <span>% Herramienta Menor</span>
-                                        <input type="text" class="form-control" name="producto_hm"><br />
-
-                                        <span>% Financ.</span>
-                                        <input type="text" class="form-control" name="producto_financiero"><br />
-
-                                        <span>Precio Final para Venta</span>
-                                        <input type="text" class="form-control" name="producto_utilidad"><br />
+                                                <span style="color: green;">Precio Final para Venta</span>
+                                                <input type="text" class="form-control" id="producto_precio_venta"
+                                                    name="producto_precio_venta"><br />
+                                            </div>
 
 
+                                        </div>
 
-                                        <span>Precio Final para Venta</span>
-                                        <input type="text" class="form-control" name="producto_precio_venta"><br />
-                                        <br><br>
-                                        <button type="submit" class="btn-outline-info btn-lg btn-block ">Agregar
-                                            Producto / Servicio</button>
-                                    </form>
-                                    <div class="col-md-3"></div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <span>M.O. Cant. Jornadas</span>
+                                                <input type="text" class="form-control" id="producto_mo"
+                                                    onchange="calcular()" name="producto_mo"><br />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span>% Ind. Cpo.</span>
+                                                <input type="text" class="form-control" id="producto_icampo"
+                                                    name="producto_icampo" value="8"><br />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span>% Ind. Of.</span>
+                                                <input type="text" class="form-control" id="producto_ioficina"
+                                                    name="producto_ioficina" value="6"><br />
+                                            </div>
+                                            <div class="col-md-4"></div>
+
+
+                                            <div class="col-md-4">
+                                                <span>% Herramienta Menor</span>
+                                                <input type="text" class="form-control" id="producto_hm"
+                                                    name="producto_hm" value="5"><br />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span>% Financ.</span>
+                                                <input type="text" class="form-control" id="producto_financiero"
+                                                    name="producto_financiero" value="2"><br />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span>% utilidad </span>
+                                                <input type="text" class="form-control" id="producto_utilidad"
+                                                    name="producto_utilidad" value="12"><br />
+                                            </div>
+
+
+                                        </div>
+
+
+
+
                                 </div>
+                                <div class="col-md-3">
+                                    <br /><br /><br /><br> <br>
+                                    <table class="table-responsive table-bordered">
+                                        <tr class="table-success">
+                                            <th>Concepto</th>
+                                            <th>Costo Material</th>
+                                            <th>Costo M.O.</th>
+                                            <th>Costo Total</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="thead-light">Precio</th>
+                                            <th id="v00"></th>
+                                            <th id="v01"></th>
+                                            <th id="v02"></th>
+                                        </tr>
+                                        <tr class="table-success">
+                                            <th>Herr. Menor</th>
+                                            <th id="v10"></th>
+                                            <th id="v11"></th>
+                                            <th id="v12"></th>
+
+                                        </tr>
+                                        <tr>
+                                            <th class="thead-light">Costo Directo</th>
+                                            <th id="v20"></th>
+                                            <th id="v21"></th>
+                                            <th id="v22"></th>
+                                        </tr>
+                                        <tr class="table-success">
+                                            <th>Indirecto Campo</th>
+                                            <th id="v30"></th>
+                                            <th id="v31"></th>
+                                            <th id="v32"></th>
+                                        </tr>
+                                        <tr>
+                                            <th class="thead-light">Ind. Oficina</th>
+                                            <th id="v40"></th>
+                                            <th id="v41"></th>
+                                            <th id="v42"></th>
+                                        </tr>
+                                        <tr class="table-success">
+                                            <th>Total indirectos</th>
+                                            <th id="v50"></th>
+                                            <th id="v51"></th>
+                                            <th id="v52"></th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Subtotal(1)</th>
+                                            <th id="v50a"></th>
+                                            <th id="v51a"></th>
+                                            <th id="v52a"></th>
+                                        </tr>
+
+                                        <tr class="table-success">
+                                            <th>Financiamiento</th>
+                                            <th id="v60"></th>
+                                            <th id="v61"></th>
+                                            <th id="v62"></th>
+                                        </tr>
+                                        <tr>
+                                            <th class="thead-light">Subtotal(2)</th>
+                                            <th id="v70"></th>
+                                            <th id="v71"></th>
+                                            <th id="v72"></th>
+                                        </tr>
+                                        <tr class="table-success">
+                                            <th>Utilidad</th>
+                                            <th id="v80"></th>
+                                            <th id="v81"></th>
+                                            <th id="v82"></th>
+                                        </tr>
+                                        <tr>
+                                            <th class="thead-light">Total</th>
+                                            <th id="v90"></th>
+                                            <th id="v91"></th>
+                                            <th id="v92"></th>
+                                        </tr>
+                                        <tr class="table-success">
+                                            <th class="thead-light">Precio Final para Venta: </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th id="ventaf" style="color: green;"></th>
+
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+
+
+
+                                <br><br>
+                                <div class="col-md-4"></div>
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn-outline-info btn-lg btn-block ">Agregar
+                                    Producto / Servicio</button>
+                                
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -171,10 +295,197 @@
     </div>
 </div>
 
+
+
+
+
 {{#section 'scripts'}}
 
 <script>
+
+
+    function calcular() {
+
+        var producto_precio_tarjeta = document.getElementById('producto_precio_tarjeta').value;
+        var utilidad = document.getElementById('producto_utilidad').value;
+        var icampo = document.getElementById('producto_icampo').value;
+        var ioficina = document.getElementById('producto_ioficina').value;
+        var hm = document.getElementById('producto_hm').value;
+        var financiero = document.getElementById('producto_financiero').value;
+        var producto_mo = document.getElementById('producto_mo').value;
+        var Mcot = 21 * 100;
+
+        var jornada = 100 * 21
+
+
+        var moneda_pesos = Mcot;
+        var ventat = parseFloat(producto_precio_tarjeta)
+        var mo = parseFloat(producto_mo)
+        var icampo = parseFloat(icampo)
+        var ioficina = parseFloat(ioficina)
+        var hm = parseFloat(hm)
+        var financiero = parseFloat(financiero)
+        var utilidad = parseFloat(utilidad)
+
+
+
+        var v00 = 0;
+        var v01 = 0;
+        var v02 = 0;
+        var v10 = 0;
+        var v11 = 0;
+        var v12 = 0;
+        var v20 = 0;
+        var v21 = 0;
+        var v22 = 0;
+        var v30 = 0;
+        var v31 = 0;
+        var v32 = 0;
+        var v40 = 0;
+        var v41 = 0;
+        var v42 = 0;
+        var v50 = 0;
+        var v51 = 0;
+        var v52 = 0;
+        var v50a = 0;
+        var v51a = 0;
+        var v52a = 0;
+        var v60 = 0;
+        var v61 = 0;
+        var v62 = 0;
+        var v70 = 0;
+        var v71 = 0;
+        var v72 = 0;
+        var v80 = 0;
+        var v81 = 0;
+        var v82 = 0;
+        var v90 = 0;
+        var v91 = 0;
+        var v92 = 0;
+        v00 = roundToTwo(ventat);
+        //? aqui el v01 calcula el Costo MO que esta en la tabla, pero no se como hacer para que se multiplique por la cantidad de jornadas
+        v01 = roundToTwo(((parseFloat(jornada) * mo) / moneda_pesos)); // obtener total de tabla de jornadas
+        v02 = roundToTwo(((v00) + (v01)));
+        v10 = roundToTwo(0);
+        v11 = roundToTwo((v01 * hm) / 100);
+        v12 = roundToTwo((v10) + (v11));
+        v20 = roundToTwo((v00) + (v10));
+        v21 = roundToTwo((v01) + (v11));
+        v22 = roundToTwo((v20) + (v21));
+        v30 = roundToTwo((icampo * v20) / 100);
+        v31 = roundToTwo((icampo * v21) / 100);
+        v32 = roundToTwo(v30 + v31);
+        v40 = roundToTwo((ioficina * v20) / 100);
+        v41 = roundToTwo((ioficina * v21) / 100);
+        v42 = roundToTwo(v40 + v41);
+        v50 = roundToTwo(v30 + v40);
+        v51 = roundToTwo(v31 + v41);
+        v52 = roundToTwo(v50 + v51);
+        v50a = roundToTwo(v20 + v50);
+        v51a = roundToTwo(v21 + v51);
+        v52a = roundToTwo(v50a + v51a);
+        v60 = roundToTwo((v50a * financiero) / 100);
+        v61 = roundToTwo((v51a * financiero) / 100);
+        v62 = roundToTwo(v60 + v61);
+        v70 = roundToTwo(v50a + v60);
+        v71 = roundToTwo(v51a + v61);
+        v72 = roundToTwo(v70 + v71);
+        //v80			= roundToTwo((v70 * utilidad)/100);
+        //v81			= roundToTwo((v71 * utilidad)/100);
+        v80 = roundToTwo((v50a * utilidad) / 100);
+        v81 = roundToTwo((v51a * utilidad) / 100);
+        v82 = roundToTwo(v80 + v81);
+        v90 = roundToTwo(v70 + v80);
+        v91 = roundToTwo(v71 + v81);
+        v92 = roundToTwo(v90 + v91);
+        document.getElementById("v00").innerHTML = String(v00);
+        document.getElementById("v01").innerHTML = String(v01);
+        document.getElementById("v02").innerHTML = String(v02);
+        document.getElementById("v11").innerHTML = String(v11);
+        document.getElementById("v12").innerHTML = String(v12);
+        document.getElementById("v20").innerHTML = String(v20);
+        document.getElementById("v21").innerHTML = String(v21);
+        document.getElementById("v22").innerHTML = String(v22);
+        document.getElementById("v30").innerHTML = String(v30);
+        document.getElementById("v31").innerHTML = String(v31);
+        document.getElementById("v32").innerHTML = String(v32);
+        document.getElementById("v40").innerHTML = String(v40);
+        document.getElementById("v41").innerHTML = String(v41);
+        document.getElementById("v42").innerHTML = String(v42);
+        document.getElementById("v50").innerHTML = String(v50);
+        document.getElementById("v51").innerHTML = String(v51);
+        document.getElementById("v52").innerHTML = String(v52);
+        document.getElementById("v50a").innerHTML = String(v50a);
+        document.getElementById("v51a").innerHTML = String(v51a);
+        document.getElementById("v52a").innerHTML = String(v52a);
+        document.getElementById("v60").innerHTML = String(v60);
+        document.getElementById("v61").innerHTML = String(v61);
+        document.getElementById("v62").innerHTML = String(v62);
+        document.getElementById("v70").innerHTML = String(v70);
+        document.getElementById("v71").innerHTML = String(v71);
+        document.getElementById("v72").innerHTML = String(v72);
+        document.getElementById("v80").innerHTML = String(v80);
+        document.getElementById("v81").innerHTML = String(v81);
+        document.getElementById("v82").innerHTML = String(v82);
+        document.getElementById("v90").innerHTML = String(v90);
+        document.getElementById("v91").innerHTML = String(v91);
+        document.getElementById("v92").innerHTML = String(v92);
+        document.getElementById("ventaf").innerHTML = String(v92);
+        document.getElementById("producto_precio_venta").value = v92;
+    }
+
+
+    function roundToTwo(value) {
+        if (parseFloat(value) > 0) {
+            return (Math.round(value * 100) / 100);
+            console.log(value);
+        } else {
+            return 0.00;
+        }
+        console.log(value);
+    }
+
+
     document.getElementById('datePicker').valueAsDate = new Date();
+
+
+    const familias = {{{ json familia }}}
+    const tipoa = {{{ json tipo }}}
+
+    function codigo() {
+        var familiaa = document.getElementById('familia').value;
+        var tipo = document.getElementById('tipo').value;
+        var modelo = document.getElementById('modelo').value;
+
+        var clave;
+        for (let i = 0; i < familias.length; i++) {
+            if (familias[i].familia_id == familiaa) {
+                clave = familias[i].familia_clave;
+                console.log(clave);
+                break;
+            }
+        }
+
+        switch (tipo) {
+            case "1":
+                tipo = "EQ";
+                break;
+            case "2":
+                tipo = "MA";
+                break;
+            case "3":
+                tipo = "SR";
+                break;
+            default:
+                tipo = "Desconocido";
+                break;
+        }
+
+
+        var codigo = tipo + '-' + clave + '-' + modelo;
+
+        document.getElementById('codigoG').value = codigo;
+    }
 
 </script>
 {{/section}}

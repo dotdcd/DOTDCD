@@ -525,3 +525,17 @@ export const renderEnuevos = async (req, res) => {
     }
 }
 //!End Render Egresos
+
+//? Render Ingresos
+export const renderInuevos = async (req, res) => {
+    try {
+        const empresas = await getEmpresas()
+        const proveedores = await getProveedores()
+        const cotizaciones = await getCotizaciones()
+        const cuentas = await getCuentas()
+        res.render('contabilidad/bancos/ingresos/nuevo', {empresas, proveedores, cotizaciones, cuentas})
+    } catch (error) {
+        console.log(error)
+    }
+}
+//!End Render Ingresos

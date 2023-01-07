@@ -6,7 +6,7 @@ export const addProducto = async (req, res) => {
     const hoy = new Date()
     const producto_fecha_alta = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate()
     try { 
-        console.log(req.body)
+        
         await pool.query('INSERT INTO productos set ?', [req.body])
         req.flash('success', {title: 'Producto agregado', message: 'El producto o servicio se ha agregado correctamente'})
         return res.redirect('/dashboard/administracion/productos/buscar')

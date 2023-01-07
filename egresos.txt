@@ -1,0 +1,8 @@
+P  20221226    2      4312 1 0          SERVICIOS GASOLINEROS DE MEXICO                                                                      12 1 0  
+M1 60148000                       F-FLO2291101                   0  9367.80             0          0.0                  SERVICIOS GASOLINEROS DE MEXICO                                                                            		
+AM 1a237505-85ec-4485-830e-d0fa08ed02c7	
+M1 11801000                       F-FLO2291101                   0  1461.55             0          0.0                  SERVICIOS GASOLINEROS DE MEXICO                                                                            		
+AM 1a237505-85ec-4485-830e-d0fa08ed02c7	
+M1 10201004                       F-FLO2291101                   1  10829.35            0          0.0                  SERVICIOS GASOLINEROS DE MEXICO                                                                            		
+AM 1a237505-85ec-4485-830e-d0fa08ed02c7	
+AD 1a237505-85ec-4485-830e-d0fa08ed02c7	

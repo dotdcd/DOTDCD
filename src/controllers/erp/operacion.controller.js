@@ -56,7 +56,7 @@ export const renderOpProyEditar = async(req, res) => {
         const clientes = await getCliente()
         const empleados = await getEmpleado()
         const clase = await getCotizacionClase()
-        const { id } = req.params
+        const  id  = req.params.id
         const proyecto = await pool.query("SELECT * FROM cotizaciones WHERE cotizacion_id = ?", [id])
         const p = proyecto[0][0]
         res.render('operacion/proyectos/editar', { p, clientes, sucursales, empresaa, moneda, empleados, clase})
@@ -67,11 +67,11 @@ export const renderOpProyEditar = async(req, res) => {
 export const renderOpProyBuscar= async(req, res) => {
     try {
         let proyArr = []
-        const proyectos = await pool.query("SELECT c.cotizacion_id as cotizacion_id, cotizacion_cliente_id, cliente_razon_social,cotizacion_proyecto, CAST(cotizacion_fecha_alta AS DATE) as cotizacion_fecha_alta, CONCAT(cliente_razon_social, ' ', cotizacion_proyecto, ' ', cotizacion_fecha_alta) AS cotizacion_completa, CONCAT(e.empleado_nombre, ' ', e.empleado_paterno, ' ', e.empleado_materno) as nombre_completo, cotizacion_autorizada_estatus, cotizacion_estatus_baja, IFNULL(tablita_id, 0) as tablita_id,CONCAT(e2.empleado_nombre, ' ', e2.empleado_paterno, ' ', e2.empleado_materno) as usuario_creo FROM clientes JOIN cotizaciones c ON cliente_id = cotizacion_cliente_id  JOIN empleados e ON cotizacion_empleado_id = e.empleado_id LEFT JOIN tablita t ON t.cotizacion_id = c.cotizacion_id LEFT JOIN empleados e2 ON t.usuario_modifico = e2.empleado_id  ORDER BY cotizacion_id DESC")
+        const proyectos = await pool.query("SELECT c.cotizacion_id as cotizacion_id, cotizacion_cliente_id, cliente_razon_social,cotizacion_proyecto, CAST(cotizacion_fecha_alta AS DATE) as cotizacion_fecha_alta, CONCAT(cliente_razon_social, ' ', cotizacion_proyecto, ' ', cotizacion_fecha_alta) AS cotizacion_completa, CONCAT(e.empleado_nombre, ' ', e.empleado_paterno, ' ', e.empleado_materno) as nombre_completo, cotizacion_autorizada_estatus, cotizacion_estatus_baja, IFNULL(tablita_id, 0) as tablita_id,CONCAT(e2.empleado_nombre, ' ', e2.empleado_paterno, ' ', e2.empleado_materno) as usuario_creo FROM clientes JOIN cotizaciones c ON cliente_id = cotizacion_cliente_id  JOIN empleados e ON cotizacion_empleado_id = e.empleado_id LEFT JOIN tablita t ON t.cotizacion_id = c.cotizacion_id LEFT JOIN empleados e2 ON t.usuario_modifico = e2.empleado_id  ORDER BY cotizacion_id DESC LIMIT 2000")
         for (const p of proyectos[0]) {
             const cstatus = (p.cotizacion_estatus_baja == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
             const cautorizada = (p.cotizacion_autorizada_estatus == 0) ? "<span class='badge badge-success badge-pill'>Autorizada</span>" : "<span class='badge badge-danger badge-pill'>No Autorizada</span>"
-            proyArr.push([p.cotizacion_id, p.cliente_razon_social, p.cotizacion_fecha_alta, p.cotizacion_proyecto, p.nombre_completo, cstatus, cautorizada, '<center><a href="/dashboard/operacion/proyectos/editar/'+p.cotizacion_id+'" class="btn btn-lg btn-outline-success m-1" "><i class="fal fa-sync"></i></a>  <form method="post"><a class="btn btn-lg btn-outline-danger" href="/delProyecto/'+p.cotizacion_id+'"><i class="fal fa-light fa-circle-minus"></i></a></form></center>'])
+            proyArr.push([p.cotizacion_id, p.cliente_razon_social, p.cotizacion_fecha_alta, p.cotizacion_proyecto, p.nombre_completo, cstatus, cautorizada, '<center><a href="/dashboard/operacion/proyectos/editar/'+p.cotizacion_id+'" class="btn btn-lg btn-outline-success m-1" "><i class="fal fa-sync"></i></a>  <form method="post" action="/delProyecto/'+p.cotizacion_id+'"><button type="submit" class="btn btn-lg btn-outline-danger" ><i class="fal fa-light fa-circle-minus"></i></button></form></center>'])
         }   
         
         res.render('operacion/proyectos/buscar', { proyArr })
@@ -153,4 +153,56 @@ export const renderOpReqEditar = async(req, res) => {
 }
 //! Render Requisiciones
 
-//? render pro
+//? render proyecto atuorizado
+
+
+export const renderOpProyAutorizar= async(req, res) => {
+    try {
+        let cotizaciones = []
+        const proyectos = await pool.query("SELECT c.cotizacion_id as cotizacion_id, cotizacion_cliente_id, cliente_razon_social,cotizacion_proyecto, CAST(cotizacion_fecha_alta AS DATE) as cotizacion_fecha_alta, CONCAT(cliente_razon_social, ' ', cotizacion_proyecto, ' ', cotizacion_fecha_alta) AS cotizacion_completa, CONCAT(e.empleado_nombre, ' ', e.empleado_paterno, ' ', e.empleado_materno) as nombre_completo, cotizacion_autorizada_estatus, cotizacion_estatus_baja, IFNULL(tablita_id, 0) as tablita_id,CONCAT(e2.empleado_nombre, ' ', e2.empleado_paterno, ' ', e2.empleado_materno) as usuario_creo FROM clientes JOIN cotizaciones c ON cliente_id = cotizacion_cliente_id  JOIN empleados e ON cotizacion_empleado_id = e.empleado_id LEFT JOIN tablita t ON t.cotizacion_id = c.cotizacion_id LEFT JOIN empleados e2 ON t.usuario_modifico = e2.empleado_id  ORDER BY cotizacion_id DESC")
+        for (const p of proyectos[0]) {
+            const cstatus = (p.cotizacion_estatus_baja == 0) ? "<span class='badge badge-success badge-pill'>Activo</span>" : "<span class='badge badge-danger badge-pill' >Inactivo</span>"
+            const cautorizada = (p.cotizacion_autorizada_estatus == 1) ? "<span class='badge badge-success badge-pill'>Autorizada</span>" :  (p.cotizacion_autorizada_estatus == 0) ? "<span class='badge badge-secondary badge-pill'>Cotizada</span>" : (p.cotizacion_autorizada_estatus == 2) ? "<span class='badge badge-info badge-pill'>Terminada</span>" :  (p.cotizacion_autorizada_estatus == 9) ? "<span class='badge badge-primary badge-pill'>Poliza</span>" :  "<span class='badge badge-danger badge-pill'>No Autorizada</span>"
+            cotizaciones.push([p.cotizacion_id, p.cliente_razon_social, p.cotizacion_fecha_alta, p.cotizacion_proyecto, p.nombre_completo, cstatus, cautorizada, '<center><a href="/dashboard/operacion/proyectos/autorizar/'+p.cotizacion_id+'" class="btn btn-lg btn-outline-success m-1" "><i class="fal fa-sync"></i></a>  <form method="post" action="/delAutorizacion/'+p.cotizacion_id+'"><button type="submit" class="btn btn-lg btn-outline-danger"><i class="fal fa-light fa-circle-minus"></i></button></form></center>'])
+        }   
+        
+        res.render('operacion/proyectos/autorizar', { cotizaciones })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+const getProyecto = async(id) => {
+    const proyecto = await pool.query("SELECT cotizacion_id, cotizacion_cliente_id, cotizacion_proyecto, cotizacion_fecha_alta, cotizacion_empleado_id, cotizacion_autorizada_estatus, cotizacion_estatus_baja, recordatorio_comentarios FROM cotizaciones WHERE cotizacion_id = ?", [id])
+    return proyecto[0][0]
+}
+
+const getCentrodeCostos = async() => {
+    const centrodecostos = await pool.query("SELECT centrodecostos_id, centrodecostos_descripcion FROM centrodecostos")
+    return centrodecostos[0]
+}
+
+export const renderOpProyAutorizarProyecto = async(req, res) => {
+    try {
+        const centroCostos = await getCentrodeCostos()
+        const moneda = await getMoneda()
+        const sucursales = await getSucursal()
+        const empresaa = await getEmpresa()
+        const clientes = await getCliente()
+        const empleados = await getEmpleado()
+        const clase = await getCotizacionClase()
+        const { id } = req.params
+        const proyecto = await pool.query("SELECT * FROM cotizaciones WHERE cotizacion_id = ?", [id])
+        const cotizaciones = await pool.query("SELECT cotizacion_id, cotizacion_proyecto, cotizacion_cliente_id FROM cotizaciones WHERE cotizacion_cliente_id = " + proyecto[0][0].cotizacion_cliente_id)
+        const fechas = await pool.query("SELECT DATE_FORMAT(fecha_inicio, '%Y-%m-%d') AS fecha_inicio, DATE_FORMAT(fecha_termino, '%Y-%m-%d') AS fecha_termino, DATE_FORMAT(cotizacion_fecha_autorizada, '%Y-%m-%d') AS cotizacion_fecha_autorizada FROM cotizaciones WHERE cotizacion_id = ?", [id])
+
+        const p = proyecto[0][0]
+        const f = fechas[0][0]
+
+        const cotizacion = cotizaciones[0]
+        res.render('operacion/proyectos/autorizarEditar', { f, p, clientes, sucursales, empresaa, moneda, empleados, clase, centroCostos, cotizacion })
+    } catch (error) {
+        console.log(error)
+    }
+}
