@@ -4,7 +4,7 @@ import axios from 'axios'
 
 
 const getMoneda = async() => {
-    const moneda = await pool.query("SELECT moneda_id, moneda_descripcion FROM monedas")
+    const moneda = await pool.query("SELECT moneda_id, moneda_descripcion, moneda_cotizacion FROM monedas")
     return moneda[0]
 }
 
@@ -48,6 +48,20 @@ const getCotizacionClase = async() => {
     return cotizacionClase[0]
 }
 
+const getDisciplinaProy = async(id) => {
+    const disciplina = await pool.query("SELECT * FROM cotizaciones_diciplinas WHERE diciplina_cotizacion_id = "+id)
+    return disciplina[0]
+}
+
+const getNiveles = async(id) => {
+    const niveles = await pool.query("SELECT * FROM cotizaciones_niveles WHERE nivel_cotizacion_id = "+id)
+    return niveles[0]
+}
+
+const getProdProyecto = async(id) => {
+    const productos = await pool.query("SELECT * FROM cotizaciones_insumos JOIN productos ON cotizaciones_insumos.insumo_producto_id = productos.producto_id WHERE cotizaciones_insumos.insumo_cotizacion_id ="+id)
+    return productos[0]
+}
 export const renderOpProyEditar = async(req, res) => {
     try {
         const moneda = await getMoneda()
@@ -57,9 +71,15 @@ export const renderOpProyEditar = async(req, res) => {
         const empleados = await getEmpleado()
         const clase = await getCotizacionClase()
         const  id  = req.params.id
-        const proyecto = await pool.query("SELECT * FROM cotizaciones WHERE cotizacion_id = ?", [id])
+        const productos  = await pool.query("SELECT producto_id, producto_codigo, producto_descripcion, producto_precio_tarjeta FROM productos LIMIT 1000")
+        const proyecto = await pool.query("SELECT cotizacion_id, cotizacion_cliente_id, cotizacion_empleado_id, cotizacion_tipo_id, cotizacion_moneda_id, cotizacion_moneda_en_pesos,  cotizacion_contacto	, cotizacion_proyecto,cotizacion_descripcion,cotizacion_ubicacion,cotizacion_condiciones_comerciales,cotizacion_observaciones,  DATE_FORMAT(cotizacion_fecha_alta, '%Y-%m-%d') as cotizacion_fecha_alta, cotizacion_descuento_porcentaje,cotizacion_autorizada_estatus,  DATE_FORMAT(cotizacion_fecha_autorizada, '%Y-%m-%d') as cotizacion_fecha_autorizada, cotizacion_ultima_modificacion, cotizacion_estatus_baja,  DATE_FORMAT(cotizacion_fecha_baja, '%Y-%m-%d') as cotizacion_fecha_baja, cotizacion_forma, cotizacion_autorizador, cotizacion_arq_responsable, cotizacion_encargado, cotizacion_cobranza, cotizacion_contacto_obra,  cotizacion_centrodecostos_id, cotizacion_diciplina_nueva, cotizacion_hm_porcentaje, cotizacion_icampo_porcentaje,  cotizacion_ioficina_porcentaje	, cotizacion_financiamiento_porcentaje, cotizacion_utilidad_porcentaje, cotizacion_aditivas, cotizacion_deductivas,  cotizacion_extras, estimacion_firma1,estimacion_firma2,estimacion_firma3,estimacion_firma4,estimacion_firma5,estimacion_firma6,  estimacion_iva, cotizacion_compras_totalizadas, aut, baja,  DATE_FORMAT(recordatorio_fecha, '%Y-%m-%d') as recordatorio_fecha, recordatorio_periodo,  recordatorio_comentarios,  recordatorio_estatus_id, cancelacion_motivo_id, liquidada_sn,  DATE_FORMAT(fecha_inicio, '%Y-%m-%d') as fecha_inicio, DATE_FORMAT(fecha_termino, '%Y-%m-%d') as fecha_termino, siroc_sn, tel_cobranza, datos_cobranza	, pf, costo,  total, sucursal_id,cotizacion_empresa_id  FROM `cotizaciones` WHERE cotizacion_id = ?", [id])
         const p = proyecto[0][0]
-        res.render('operacion/proyectos/editar', { p, clientes, sucursales, empresaa, moneda, empleados, clase})
+        const producto = productos[0]
+        const disciplinass = await getDisciplinaProy(id)
+        const niveles = await getNiveles(id)
+        const prodProyecto = await getProdProyecto(id)
+        console.log(prodProyecto)
+        res.render('operacion/proyectos/editar', { p, clientes, sucursales, empresaa, moneda, empleados, clase, producto, disciplinass, niveles, prodProyecto})
     } catch (error) {
         console.log(error)
     }
@@ -94,15 +114,21 @@ export const renderOpReqBuscar = async(req, res) => {
         console.log(error)
     }
 }
-
+const getRequisiciones = async() => {
+    const requisiciones = await pool.query("SELECT requisicion_id, requisicion_comentarios FROM requisiciones ORDER BY requisicion_id DESC")
+    return requisiciones[0]
+}
 export const renderOpReqNuevo = async(req, res) => {
     try {
-
-        res.render('operacion/proyectos/requisiciones/nuevo')
+        const clientes = await getClientes()
+        const requisiciones = await getRequisiciones()
+        console.log(requisiciones)
+        res.render('operacion/proyectos/requisiciones/nuevo', { clientes, requisiciones })
     } catch (error) {
         console.log(error)
     }
 }
+
 const getClientes = async() => {
     const clientes = await pool.query("SELECT cliente_id, cliente_razon_social FROM clientes")
     return clientes[0]
@@ -182,7 +208,28 @@ const getCentrodeCostos = async() => {
     const centrodecostos = await pool.query("SELECT centrodecostos_id, centrodecostos_descripcion FROM centrodecostos")
     return centrodecostos[0]
 }
+const getFacturado  = async(id) => {
+    const facturado = await pool.query("SELECT factura_id, factura_total, factura_moneda_id FROM facturas WHERE factura_proyecto_id = ?", [id])
+    if(facturado[0].length == 0){
+        return { factura_id: 0, factura_total: '0', factura_moneda_id: 1 }
+    }
+    return facturado[0][0]
+}
 
+const cobrado = async(id) => {
+    const cobrado = await pool.query("SELECT pago_monto AS cobrado, factura_moneda_id FROM facturas_pagos JOIN facturas ON factura_id = pago_factura_id WHERE factura_proyecto_id = "+ id)
+    if(cobrado[0].length == 0){
+        return { cobrado: 0, factura_moneda_id: 1 }
+    }
+    return cobrado[0][0]
+}
+const getComprado = async(id) => {
+    const comprado = await pool.query("select cheque_id, cheque_fecha_alta, banco_cuenta_moneda_id, cheque_monto,  COALESCE(pago_monto_moneda_cheque, 0) AS pago_orden, COALESCE(cheque_comentario, '') as cheque_comentario, COALESCE(P.proveedor_razon_social, '') as proveedor_razon_social_orden, COALESCE(C.proveedor_razon_social, '') as proveedor_razon_social_cheque FROM cheques LEFT JOIN proveedores as C ON C.proveedor_id = cheque_proveedor_id LEFT JOIN ordenes_compra_pagos ON pago_cheque_id = cheque_id LEFT JOIN ordenes_compra ON orden_id = pago_orden_id LEFT JOIN proveedores as P ON P.proveedor_id = orden_proveedor_id LEFT JOIN requisiciones ON requisicion_id = orden_requisicion_id JOIN bancos_cuentas ON banco_cuenta_id = cheque_cuenta_id WHERE cheque_ingreso <> '1' AND cheque_estatus_baja = 0 AND (COALESCE(orden_cotizacion_id, 0) = "+id+" OR COALESCE(cheque_cotizacion_id, 0) = "+id+" OR COALESCE(requisicion_cotizacion_id, 0) = "+id+")	ORDER BY cheque_id")
+    if(comprado[0].length == 0){
+        return 0
+    }
+    return comprado[0][0]
+}
 export const renderOpProyAutorizarProyecto = async(req, res) => {
     try {
         const centroCostos = await getCentrodeCostos()
@@ -193,15 +240,20 @@ export const renderOpProyAutorizarProyecto = async(req, res) => {
         const empleados = await getEmpleado()
         const clase = await getCotizacionClase()
         const { id } = req.params
-        const proyecto = await pool.query("SELECT * FROM cotizaciones WHERE cotizacion_id = ?", [id])
+        const facturado = await getFacturado(id)
+        const comprado = await getComprado(id)
+        const proyecto = await pool.query("SELECT cotizacion_id, cotizacion_cliente_id,cotizacion_moneda_id, cotizacion_contacto, cotizacion_autorizador, cotizacion_empleado_id, cotizacion_proyecto, cotizacion_forma, cotizacion_centrodecostos_id, cotizacion_autorizada_estatus, cotizacion_fecha_autorizada, cotizacion_cobranza, cotizacion_contacto_obra,cotizacion_arq_responsable, cotizacion_encargado, cotizacion_ultima_modificacion, cotizacion_estatus_baja, IFNULL(liquidada_sn, 0) as liquidada_sn, fecha_inicio, fecha_termino, siroc_sn, tel_cobranza, datos_cobranza, pf, costo, total, sucursal_id, cotizacion_moneda_id FROM cotizaciones WHERE cotizacion_id = "+[id]+" order by cotizacion_encargado asc")
         const cotizaciones = await pool.query("SELECT cotizacion_id, cotizacion_proyecto, cotizacion_cliente_id FROM cotizaciones WHERE cotizacion_cliente_id = " + proyecto[0][0].cotizacion_cliente_id)
         const fechas = await pool.query("SELECT DATE_FORMAT(fecha_inicio, '%Y-%m-%d') AS fecha_inicio, DATE_FORMAT(fecha_termino, '%Y-%m-%d') AS fecha_termino, DATE_FORMAT(cotizacion_fecha_autorizada, '%Y-%m-%d') AS cotizacion_fecha_autorizada FROM cotizaciones WHERE cotizacion_id = ?", [id])
-
         const p = proyecto[0][0]
         const f = fechas[0][0]
-
+        const pcobrado = await cobrado(id)
         const cotizacion = cotizaciones[0]
-        res.render('operacion/proyectos/autorizarEditar', { f, p, clientes, sucursales, empresaa, moneda, empleados, clase, centroCostos, cotizacion })
+        
+        console.log(facturado)
+        console.log(pcobrado)
+        console.log(p.cotizacion_moneda_id, "HOLASDLALSDL")
+        res.render('operacion/proyectos/autorizarEditar', { f, p, clientes, sucursales, empresaa, moneda, empleados, clase, centroCostos, cotizacion, facturado, pcobrado, comprado})
     } catch (error) {
         console.log(error)
     }

@@ -49,7 +49,7 @@ administrationRoutes.post('/updDisciplina/:id', updDisciplina)
 administrationRoutes.delete('/delDisciplina/:id', delDisciplina)
 
 //?add Dispositivo
-administrationRoutes.post('/addDispositivo', addDispositivo)
+administrationRoutes.post('/AddDispositivo', addDispositivo)
 //*upd Dispositivo
 administrationRoutes.post('/updDispositivo/:id', updDispositivo)
 //! del Dispositivo
@@ -96,7 +96,7 @@ administrationRoutes.post('/addProducto', addProducto)
 administrationRoutes.post('/updProducto/:id', updProducto)
 
 //! del producto o servicio
-administrationRoutes.delete('/delProducto/:id', delProducto)
+administrationRoutes.get('/delProducto/:id', delProducto)
 
 
 // Path: prefactura.controller.js

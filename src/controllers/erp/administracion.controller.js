@@ -21,15 +21,15 @@ const getmarca = async (id) => {
     }
 }
 export const renderAdEditar = async (req, res) => {
-    
+
     try {
         const { id } = req.params
         const marcas = await getmarca(id)
-        return res.render('administracion/marca/editar', { marcas } )
+        return res.render('administracion/marca/editar', { marcas })
     } catch (error) {
         console.log(error)
     }
-    
+
 }
 //? marca
 export const renderAdBuscar = async (req, res) => {
@@ -38,7 +38,7 @@ export const renderAdBuscar = async (req, res) => {
         const marcas = await pool.query("SELECT marca_id, marca_descripcion, marca_estatus_baja FROM marcas") //? <- consultar a la base de datos
         marcas[0].forEach(m => {
             const status = m.marca_estatus_baja == 0 ? "<span class='badge badge-success badge-pill'>Activo</span>" : "<span class='badge badge-danger badge-pill' >Inactivo</span>"
-            marcasArray.push([m.marca_id, m.marca_descripcion, status, '<center><a href="/dashboard/administracion/marca/editar/'+m.marca_id+'"><button type="button" class="btn btn-lg btn-outline-success m-1" ><i class="fal fa-sync"></i></button></a>  <button type="button" onClick="delMarca('+m.marca_id+')" class="btn btn-lg btn-outline-danger" ><i class="fal fa-trash-alt"></i></button></center>']) //? <- agregar a array
+            marcasArray.push([m.marca_id, m.marca_descripcion, status, '<center><a href="/dashboard/administracion/marca/editar/' + m.marca_id + '"><button type="button" class="btn btn-lg btn-outline-success m-1" ><i class="fal fa-sync"></i></button></a>  <button type="button" onClick="delMarca(' + m.marca_id + ')" class="btn btn-lg btn-outline-danger" ><i class="fal fa-trash-alt"></i></button></center>']) //? <- agregar a array
         });
 
         return res.render('administracion/marca/buscar', { marcasArray }) //? <- renderizar vista
@@ -56,7 +56,7 @@ export const renderAdProvMarca = async (req, res) => {
             const status = (p.estatus == 0) ? "<span class='badge badge-success badge-pill'>Activo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
             provArray.push([p.nombre, p.razon, status, '<center><a href="/dashboard/administracion/marca/prov_marca/nuevo"><button type="button" class="btn btn-lg btn-outline-success m-1"><i class="fal fa-light fa-plus"></i></button></a> <button type="button" class="btn btn-lg btn-outline-danger" onClick="delprovMarca(' + p.id + ')"><i class="fal fa-trash-alt"></i></button></center>'])
         });
-        res.render('administracion/marca/prov_marca', { provArray})
+        res.render('administracion/marca/prov_marca', { provArray })
     } catch (error) {
         console.log(error)
     }
@@ -110,7 +110,7 @@ export const renderCliBuscar = async (req, res) => {
     const cli = await pool.query("SELECT cliente_id, IF(cliente_razon_social = '', 'SIN AGREGAR', cliente_razon_social) as rsocial, IF(cliente_rfc = '', 'SIN AGREGAR', cliente_rfc) as rfc, IF(cliente_calle = '', 'SIN AGREGAR' , cliente_calle) as calle, IF(cliente_email = '', 'SIN AGREGAR', cliente_email) as email, IF(cliente_colonia = '', 'SIN AGREGAR', cliente_colonia) as colonia, IF(cliente_municipio = '', 'SIN AGREGAR', cliente_municipio) as municipio, IF(cliente_estado = '', 'SIN AGREGAR', cliente_estado) as estado, IF(cliente_codigo_postal = 0, 'pendiente', cliente_codigo_postal) as cp, IF(cliente_telefono = '', 'SIN AGREGAR', cliente_telefono) as telefono, IF(cliente_contacto = '', 'SIN AGREGAR', cliente_contacto) as contacto, IF(cliente_cobranza = '', 'SIN AGREGAR', cliente_cobranza) as cobranza, cliente_estatus_baja FROM clientes")
     cli[0].forEach(c => {
         const clstatus = (c.cliente_estatus_baja == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
-        cliArray.push([c.rsocial, c.rfc, c.calle, c.colonia, c.municipio, c.estado, c.cp, c.telefono, c.contacto, c.email, c.cobranza, clstatus, '<center><a href="/dashboard/administracion/clientes/editar/'+c.cliente_id +'" class="btn btn-lg btn-outline-success m-1""><i class="fal fa-sync"></i></a><button type="button" class="btn btn-lg btn-outline-danger" onClick="delCliente('+c.cliente_id+')"><i class="fal fa-trash-alt"></i></button></center>'])
+        cliArray.push([c.rsocial, c.rfc, c.calle, c.colonia, c.municipio, c.estado, c.cp, c.telefono, c.contacto, c.email, c.cobranza, clstatus, '<center><a href="/dashboard/administracion/clientes/editar/' + c.cliente_id + '" class="btn btn-lg btn-outline-success m-1""><i class="fal fa-sync"></i></a><button type="button" class="btn btn-lg btn-outline-danger" onClick="delCliente(' + c.cliente_id + ')"><i class="fal fa-trash-alt"></i></button></center>'])
     });
 
     res.render('administracion/clientes/buscar', { cliArray })
@@ -307,7 +307,7 @@ export const renderPBBuscar = async (req, res) => {
         const prov = await pool.query('SELECT proveedor_id, IF(proveedor_razon_social = "", "SIN AGREGAR", proveedor_razon_social ) as proveedor_razon_social , IF(proveedor_contacto = "", "SIN AGREGAR", proveedor_contacto) as proveedor_contacto,  IF(proveedor_contacto_email = "", "SIN AGREGAR", proveedor_contacto_email) AS proveedor_contacto_email, IF(proveedor_telefono = "", "SIN AGREGAR", proveedor_telefono) AS proveedor_telefono, IF(proveedor_direccion = "", "SIN AGREGAR", proveedor_direccion) AS proveedor_direccion, IF(proveedor_rfc = "", "SIN AGREGAR", proveedor_rfc) AS proveedor_rfc,  IF(proveedor_web = "", "SIN AGREGAR", proveedor_web) AS proveedor_web, IF(proveedor_usuario_password = "", "SIN AGREGAR", proveedor_usuario_password) AS proveedor_usuario_password,  IF(proveedor_dias_credito = "", "SIN AGREGAR", proveedor_dias_credito) AS proveedor_dias_credito,  IF(proveedor_limite_credito = "", "SIN AGREGAR", proveedor_limite_credito) AS proveedor_limite_credito, IF(proveedor_tipo_id = "", "SIN AGREGAR", proveedor_tipo_id) AS proveedor_tipo_id, proveedor_estatus_baja FROM proveedores')
         for (const p of prov[0]) {
             const cstatus = (p.proveedor_estatus_baja == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
-            provBuscar.push([p.proveedor_razon_social, p.proveedor_contacto, p.proveedor_contacto_email, p.proveedor_telefono, p.proveedor_direccion, p.proveedor_rfc, p.proveedor_web, p.proveedor_usuario_password, p.proveedor_dias_credito, p.proveedor_limite_credito, p.proveedor_tipo_id, cstatus, '<center><a  href="/dashboard/administracion/proveedores/editar/'+ p.proveedor_id+'"  class="btn btn-lg btn-outline-success m-1"><i class="fal fa-sync"></i></a>  <button onclick="delProveedor('+p.proveedor_id+')" type="button" class="btn btn-lg btn-outline-danger"><i class="fal fa-trash-alt"></i></button></center>'])
+            provBuscar.push([p.proveedor_razon_social, p.proveedor_contacto, p.proveedor_contacto_email, p.proveedor_telefono, p.proveedor_direccion, p.proveedor_rfc, p.proveedor_web, p.proveedor_usuario_password, p.proveedor_dias_credito, p.proveedor_limite_credito, p.proveedor_tipo_id, cstatus, '<center><a  href="/dashboard/administracion/proveedores/editar/' + p.proveedor_id + '"  class="btn btn-lg btn-outline-success m-1"><i class="fal fa-sync"></i></a>  <button onclick="delProveedor(' + p.proveedor_id + ')" type="button" class="btn btn-lg btn-outline-danger"><i class="fal fa-trash-alt"></i></button></center>'])
         }
         return res.render('administracion/proveedores/buscar', { provBuscar })
 
@@ -347,7 +347,7 @@ export const renderDCBuscar = async (req, res) => {
         const dic = await pool.query('SELECT * FROM familias')
         for (const d of dic[0]) {
             const cstatus = (d.familia_estatus_baja == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
-            disciplinaArray.push([d.familia_clave, d.familia_descripcion, cstatus, '<center><a href="/dashboard/administracion/disciplina/editar/'+d.familia_id+'" class="btn btn-lg btn-outline-success m-1" "><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delDisciplina(' + d.familia_id + ')"><i class="fal fa-trash-alt"></i></button></center>'])
+            disciplinaArray.push([d.familia_clave, d.familia_descripcion, cstatus, '<center><a href="/dashboard/administracion/disciplina/editar/' + d.familia_id + '" class="btn btn-lg btn-outline-success m-1" "><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delDisciplina(' + d.familia_id + ')"><i class="fal fa-trash-alt"></i></button></center>'])
         }
 
         return res.render('administracion/disciplina/buscar', { disciplinaArray })
@@ -389,7 +389,13 @@ export const renderDiBuscar = async (req, res) => {
 //? Render Dispositivos
 
 export const renderDnuevo = async (req, res) => {
-    res.render('administracion/dispositivos/nuevo')
+    const familias = await pool.query('SELECT * FROM familias')
+    const cable = await pool.query('SELECT * FROM cable')
+
+    const f = familias[0]
+    const c = cable[0]
+
+    res.render('administracion/dispositivos/nuevo', { f, c })
 }
 
 const getDispositivo = async () => {
@@ -400,15 +406,16 @@ const getDispositivo = async () => {
 export const renderDbuscar = async (req, res) => {
     let disaa = []
 
-    try{
+    try {
         const dispo = await pool.query('SELECT d.dispositivo_id, d.clave, d.descripcion, d.rendimiento_hr, d.rendimiento_min, f.familia_descripcion as familia, d.dispositivo_estatus_baja, ca.descripcion as cable_a, cb.descripcion as cable_b FROM dispositivo d INNER JOIN familias f ON f.familia_id = d.familia_id INNER JOIN cable ca ON ca.cable_id = d.cable_idA INNER JOIN cable cb ON cb.cable_id = d.cable_idB')
         for (const d of dispo[0]) {
             const cstatus = (d.dispositivo_estatus_baja == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
-            disaa.push([d.descripcion, d.clave, d.rendimiento_hr+' : '+d.rendimiento_min, d.familia, d.cable_a, d.cable_b, cstatus, '<center><a href="/dashboard/administracion/dispositivos/editar/'+d.dispositivo_id+'" class="btn btn-lg btn-outline-success m-1" "><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delDispositivo(' + d.dispositivo_id + ')"><i class="fal fa-trash-alt"></i></button></center>'])
+            disaa.push([d.descripcion, d.clave, d.rendimiento_hr + ' : ' + d.rendimiento_min, d.familia, d.cable_a, d.cable_b, cstatus, '<center><a href="/dashboard/administracion/dispositivos/editar/' + d.dispositivo_id + '" class="btn btn-lg btn-outline-success m-1" "><i class="fal fa-sync"></i></a>  <button type="submit" class="btn btn-lg btn-outline-danger" ><i class="fal fa-trash-alt"></i></button></center>'])
         }
-        return res.render('administracion/dispositivos/buscar', {disaa})
+        console.log(dispo)
+        return res.render('administracion/dispositivos/buscar', { disaa })
     }
-    catch(error){
+    catch (error) {
         console.log(error)
     }
 }
@@ -420,13 +427,13 @@ export const renderCnuevo = async (req, res) => {
     res.render('administracion/cables/nuevo')
 }
 
-export const renderCbuscar = async (req, res) => { 
+export const renderCbuscar = async (req, res) => {
     try {
         let cableArray = []
         const cable = await pool.query('SELECT cable_id, clave, descripcion, cable_estatus_baja FROM cable')
         for (const c of cable[0]) {
             const cstatus = (c.cable_estatus_baja == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
-            cableArray.push([c.clave, c.descripcion, cstatus, '<center><a href="/dashboard/administracion/cables/editar/'+c.cable_id+'" class="btn btn-lg btn-outline-success m-1" ><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delCable(' + c.cable_id + ')"><i class="fal fa-trash-alt"></i></button><center>'])
+            cableArray.push([c.clave, c.descripcion, cstatus, '<center><a href="/dashboard/administracion/cables/editar/' + c.cable_id + '" class="btn btn-lg btn-outline-success m-1" ><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delCable(' + c.cable_id + ')"><i class="fal fa-trash-alt"></i></button><center>'])
         }
         return res.render('administracion/cables/buscar', { cableArray })
     } catch (error) {
@@ -443,9 +450,11 @@ const getCable = async (id) => {
     }
 }
 
+
 export const renderCeditar = async (req, res) => {
     try {
         const { id } = req.params
+
         const cable = await getCable(id)
         return res.render('administracion/cables/editar', { cable })
     } catch (error) {
@@ -461,7 +470,7 @@ const vfactura = async () => {
         const prefacturas = await pool.query("SELECT f.factura_id as id, CONCAT('(', c.cotizacion_id, ')', ' - ', c.cotizacion_proyecto, '	' )  as proyectos,  CONCAT('$', f.factura_total) as total FROM cotizaciones AS c JOIN facturas AS f ON c.cotizacion_id = f.factura_proyecto_id GROUP BY id")
         let prefactura = []
         for (const i of prefacturas[0]) {
-            prefactura.push([i.id, i.proyectos, i.total, '<button class="btn btn-outline-info" href="/dashboard/administracion/facturas/'+i.id+'"><i class="fas fa-edit"></i></button>'])
+            prefactura.push([i.id, i.proyectos, i.total, '<a class="btn btn-outline-info" href="/dashboard/administracion/facturas/' + i.id + '"><i class="fas fa-edit"></i></a>'])
         }
         return prefactura
     } catch (error) {
@@ -472,7 +481,7 @@ const vfactura = async () => {
 export const renderFacturas = async (req, res) => {
     try {
         const facturas = await vfactura()
-        return res.render('administracion/facturas/facturas', { facturas })   
+        return res.render('administracion/facturas/facturas', { facturas })
     } catch (error) {
         console.log(error)
     }
@@ -569,9 +578,9 @@ const getTaxInfo = async (id) => {
 
 export const renderTaxPdf = async (req, res) => {
     try {
-        const {id} = req.params
+        const { id } = req.params
         const taxInfo = await getTaxInfo(id)
-        return res.render('administracion/facturas/pdf', {taxInfo})
+        return res.render('administracion/facturas/pdf', { taxInfo })
     } catch (error) {
         console.log(error)
     }
@@ -579,11 +588,54 @@ export const renderTaxPdf = async (req, res) => {
 
 //! end render factura pdf
 
+const getDispositivoC = async (id) => {
+    try {
+        const dispositivo = await pool.query('SELECT * FROM dispositivo WHERE dispositivo_id = ' + id)
+        return dispositivo[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getComponentes = async (id) => {
+    try {
+        const componentes = await pool.query('SELECT * FROM dispositivo_componentes WHERE dispositivo_id =' + id)
+        return componentes[0]
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+const getLista = async () => {
+    try {
+        const lista = await pool.query('SELECT * FROM componentes')
+        return lista[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getSelected = async (id) => {
+    try{
+        const selected = await pool.query('SELECT * FROM dispositivo_componentes WHERE dispositivo_id = ' + id)
+        return selected[0]
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
 export const renderDeditar = async (req, res) => {
     try {
-        const { id } = req.params
-        const dispositivo = await getDispositivo(id)
-        return res.render('administracion/dispositivos/editar', { dispositivo })
+        const d = await getDispositivoC(req.params.id)
+        const familias = await pool.query('SELECT * FROM familias')
+        const cable = await pool.query('SELECT * FROM cable')
+        const componentes = await getComponentes(req.params.id)
+        const f = familias[0]
+        const c = cable[0]
+        const lista = await getLista()
+        const selected = await getSelected(req.params.id)
+        return res.render('administracion/dispositivos/editar', { d, f, c, componentes, lista, selected })
     } catch (error) {
         console.log(error)
     }
@@ -603,13 +655,13 @@ export const renderProdBuscar = async (req, res) => {
     try {
         let parray = []
         const jornada = await pool.query("SELECT SUM((jornada_costo * jornada_porcentaje) / 100) AS costo_jornada, moneda_cotizacion FROM jornadas LEFT JOIN monedas ON moneda_id = 2")
-        
+
         const productos = await pool.query('SELECT p.producto_id as producto_idw, p.producto_descripcion, p.producto_icampo as icampo, p.producto_ioficina as ioficina, p.producto_hm as hm, p.producto_financiero as financiero, p.producto_utilidad as utilidad, p.producto_ultima_modificacion, p.usuario_modifico, d.descripcion as dispositivo, p.producto_codigo, p.producto_tipo_id, tm.tm_tipo as tipo, s.serie_descripcion as serie, p.producto_familia_id, f.familia_clave as familias, p.producto_modelo, p.producto_marca_id, m.marca_descripcion as marca, p.producto_unidad_id, u.unidad_descripcion as unidad, mn.moneda_descripcion as moneda, mn.moneda_cotizacion as Mcot, p.producto_costo, p.producto_costo_fecha, p.producto_precio_tarjeta, p.producto_mo, p.producto_precio_venta, p.producto_estatus_baja as baja FROM productos p  INNER JOIN dispositivo d ON d.dispositivo_id = p.dispositivo_id  INNER JOIN tipos_material tm ON tm.tm_id = p.producto_tipo_id  INNER JOIN serie s ON s.serie_id = producto_serie_id  INNER JOIN familias f ON f.familia_id = p.producto_familia_id  INNER JOIN marcas m ON m.marca_id = p.producto_marca_id  INNER JOIN unidades u ON u.unidad_id = p.producto_unidad_id  INNER JOIN monedas mn ON mn.moneda_id = p.producto_moneda_id ORDER BY p.producto_id DESC')
         for (const pr of productos[0]) {
-            const cstatus = (pr.producto_estatus_baja == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
-            parray.push([pr.producto_descripcion, pr.producto_codigo, pr.tipo, pr.familias, pr.dispositivo, pr.producto_modelo, pr.marca, pr.unidad, pr.serie, pr.moneda, pr.producto_costo, pr.producto_costo_fecha, pr.producto_precio_tarjeta, pr.producto_mo, cstatus, pr.producto_ultima_modificacion, pr.utilidad, pr.icampo, pr.ioficina, pr.hm, pr.financiero,'<center><a href="/dashboard/administracion/productos/editar/'+pr.producto_idw+'" class="btn btn-lg btn-outline-success m-1" ><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delProductos('+pr.producto_idw+')"><i class="fal fa-trash-alt"></i></button><center> <p> <button class="btn btn-primary" type="button" data-toggle="collapse"data-target="#collapseExample" aria-expanded="false" onclick="calcular('+pr.producto_precio_tarjeta+','+ pr.utilidad+','+ pr.icampo+','+ pr.ioficina+','+ pr.hm+','+ pr.financiero+','+pr.producto_mo+','+pr.Mcot+')" aria-controls="collapseExample">Tabla de Ìndices</button></p>'])
+            const cstatus = (pr.producto_estatus_baja == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'></span>"
+            parray.push([pr.producto_descripcion, pr.producto_codigo, pr.tipo, pr.familias, pr.dispositivo, pr.producto_modelo, pr.marca, pr.unidad, pr.serie, pr.moneda, pr.producto_costo, pr.producto_costo_fecha, pr.producto_precio_tarjeta, pr.producto_mo, cstatus, pr.producto_ultima_modificacion, pr.utilidad, pr.icampo, pr.ioficina, pr.hm, pr.financiero, '<center><a href="/dashboard/administracion/productos/editar/' + pr.producto_idw + '" class="btn btn-lg btn-outline-success m-1" ><i class="fal fa-sync"></i></a>  <form method="post" action="/delProducto/' + pr.producto_idw + '"> <button type="submit" class="btn btn-lg btn-outline-danger"><i class="fal fa-light fa-circle-minus"></i></button></form><center> <p> <button class="btn btn-primary" type="button" data-toggle="collapse"data-target="#collapseExample" aria-expanded="false" onclick="calcular(' + pr.producto_precio_tarjeta + ',' + pr.utilidad + ',' + pr.icampo + ',' + pr.ioficina + ',' + pr.hm + ',' + pr.financiero + ',' + pr.producto_mo + ',' + pr.Mcot + ')" aria-controls="collapseExample">Tabla de Ìndices</button></p>'])
         }
-        
+
         return res.render('administracion/productos/buscar', { parray })
     } catch (error) {
         console.log(error)
@@ -650,7 +702,7 @@ export const renderProdNuevo = async (req, res) => {
         const familia = await getFamilias()
         const marca = await getMarcas()
         const tipo = await getTipo()
-        return res.render('administracion/productos/nuevo', {moneda, dispositivo, familia, marca, tipo})
+        return res.render('administracion/productos/nuevo', { moneda, dispositivo, familia, marca, tipo })
     } catch (error) {
         console.log(error)
     }
@@ -659,7 +711,7 @@ export const renderProdNuevo = async (req, res) => {
 const getProducto = async (id) => {
     try {
         const producto = await pool.query('SELECT producto_id, producto_descripcion,producto_material_tipo, FORMAT (producto_costo_fecha, "dd-MM-yy") as producto_costo_fecha, producto_serie_id, dispositivo_id, producto_codigo, producto_tipo_id, producto_familia_id, producto_modelo, producto_marca_id, producto_unidad_id, producto_moneda_id, producto_costo, producto_costo_fecha, producto_precio_tarjeta, producto_mo, producto_precio_venta, producto_estatus_baja, producto_hm, producto_ioficina, producto_icampo, producto_financiero, producto_utilidad FROM productos WHERE producto_id = ?', [id])
-        
+
         return producto[0][0]
     } catch (error) {
         console.log(error)
@@ -712,7 +764,7 @@ export const renderProdEditar = async (req, res) => {
         const serie = await getSeries()
         const material = await getMaterial()
         const tipo = await tipe()
-        return res.render('administracion/productos/editar', {producto ,moneda, dispositivo, familia, marca, unidad, serie, material, tipo})
+        return res.render('administracion/productos/editar', { producto, moneda, dispositivo, familia, marca, unidad, serie, material, tipo })
     } catch (error) {
         console.log(error)
     }

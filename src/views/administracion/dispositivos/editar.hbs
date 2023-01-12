@@ -19,16 +19,121 @@
                     <div id="metasAll">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-6">
-                                    <form method="post" class="form-group" action="/">
-                                        <label class="form-label" for="simpleinput">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <form method="post" class="form-group" action="/updDispositivo/{{d.dispositivo_id}}">
+                                        <center>
                                             <h3>Editar Dispositivo</h3>
-                                        </label>
-                                        <input type="text" id="simpleinput" class="form-control" placeholder="Ingresa el nombre de la marca" name="marca_descripcion" required autofocus><br><br>
+                                        </center>
+                                        <br><br>
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <label for="">
+                                                    <h4>Nombre</h4>
+                                                </label>
+                                                <input type="text" class="form-control" name="descripcion" id="nombre"
+                                                    placeholder="Nombre del dispositivo" value="{{d.descripcion}}">
+                                                <br> <br>
+                                                <label for="">
+                                                    <h4>Tipo de Cable A</h4>
+                                                </label>
+                                                <select class="form-control" name="cable_idA" id="">
+                                                    {{#each c}}
+                                                    <option value="{{cable_id}}" {{#if (is ../d.cable_idA cable_id)}}
+                                                        selected {{/if}}>{{descripcion}}</option>
+                                                    {{/each}}
+
+                                                </select>
+                                                <br><br>
+                                                <label for="">
+                                                    <h4>Rendimiento HH : MM</h4>
+                                                </label>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <input type="text" name="rendimiento_hr" class="form-control"
+                                                            placeholder="HH" value="{{d.rendimiento_hr}}">
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <input type="text" name="rendimiento_min" class="form-control"
+                                                            placeholder="MM" value="{{d.rendimiento_min}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="">
+                                                    <h4>Clave</h4>
+                                                </label>
+                                                <input type="text" class="form-control" name="clave" id="nombre"
+                                                    placeholder="Nombre del dispositivo" value="{{d.clave}}">
+                                                <br> <br>
+                                                <label for="">
+                                                    <h4>Tipo de Cable B</h4>
+                                                </label>
+                                                <select class="form-control" name="cable_idB" id="">
+                                                    {{#each c}}
+                                                    <option value="{{cable_id}}" {{#if (is ../d.cable_idB cable_id)}}
+                                                        selected {{/if}}>{{descripcion}}</option>
+                                                    {{/each}}
+                                                </select>
+                                                <br><br>
+                                                
+
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <label for="">
+                                                    <h4> Disciplina</h4>
+                                                </label>
+                                                <select class="form-control" name="familia_id" id="">
+                                                    {{#each f}}
+                                                    <option value="{{familia_id}}" {{#if (is ../d.familia_id
+                                                        familia_id)}} selected {{/if}}>{{familia_descripcion}}</option>
+                                                    {{/each}}
+
+                                                </select>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <label for="">
+                                                    <h4> Estatus</h4>
+                                                </label>
+                                                <select class="form-control" name="dispositivo_estatus_baja" id="">
+                                                    <option value="0">Activo</option>
+                                                    <option value="1">Inactivo</option>
+
+                                                </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <br>
+
+
+                                        <table class="table table-stripped table-success">
+                                            <tr>
+                                                <th>
+                                                    Actividad
+                                                </th>
+                                                <th>Check</th>
+                                                <th>Hr</th>
+                                                <th>Min</th>
+                                                <th>Costo</th>
+                                            </tr>
+                                            {{#each lista}}
+                                            <tr>
+                                                <td class="text-dark h3"> <b> {{componente_nombre}}</b></td>
+                                                <td><input type="checkbox" class="form-control"></td>
+                                                <td><input type="text" name="" value="" id="hr" class="form-control w-75"></td>
+                                                <td><input type="text" name="" value="" id="mn" class="form-control w-75"></td>
+                                                <td><input type="text" name="" value="" id="costo" class="form-control w-75"></td>
+                                            </tr>
+
+                                            {{/each}}
+                                        </table>
+                                        <br><br>
                                         <button type="submit" class="btn-outline-info btn-lg btn-block">Agregar</button>
                                     </form>
-                                    <div class="col-md-3"></div>
+                                    <div class="col-md-2"></div>
                                 </div>
                             </div>
                         </div>
@@ -38,3 +143,26 @@
         </div>
     </div>
 </div>
+
+{{#section 'scripts'}}
+
+<script>
+    let array = {{{json selected}}};
+
+// La selección de los checkbox
+var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+let inputs = document.querySelectorAll('input[type="text"]');
+
+for (var i = 0; i < array.length; i++) {
+    // Asigna las propiedades del objeto al input correspondiente
+    inputs[0].value = array[i].rendimiento_hr;
+    inputs[1].value = array[i].rendimiento_min;
+    inputs[2].value = array[i].costo;
+}
+
+
+
+   
+</script>
+
+{{/section}}

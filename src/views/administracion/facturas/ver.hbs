@@ -25,8 +25,7 @@
                             <div class="row mt-3 mb-3">
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Empresa</label><br>
-                                    <select name="factura_empresa_id" id="" class="form-control">
-                                        <option selected disabled value="">Seleccionar</option>
+                                    <select name="factura_empresa_id" id="" class="form-control" disabled>
                                         {{#each empresa}}
                                             <option value="{{id}}" {{#if (is ../prefactura.factura_empresa_id this.id)}} selected {{/if}}>{{nombre}}</option>
                                         {{/each}}
@@ -35,8 +34,7 @@
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Cliente</label><br>
-                                    <select name="factura_cliente_id" id="" class="form-control">
-                                        <option selected disabled value="">Seleccionar</option>
+                                    <select name="factura_cliente_id" id="" class="form-control" disabled>
                                         {{#each cliente}}
                                             <option value="{{cliente_id}}"  {{#if (is ../prefactura.factura_cliente_id this.cliente_id)}} selected {{/if}}>{{cliente_razon_social}}</option>
                                         {{/each}}
@@ -45,8 +43,7 @@
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Descripción</label><br>
-                                    <input class="form-control" type="text" name="factura_descripcion" id=""
-                                        placeholder="Descripción">
+                                    <input class="form-control" type="text" name="factura_descripcion" placeholder="Descripción" value="{{prefactura.factura_descripcion}}" disabled>
                                 </div>
 
 

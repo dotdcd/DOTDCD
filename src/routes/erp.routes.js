@@ -10,7 +10,7 @@ import { renderEprovMarca, renderProdNuevo,renderProdEditar, renderAdProvMarcaNu
 import { renderCoBuscar, renderCoNuevo, renderCoRequerir, renderCoEditar, renderEMultiempresas, renderBBuscar, renderBNuevo, renderBEditar, renderEnuevos, renderInuevos } from '../controllers/erp/contabilidad.controller.js';
 import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc, renderContratos, renderSignature, renderContrato, renderPastContrato, renderDocV, renderNMultiempresas, renderBMultiempresas, renderJornadas} from '../controllers/erp/contabilidad.controller.js'
 
-//? Middlewares
+
 import { authenticateUser, isAdmin } from '../middlewares/auth.js';
 import { authenticateSignature } from '../middlewares/signature.js';
 
