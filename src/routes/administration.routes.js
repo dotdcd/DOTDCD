@@ -7,7 +7,7 @@ import { addCliente, updCliente, delCliente} from "../controllers/administracion
 import { addDisciplina, updDisciplina, delDisciplina} from "../controllers/administracion/disciplina.controller.js";
 import { addProveedor, updProveedor, delProveedor } from "../controllers/administracion/proveedor.controller.js";
 import { addCables, updCables, delCables } from "../controllers/administracion/cables.controller.js";
-import { addDispositivo, updDispositivo, delDispositivo } from "../controllers/administracion/dispositivo.controller.js";
+import { addDispositivo, updDispositivo, delDispositivo, updDispositivo2 } from "../controllers/administracion/dispositivo.controller.js";
 import { addFactura, cancelFactura } from "../controllers/administracion/facturas.contrroller.js";
 import {addMarca, updMarca, delMarca, addProveedorMarca, delPMarca} from "../controllers/administracion/marca.controller.js";
 import {addProducto, updProducto, delProducto} from "../controllers/administracion/producto.controller.js";
@@ -52,8 +52,9 @@ administrationRoutes.delete('/delDisciplina/:id', delDisciplina)
 administrationRoutes.post('/AddDispositivo', addDispositivo)
 //*upd Dispositivo
 administrationRoutes.post('/updDispositivo/:id', updDispositivo)
+administrationRoutes.post('/updDispositivo/:id', updDispositivo2)
 //! del Dispositivo
-administrationRoutes.delete('/delDispositivo/:id', delDispositivo)
+administrationRoutes.post('/delDispositivo/:id', delDispositivo)
 
 //?add Proveedor
 administrationRoutes.post('/addProveedor', addProveedor)
@@ -96,7 +97,7 @@ administrationRoutes.post('/addProducto', addProducto)
 administrationRoutes.post('/updProducto/:id', updProducto)
 
 //! del producto o servicio
-administrationRoutes.get('/delProducto/:id', delProducto)
+administrationRoutes.post('/delProducto/:id', delProducto)
 
 
 // Path: prefactura.controller.js

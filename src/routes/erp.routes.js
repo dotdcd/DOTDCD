@@ -7,8 +7,8 @@ import { renderEmployees, renderAnalytics, renderProyectos } from '../controller
 import { renderUsuarios } from '../controllers/erp/inicio.controller.js';
 import { renderOpProyAutorizarProyecto, renderOpProyAutorizar, renderOpProyNuevo,renderOpProyBuscar, renderOpProyEditar, renderOpReqBuscar, renderOpReqEditar, renderOpReqNuevo } from '../controllers/erp/operacion.controller.js';
 import { renderEprovMarca, renderProdNuevo,renderProdEditar, renderAdProvMarcaNuevo, renderDeditar, renderAdEditar, renderCeditar, renderPBEditar, renderAdBuscar, renderAdNuevo, renderDCEditar, renderVerPprefactura, renderVerPrefacturas, renderAdProvMarca, renderCliBuscar, renderCliEditar, renderPrefacturas, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar, renderProgPrefacturar, renderDnuevo, renderDbuscar, renderCbuscar, renderCnuevo, renderFacturas, renderFacturar, verFactura, renderProdBuscar,  renderTaxPdf} from '../controllers/erp/administracion.controller.js';
-import { renderCoBuscar, renderCoNuevo, renderCoRequerir, renderCoEditar, renderEMultiempresas, renderBBuscar, renderBNuevo, renderBEditar, renderEnuevos, renderInuevos } from '../controllers/erp/contabilidad.controller.js';
-import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc, renderContratos, renderSignature, renderContrato, renderPastContrato, renderDocV, renderNMultiempresas, renderBMultiempresas, renderJornadas} from '../controllers/erp/contabilidad.controller.js'
+
+import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc, renderContratos, renderSignature, renderContrato, renderPastContrato, renderDocV, renderNMultiempresas, renderBMultiempresas, renderJornadas, renderCoBuscar, renderCoNuevo, renderCoRequerir, renderCoEditar, renderEMultiempresas, renderBBuscar, renderBNuevo, renderBEditar, renderEnuevos, renderInuevos, renderEbuscar, renderIngresosbuscar} from '../controllers/erp/contabilidad.controller.js'
 
 
 import { authenticateUser, isAdmin } from '../middlewares/auth.js';
@@ -151,10 +151,11 @@ rutasErp.get('/dashboard/contabilidad/bancos/cuentas/editar/:id', [authenticateU
 
 //? Egresos
 rutasErp.get('/dashboard/contabilidad/egresos/nuevo', [authenticateUser, isAdmin], renderEnuevos)
-//rutasErp.get('/dashboard/contabilidad/egresos/buscar', [authenticateUser, isAdmin], renderEbuscar)
+rutasErp.get('/dashboard/contabilidad/egresos/buscar', renderEbuscar)
 
 //? Ingresos
 rutasErp.get('/dashboard/contabilidad/ingresos/nuevo', [authenticateUser, isAdmin], renderInuevos)
+rutasErp.get('/dashboard/contabilidad/ingresos/buscar', renderIngresosbuscar)
 
 //! TESTING ROUTES
 rutasErp.get('/testing/:id', async (req, res) => {

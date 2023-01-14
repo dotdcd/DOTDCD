@@ -20,6 +20,7 @@ export const updDispositivo = async (req, res) => {
     try{
 
         await pool.query('UPDATE dispositivo set ? WHERE dispositivo_id = ?', [req.body, req.params.id])
+
         req.flash('success', {title: 'Dispositivo actualizado', message: 'El dispositivo se ha actualizado correctamente'})
         return res.redirect('/dashboard/administracion/dispositivos/buscar')
     } catch (error) {
@@ -28,7 +29,16 @@ export const updDispositivo = async (req, res) => {
         return res.redirect('/dashboard/administracion/dispositivos/editar/' + req.params.id)
     }
 }
-
+export const updDispositivo2 = async (req, res, data) => {
+    try{
+        await pool.query('UPDATE dispositivo_componentes set ? WHERE dispositivo_id = ?',[data] )
+        console.log(data)
+    } catch (error) {
+        console.log(error)
+        req.flash('error', {title: 'Ooops!', message: 'El dispositivo no se pudo modificar'})
+        return res.redirect('/dashboard/administracion/dispositivos/editar/' + req.params.id)
+    }
+}
 export const delDispositivo = async (req, res) => {
     try{
         await pool.query('UPDATE dispositivo set dispositivo_estatus_baja = 1 WHERE dispositivo_id = ?', [req.params.id])

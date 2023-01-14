@@ -17,7 +17,6 @@
 
     .invoice-header {
         margin: 0 -20px;
-        background: #f0f3f4;
         padding: 20px
     }
 
@@ -41,7 +40,7 @@
     }
 
     .invoice-date {
-        text-align: right;
+        text-align: left;
         padding-left: 20px
     }
 
@@ -125,6 +124,10 @@
         background: #fff;
         border-color: #d9dfe3;
     }
+
+    .data{
+        font-size: 9px;
+    }
 </style>
 {{/section}}
 
@@ -143,18 +146,16 @@
                 </span>
                 <img style="height: 55px; width: 160px" src="/img/logo-dot.png" alt="">
             </div>
+            <hr style="color: #0000 !important; background-color: #0000;"/>
             <!-- end invoice-company -->
             <!-- begin invoice-header -->
             <div class="invoice-header">
                 <div class="invoice-from">
-                    <br><br>
                     <address class="m-t-5 m-b-5">
-                        <strong>Cliente:</strong> DOT DCD ASOCIADOS <br>
-                        <strong>RFC:</strong> DDA1712063L6 <br>
-                        <strong>Domicilio:</strong> DAVID ALFARO SIQUIEROS No. 52, La Muralla, 66278 San Pedro Garza
-                        García, Nuevo León, México <br>
-                        <strong> Uso de CFDI:</strong> G03 - Gastos en general <br>
-                        <strong>Fecha y Hora de Emisión:</strong> Octubre 1 2022 - 11:46:01 <br>
+                        <strong>Cliente:</strong> {{cliente.cliente_razon_social}} <br>
+                        <strong>RFC:</strong> {{cliente_rfc}} <br>
+                        <strong>Domicilio:</strong> {{cliente.cliente_calle}} No. {{cliente.cliente_numero}}, {{cliente.cliente_colonia}}, {{cliente.cliente_codigo_postal}} {{cliente.cliente_municipio}}, {{cliente.cliente_estado}} <br>
+                        <strong>Fecha y Hora de Emisión:</strong> {{taxInfo.factura_fecha_alta}} <br>
                         <strong>Lugar de Expedición:</strong> 64750 <br>
 
                     </address>
@@ -162,17 +163,15 @@
                 <div class="invoice-to">
                 </div>
                 <div class="invoice-from">
-                    <address class="m-t-5 m-b-5" style="text-align: center;">
-                        <strong>Folio Fiscal</strong> <br>
-                        393298E0-F1CA-435F-BFAC-B4AC9BE49627 <br>
+                    <address class="m-t-5 m-b-5">
                         <strong>Forma de Pago</strong> <br>
-                        03 - Transferencia electrónica de fondos <br>
+                        {{formaPago.id}} - {{formaPago.descripcion}} <br>
                         <strong>Método de Pago</strong> <br>
-                        PUE - Pago en una sola exhibición <br>
+                        {{#if (is taxInfo.mpago 'PPD')}} PPD - Pago en parcialidades o diferido {{else}} PUE - Pago en una sola exhibición {{/if}}<br>
                         <strong>TIPO DE COMPROBANTE: I - Ingreso</strong> <br>
-                        <strong>SERIE-FOLIO: FP 7457 </strong><br>
+                        <strong>SERIE-FOLIO: {{taxInfo.factura_factura}} </strong><br>
                         Fecha y Hora de Certificación <br>
-                        <strong>Octubre 1 2022 - 11:46:04</strong> <br>
+                        <strong>{{taxInfo.factura_fecha_alta}}</strong> <br>
                         REGIMEN FISCAL: 601 - General de Ley Personas Morales <br>
                     </address>
                 </div>
@@ -186,13 +185,10 @@
                         <thead>
                             <tr>
                                 <th>CANT</th>
-                                <th>UNIDAD</th>
-                                <th>CVE</th>
-                                <th>CODIGO</th>
                                 <th>DESCRIPCIÓN</th>
                                 <th class="text-center" width="10%">PRECIO</th>
                                 <th class="text-center" width="10%">IMPDESC</th>
-                                <th class="text-right" width="20%">IMPORTE</th>
+                                <th class="text-center" width="20%">IMPORTE</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -200,13 +196,10 @@
                                 <td>
                                     1.00
                                 </td>
-                                <td class="text-center">E48</td>
-                                <td class="text-center">24141500</td>
-                                <td class="text-center">24141500</td>
-                                <td class="text-center">Suministros para seguridad y protección</td>
-                                <td class="text-center">$81,896.5500</td>
+                                <td >{{taxInfo.descripcion}}</td>
+                                <td class="text-center">${{{ money taxInfo.factura_subtotal }}}</td>
                                 <td class="text-center">$0.00</td>
-                                <td class="text-center">$81,896.55</td>
+                                <td class="text-center">${{{ money taxInfo.factura_subtotal }}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -214,7 +207,7 @@
                 <!-- end table-responsive -->
                 <div class="">
                     <div class="invoice-price-left">
-                        <small>(NOVENTA Y CINCO MIL PESOS 00/100 M.N.)</small><br>
+                        <small>( {{{ntp taxInfo.factura_total}}} 00/100 M.N.)</small><br>
                         <small>Moneda: MXN - Peso Mexicano</small><br>
                         <small>Tipo de cambio: 1.0000</small><br>
                     </div>
@@ -226,19 +219,19 @@
                         <div class="invoice-price-row">
                             <div class="sub-price">
                                 <small>SUBTOTAL</small>
-                                <span class="text-inverse">$81,896.55</span>
+                                <span class="text-inverse">${{{money taxInfo.factura_subtotal}}}</span>
                             </div>
                             <div class="sub-price">
                                 <i class="fa fa-plus text-muted"></i>
                             </div>
                             <div class="sub-price">
                                 <small>I.V.A</small>
-                                <span class="text-inverse">$13,103.45</span>
+                                <span class="text-inverse">${{{money taxInfo.prefactura_iva}}}</span>
                             </div>
                         </div>
                     </div>
                     <div class="invoice-price-right">
-                        <small>TOTAL</small> <span class="f-w-600">$95,000.00</span>
+                        <small>TOTAL</small> <span class="f-w-600">${{{money taxInfo.factura_total}}}</span>
                     </div>
                 </div>
                 <!-- end invoice-price -->
@@ -252,39 +245,37 @@
                 EFECTOS FISCALES AL PAGO <br>
             </div>
             <!-- end invoice-note -->
+
             <div class="invoice-header">
-                <div class="invoice-from">
-                    <address class="m-t-5 m-b-5">
-                        <strong class="text-inverse">Sello digital CFDI</strong><br>
-                        <small>FXkNWsBPaMbYX8A3jixbpsk4Zrir9M+UI8GWWmcFRCQq3XPv7y+1GKrIYe2Jj6yg6otuK3FBXWYS/Ez+VquPtStrhw+UZ5w8SE8Z
-                            ioF+JtZJdxIk7Fb9ZsLTywnpJz+Q/VYShLDoBm2hJ+coHM7YygbOxOexJ9RhV2pnTJ5bodx9eablbNEdcKhwUjGBx1JFB993z+KT
-                            QxRnIHHXJbie9Eyus1N51XyK+mbLYCiuqWKRfP/H0YfyiEyjZt1aMh/Wx4xdIUkxgphfAw3jLnpU11t+EUQbiOaxQGtzAdvDOU3c
-                            1113JZOQ+e4NzDzCPnzR5vI5FukFadSMG7jbIStAtg==</small>
-                        <br><br><br>
-                        <strong class="text-inverse">Sello del SAT</strong><br>
-                        <small>JkyuH4wQAlC7L4q9xmCsfbaCCAhmuQMDNz5/UCTZU7RVr30iQzn+ECB/7B7C2cgglqKuadcgbZiDL1AmJWAjLqQXMKEq9Imj0b4P
-                            tEXCebyVhCdXfSZvIqojyu2yrmOH5f4NDy4Ko3KvMWy1d0UXmt/QbsfC6RqezQoKLNTtJOtl/lZ4RVhVrouJucp7NDRTDRFEEm8g
-                            BKCxflFp6Hq0acYp6VNI5Y266eXd93Om299/t1UVTBQuCSLQW9ibfczCCZdWsd63LmMB0WFN8IGI5jQ7rc35tEyTRdNcYZ47tX+n
-                            zOnGIFu7EfpFBBTljdHRvfJaNYwNAffe/YFFwxaswQ==</small>
-                        <br><br><br>
-                        <strong class="text-inverse">Cadena original del complemento de certificación digital del
-                            SAT</strong><br>
-                        <small>||1.1|393298E0-F1CA-435F-BFAC-B4AC9BE49627|2022-10-01T11:46:04|MAS0810247C0|FXkNWsBPaMbYX8A3jixbpsk4
-                            Zrir9M+UI8GWWmcFRCQq3XPv7y+1GKrIYe2Jj6yg6otuK3FBXWYS/Ez+VquPtStrhw+UZ5w8SE8ZioF+JtZJdxIk7Fb9ZsLTywnp
-                            Jz+Q/VYShLDoBm2hJ+coHM7YygbOxOexJ9RhV2pnTJ5bodx9eablbNEdcKhwUjGBx1JFB993z+KTQxRnIHHXJbie9Eyus1N51XyK
-                            +mbLYCiuqWKRfP/H0YfyiEyjZt1aMh/Wx4xdIUkxgphfAw3jLnpU11t+EUQbiOaxQGtzAdvDOU3c1113JZOQ+e4NzDzCPnzR5vI5
-                            FukFadSMG7jbIStAtg==|00001000000505142236||
-                        </small>
-                    </address>
+                <div class="invoice-from data">
+
+
                 </div>
                 <div class="invoice-to">
+                    <div class="invoice-date">
+                        <div>
+                            <address class="m-t-5 m-b-5">
+                                <div>
+                                    <strong style="visibility: hidden;">Cliente:</strong> <br>
+                                    <img style="width: 250px; padding-top: 10px;" src="data:image/png;base64, {{taxInfo.qr}}" alt="">
+                                </div>
+                            </address>
+                        </div>
+                    </div>
                 </div>
                 <div class="invoice-date">
-                    <small>Invoice / July period</small>
-                    <div class="date text-inverse m-t-5">August 3,2012</div>
-                    <div class="invoice-detail">
-                        #0000123DSS<br>
-                        Services Product
+                    <div style="width: 500px;">
+                        <address class="m-t-5 m-b-5">
+                            <div style="background-color: grey !important; width: 550px"><strong class="text-inverse" style="font-size: 11px; color: #ffff; padding-left: 5px;">Sello digital CFDI</strong></div>
+                            <div style="overflow-wrap: break-word;"><p class="data">{{taxInfo.sello_cfdi}}</p></div>
+                            <br>
+                            <div style="background-color: grey !important; width: 550px"><strong class="text-inverse" style="font-size: 11px; color: #ffff; padding-left: 5px;">Sello del SAT</strong></div>
+                            <p class="data" style="overflow-wrap: break-word;">{{taxInfo.sello_sat}}</p>
+                            <br>
+                            <div style="background-color: grey !important; width: 550px"><strong class="text-inverse" style="font-size: 11px; color: #ffff; padding-left: 5px;">Cadena original del complemento de certificación digital del SAT</strong></div>
+                            <p class="data" style="overflow-wrap: break-word;">{{taxInfo.cadena_sat}}
+                            </p>
+                        </address>
                     </div>
                 </div>
             </div>

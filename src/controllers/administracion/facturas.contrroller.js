@@ -1,5 +1,5 @@
 import {pool} from '../../db.js'
-import {SW_SAPIENS_URL, SW_TOKEN} from '../../config.js'
+import {SW_SAPIENS_URL, SW_TOKEN, RFC} from '../../config.js'
 import axios from 'axios'
 import { polygonLength } from 'd3'
 
@@ -35,7 +35,7 @@ export const addFactura = async (req, res) => {
             const data = {
                 Version: "4.0",
                 FormaPago: req.body.forma_pago,
-                Serie: "SW",
+                Serie: "FP",
                 Folio: req.body.folio,
                 Fecha: req.body.factura_fecha_alta,
                 MetodoPago: req.body.mpago,
@@ -50,15 +50,15 @@ export const addFactura = async (req, res) => {
                 Total: req.body.factura_total,
                 TipoDeComprobante: "I",
                 Exportacion: "01",
-                LugarExpedicion: "45610",
+                LugarExpedicion: "64750",
                 Emisor: {
-                    Rfc: (test == true) ? "EKU9003173C9" : client.cliente_rfc,
-                    Nombre: (test == true) ? "ESCUELA KEMPER URGATE" : client.cliente_razon_social,
-                    RegimenFiscal: "601"
+                    Rfc: client.cliente_rfc,
+                    Nombre: client.cliente_razon_social,
+                    RegimenFiscal: client.cliente_regimen_fiscal
                 },
                 Receptor: {
-                    Rfc: "EKU9003173C9",
-                    Nombre: "ESCUELA KEMPER URGATE",
+                    Rfc: "RFC",
+                    Nombre: "DOT DCD",
                     DomicilioFiscalReceptor: "26015",
                     RegimenFiscalReceptor: "601",
                     UsoCFDI: (req.body.uso_cfdi == 4) ? "CP01" : "G01"
@@ -82,7 +82,7 @@ export const addFactura = async (req, res) => {
             await axios.post(`${SW_SAPIENS_URL}/v3/cfdi33/issue/json/v4`, data, {
                 headers: {
                     'Content-Type': 'application/jsontoxml;',
-                    'Authorization': 'Bearer T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGRCNXoxZ3J4SFBqMHg3VWR1UEVYajlpZUxwbjhmY0I2UXN3b1lRV3M4UnJteitUcCtEZTYvZXNrZ25zcUo1MUl0VzR4RzcyTTNIWERmbnhGYTBUYTdEMFpQSko1bS9VOHVXY3Y2MlZFcmZydUgxOC9HQ1ZHb1lCdExNK3pKUHI2dEtHOUE3UnQzaGI4UVJXRTVLWWIvbjJ6QlFpMTlLbmtpdi96c3VRZ3VjQlViN01sZitkVzVuSFE3OWQ1VWM4emxVSXBuNXpvWjFqNFN1SmQ5bTNQdUZ0dGJGOStpQkFIT1dHRDJoR1ZucXhlLzZXZWhweHRoN0xYUTltR2QyK1lFbjVsVmZyVUZKSXpYTHZ1Y2J6SzZxUXpGK0owYnJsS0VHd1dWcTFuT1hyUm1hNXhPQ1dBZ29NS2tGWWRReWl2aC9oWTMxYVZKbTV4bFhBS3NGNGdKWVMzaVdaNUo5R25DQ240aml5bDJhWjhyR0prOFlmaDZKZzFwSmhXOFJkQ1k.aoSIitFZCOpUTtBZxpZR4XrCCriT8SJhO2wRIpq4kD8'
+                    'Authorization': 'Bearer ' + SW_TOKEN
                 }
             })
             .then(async (response) => {
@@ -115,6 +115,8 @@ export const addFactura = async (req, res) => {
                       sello_sat: response.data.data.selloSAT,
                       sello_cfdi: response.data.data.selloCFDI,
                       qr: response.data.data.qrCode,
+                      mpago: req.body.mpago,
+                      factura_factura: 'FP' + req.body.folio
                     }
                     await uploaToDB(data)
                     req.flash('success', {message: 'Factura timbrada correctamente', title: 'Factura Timbrada'})
@@ -175,10 +177,9 @@ export const cancelFactura = async (req, res) => {
 
         if (factura.length > 0) {
             const uuid = factura[0].uuid
-            await axios.post(`${SW_SAPIENS_URL}/cfdi33/cancel/EKU9003173C9/${uuid}/${req.body.motivo}/`, {
+            await axios.post(`${SW_SAPIENS_URL}/cfdi33/cancel/${RFC}/${uuid}/${req.body.motivo}/`, {
                 headers: {
-                    'Content-Type': 'application/jsontoxml;',
-                    'Authorization': 'Bearer T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGRCNXoxZ3J4SFBqMHg3VWR1UEVYajlpZUxwbjhmY0I2UXN3b1lRV3M4UnJteitUcCtEZTYvZXNrZ25zcUo1MUl0VzR4RzcyTTNIWERmbnhGYTBUYTdEMFpQSko1bS9VOHVXY3Y2MlZFcmZydUgxOC9HQ1ZHb1lCdExNK3pKUHI2dEtHOUE3UnQzaGI4UVJXRTVLWWIvbjJ6QlFpMTlLbmtpdi96c3VRZ3VjQlViN01sZitkVzVuSFE3OWQ1VWM4emxVSXBuNXpvWjFqNFN1SmQ5bTNQdUZ0dGJGOStpQkFIT1dHRDJoR1ZucXhlLzZXZWhweHRoN0xYUTltR2QyK1lFbjVsVmZyVUZKSXpYTHZ1Y2J6SzZxUXpGK0owYnJsS0VHd1dWcTFuT1hyUm1hNXhPQ1dBZ29NS2tGWWRReWl2aC9oWTMxYVZKbTV4bFhBS3NGNGdKWVMzaVdaNUo5R25DQ240aml5bDJhWjhyR0prOFlmaDZKZzFwSmhXOFJkQ1k.aoSIitFZCOpUTtBZxpZR4XrCCriT8SJhO2wRIpq4kD8'
+                    'Authorization': 'Bearer ' + SW_TOKEN
                 }
             })
             .then(async (response) => {

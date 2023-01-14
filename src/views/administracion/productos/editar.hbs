@@ -20,7 +20,7 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-1"></div>
-                                <div class="col-md-8">
+                                <div class="col-md-12">
                                     <!-- Formulario  -->
                                     <label class="form-label col-12" for="simpleinput">
                                         <h3 class="text-center">Editar Producto o Servicio</h3>
@@ -199,9 +199,9 @@
 
 
                                 </div>
-                                <div class="col-md-3">
-                                    <br /><br /><br /><br> <br>
-                                    <table class="table-responsive table-bordered table-hover">
+                                <div class="col-md-12">
+                                    <br /><br /><br />
+                                    <table class="table table-bordered table-hover">
                                         <tr class="table-success">
                                             <th>Concepto</th>
                                             <th>Costo Material</th>
@@ -323,6 +323,7 @@
 {{#section 'scripts'}}
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
     function calcular() {
 
         var producto_precio_tarjeta = document.getElementById('producto_precio_tarjeta').value;
@@ -505,5 +506,8 @@
 
         document.getElementById('codigoG').value = codigo;
     }
+    calcular()
+    });
+    calcular()
 </script>
 {{/section}}

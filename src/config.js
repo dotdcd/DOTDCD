@@ -21,6 +21,7 @@ export const SECRET = process.env.SECRET || 'secret'
 //? SW sapiens URL
 export const SW_SAPIENS_URL = process.env.SW_TEST_URL
 export const SW_TOKEN = process.env.SW_TOKEN
+export const RFC = process.env.RFC
 
 
 //? Server Port

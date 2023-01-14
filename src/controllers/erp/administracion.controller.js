@@ -148,12 +148,12 @@ const getInversion = async () => {
 }
 
 const getCotizacion = async () => {
-    const cotizacion = await pool.query("SELECT cotizacion_id, CONCAT(cotizacion_proyecto,' - ', cliente_razon_social) AS nombre FROM cotizaciones JOIN clientes ON cotizacion_cliente_id = cliente_id WHERE cotizacion_autorizada_estatus > 0 ORDER BY cotizacion_id DESC")
-    let cotizaciones = []
-    for (const i of cotizacion[0]) {
-        cotizaciones.push([i.cotizacion_id, i.nombre, '<input value="' + i.cotizacion_id + '" type="radio" name="factura_proyecto_id" class="form-control"/>'])
+    const cotizaciones = await pool.query("SELECT cotizacion_id, CONCAT(cotizacion_proyecto,' - ', cliente_razon_social) AS nombre FROM cotizaciones JOIN clientes ON cotizacion_cliente_id = cliente_id WHERE cotizacion_autorizada_estatus > 0 ORDER BY cotizacion_id DESC")
+    let cotizacion = []
+    for (const i of cotizaciones[0]) {
+        cotizacion.push([i.cotizacion_id, i.nombre, '<input value="' + i.cotizacion_id + '" type="radio" name="factura_proyecto_id" class="form-control"/>'])
     }
-    return cotizaciones
+    return {cotizacion, cotizaciones: cotizaciones[0]}
 }
 
 const getFolios = async () => {
@@ -211,12 +211,14 @@ export const renderProgPrefacturar = async (req, res) => {
         const centroCostos = await getCentrodeCosto()
         const cliente = await getClientes()
         const inversion = await getInversion()
-        const cotizacion = await getCotizacion()
+        const proyecto = await getCotizacion()
         const folios = await getFolios()
         const remision = await getPrefacturaRemision()
         const moneda = await getMoneda()
         const tipoVenta = await getFactura()
         const pPrefacturas = await vPrefactura()
+
+        const cotizacion = proyecto.cotizacion
 
         return res.render('administracion/facturasprefacturas/programarPrefactura', { sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta, pPrefacturas })
     } catch (error) {
@@ -235,11 +237,12 @@ export const renderPrefacturas = async (req, res) => {
         const centroCostos = await getCentrodeCosto()
         const cliente = await getClientes()
         const inversion = await getInversion()
-        const cotizacion = await getCotizacion()
+        const proyecto = await getCotizacion()
         const folios = await getFolios()
         const remision = await getPrefacturaRemision()
         const moneda = await getMoneda()
         const tipoVenta = await getFactura()
+        const cotizacion = proyecto.cotizacion
         return res.render('administracion/facturasprefacturas/prefacturar', { sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta })
     } catch (error) {
 
@@ -410,9 +413,8 @@ export const renderDbuscar = async (req, res) => {
         const dispo = await pool.query('SELECT d.dispositivo_id, d.clave, d.descripcion, d.rendimiento_hr, d.rendimiento_min, f.familia_descripcion as familia, d.dispositivo_estatus_baja, ca.descripcion as cable_a, cb.descripcion as cable_b FROM dispositivo d INNER JOIN familias f ON f.familia_id = d.familia_id INNER JOIN cable ca ON ca.cable_id = d.cable_idA INNER JOIN cable cb ON cb.cable_id = d.cable_idB')
         for (const d of dispo[0]) {
             const cstatus = (d.dispositivo_estatus_baja == 1) ? "<span class='badge badge-danger badge-pill' >Inactivo</span>" : "<span class='badge badge-success badge-pill'>Activo</span>"
-            disaa.push([d.descripcion, d.clave, d.rendimiento_hr + ' : ' + d.rendimiento_min, d.familia, d.cable_a, d.cable_b, cstatus, '<center><a href="/dashboard/administracion/dispositivos/editar/' + d.dispositivo_id + '" class="btn btn-lg btn-outline-success m-1" "><i class="fal fa-sync"></i></a>  <button type="submit" class="btn btn-lg btn-outline-danger" ><i class="fal fa-trash-alt"></i></button></center>'])
+            disaa.push([d.descripcion, d.clave, d.rendimiento_hr + ' : ' + d.rendimiento_min, d.familia, d.cable_a, d.cable_b, cstatus, '<center><a href="/dashboard/administracion/dispositivos/editar/' + d.dispositivo_id + '" class="btn btn-lg btn-outline-success m-1" "><i class="fal fa-sync"></i></a>  <form action="/delDispositivo/'+d.dispositivo_id+'" method="post"><button type="submit" class="btn btn-lg btn-outline-danger" ><i class="fal fa-trash-alt"></i></button></form></center>'])
         }
-        console.log(dispo)
         return res.render('administracion/dispositivos/buscar', { disaa })
     }
     catch (error) {
@@ -506,12 +508,13 @@ export const renderFacturar = async (req, res) => {
         const centroCostos = await getCentrodeCosto()
         const cliente = await getClientes()
         const inversion = await getInversion()
-        const cotizacion = await getCotizacion()
+        const proyecto = await getCotizacion()
         const folios = await getFolios()
         const remision = await getPrefacturaRemision()
         const moneda = await getMoneda()
         const tipoVenta = await getFactura()
         const catalogo = await getClaveProducto()
+        const cotizacion = proyecto.cotizacion
 
         return res.render('administracion/facturas/facturar', { sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta, catalogo })
     } catch (error) {
@@ -544,6 +547,15 @@ const getXml = async (uuid) => {
     }
 }
 
+const getPagos = async () => {
+    try {
+        const pagos = await pool.query('SELECT * FROM formas_pago')
+        return pagos[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const verFactura = async (req, res) => {
     try {
         const sucursal = await getSucursal()
@@ -551,14 +563,16 @@ export const verFactura = async (req, res) => {
         const centroCostos = await getCentrodeCosto()
         const cliente = await getClientes()
         const inversion = await getInversion()
-        const cotizacion = await getCotizacion()
+        const proyecto = await getCotizacion()
         const folios = await getFolios()
         const remision = await getPrefacturaRemision()
         const moneda = await getMoneda()
         const tipoVenta = await getFactura()
         const prefactura = await getTimbrado(req.params.id)
         const xml = await getXml(prefactura.uuid)
-        return res.render('administracion/facturas/ver', { sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta, prefactura, xml })
+        const cotizacion = proyecto.cotizaciones
+        const pagos = await getPagos()
+        return res.render('administracion/facturas/ver', { sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta, prefactura, xml, pagos })
     } catch (error) {
         console.log(error)
     }
@@ -569,8 +583,35 @@ export const verFactura = async (req, res) => {
 
 const getTaxInfo = async (id) => {
     try {
-        const timbrado = await pool.query('SELECT * FROM facturas WHERE factura_id = ?', [id])
+        const timbrado = await pool.query('SELECT factura_empresa_id as empresa, factura_cliente_id, factura_descripcion as descripcion, uso_cfdi, factura_fecha_alta, forma_pago, mpago, `cadena_sat`, `uuid`, `sello_sat`, `sello_cfdi`, `qr`, `forma_pago`, factura_factura, `factura_subtotal`, `factura_iva`, `factura_total` FROM facturas WHERE factura_id = ?', [id])
         return timbrado[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getClientInfo = async (id) => {
+    try {
+        const cliente = await pool.query('SELECT * FROM clientes WHERE cliente_id = ?', [id])
+        return cliente[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getEmpresaInfo = async (id) => {
+    try {
+        const empresa = await pool.query('SELECT * FROM multiempresa WHERE empresa_id = ?', [id])
+        return empresa[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getFormaPago = async (id) => {
+    try {
+        const formaPago = await pool.query('SELECT * FROM formas_pago WHERE id = ?', [id])
+        return formaPago[0][0]
     } catch (error) {
         console.log(error)
     }
@@ -580,7 +621,10 @@ export const renderTaxPdf = async (req, res) => {
     try {
         const { id } = req.params
         const taxInfo = await getTaxInfo(id)
-        return res.render('administracion/facturas/pdf', { taxInfo })
+        const cliente = await getClientInfo(taxInfo.factura_cliente_id)
+        const empresa = await getEmpresaInfo(taxInfo.empresa)
+        const formaPago = await getFormaPago(taxInfo.forma_pago)
+        return res.render('administracion/facturas/pdf', { taxInfo, cliente, empresa, formaPago })
     } catch (error) {
         console.log(error)
     }
@@ -617,7 +661,7 @@ const getLista = async () => {
 
 const getSelected = async (id) => {
     try{
-        const selected = await pool.query('SELECT * FROM dispositivo_componentes WHERE dispositivo_id = ' + id)
+        const selected = await pool.query("SELECT c.componente_id, componente_nombre, CASE WHEN dispositivo_id > 0 THEN 1 ELSE 0 END as activo, ifnull(pc.rendimiento_hr, 0) as rendimiento_hr, ifnull(pc.rendimiento_min, 0) as rendimiento_min, ifnull(NULLIF(pc.costo, ''), 0) as costo FROM componentes c LEFT JOIN dispositivo_componentes pc ON pc.componente_id = c.componente_id AND pc.dispositivo_id ="+ id+" WHERE c.activo = 1 order by componente_id")
         return selected[0]
     }
     catch(error){
@@ -640,6 +684,7 @@ export const renderDeditar = async (req, res) => {
         console.log(error)
     }
 }
+
 
 
 //? render Productos y servicios

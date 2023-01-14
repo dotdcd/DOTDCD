@@ -32,17 +32,19 @@
                             <div class="row mb-6">
                                 <div class="col-6">
                                     <span>Empresa</span>
-                                    <select name="" id="" class="form-control">
-                                        {{#each empresa}}
-                                        <option value="{{empresa_id}}">{{empresa_razon_social}}</option>
+                                    <select name="cheque_empresa_id" id="" class="form-control">
+                                        <option value="" disabled selected></option>
+                                        {{#each empresas}}
+                                            <option value="{{empresa_id}}">{{empresa_razon_social}}</option>
                                         {{/each}}
                                     </select><br />
                                 </div>
                                 <div class="col-6">
                                     <span>Cuenta de Banco</span>
-                                    <select name="" id="" class="form-control">
-                                        {{#each clientes}}
-                                        <option value="{{cliente_id}}">{{cliente_razon_social}}</option>
+                                    <select name="cheque_cuenta_id" id="" class="form-control">
+                                        <option value="" disabled selected></option>
+                                        {{#each cuentas}}
+                                            <option value="{{id}}">{{cuenta}}</option>
                                         {{/each}}
                                     </select><br />
                                 </div>
@@ -52,13 +54,14 @@
                             <div class="row mb-6">
                                 <div class="col-6">
                                     <span>Tipo de Cambio</span>
-                                    <input type="text" class="form-control"> <br>
+                                    <input type="text" class="form-control" name="TipoCambio"> <br>
                                 </div>
                                 <div class="col-6">
                                     <span>Cliente</span>
-                                    <select name="" id="" class="form-control">
-                                        {{#each proveedores}}
-                                        <option value="{{proveedor_id}}">{{proveedor_razon_social}}</option>
+                                    <select name="cheque_cliente_id" id="" class="form-control">
+                                        <option value="" disabled selected></option>
+                                        {{#each clientes}}
+                                            <option value="{{id}}">{{cliente}}</option>
                                         {{/each}}
                                     </select><br />
                                 </div>
@@ -67,13 +70,14 @@
                             <div class="row mb-6">
                                 <div class="col-6">
                                     <span>Monto de Ingreso</span>
-                                    <input type="text" class="form-control"> <br>
+                                    <input type="text" class="form-control" name="cheque_monto"> <br>
                                 </div>
                                 <div class="col-6">
                                     <span>Cuenta Contable Banco</span>
-                                    <select name="" id="" class="form-control">
+                                    <select name="cuenta_contable" id="" class="form-control">
+                                        <option value="" disabled selected></option>
                                         {{#each cuentas}}
-                                        <option value="{{cuenta_id}}">{{cuenta_descripcion}}</option>
+                                            <option value="{{id}}">{{cuenta}}</option>
                                         {{/each}}
                                     </select><br />
                                 </div>
@@ -82,13 +86,14 @@
                             <div class="row mb-6">
                                 <div class="col-6">
                                     <span>Subtotal</span>
-                                    <input type="text" class="form-control"> <br>
+                                    <input type="text" class="form-control" name="cheque_subtotal"> <br>
                                 </div>
                                 <div class="col-6">
                                     <span>Cuenta Contable Venta</span>
-                                    <select name="" id="" class="form-control">
+                                    <select name="cuenta_contable2" id="" class="form-control">
+                                        <option value="" disabled selected></option>
                                         {{#each cuentas}}
-                                        <option value="{{cuenta_id}}">{{cuenta_descripcion}}</option>
+                                            <option value="{{id}}">{{cuenta}}</option>
                                         {{/each}}
                                     </select><br />
                                 </div>
@@ -97,13 +102,14 @@
                             <div class="row mb-6">
                                 <div class="col-6">
                                     <span>IVA</span>
-                                    <input type="text" class="form-control"> <br>
+                                    <input type="text" class="form-control" name="cheque_iva"> <br>
                                 </div>
                                 <div class="col-6">
                                     <span>Cuenta Contable IVA por cobrar</span>
-                                    <select name="" id="" class="form-control">
+                                    <select name="cuenta_contable3" id="" class="form-control">
+                                        <option value="" disabled selected></option>
                                         {{#each cuentas}}
-                                        <option value="{{cuenta_id}}">{{cuenta_descripcion}}</option>
+                                            <option value="{{id}}">{{cuenta}}</option>
                                         {{/each}}
                                     </select><br />
                                 </div>
@@ -112,11 +118,11 @@
                             <div class="row mb-6">
                                 <div class="col-6">
                                     <span>Retención IVA</span>
-                                    <input type="text" class="form-control"> <br>
+                                    <input type="text" class="form-control" name="cheque_retencion"> <br>
                                 </div>
                                 <div class="col-6">
                                     <span>Retención ISR</span>
-                                    <input type="text" class="form-control"> <br>
+                                    <input type="text" class="form-control" name="retencion_isr"> <br>
                                 </div>
                             </div>
 
@@ -138,7 +144,9 @@
                                             <thead class="bg-primary-600">
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Proyecto - Razon Social</th>
+                                                    <th>Cliente</th>
+                                                    <th>Descripcion</th>
+                                                    <th>Fecha</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -151,34 +159,30 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-4">
+                            <div class="row mb-6">
+                                <div class="col-6">
                                     <label>Tipo de venta</label>
-                                    <select class="form-control d-inline " style="width:95% !important"
-                                        name="empleado_sexo_id">
-                                        <option value="" disabled selected></option>
-                                        <option value="1">Hombre</option>
-                                        <option value="2">Mujer</option>
-
+                                    <select name="tipo_venta" id="" class="form-control">
+                                        <option selected disabled value="">Seleccionar</option>
+                                        <option value="1">POLIZA</option>
+                                        <option value="2">RENTA</option>
+                                        <option value="3">VENTA</option>
+                                        <option value="4">OBRA</option>
                                     </select>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-6">
                                     <span>Numero de factura</span>
-                                    <input type="text" class="form-control"> <br>
-                                </div>
-                                <div class="col-4">
-                                    <span>UUID</span>
-                                    <input type="text" class="form-control"> <br>
+                                    <input type="text" class="form-control" name="NumFactura"> <br>
                                 </div>
                             </div>
 
 
                             <label>Fecha de transferencia</label>
-                            <input type="date" class="form-control" name="empleado_fecha_nacimiento"><br>
+                            <input type="date" class="form-control" name="FechaTransferencia">
 
 
                             <label>Comentarios</label>
-                            <textarea class="form-control" name="w3review" rows="4" cols="50"></textarea><br>
+                            <textarea class="form-control" name="cheque_comentario" rows="4" cols="50"></textarea><br>
 
 
                             <br><br>
@@ -196,13 +200,13 @@
 
 {{#section 'scripts'}}
 <script>
-    //const cotizacion = {{{ json cotizacion }}}
+    const facturas = {{{ json facturas }}}
     $(document).ready(function () {
 
         // initialize datatable
         $('#cotizaciones').dataTable(
             {
-                data: ['juan', 'pedro', 'maria'],
+                data: facturas,
                 responsive: true,
                 lengthChange: false,
                 dom:

@@ -21,7 +21,8 @@
                             <div class="row">
                                 <div class="col-md-2"></div>
                                 <div class="col-md-8">
-                                    <form method="post" class="form-group" action="/updDispositivo/{{d.dispositivo_id}}">
+                                    <form method="post" class="form-group"
+                                        action="/updDispositivo/{{d.dispositivo_id}}">
                                         <center>
                                             <h3>Editar Dispositivo</h3>
                                         </center>
@@ -51,11 +52,11 @@
                                                 </label>
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-6">
-                                                        <input type="text" name="rendimiento_hr" class="form-control"
+                                                        <input type="number" name="rendimiento_hr" class="form-control"
                                                             placeholder="HH" value="{{d.rendimiento_hr}}">
                                                     </div>
                                                     <div class="col-md-6 col-sm-6">
-                                                        <input type="text" name="rendimiento_min" class="form-control"
+                                                        <input type="number" name="rendimiento_min" class="form-control"
                                                             placeholder="MM" value="{{d.rendimiento_min}}">
                                                     </div>
                                                 </div>
@@ -65,7 +66,7 @@
                                                     <h4>Clave</h4>
                                                 </label>
                                                 <input type="text" class="form-control" name="clave" id="nombre"
-                                                    placeholder="Nombre del dispositivo" value="{{d.clave}}">
+                                                    placeholder="Clave del dispositivo" value="{{d.clave}}">
                                                 <br> <br>
                                                 <label for="">
                                                     <h4>Tipo de Cable B</h4>
@@ -77,30 +78,32 @@
                                                     {{/each}}
                                                 </select>
                                                 <br><br>
-                                                
+
 
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-6">
                                                         <label for="">
-                                                    <h4> Disciplina</h4>
-                                                </label>
-                                                <select class="form-control" name="familia_id" id="">
-                                                    {{#each f}}
-                                                    <option value="{{familia_id}}" {{#if (is ../d.familia_id
-                                                        familia_id)}} selected {{/if}}>{{familia_descripcion}}</option>
-                                                    {{/each}}
+                                                            <h4> Disciplina</h4>
+                                                        </label>
+                                                        <select class="form-control" name="familia_id" id="">
+                                                            {{#each f}}
+                                                            <option value="{{familia_id}}" {{#if (is ../d.familia_id
+                                                                familia_id)}} selected {{/if}}>{{familia_descripcion}}
+                                                            </option>
+                                                            {{/each}}
 
-                                                </select>
+                                                        </select>
                                                     </div>
                                                     <div class="col-md-6 col-sm-6">
                                                         <label for="">
-                                                    <h4> Estatus</h4>
-                                                </label>
-                                                <select class="form-control" name="dispositivo_estatus_baja" id="">
-                                                    <option value="0">Activo</option>
-                                                    <option value="1">Inactivo</option>
+                                                            <h4> Estatus</h4>
+                                                        </label>
+                                                        <select class="form-control" name="dispositivo_estatus_baja"
+                                                            id="">
+                                                            <option value="0">Activo</option>
+                                                            <option value="1">Inactivo</option>
 
-                                                </select>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -109,8 +112,9 @@
                                         <br>
 
 
-                                        <table class="table table-stripped table-success">
+                                        <table class="table table-stripped table-success" id="t2">
                                             <tr>
+                                                <th>ID</th>
                                                 <th>
                                                     Actividad
                                                 </th>
@@ -119,19 +123,26 @@
                                                 <th>Min</th>
                                                 <th>Costo</th>
                                             </tr>
-                                            {{#each lista}}
+                                            {{#each selected}}
                                             <tr>
+                                                <td>{{componente_id}}</td>
                                                 <td class="text-dark h3"> <b> {{componente_nombre}}</b></td>
-                                                <td><input type="checkbox" class="form-control"></td>
-                                                <td><input type="text" name="" value="" id="hr" class="form-control w-75"></td>
-                                                <td><input type="text" name="" value="" id="mn" class="form-control w-75"></td>
-                                                <td><input type="text" name="" value="" id="costo" class="form-control w-75"></td>
+                                                <td><input type="checkbox" class="form-control" {{#if (is activo "1" )}}
+                                                        checked {{/if}} onchange="cambio2()"></td>
+                                                <td><input type="text" name="" value="{{rendimiento_hr}}" id="hr"
+                                                        class="form-control w-75"></td>
+                                                <td><input type="text" name="" value="{{rendimiento_min}}" id="mn"
+                                                        class="form-control w-75"></td>
+                                                <td><input type="text" name="" value="{{costo}}" id="costo"
+                                                        class="form-control w-75"></td>
                                             </tr>
-
                                             {{/each}}
                                         </table>
+
+
+                                        
                                         <br><br>
-                                        <button type="submit" class="btn-outline-info btn-lg btn-block">Agregar</button>
+                                        <button type="button" id="save" class="btn-outline-info btn-lg btn-block">Agregar</button>
                                     </form>
                                     <div class="col-md-2"></div>
                                 </div>
@@ -147,22 +158,91 @@
 {{#section 'scripts'}}
 
 <script>
-    let array = {{{json selected}}};
+import axios from 'axios'
 
-// La selección de los checkbox
-var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-let inputs = document.querySelectorAll('input[type="text"]');
 
-for (var i = 0; i < array.length; i++) {
-    // Asigna las propiedades del objeto al input correspondiente
-    inputs[0].value = array[i].rendimiento_hr;
-    inputs[1].value = array[i].rendimiento_min;
-    inputs[2].value = array[i].costo;
+
+
+
+
+
+
+
+
+
+
+
+function cambio2() {
+    var table = document.getElementById("t2");
+    var elements = table.getElementsByTagName("input");
+    var data = [];
+    var obj = {};
+    var checkboxIndex = 0;
+    var inputIndex = 0;
+    const ids = {{{json selected}}}
+    const idaa = {{{json d}}}
+    console.log(idaa.dispositivo_id);
+
+    
+
+    for (var i = 0; i < elements.length; i++) {
+        var a = Math.floor(i / 4);
+        obj.componente_id = ids[a].componente_id;
+    if (elements[i].type === "checkbox") {
+        obj.activo = elements[i].checked ? 1 : 0;
+        checkboxIndex = i;
+    } else if (elements[i].type === "text") {
+        if (i === checkboxIndex + 1) {
+            obj.rendimiento_hr = elements[i].value;
+        } else if (i === checkboxIndex + 2) {
+            obj.rendimiento_min = elements[i].value;
+        } else if (i === checkboxIndex + 3) {
+            obj.costo = elements[i].value;
+            data.push(obj);
+            obj = {
+                componente_id: 0,
+                activo: 0,
+                rendimiento_hr: 0,
+                rendimiento_min: 0,
+                costo: 0
+            };
+            checkboxIndex = 0;
+            inputIndex = 0;
+        }
+    }
+}
+
+
+    
+
+    console.log(data);
+
 }
 
 
 
-   
+
+document.getElementById("save").addEventListener("click", guardarValores);
+function guardarValores(){
+    axios({
+  method: 'post',
+  url: '/updDispositivo2/'+ {{d.dispositivo_id}},
+  data: data
+})
+.then(function (response) {
+  console.log(response);
+})
+.catch(function (error) {
+  console.log(error);
+});
+}
+document.addEventListener('DOMContentLoaded', function () {
+    cambio2();
+
+    console.log();
+});
+
+
 </script>
 
 {{/section}}
