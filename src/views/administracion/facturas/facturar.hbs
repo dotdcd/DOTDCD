@@ -28,18 +28,21 @@
                         <div class="container">
                             <div class="row mt-3 mb-3">
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                    <label for="" class="font-weight-bold">Empresa</label><br>
-                                    <select name="factura_empresa_id" id="" class="form-control">
-                                        <option selected disabled value="">Seleccionar</option>
-                                        {{#each empresa}}
-                                        <option value="{{id}}">{{nombre}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
+                                <label for="" class="font-weight-bold">Empresa</label><br>
+                                <input type="text" id="buscarEmpresa" class="form-control" placeholder="Buscar empresa">
+                                <select required name="factura_empresa_id" id="selectEmpresa" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    {{#each empresa}}
+                                    <option value="{{id}}">{{nombre}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Cliente</label><br>
-                                    <select name="factura_cliente_id" id="" class="form-control">
+                                    <input type="text" id="buscarCliente" class="form-control" placeholder="Buscar Cliente">
+                                    <select required name="factura_cliente_id" id="selectCliente" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
                                         {{#each cliente}}
                                         <option value="{{cliente_id}}">{{cliente_razon_social}}</option>
@@ -49,14 +52,14 @@
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Descripción</label><br>
-                                    <input class="form-control" type="text" name="factura_descripcion" id=""
+                                    <input required class="form-control" type="text" name="factura_descripcion" id=""
                                         placeholder="Descripción">
                                 </div>
 
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Folio</label><br>
-                                    <input class="form-control" type="text" name="folio" id=""
+                                    <input required class="form-control" type="text" name="folio" id=""
                                         placeholder="Folio">
                                 </div>
 
@@ -65,7 +68,8 @@
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Inversion</label><br>
-                                    <select name="factura_inversion_id" id="" class="form-control">
+                                    <input type="text" id="buscarInversion" class="form-control" placeholder="Buscar Inversion">
+                                    <select required name="factura_inversion_id" id="selectInversion" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
                                         {{#each inversion}}
                                         <option value="{{inversion_id}}">{{inversion_clave}}</option>
@@ -76,7 +80,8 @@
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Sucursal</label><br>
-                                    <select name="sucursal_id" id="" class="form-control">
+                                    <input type="text" id="buscarSucursal" class="form-control" placeholder="Buscar Sucursal">
+                                    <select required name="sucursal_id" id="selectSucursal" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
                                         {{#each sucursal}}
                                         <option value="{{id}}">{{nombre}}</option>
@@ -87,7 +92,8 @@
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Centro de Costo</label><br>
-                                    <select name="factura_centrodecostos_id" id="" class="form-control">
+                                    <input type="text" id="buscarCentroCostos" class="form-control" placeholder="Buscar empresa">
+                                    <select required name="factura_centrodecostos_id" id="selectCentroCostos" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
                                         {{#each centroCostos}}
                                         <option value="{{id}}">{{nombre}}</option>
@@ -134,7 +140,8 @@
 
                                 <div class="col-md-12 col-sm-12 col-lg-12 mb-3">
                                     <label for="" class="font-weight-bold">Folio</label><br>
-                                    <select name="factura_folio_id" id="" class="form-control">
+                                    <input type="text" id="buscarFolio" class="form-control" placeholder="Buscar Folio">
+                                    <select required name="factura_folio_id" id="selectFolio" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
                                         {{#each folios}}
                                         <option value="{{folio_id}}">{{folio_descripcion}}</option>
@@ -146,7 +153,7 @@
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Anticipo</label><br>
-                                    <select name="factura_anticipo_id" id="" class="form-control">
+                                    <select required name="factura_anticipo_id" id="" class="form-control">
                                         <option selected disabled>Seleccionar</option>
                                         <option value="2">Anticipo</option>
                                     </select>
@@ -156,7 +163,8 @@
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Factura / Remision</label><br>
-                                    <select name="factura_remisionfactura_id" id="" class="form-control">
+                                    <input type="text" id="buscarFacturaRemision" class="form-control" placeholder="Buscar Factura / Remision">
+                                    <select required name="factura_remisionfactura_id" id="selectFacturaRemision" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
                                         {{#each remision}}
                                         <option value="{{remisionfactura_id}}">{{remisionfactura_descripcion}}</option>
@@ -170,7 +178,8 @@
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Moneda</label><br>
-                                    <select name="factura_moneda_id" id="" class="form-control">
+                                    <input type="text" id="buscarMoneda" class="form-control" placeholder="Buscar moneda">
+                                    <select required name="factura_moneda_id" id="selectMoneda" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
                                         {{#each moneda}}
                                         <option value="{{moneda_id}}">{{moneda_descripcion}}</option>
@@ -181,7 +190,8 @@
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Tipo de Venta</label><br>
-                                    <select name="tipo_venta" id="" class="form-control">
+                                    <input type="text" id="buscarTipoVenta" class="form-control" placeholder="Buscar moneda">
+                                    <select required  name="tipo_venta" id="selectTipoVenta" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
                                         <option value="1">POLIZA</option>
                                         <option value="2">RENTA</option>
@@ -193,14 +203,14 @@
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Subtotal</label><br>
-                                    <input class="form-control" step="0.01" type="text" name="factura_subtotal"
+                                    <input required class="form-control" step="0.01" type="text" name="factura_subtotal"
                                         id="subtotal" placeholder="Subtotal" onchange="totaal()">
                                 </div>
 
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">IVA</label><br>
-                                    <input class="form-control" step="0.01" type="text" name="factura_iva" id="ivaa"
+                                    <input required class="form-control" step="0.01" type="text" name="factura_iva" id="ivaa"
                                         placeholder="IVA">
                                 </div>
 
@@ -210,28 +220,28 @@
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Retención IVA</label><br>
-                                    <input class="form-control border border-primary" type="text" name="retencion"
+                                    <input required class="form-control border border-primary" type="text" name="retencion"
                                         id="retencion" placeholder="Retención IVA">
                                 </div>
 
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Retención ISR</label><br>
-                                    <input class="form-control" type="text" name="retencion_isr" id=""
+                                    <input required class="form-control" type="text" name="retencion_isr" id=""
                                         placeholder="Retención ISR">
                                 </div>
 
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">TOTAL</label><br>
-                                    <input class="form-control" type="number" step="0.01" name="factura_total"
+                                    <input required class="form-control" type="number" step="0.01" name="factura_total"
                                         id="total" placeholder="Total">
                                 </div>
 
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Tipo de cambio</label><br>
-                                    <input class="form-control" type="text" name="tipo_cambio" id=""
+                                    <input required class="form-control" type="text" name="tipo_cambio" id=""
                                         placeholder="Tipo de Cambio">
                                 </div>
 
@@ -242,33 +252,32 @@
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Fecha Alta (no menor a 72 horas)</label><br>
-                                    <input class="form-control" type="date" name="factura_fecha_alta" id="" max="{{{maxminDate 1}}}">
+                                    <input required class="form-control" type="date" name="factura_fecha_alta" id="" max="{{{maxminDate 1}}}">
                                 </div>
 
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Observaciones</label><br>
-                                    <input class="form-control" type="text" name="factura_observaciones" id=""
+                                    <input required class="form-control" type="text" name="factura_observaciones" id=""
                                         placeholder="Observaciones">
                                 </div>
 
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Correo de cliente</label><br>
-                                    <input class="form-control" type="text" name="correo" id=""
+                                    <input required class="form-control" type="text" name="correo" id=""
                                         placeholder="E-Mail del Cliente">
                                 </div>
 
 
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Uso de CFDI</label><br>
-                                    <select name="uso_cfdi" id="" class="form-control">
+                                    <input type="text" id="buscarCFDI" class="form-control" placeholder="Buscar Factura / Remision">
+                                    <select required name="uso_cfdi" id="selectCFDI" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
-                                        <option value="1">Gastos en General</option>
-                                        <option value="2">Adquisición de mercancías</option>
-                                        <option value="3">Construcciones</option>
-                                        <option value="4">Pagos</option>
-                                        <option value="5">Otros</option>
+                                        {{#each usos}}
+                                            <option value="{{this.id}}">{{this.descripcion}}</option>
+                                        {{/each}}
                                     </select>
                                 </div>
 
@@ -279,8 +288,10 @@
 
                                 <div class="col-md-4 col-sm-6 col-lg-4 mb-3">
                                     <label for="" class="font-weight-bold">Forma de Pago</label><br>
-                                    <select name="forma_pago" id="" class="form-control">
-                                        <option selected disabled value="">Seleccionar</option>
+                                   <input type="text" id="buscarFormaPago" class="form-control" placeholder="Buscar Forma de Pago">
+
+                                    <select required name="forma_pago" id="selectFormaPago" class="form-control">
+                                        <option selected disabled hidden value="">Seleccionar</option>
                                         <option value="01">Efectivo</option>
                                         <option value="02">Cheque nominativo</option>
                                         <option value="03">Transferencia electrónica de fondos</option>
@@ -308,7 +319,8 @@
 
                                 <div class="col-md-4 col-sm-6 col-lg-4 mb-3">
                                     <label for="" class="font-weight-bold">Metodo de pago</label><br>
-                                    <select name="mpago" id="" class="form-control">
+                                    <input type="text" id="buscarMetodoPago" class="form-control" placeholder="Buscar Forma de Pago">
+                                    <select required name="mpago" id="selectMetodoPago" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
                                         <option value="PPD">Pago en parcialidades o diferido</option>
                                         <option value="PUE">Pago en una sola exhibición</option>
@@ -318,7 +330,7 @@
 
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
                                     <label for="" class="font-weight-bold">Credito de pago negociado</label><br>
-                                    <input class="form-control" type="text" name="dias_credito" id=""
+                                    <input required class="form-control" type="text" name="dias_credito" id=""
                                         placeholder="Crédito de Pago Negociado">
                                 </div>
 
@@ -331,20 +343,25 @@
 
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
                                     <label for="" class="font-weight-bold">Cantidad</label><br>
-                                    <input class="form-control" type="text" name="cantidad" id=""
+                                    <input required class="form-control" type="text" name="cantidad" id=""
                                         placeholder="Cantidad">
                                 </div>
 
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
                                     <label for="" class="font-weight-bold">Clave de unidad</label><br>
-                                    <input class="form-control" type="text" name="cUnidad" id=""
-                                        placeholder="Clave de unidad">
+                                    <input type="text" id="buscarUnidades" class="form-control" placeholder="Buscar Clave de unidad">
+                                    <select required name="cUnidad" id="selectUnidades" class="form-control">
+                                        <option selected disabled value="">Seleccionar</option>
+                                        {{#each unidades}}
+                                            <option value="{{this.codigo}}">{{this.codigo}} - {{this.descripcion}}</option>
+                                        {{/each}}
+                                    </select>
                                 </div>
 
 
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
                                     <label for="" class="font-weight-bold">Valor unitario</label><br>
-                                    <input class="form-control" type="text" name="vUnitario" id=""
+                                    <input required class="form-control" type="text" name="vUnitario" id=""
                                         placeholder="Valor unitario">
                                 </div>
 
@@ -353,7 +370,8 @@
 
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
                                     <label for="" class="font-weight-bold">Clave Producto Servicio</label><br>
-                                    <select name="clave" id="" class="form-control">
+                                    <input type="text" id="buscarClave" class="form-control" placeholder="Buscar Clave Producto Servicio">
+                                    <select required name="clave" id="selectClave" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
                                         {{#each catalogo}}
                                             <option value="{{id_sat}}">{{servicio}}</option>
@@ -363,13 +381,13 @@
 
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
                                     <label for="" class="font-weight-bold">Importe</label><br>
-                                    <input class="form-control" type="text" name="importe" id=""
+                                    <input required class="form-control" type="text" name="importe" id=""
                                         placeholder="Importe">
                                 </div>
 
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
                                     <label for="" class="font-weight-bold">Descuento</label><br>
-                                    <input class="form-control" type="text" name="descuento" id=""
+                                    <input required class="form-control" type="text" name="descuento" id=""
                                         placeholder="Descuento">
                                 </div>
 
@@ -387,6 +405,51 @@
 {{#section 'scripts'}}
 <script>
     const cotizacion = {{{ json cotizacion }}}
+
+ 
+
+
+ function buscarEnSelect(inputId, selectId) {
+    // Obtener el input de búsqueda y el select
+    var input = document.getElementById(inputId);
+    var select = document.getElementById(selectId);
+
+    // Agregar un evento keyup al input de búsqueda
+    input.addEventListener("keyup", function(){
+      // Obtener el valor del input
+      var valor = this.value.toLowerCase();
+
+      // Recorrer todos los option del select
+      for (var i = 0; i < select.length; i++) {
+        var option = select.options[i];
+        // Si el texto del option incluye el valor del input
+        if (option.text.toLowerCase().includes(valor)) {
+          // Mostrar el option
+          option.style.display = "block";
+        } else {
+          // Ocultar el option
+          option.style.display = "none";
+        }
+      }
+    });
+    
+
+  }
+
+    buscarEnSelect("buscarEmpresa", "selectEmpresa");
+    buscarEnSelect("buscarCliente", "selectCliente");
+    buscarEnSelect("buscarClave", "selectClave");
+    buscarEnSelect("buscarInversion", "selectInversion");
+    buscarEnSelect("buscarSucursal", "selectSucursal");
+    buscarEnSelect("buscarCentroCostos", "selectCentroCostos");
+    buscarEnSelect("buscarFolio", "selectFolio");
+    buscarEnSelect("buscarFacturaRemision", "selectFacturaRemision");
+    buscarEnSelect("buscarMoneda", "selectMoneda");
+    buscarEnSelect("buscarFormaPago", "selectFormaPago");
+    buscarEnSelect("buscarMetodoPago", "selectMetodoPago");
+    buscarEnSelect("buscarTipoVenta", "selectTipoVenta");
+    buscarEnSelect("buscarCFDI", "selectCFDI");
+    buscarEnSelect("buscarUnidades", "selectUnidades");
     $(document).ready(function () {
 
         // initialize datatable

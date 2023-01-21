@@ -30,17 +30,20 @@
 
 
                                         <span>Tipo de requisicion</span>
-                                        <select name="" id="" class="form-control">
-                                            <option value="">Proyecto</option>
-                                            <option value="">Listado de Productos</option>
+                                        <select name="" id="tipo_requisicion" onchange="cambio()" class="form-control">
+                                            <option value="0">Proyecto</option>
+                                            <option value="1">Listado de Productos</option>
                                         </select><br /><br />
 
-                                        <span>Requisicion a Reemplazar</span>
-                                        <select name="" class="form-control" id="">
+                                        <div id="requisicion_reemplazar">
+                                            <span id="requisicion_reemplazar">Requisicion a Reemplazar</span>
+                                        <select name="" id="requisicion_reemplazar" class="form-control" id="">
+                                            <option value="" selected> </option>
                                             {{#each requisiciones}}
                                             <option value="{{requisicion_id}}">{{requisicion_comentarios}}</option>
                                             {{/each}}
                                         </select><br /><br />
+                                        </div>
 
                                         <span>Cliente</span>
                                         <select name="" id="" id="mySelect" class="form-control" >
@@ -81,11 +84,11 @@
                                         <input type="date" class="form-control" name="fecha"><br />
 
                                         <span>Comentarios</span>
-                                        <input type="text" class="form-control" name="requisicion_comentarios"><br />
+                                        <input type="text" class="form-control" placeholder="Comentarios" name="requisicion_comentarios"><br />
 
                                         <br><br>
                                         <button type="submit"
-                                            class="btn-outline-info btn-lg btn-block ">Actualizar</button>
+                                            class="btn-outline-info btn-lg btn-block ">Agregar</button>
                                     </form>
                                     <div class="col-md-3"></div>
                                 </div>
@@ -101,7 +104,19 @@
 
 {{#section 'scripts'}}
 <script>
+    var select1 = document.getElementById("tipo_requisicion");
+        var input = document.getElementById("requisicion_reemplazar");
+            input.style.display = "none";
 
+function cambio(){
+    
+
+        if(select1.value == 0){
+            input.style.display = "none";
+        }else if(select1.value == 1){
+            input.style.display = "block";
+        }
+}
 </script>
 
 {{/section}}

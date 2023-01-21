@@ -7,7 +7,7 @@ import { addCliente, updCliente, delCliente} from "../controllers/administracion
 import { addDisciplina, updDisciplina, delDisciplina} from "../controllers/administracion/disciplina.controller.js";
 import { addProveedor, updProveedor, delProveedor } from "../controllers/administracion/proveedor.controller.js";
 import { addCables, updCables, delCables } from "../controllers/administracion/cables.controller.js";
-import { addDispositivo, updDispositivo, delDispositivo, updDispositivo2 } from "../controllers/administracion/dispositivo.controller.js";
+import { addDispositivo, addDispositivoComponente, updDispositivo1, updDispositivo2, delDispositivo } from "../controllers/administracion/dispositivo.controller.js";
 import { addFactura, cancelFactura } from "../controllers/administracion/facturas.contrroller.js";
 import {addMarca, updMarca, delMarca, addProveedorMarca, delPMarca} from "../controllers/administracion/marca.controller.js";
 import {addProducto, updProducto, delProducto} from "../controllers/administracion/producto.controller.js";
@@ -51,8 +51,11 @@ administrationRoutes.delete('/delDisciplina/:id', delDisciplina)
 //?add Dispositivo
 administrationRoutes.post('/AddDispositivo', addDispositivo)
 //*upd Dispositivo
-administrationRoutes.post('/updDispositivo/:id', updDispositivo)
-administrationRoutes.post('/updDispositivo/:id', updDispositivo2)
+administrationRoutes.post('/updDispositivo1/:id', updDispositivo1)
+administrationRoutes.post('/updDispositivo2/:id', updDispositivo2)
+
+administrationRoutes.post('/addDispositivoComponente/', addDispositivoComponente)
+
 //! del Dispositivo
 administrationRoutes.post('/delDispositivo/:id', delDispositivo)
 

@@ -3,7 +3,7 @@
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
                 <h2>
-                    <span class="fw-300"><strong>Crear</strong> <i>Egreso</i></span>
+                    <span class="fw-300"><strong>Ver</strong> <i>Egreso</i></span>
                 </h2>
                 <div class="panel-toolbar">
                     <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
@@ -18,7 +18,7 @@
                 <div class="panel-content">
                     <div class="row text-center ">
                         <div class="col-12">
-                            <h3 class="display-4">Alta de Cheques </h3>
+                            <h3 class="display-4">Ver Cheques </h3>
                         </div>
                     </div>
 
@@ -36,7 +36,7 @@
                                     <select name="cheque_empresa_id" id="s1" class="form-control" >
                                         <option value="" selected disabled hidden>Seleccione una opción</option>
                                         {{#each empresas}}
-                                            <option value="{{empresa_id}}">{{empresa_razon_social}}</option>
+                                            <option value="{{empresa_id}}" {{#if (is ../e.cheque_empresa_id empresa_id)}}selected{{/if}}>{{empresa_razon_social}}</option>
                                         {{/each}}
                                     </select><br />
                                 </div>
@@ -46,7 +46,7 @@
                                     <select name="cheque_cuenta_id" id="s2" class="form-control">
                                         <option value="" selected disabled hidden>Seleccione una opción</option>
                                         {{#each cuentas}}
-                                            <option value="{{id}}">{{cuenta}}</option>
+                                            <option value="{{id}}" {{#if (is ../e.cheque_cuenta_id id)}} selected {{/if}}>{{cuenta}}</option>
                                         {{/each}}
                                     </select><br />
                                 </div>
@@ -56,7 +56,7 @@
                             <div class="row mb-6">
                                 <div class="col-6">
                                     <span>Tipo de Cambio</span>
-                                    <input type="text" class="form-control" name="TipoCambio"> <br>
+                                    <input type="text" class="form-control" name="TipoCambio" value="{{e.TipoCambio}}"> <br>
                                 </div>
                                 <div class="col-6">
                                     <span>Proveedor</span>
@@ -64,7 +64,7 @@
                                     <select name="cheque_proveedor_id" id="s3" class="form-control">
                                         <option value="" selected disabled hidden>Seleccione una opción</option>
                                         {{#each proveedores}}
-                                            <option value="{{proveedor_id}}">{{proveedor_razon_social}}</option>
+                                            <option value="{{proveedor_id}}" {{#if (is ../e.cheque_proveedor_id)}} selected {{/if}} >{{proveedor_razon_social}}</option>
                                         {{/each}}
                                     </select><br />
                                 </div>
@@ -73,7 +73,7 @@
                             <div class="row mb-6">
                                 <div class="col-6">
                                     <span>Monto del Cheque</span>
-                                    <input type="text" class="form-control" name="cheque_monto" id="total" onkeyup="calcular()"> <br>
+                                    <input type="text" class="form-control" name="cheque_monto" id="total" onkeyup="calcular()" value="{{e.cheque_monto}}"> <br>
                                 </div>
                                 <div class="col-6">
                                     <span>Cuenta Contable Banco</span>
@@ -81,7 +81,7 @@
                                     <select name="cuenta_contable" id="s4" class="form-control">
                                         <option value="" selected disabled hidden>Seleccione una opción</option>
                                         {{#each cuentas}}
-                                            <option value="{{id}}">{{cuenta}}</option>
+                                            <option value="{{id}}" {{#if (is ../e.cuenta_contable id)}} selected {{/if}}>{{cuenta}}</option>
                                         {{/each}}
                                     </select><br />
                                 </div>
@@ -98,7 +98,7 @@
                                     <select name="cuenta_contable2" id="s5" class="form-control">
                                         <option value="" selected disabled hidden>Seleccione una opción</option>
                                         {{#each cuentas}}
-                                            <option value="{{id}}">{{cuenta}}</option>
+                                            <option value="{{id}}" {{#if (is ../e.cuenta_contable2)}} selected {{/if}}>{{cuenta}}</option>
                                         {{/each}}
                                     </select><br />
                                 </div>
@@ -115,7 +115,7 @@
                                     <select name="cuenta_contable3" id="s6" class="form-control">
                                         <option value="" selected disabled hidden>Seleccione una opción</option>
                                         {{#each cuentas}}
-                                            <option value="{{id}}">{{cuenta}}</option>
+                                            <option value="{{id}}">{{cuenta}} {{#if (is ../e.cuenta_contable3)}} selected {{/if}}</option>
                                         {{/each}}
                                     </select><br />
                                 </div>
@@ -124,19 +124,19 @@
                             <div class="row mb-6">
                                 <div class="col-6">
                                     <span>Retención IVA</span>
-                                    <input type="text" class="form-control" name="cheque_retencion"> <br>
+                                    <input type="text" class="form-control" name="cheque_retencion" value="{{e.cheque_retencion}}"> <br>
                                 </div>
                                 <div class="col-6">
                                     <span>Retención ISR</span>
-                                    <input type="text" class="form-control" name="retencion_isr"> <br>
+                                    <input type="text" class="form-control" name="retencion_isr" value="{{e.retencion_isr}}"> <br>
                                 </div>
                                 <div class="col-6">
                                     <span>Folio</span>
-                                    <input type="text" class="form-control" name="cheque_folio"> <br>
+                                    <input type="text" class="form-control" name="cheque_folio" value="{{e.cheque_folio}}"> <br>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-lg-6 mb-3 text-center">
                                 <label for="" class="font-weight-bold">Proyecto / Razón Social</label><br>
-                                <a class="btn btn-info" data-toggle="collapse" href="#multiCollapseExample1"
+                                <a class="btn btn-info disabled" data-toggle="collapse" href="#multiCollapseExample1"
                                     role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Desplegar
                                     Tabla</a>
                             </div>
@@ -179,7 +179,7 @@
                                         
                                         <option value="" selected disabled hidden>Seleccione una opción</option>
                                         {{#each inversion}}
-                                            <option value="{{inversion_id}}">{{Inversion_descripcion}}</option>
+                                            <option value="{{inversion_id}}" {{#if (is ../e.cheque_inversion_id inversion_id)}} selected {{/if}}>{{Inversion_descripcion}}</option>
                                         {{/each}}
 
                                     </select>
@@ -191,7 +191,7 @@
                                         name="cheque_centrodecostos_id">
                                         <option value="" selected disabled hidden>Seleccione una opción</option>
                                         {{#each centroCostos}}
-                                            <option value="{{id}}">{{nombre}}</option>
+                                            <option value="{{id}}" {{#if (is ../e.cheque_centrodecostos_id id)}} selected {{/if}}>{{nombre}}</option>
                                         {{/each}}
                                     </select>
                                 </div>
@@ -201,7 +201,7 @@
                                     <select class="form-control d-inline " id="s9" name="sucursal_id">
                                         <option value="" selected disabled hidden>Seleccione una opción</option>
                                         {{#each sucursal}}
-                                            <option value="{{id}}">{{nombre}}</option>
+                                            <option value="{{id}}" {{#if (is ../e.sucursal_id id)}} selected {{/if}}>{{nombre}}</option>
                                         {{/each}}
                                     </select>
 
@@ -211,7 +211,7 @@
                             <div class="row mb-3">
                                 <div class="col-4">
                                     <label>Fecha de egreso</label>
-                                    <input type="date" class="form-control" name="cheque_fecha_alta"> <br>
+                                    <input type="date" class="form-control" name="cheque_fecha_alta" value="{{e.cheque_fecha_alta}}"> <br>
                                 </div>
                                 <div class="col-4">
                                     <label>Tipo de erogacion/Presupuesto</label>
@@ -220,7 +220,7 @@
                                         name="cheque_erogacion_id">
                                         <option value="" selected disabled hidden>Seleccione una opción</option>
                                         {{#each erogacion}}
-                                            <option value="{{id}}">{{descripcion}}</option>
+                                            <option value="{{id}}" {{#if (is ../e.cheque_erogacion_id id)}} selected {{/if}}>{{descripcion}}</option>
                                         {{/each}}
                                     </select>
                                 </div>
@@ -230,7 +230,7 @@
                                     <select class="form-control d-inline " id="s11" name="erogacion_obra_id">
                                         <option value="" selected disabled hidden>Seleccione una opción</option>
                                         {{#each obras}}
-                                            <option value="{{id}}">{{descripcion}}</option>
+                                            <option value="{{id}}" {{#if (is ../e.erogacion_obra_id id)}} selected {{/if}}>{{descripcion}}</option>
                                         {{/each}}
                                     </select>
 
@@ -240,31 +240,31 @@
                             <div class="row mb-6">
                                 <div class="col-6">
                                     <label>Numero de Documento</label>
-                                    <input type="text" class="form-control" name="cheque_documento"> <br>
+                                    <input type="text" class="form-control" name="cheque_documento" value="{{e.cheque_documento}}"> <br>
                                 </div>
                                 <div class="col-6">
                                     <label>Fecha de transferencia</label>
-                                    <input type="date" class="form-control" name="FechaTransferencia">
+                                    <input type="date" class="form-control" name="FechaTransferencia" value="{{e.FechaTransferencia}}">
 
                                 </div>
                             </div>
 
                             <label>Comentarios</label>
-                            <textarea class="form-control" name="cheque_comentario" rows="4" cols="50"></textarea><br>
+                            <textarea class="form-control" name="cheque_comentario" rows="4" cols="50" value="{{e.cheque_comentario}}"></textarea><br>
 
                             <div class="row mb-6">
                                 <div class="col-6">
                                     <span>Numero de factura</span>
-                                    <input type="text" class="form-control" name="NumFactura"> <br>
+                                    <input type="text" class="form-control" name="NumFactura" value="{{e.NumFactura}}"> <br>
                                 </div>
                                 <div class="col-6">
                                     <span>UUID</span>
-                                    <input type="text" class="form-control" name="UUID"> <br>
+                                    <input type="text" class="form-control" name="UUID" value="{{e.UUID}}"> <br>
                                 </div>
                             </div>
 
                             <br><br>
-                            <button type="submit" class="btn-outline-info btn-lg btn-block ">Generar Erogación</button>
+                            
                         </div>
                     </form>
 
@@ -274,13 +274,9 @@
     </div>
 </div>
 
-
-
 {{#section 'scripts'}}
 <script>
-    const cotizacion = {{{ json cotizaciones }}}
-
-
+    
   function calcular(){
     var total = document.getElementById('total').value;
 
@@ -293,6 +289,7 @@
     document.getElementById('subtotal').value = subtotal;
   }
 
+document.onload = calcular();
 
  function buscarEnSelect(inputId, selectId) {
     // Obtener el input de búsqueda y el select
@@ -334,55 +331,14 @@
     buscarEnSelect("b10", "s10");
     buscarEnSelect("b11", "s11");
 
-    $(document).ready(function () {
-
-        // initialize datatable
-        $('#cotizaciones').dataTable(
-            {
-                data: cotizacion,
-                responsive: true,
-                lengthChange: false,
-                dom:
-                    "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
-                    "<'row'<'col-sm-12'tr>>" +
-                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-                buttons: [
-
-                    {
-                        extend: 'pdfHtml5',
-                        text: 'PDF',
-                        titleAttr: 'Generate PDF',
-                        className: 'btn-outline-danger btn-sm mr-1'
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        text: 'Excel',
-                        titleAttr: 'Generate Excel',
-                        className: 'btn-outline-success btn-sm mr-1'
-                    },
-                    {
-                        extend: 'csvHtml5',
-                        text: 'CSV',
-                        titleAttr: 'Generate CSV',
-                        className: 'btn-outline-primary btn-sm mr-1'
-                    },
-                    {
-                        extend: 'copyHtml5',
-                        text: 'Copy',
-                        titleAttr: 'Copy to clipboard',
-                        className: 'btn-outline-primary btn-sm mr-1'
-                    },
-                    {
-                        extend: 'print',
-                        text: 'Print',
-                        titleAttr: 'Print Table',
-                        className: 'btn-outline-primary btn-sm'
-                    }
-                ]
-            });
-
-    });
-
-
+    document.addEventListener("DOMContentLoaded", function() {
+  // Seleccionar todos los inputs y selects
+  var inputs = document.querySelectorAll("input, select");
+  
+  // Iterar sobre cada elemento y deshabilitarlo
+  for (var i = 0; i < inputs.length; i++) {
+    inputs[i].disabled = true;
+  }
+});
 </script>
 {{/section}}

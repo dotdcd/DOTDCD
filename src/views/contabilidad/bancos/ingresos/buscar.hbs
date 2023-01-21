@@ -24,7 +24,6 @@
                                 <th>Cuenta</th>
                                 <th>Monto</th>
                                 <th>Proveedor</th>
-                                <th>Proyecto</th>
                                 <th>Comentarios</th>
                                 <th>Fecha</th>
                                 <th>Acciones</th>
@@ -41,6 +40,11 @@
     </div>
 </div>
 {{#section 'scripts'}}
+<script src="/js/datagrid/datatables/datatables.bundle.js"></script>
+<script src="/js/datagrid/datatables/datatables.export.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.5/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <script>
     const ingresos = {{{ json ingresos }}}
     $(document).ready(function () {
@@ -49,12 +53,12 @@
         $('#prefacturas').dataTable(
             {
                 data: ingresos,
-                responsive: true,
-                lengthChange: false,
-                dom:
-                    "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
-                    "<'row'<'col-sm-12'tr>>" +
-                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+				responsive: true,
+				lengthChange: false,
+				dom:
+					"<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+					"<'row'<'col-sm-12'tr>>" +
+					"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
                 buttons: [
 
                     {

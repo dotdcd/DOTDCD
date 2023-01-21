@@ -1,12 +1,21 @@
 import {pool} from '../../db.js'
 import {SW_SAPIENS_URL, SW_TOKEN, RFC} from '../../config.js'
 import axios from 'axios'
-import { polygonLength } from 'd3'
 
 const getClientInfo = async (id) => {
     try {
         const client = await pool.query('SELECT * FROM clientes WHERE cliente_id = ?', [id])
         return client[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getEmpresaInfo = async (id) => {
+    try {
+        const empresa = await pool.query('SELECT * FROM multiempresa WHERE empresa_id = ?', [id])
+        console.log(empresa[0][0])
+        return empresa[0][0]
     } catch (error) {
         console.log(error)
     }
@@ -22,14 +31,13 @@ const uploaToDB = async (data) => {
 
 export const addFactura = async (req, res) => {
     try {
-        const test = false
  
         const employee = req.body.info.id_empleado
 
-        if(req.body.remisionfactura_id == 1){
+        if(req.body.factura_remisionfactura_id == 1){
 
-
-            const client = await getClientInfo(req.body.cliente_id)
+            const empresa = await getEmpresaInfo(req.body.factura_empresa_id)
+            const client = await getClientInfo(req.body.factura_cliente_id)
 
 
             const data = {
@@ -50,18 +58,18 @@ export const addFactura = async (req, res) => {
                 Total: req.body.factura_total,
                 TipoDeComprobante: "I",
                 Exportacion: "01",
-                LugarExpedicion: "64750",
+                LugarExpedicion: empresa.empresa_cp,
                 Emisor: {
-                    Rfc: client.cliente_rfc,
-                    Nombre: client.cliente_razon_social,
-                    RegimenFiscal: client.cliente_regimen_fiscal
+                    Rfc: empresa.empresa_rfc,
+                    Nombre: empresa.empresa_razon_social,
+                    RegimenFiscal: empresa.empresa_regimen_fiscal
                 },
                 Receptor: {
-                    Rfc: "RFC",
-                    Nombre: "DOT DCD",
-                    DomicilioFiscalReceptor: "26015",
-                    RegimenFiscalReceptor: "601",
-                    UsoCFDI: (req.body.uso_cfdi == 4) ? "CP01" : "G01"
+                    Rfc: client.cliente_rfc,
+                    Nombre: client.cliente_razon_social,
+                    DomicilioFiscalReceptor: client.cliente_codigo_postal,
+                    RegimenFiscalReceptor: client.cliente_regimen_fiscal,
+                    UsoCFDI: req.body.uso_cfdi
                 },
                 Conceptos: [
                     {
@@ -102,6 +110,7 @@ export const addFactura = async (req, res) => {
                       factura_total: req.body.factura_total,
                       factura_fecha_alta: req.body.factura_fecha_alta,
                       factura_observaciones: req.body.factura_observaciones,
+                      forma_pago: req.body.forma_pago,
                       retencion: req.body.retencion,
                       retencion_isr: req.body.retencion_isr,
                       tipo_venta: req.body.tipo_venta,
@@ -116,12 +125,16 @@ export const addFactura = async (req, res) => {
                       sello_cfdi: response.data.data.selloCFDI,
                       qr: response.data.data.qrCode,
                       mpago: req.body.mpago,
-                      factura_factura: 'FP' + req.body.folio
+                      factura_factura: 'FP' + req.body.folio,
+                      factura_c_unidad: req.body.cUnidad,
+                      factura_clave_prod: req.body.clave
                     }
+                    console.log(response)
                     await uploaToDB(data)
                     req.flash('success', {message: 'Factura timbrada correctamente', title: 'Factura Timbrada'})
                     return res.redirect('/dashboard/administracion/facturas')
                 } else {
+                    console.log(response)
                     req.flash('error', {message: 'Error al timbrar la factura', title: 'Error'})
                     return res.redirect('/dashboard/administracion/facturas/nuevo')
                 }
@@ -131,7 +144,7 @@ export const addFactura = async (req, res) => {
                 req.flash('error', {message: 'Error al timbrar la factura', title: 'Error'})
                 return res.redirect('/dashboard/administracion/facturas/nuevo')
             })
-        } else { //! <--- Else de la validacion de la factura
+        } else if(req.body.factura_remisionfactura_id = 2) { //! <--- Else de la validacion de la factura
             const data = {
                 factura_empresa_id: req.body.factura_empresa_id,
                 factura_cliente_id: req.body.factura_cliente_id,
@@ -176,7 +189,7 @@ export const cancelFactura = async (req, res) => {
         const factura = await pool.query('SELECT * FROM facturas WHERE factura_id = ?', [id])
 
         if (factura.length > 0) {
-            const uuid = factura[0].uuid
+            const uuid = factura[0].UUID
             await axios.post(`${SW_SAPIENS_URL}/cfdi33/cancel/${RFC}/${uuid}/${req.body.motivo}/`, {
                 headers: {
                     'Authorization': 'Bearer ' + SW_TOKEN

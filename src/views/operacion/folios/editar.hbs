@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Editar Folio <span class="fw-300"><i>DOTDCD - ERP</i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Close"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div id="metasAll">
+                        <form action="/updFolio/{{{f.folio_id}}}" method="post">
+                            <h2 class="text-center">Editar Folio </h2>
+                            <div class="container">
+
+                                <div class="row">
+                                    <div class="col-md-6"><br>
+                                        <label for="">Cliente</label>
+                                        <select name="folio_cliente_id" class="form-control" id="">
+                                            {{#each clientess}}
+                                            <option value="{{cliente_id}}" {{#if (is ../f.folio_cliente_id cliente_id)}} selected {{/if}}>{{cliente_razon_social}}</option>
+                                            {{/each}}
+                                        </select>
+                                        <br><br>
+                                        <label for="">Fecha</label>
+                                        
+                                            <input type="date" name="folio_fecha_alta" value="{{f.folio_fecha_alta}}" class="form-control "
+                                                    placeholder="Fecha"><br><br>
+                                        <label for="">Hora</label>
+                                            <input type="text" name="folio_hora" value="{{f.folio_hora}}" class="form-control"
+                                                    placeholder="Hora">
+                                        
+                                        <br><br>
+                                        <label for="">Lugar</label>
+                                        <input type="text" value="{{f.folio_lugar}}" class="form-control" placeholder="Lugar">
+
+                                    </div>
+                                    <br><br><br>
+                                    <div class="col-md-6"><br>
+                                        <label>Empleado</label>
+                                        <select name="folio_empleado_id" class="form-control" id="">
+                                            {{#each empleados}}
+                                            <option value="{{empleado_id}}" {{#if (is ../f.folio_empleado_id empleado_id)}} selected {{/if}}>{{nombre_completo}}</option>
+                                            {{/each}}
+                                        </select>
+                                        <br><br>
+                                        <label for="">Descripcion</label>
+                                        <input type="text" class="form-control" name="folio_descripcion" value="{{f.folio_descripcion}}" placeholder="Descripcion">
+                                        <br><br>
+                                        <label for="">Contacto</label>
+                                        <input type="text" class="form-control" name="folio_contacto" value="{{f.folio_contacto}}" placeholder="Contacto">
+<br><br>
+                                        <label for="">Centro de Costos</label>
+                                        <select name="folio_centrodecostos_id" id="" class="form-control">
+                                            {{#each centroCostos}}
+                                            <option value="{{centro_costo_id}}" {{#if (is ../f.folio_centrodecostos_id centro_costos_id)}} selected {{/if}}>{{centrodecostos_descripcion}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div><br><br><br>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4"><button type="submit" class="btn btn-lg btn-block btn-info">Agregar</button>
+                                </div><br><br><br>
+                                <div class="col-md-4"> <a href="/dashboard/operacion/folios/buscar"> <button type="button" class="btn btn-lg btn-block btn-danger">Cancelar</button></a>
+                                </div>
+                                <div class="col-md-2"></div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#section 'scripts'}}
+    <script>
+        const folio_id = {{f.folio_id}}
+        console.log(folio_id)
+    </script>
+{{/section}}

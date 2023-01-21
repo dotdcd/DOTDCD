@@ -1,3 +1,24 @@
+{{#section 'head'}}
+<head>
+    <style>
+        #message {
+    position: fixed; /* para que ocupe toda la pantalla */
+    top: 0; /* para que se posicione en la parte superior de la pantalla */
+    left: 0; /* para que se posicione en la parte izquierda de la pantalla */
+    width: 100%; /* para que ocupe todo el ancho de la pantalla */
+    height: 100%; /* para que ocupe toda la altura de la pantalla */
+    background-color: rgba(0, 0, 0, 0.8); /* para que tenga un fondo negro con una opacidad del 80% */
+    color: white; /* para que el texto sea blanco */
+    text-align: center; /* para que el texto esté centrado */
+    padding: 50px 0; /* para darle un poco de espacio arriba y abajo */
+    z-index: 1000; /* para que se muestre por encima de todo */
+    display: none; /* para que no se muestre al principio */
+
+}
+    </style>
+</head>
+{{/section}}
+
 <div class="row">
     <div class="col-xl-12">
         <div id="panel-1" class="panel">
@@ -22,7 +43,7 @@
                                 <div class="col-md-2"></div>
                                 <div class="col-md-8">
                                     <form method="post" class="form-group"
-                                        action="/updDispositivo/{{d.dispositivo_id}}">
+                                        action="/updDispositivo1/{{d.dispositivo_id}}">
                                         <center>
                                             <h3>Editar Dispositivo</h3>
                                         </center>
@@ -112,37 +133,14 @@
                                         <br>
 
 
-                                        <table class="table table-stripped table-success" id="t2">
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>
-                                                    Actividad
-                                                </th>
-                                                <th>Check</th>
-                                                <th>Hr</th>
-                                                <th>Min</th>
-                                                <th>Costo</th>
-                                            </tr>
-                                            {{#each selected}}
-                                            <tr>
-                                                <td>{{componente_id}}</td>
-                                                <td class="text-dark h3"> <b> {{componente_nombre}}</b></td>
-                                                <td><input type="checkbox" class="form-control" {{#if (is activo "1" )}}
-                                                        checked {{/if}} onchange="cambio2()"></td>
-                                                <td><input type="text" name="" value="{{rendimiento_hr}}" id="hr"
-                                                        class="form-control w-75"></td>
-                                                <td><input type="text" name="" value="{{rendimiento_min}}" id="mn"
-                                                        class="form-control w-75"></td>
-                                                <td><input type="text" name="" value="{{costo}}" id="costo"
-                                                        class="form-control w-75"></td>
-                                            </tr>
-                                            {{/each}}
-                                        </table>
 
 
-                                        
+
+
+
                                         <br><br>
-                                        <button type="button" id="save" class="btn-outline-info btn-lg btn-block">Agregar</button>
+                                        <button type="submit" 
+                                            class="btn-outline-info btn-lg btn-block">Agregar</button>
                                     </form>
                                     <div class="col-md-2"></div>
                                 </div>
@@ -155,92 +153,167 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <h2>
+                    Editar Dispositivo<span class="fw-300"><i></i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Collapse"></button>
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Fullscreen"></button>
+                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+                        data-original-title="Close"></button>
+                </div>
+            </div>
+            <div>
+                <div id="message"></div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <div class="container"><div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                                <table class="table table-stripped table-success" id="tabla_componentes">
+                        <tr>
+                            <th>ID</th>
+                            <th>
+                                Actividad
+                            </th>
+                            <th>Check</th>
+                            <th>Hr</th>
+                            <th>Min</th>
+                            <th>Costo</th>
+                        </tr>
+
+
+                    </table>
+                    <button type="submit" id="save" onclick="guardar()"
+                                            class="btn-outline-info btn-lg btn-block">Actualizar</button>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<
+
 {{#section 'scripts'}}
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"
+    integrity="sha512-L4lHq2JI/GoKsERT8KYa72iCwfSrKYWEyaBxzJeeITM9Lub5vlTj8tufqYk056exhjo2QDEipJrg6zen/DDtoQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-import axios from 'axios'
+    var dispositivo_id = {{ d.dispositivo_id }};
+    const ids = {{{ json selected }}}
 
+    function limpiaTabla() {
+        for (var i = 0; i < ids.length; i++) {
+            var componente_id = document.getElementById("componente_id" + i).value;
+            var componente_nombre = document.getElementById("componente_nombre" + i).value;
+            var activo = document.getElementById("activo" + i).checked;
+            var rendimiento_hr = document.getElementById("rendimiento_hr" + i).value;
+            var rendimiento_min = document.getElementById("rendimiento_min" + i).value;
+            var costo = document.getElementById("costo" + i).value;
 
-
-
-
-
-
-
-
-
-
-
-
-function cambio2() {
-    var table = document.getElementById("t2");
-    var elements = table.getElementsByTagName("input");
-    var data = [];
-    var obj = {};
-    var checkboxIndex = 0;
-    var inputIndex = 0;
-    const ids = {{{json selected}}}
-    const idaa = {{{json d}}}
-    console.log(idaa.dispositivo_id);
-
-    
-
-    for (var i = 0; i < elements.length; i++) {
-        var a = Math.floor(i / 4);
-        obj.componente_id = ids[a].componente_id;
-    if (elements[i].type === "checkbox") {
-        obj.activo = elements[i].checked ? 1 : 0;
-        checkboxIndex = i;
-    } else if (elements[i].type === "text") {
-        if (i === checkboxIndex + 1) {
-            obj.rendimiento_hr = elements[i].value;
-        } else if (i === checkboxIndex + 2) {
-            obj.rendimiento_min = elements[i].value;
-        } else if (i === checkboxIndex + 3) {
-            obj.costo = elements[i].value;
-            data.push(obj);
-            obj = {
-                componente_id: 0,
-                activo: 0,
-                rendimiento_hr: 0,
-                rendimiento_min: 0,
-                costo: 0
-            };
-            checkboxIndex = 0;
-            inputIndex = 0;
+            if (!activo) {
+                rendimiento_hr = 0;
+                rendimiento_min = 0;
+                costo = 0;
+                document.getElementById("rendimiento_hr" + i).value = rendimiento_hr;
+                document.getElementById("rendimiento_min" + i).value = rendimiento_min;
+                document.getElementById("costo" + i).value = costo;
+            }
         }
+
+    }
+
+    function guardar() {
+        const ids = {{{ json selected }}}
+    const idaa = {{{ json d }}}
+    for (var i = 0; i < ids.length; i++) {
+        var componente_id = document.getElementById("componente_id" + i).value;
+        var componente_nombre = document.getElementById("componente_nombre" + i).value;
+        var activo = document.getElementById("activo" + i).checked;
+        var rendimiento_hr = document.getElementById("rendimiento_hr" + i).value;
+        var rendimiento_min = document.getElementById("rendimiento_min" + i).value;
+        var costo = document.getElementById("costo" + i).value;
+
+        $.ajax({
+            url: '/updDispositivo2/' + dispositivo_id,
+            type: 'POST',
+            data: { componente_id: componente_id, componente_nombre: componente_nombre, activo: activo, rendimiento_hr: rendimiento_hr, rendimiento_min: rendimiento_min, costo: costo },
+            success: function (data) {
+            }
+        });
     }
 }
 
 
-    
 
-    console.log(data);
 
+
+
+
+
+    function cambio2() {
+        const ids = {{{ json selected }}}
+    const idaa = {{{ json d }}}
+
+    const tabla = document.getElementById("tabla_componentes");
+    for (var i = 0; i < ids.length; i++) {
+        var checkbox = ids[i].activo == 1 ? "checked" : "";
+        tabla.innerHTML += ('<tr><td>' + '<input type="text" id="componente_id' + [i] + '" class="form-control" value="' + ids[i].componente_id + '">' + '</td><td>' + '<input id="componente_nombre' + [i] + '" type="text"class="form-control" value="' + ids[i].componente_nombre + '">' + '</td><td>' + '<input type="checkbox" class="form-control" id="activo' + [i] + '"  onchange="limpiaTabla()" value="' + ids[i].activo + '" ' + checkbox + '>' + '</td><td>' + '<input id="rendimiento_hr' + [i] + '" type="text" class="form-control" value="' + ids[i].rendimiento_hr + '">' + '</td><td>' + '<input type="text" id="rendimiento_min' + [i] + '" class="form-control" value="' + ids[i].rendimiento_min + '">' + '</td><td>' + '<input type="text" id="costo' + [i] + '" class="form-control" value="' + ids[i].costo + '">' + '</td>');
+    }
 }
 
 
 
 
-document.getElementById("save").addEventListener("click", guardarValores);
-function guardarValores(){
+    document.getElementById("save").addEventListener("click", guardarValores);
+    function guardarValores() {
+        var data = [];
+        for (var i = 0; i < ids.length; i++) {
+            var componente_id = document.getElementById("componente_id" + i).value;
+            var dispositivo_id = {{ d.dispositivo_id }};
+        var rendimiento_hr = document.getElementById("rendimiento_hr" + i).value;
+        var rendimiento_min = document.getElementById("rendimiento_min" + i).value;
+        var costo = document.getElementById("costo" + i).value;
+        data.push({ componente_id, dispositivo_id, rendimiento_hr, rendimiento_min, costo })
+        console.log(i);
+    }
+   // Display message before function is executed
+    document.getElementById("message").innerHTML = "Enviando Datos, Porfavor Espere...";
+    document.getElementById("message").style.display = "block";
+
     axios({
-  method: 'post',
-  url: '/updDispositivo2/'+ {{d.dispositivo_id}},
-  data: data
-})
-.then(function (response) {
-  console.log(response);
-})
-.catch(function (error) {
-  console.log(error);
-});
+            method: 'post',
+            url: '/updDispositivo2/' + {{ d.dispositivo_id }},
+            data: data
+    })
+            .then(function (response) {
+                // Display message after function is executed
+                document.getElementById("message").innerHTML = "Datos procesados satisfactoriamente!";
+                location.reload();
+            })
+            .catch(function (error) {
+                console.log(error);
+                document.getElementById("message").innerHTML = "Error al procesar los datos, intente de nuevo. Si el problema persiste, contacte al administrador.";
+            });
 }
-document.addEventListener('DOMContentLoaded', function () {
-    cambio2();
 
-    console.log();
-});
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        cambio2();
+
+    });
 
 
 </script>

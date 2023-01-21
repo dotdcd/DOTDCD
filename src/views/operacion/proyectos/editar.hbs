@@ -130,68 +130,38 @@
                                                 </table>
 
 
-
-
-
-                                                <table class="table table-success border-rounded">
-                                                    {{#each disciplinass}}
-                                                    <tr>
-                                                        <th>{{diciplina_descripcion}}</th>
-
-                                                    </tr>
-                                                    {{/each}}
-                                                    {{#each niveles}}
-                                                    <tr>
-                                                        
-                                                        <th>{{nivel_descripcion}}</th>
-                                                        
-                                                    </tr>
-                                                    {{/each}}
-
-                                                    {{#each prodProyecto}}
-                                                    <tr>
-                                                        <td>{{producto_descripcion}}</td>
-                                                    </tr>
-                                                    {{/each}}
-
-                                                    
-
-
-
-                                                </table>
-                                                <table class="table table-success border-rounded">
+<div id="accordion">
     {{#each disciplinass}}
-    <tr>
-        <th>{{diciplina_descripcion}}</th>
-    </tr>
-    {{#each niveles}}
-    <tr>
-        <th>{{nivel_descripcion}}</th>
-    </tr>
-    {{#each prodProyecto}}
-    <tr>
-        <td>{{producto_descripcion}}</td>
-    </tr>
+    <div class="card">
+        <div class="card-header" id="heading{{@index}}">
+            <h5 class="mb-0">
+                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapse{{@index}}" aria-expanded="true" aria-controls="collapse{{@index}}">
+                    {{diciplina_descripcion}}
+                </button>
+            </h5>
+        </div>
+        <div id="collapse{{@index}}" class="collapse" aria-labelledby="heading{{@index}}" data-parent="#accordion">
+            <div class="card-body">
+                <table class="table table-success border-rounded">
+                    {{#each niveles}}
+                    <tr>
+                        <th>{{nivel_descripcion}}</th>
+                        {{#each prodProyectoFiltrado}}
+                        {{#if nivel_id  ../nivel_id}}
+                        <td>{{producto_descripcion}}</td>
+                        <td>{{producto_codigo}}</td>
+                        <td>{{producto_fecha}}</td>
+                        <td>{{producto_precio}}</td>
+                        {{/if}}
+                        {{/each}}
+                    </tr>
+                    {{/each}}
+                </table>
+            </div>
+        </div>
+    </div>
     {{/each}}
-    {{/each}}
-    {{/each}}
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
 
 
 
@@ -328,6 +298,28 @@
     </div>
 </div>
 
+<table id="taba" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Familia</th>
+            <th>Nivel</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Unidad</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Importe</th>
+            <th>IVA</th>
+            <th>Total</th>
+            <th>Estatus Baja</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+
 {{#section 'scripts'}}
 <style>
     .counter {
@@ -336,6 +328,47 @@
     }
 </style>
 <script>
+
+                                                
+                const familias = {{{json disciplinass}}}
+                const niveles = {{{json niveles}}}
+                const productos = {{{json prodProyecto}}}
+                
+
+
+            for(let i = 0 ; i < 12; i++){
+                
+                fa = familias[i].diciplina_descripcion
+                orden = familias[i].orden
+                
+                for(let j = 0 ; j < 12; j++){
+                    
+                }
+
+                console.log(fa, orden)               
+            }
+           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const btnToggles = document.getElementsByClassName("btn-toggle");
     for (const btnToggle of btnToggles) {
         btnToggle.addEventListener("click", function () {

@@ -5,10 +5,10 @@ import { read } from 'fs-extra';
 //? Controllers
 import { renderEmployees, renderAnalytics, renderProyectos } from '../controllers/erp/analytics.controller.js';
 import { renderUsuarios } from '../controllers/erp/inicio.controller.js';
-import { renderOpProyAutorizarProyecto, renderOpProyAutorizar, renderOpProyNuevo,renderOpProyBuscar, renderOpProyEditar, renderOpReqBuscar, renderOpReqEditar, renderOpReqNuevo } from '../controllers/erp/operacion.controller.js';
+import { renderOpProyAutorizarProyecto, renderOpProyAutorizar, renderOpProyNuevo,renderOpProyBuscar, renderOpProyEditar, renderOpReqBuscar, renderOpReqEditar, renderOpReqNuevo, renderFolioNuevo, renderFolioEditar, renderFolioBuscar } from '../controllers/erp/operacion.controller.js';
 import { renderEprovMarca, renderProdNuevo,renderProdEditar, renderAdProvMarcaNuevo, renderDeditar, renderAdEditar, renderCeditar, renderPBEditar, renderAdBuscar, renderAdNuevo, renderDCEditar, renderVerPprefactura, renderVerPrefacturas, renderAdProvMarca, renderCliBuscar, renderCliEditar, renderPrefacturas, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar, renderProgPrefacturar, renderDnuevo, renderDbuscar, renderCbuscar, renderCnuevo, renderFacturas, renderFacturar, verFactura, renderProdBuscar,  renderTaxPdf} from '../controllers/erp/administracion.controller.js';
 
-import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc, renderContratos, renderSignature, renderContrato, renderPastContrato, renderDocV, renderNMultiempresas, renderBMultiempresas, renderJornadas, renderCoBuscar, renderCoNuevo, renderCoRequerir, renderCoEditar, renderEMultiempresas, renderBBuscar, renderBNuevo, renderBEditar, renderEnuevos, renderInuevos, renderEbuscar, renderIngresosbuscar} from '../controllers/erp/contabilidad.controller.js'
+import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc, renderContratos, renderSignature, renderContrato, renderPastContrato, renderDocV, renderNMultiempresas, renderBMultiempresas, renderJornadas, renderCoBuscar, renderCoNuevo, renderCoRequerir, renderCoEditar, renderEMultiempresas, renderBBuscar, renderBNuevo, renderBEditar, renderEnuevos, renderInuevos, renderEbuscar, renderIngresosbuscar, renderIngresosEditar, renderEEditar} from '../controllers/erp/contabilidad.controller.js'
 
 
 import { authenticateUser, isAdmin } from '../middlewares/auth.js';
@@ -58,8 +58,9 @@ rutasErp.get('/dashboard/operacion/requerimientos/nuevo', [authenticateUser, isA
 rutasErp.get('/dashboard/operacion/requerimientos/buscar', [authenticateUser, isAdmin], renderOpReqBuscar)
 rutasErp.get('/dashboard/operacion/requerimientos/editar/:id', [authenticateUser, isAdmin], renderOpReqEditar)
 
-
-
+rutasErp.get('/dashboard/operacion/folios/nuevo', [authenticateUser, isAdmin], renderFolioNuevo)
+rutasErp.get('/dashboard/operacion/folios/buscar', [authenticateUser, isAdmin], renderFolioBuscar)
+rutasErp.get('/dashboard/operacion/folios/editar/:id', [authenticateUser, isAdmin], renderFolioEditar)
 
 //?llllllllllllllllllllllllllllll
 //?Administracion Routes
@@ -152,10 +153,13 @@ rutasErp.get('/dashboard/contabilidad/bancos/cuentas/editar/:id', [authenticateU
 //? Egresos
 rutasErp.get('/dashboard/contabilidad/egresos/nuevo', [authenticateUser, isAdmin], renderEnuevos)
 rutasErp.get('/dashboard/contabilidad/egresos/buscar', renderEbuscar)
+rutasErp.get('/dashboard/contabilidad/egresos/editar/:id', [authenticateUser, isAdmin], renderEEditar)
 
 //? Ingresos
 rutasErp.get('/dashboard/contabilidad/ingresos/nuevo', [authenticateUser, isAdmin], renderInuevos)
 rutasErp.get('/dashboard/contabilidad/ingresos/buscar', renderIngresosbuscar)
+rutasErp.get('/dashboard/contabilidad/ingresos/editar/:id', [authenticateUser, isAdmin], renderIngresosEditar)
+
 
 //! TESTING ROUTES
 rutasErp.get('/testing/:id', async (req, res) => {

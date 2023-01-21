@@ -1,5 +1,6 @@
 import { pool } from '../../db.js'
 import { getEmpresa, getSucursal, getCentrodeCosto } from '../erp/contabilidad.controller.js'
+import {SW_SAPIENS_URL, SW_TOKEN} from '../../config.js'
 import axios from 'axios'
 
 //?marca
@@ -394,11 +395,13 @@ export const renderDiBuscar = async (req, res) => {
 export const renderDnuevo = async (req, res) => {
     const familias = await pool.query('SELECT * FROM familias')
     const cable = await pool.query('SELECT * FROM cable')
+        
+        const f = familias[0]
+        const c = cable[0]
+        const lista = await getLista()
 
-    const f = familias[0]
-    const c = cable[0]
 
-    res.render('administracion/dispositivos/nuevo', { f, c })
+    res.render('administracion/dispositivos/nuevo', {  f, c, lista  })
 }
 
 const getDispositivo = async () => {
@@ -500,6 +503,24 @@ const getClaveProducto = async () => {
     }
 }
 
+const getUsosCfdi = async () => {
+    try {
+        const usos = await pool.query('SELECT * FROM uso_cfdi')
+        return usos[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getUnidades = async () => {
+    try {
+        const unidades = await pool.query('SELECT * FROM unidades_sat')
+        return unidades[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 //? Render Facturar
 export const renderFacturar = async (req, res) => {
     try {
@@ -514,9 +535,11 @@ export const renderFacturar = async (req, res) => {
         const moneda = await getMoneda()
         const tipoVenta = await getFactura()
         const catalogo = await getClaveProducto()
+        const usos = await getUsosCfdi()
+        const unidades = await getUnidades()
         const cotizacion = proyecto.cotizacion
 
-        return res.render('administracion/facturas/facturar', { sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta, catalogo })
+        return res.render('administracion/facturas/facturar', { sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta, catalogo, usos, unidades })
     } catch (error) {
         console.log(error)
     }
@@ -535,9 +558,9 @@ const getTimbrado = async (id) => {
 
 const getXml = async (uuid) => {
     try {
-        const response = await axios.get('http://api.test.sw.com.mx/datawarehouse/v1/live/' + uuid, {
+        const response = await axios.get(SW_SAPIENS_URL+'/datawarehouse/v1/live/' + uuid, {
             headers: {
-                'Authorization': `Bearer T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbXB3YVZxTHdOdHAwVXY2NTdJb1hkREtXTzE3dk9pMmdMdkFDR2xFWFVPUXpTUm9mTG1ySXdZbFNja3FRa0RlYURqbzdzdlI2UUx1WGJiKzViUWY2dnZGbFloUDJ6RjhFTGF4M1BySnJ4cHF0YjUvbmRyWWpjTkVLN3ppd3RxL0dJPQ.T2lYQ0t4L0RHVkR4dHZ5Nkk1VHNEakZ3Y0J4Nk9GODZuRyt4cE1wVm5tbFlVcU92YUJTZWlHU3pER1kySnlXRTF4alNUS0ZWcUlVS0NhelhqaXdnWTRncklVSWVvZlFZMWNyUjVxYUFxMWFxcStUL1IzdGpHRTJqdS9Zakw2UGRPd0VpaU92M2JEeVI4ZktFRThLQlg0blV6VktZL1M3b2pIc3JhYlRVbi8rUG9iaXUzK3VMWHU2cEYvcHlJUHNzZXprL0dTNzlqN0VacCtmd0dtelVMRjd4dmFiRnoxRGJRcmJNV3cyVnZtVklXaGlGM1JIOHNmLzE4eGhCRzdlbzFUMzJnVmJyUlFQYzJwYUtnQmdhZDNhNGZ6bVJRV1VqYVVwd1ZoNlZLRnZJN0d0MDhoU21oVy8rVnNxTnBqOGpuQklUYTIrMEdqRHJEV3BxRENhQWlTRFB2ZXhRVHJxQktFWW1JZW9tVlBQU0g2cDEvZ0tKVXRDNHBxRXFRS3RVTDhiTzdRcUM4c1F5bG1Xb0taNDVtTUlwTWtRQVJJdW8wbGRDUHFhWUtTMlB5Z3NPQVpCQ0Y3eDhFLytMN3ZUVzBzYWowdG5PNVU0NTQxaElYa2d0R3NPME9abkFVekRIcDloTm9wNFVTN2M4VjZtczBhMHBUZHJZU1ZFQUlaOVI.tSQqJnADDxRCmAW0X_qlhhlWDaeC4yYpxiG0RlEXBQg`
+                'Authorization': `Bearer ${SW_TOKEN}`
             }
         })
         return response.data.data.records[0].urlXml
@@ -583,7 +606,7 @@ export const verFactura = async (req, res) => {
 
 const getTaxInfo = async (id) => {
     try {
-        const timbrado = await pool.query('SELECT factura_empresa_id as empresa, factura_cliente_id, factura_descripcion as descripcion, uso_cfdi, factura_fecha_alta, forma_pago, mpago, `cadena_sat`, `uuid`, `sello_sat`, `sello_cfdi`, `qr`, `forma_pago`, factura_factura, `factura_subtotal`, `factura_iva`, `factura_total` FROM facturas WHERE factura_id = ?', [id])
+        const timbrado = await pool.query('SELECT factura_empresa_id as empresa, factura_cliente_id, factura_descripcion as descripcion, uso_cfdi, factura_fecha_alta, forma_pago, mpago, `cadena_sat`, `uuid`, `sello_sat`, `sello_cfdi`, `qr`, factura_factura, `factura_subtotal`, `factura_iva`, `factura_total` FROM facturas WHERE factura_id = ?', [id])
         return timbrado[0][0]
     } catch (error) {
         console.log(error)
@@ -652,7 +675,7 @@ const getComponentes = async (id) => {
 }
 const getLista = async () => {
     try {
-        const lista = await pool.query('SELECT * FROM componentes')
+        const lista = await pool.query('SELECT * FROM componentes WHERE activo = 1')
         return lista[0]
     } catch (error) {
         console.log(error)

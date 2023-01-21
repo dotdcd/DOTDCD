@@ -24,6 +24,25 @@ const getClientInfo = async (id) => {
     }
 }
 
+const getEmpresaInfo = async (id) => {
+    try {
+        const empresa = await pool.query('SELECT * FROM multiempresa WHERE empresa_id = ?', [id])
+        console.log(empresa[0][0])
+        return empresa[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getFacturaInfo = async (id) => {
+    try {
+        const factura = await pool.query('SELECT * FROM facturas WHERE factura_id = ?', [id])
+        return factura[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const uploaToDB = async (data) => {
     try {
         await pool.query('INSERT INTO cheques SET ?', [data])
@@ -34,91 +53,73 @@ const uploaToDB = async (data) => {
 
 export const addIngreso = async (req, res) => {
     try {
-        const cliente = await getClientInfo(req.body.cheque_cliente_id)
+
+        const empresa = await getEmpresaInfo(req.body.cheque_empresa_id)
+        const client = await getClientInfo(req.body.cheque_cliente_id)
+        const factura = await getFacturaInfo(req.body.cheque_factura_id)
+
         const data = {
             Version: "4.0",
             Serie: "Serie",
-            Folio: "Folio123",
-            Fecha: "2022-07-21T00:18:10",
+            Folio: req.body.i_folio,
+            Fecha: req.body.FechaTransferencia,
             Sello: "",
             NoCertificado: "",
             Certificado: "",
-            Moneda: "XXX",
+            Moneda: (factura.factura_moneda_id == 1) ? "MXN" : "USD",
             TipoDeComprobante: "P",
             Exportacion: "01",
-            LugarExpedicion: "20000",
+            LugarExpedicion: empresa.emprea_cp,
             Emisor: {
-                Rfc: "EKU9003173C9",
-                Nombre: "ESCUELA KEMPER URGATE",
-                RegimenFiscal: 601
+                Rfc: empresa.empresa_rfc,
+                Nombre: empresa.empresa_razon_social,
+                RegimenFiscal: empresa.empresa_regimen_fiscal
             },
             Receptor: {
-                Rfc: "URE180429TM6",
-                Nombre: "UNIVERSIDAD ROBOTICA ESPAÑOLA",
-                DomicilioFiscalReceptor: "65000",
-                RegimenFiscalReceptor: 601,
-                UsoCFDI: "CP01"
+                Rfc: client.cliente_rfc,
+                Nombre: client.cliente_razon_social,
+                DomicilioFiscalReceptor: client.cliente_codigo_postal,
+                RegimenFiscalReceptor: client.cliente_regimen_fiscal,
+                UsoCFDI: req.body.uso_cfdi
             },
             Conceptos: [
                 {
-                    ClaveProdServ: "84111506",
+                    ClaveProdServ: factura.factura_clave_prod,
                     Cantidad: 1,
-                    ClaveUnidad: "ACT",
-                    Descripcion: "Pago",
+                    ClaveUnidad: factura.factura_c_unidad,
+                    Descripcion: factura.factura_descripcion,
                     ObjetoImp: "01"
                 }
             ],
-            "Complemento": {
-                "Any": [
+            Complemento: {
+                Any: [
                     {
                         "Pago20:Pagos": {
-                            "Version": "2.0",
-                            "Totales": {
-                                "MontoTotalPagos": "100.00",
-                                "TotalTrasladosBaseIVA16": "100.00",
-                                "TotalTrasladosImpuestoIVA16": "16.00"
+                            Version: "2.0",
+                            Totales: {
+                                MontoTotalPagos: req.body.cheque_monto,
+                                TotalTrasladosBaseIVA16: req.body.cheque_monto,
+                                TotalTrasladosImpuestoIVA16: req.body.cheque_iva
                             },
-                            "Pago": [
+                            Pago: [
                                 {
-                                    "FechaPago": "2021-12-15T00:00:00",
-                                    "FormaDePagoP": "01",
-                                    "MonedaP": "MXN",
-                                    "Monto": "100.00",
-                                    "TipoCambioP": "1",
-                                    "DoctoRelacionado": [
+                                    FechaPago: req.body.FechaTransferencia,
+                                    FormaDePagoP: req.body.forma_pago,
+                                    MonedaP: (factura.factura_moneda_id == 1) ? "MXN" : "USD",
+                                    Monto: req.body.cheque_monto,
+                                    TipoCambioP: "1",
+                                    DoctoRelacionado: [
                                         {
-                                            "IdDocumento": "bfc36522-4b8e-45c4-8f14-d11b289f9eb7",
-                                            "MonedaDR": "MXN",
-                                            "NumParcialidad": "1",
-                                            "ImpSaldoAnt": "200.00",
-                                            "ImpPagado": "100.00",
-                                            "ImpSaldoInsoluto": "100.00",
-                                            "ObjetoImpDR": "02",
-                                            "EquivalenciaDR": "1",
-                                            "ImpuestosDR": {
-                                                "TrasladosDR": [
-                                                    {
-                                                        "BaseDR": "100.00",
-                                                        "ImpuestoDR": "002",
-                                                        "TipoFactorDR": "Tasa",
-                                                        "TasaOCuotaDR": "0.160000",
-                                                        "ImporteDR": "16.00"
-                                                    }
-                                                ]
-                                            }
+                                            IdDocumento: factura.uuid,
+                                            MonedaDR: (factura.factura_moneda_id == 1) ? "MXN" : "USD",
+                                            NumParcialidad: "1",
+                                            ImpSaldoAnt: factura.factura_total,
+                                            ImpPagado: req.body.cheque_monto,
+                                            ImpSaldoInsoluto: factura.factura_total - req.body.cheque_monto,
+                                            ObjetoImpDR: "04",
+                                            EquivalenciaDR: "1",
                                         }
-                                    ],
-                                    "ImpuestosP": {
-                                        "TrasladosP": [
-                                            {
-                                                "BaseP": "100.00",
-                                                "ImpuestoP": "002",
-                                                "TipoFactorP": "Tasa",
-                                                "TasaOCuotaP": "0.160000",
-                                                "ImporteP": "16.00"
-                                            }
-                                        ]
-                                    }
+                                    ]
                                 }
                             ]
                         }
@@ -126,7 +127,52 @@ export const addIngreso = async (req, res) => {
                 ]
             }
         }
+
+        await axios.post(`${SW_SAPIENS_URL}/api/v1/timbrado`, data, {
+            headers: {
+                'Content-Type': 'application/jsontoxml;',
+                'Authorization': 'Bearer ' + SW_TOKEN
+            }
+        })
+        .then(async (response) => {
+            if(response == 200) {
+                const data = {
+                    cheque_id: 123456,
+                    cheque_empresa_id: req.body.cheque_empresa_id,
+                    cheque_cuenta_id: req.body.cheque_cuenta_id,
+                    TipoCambio: req.body.TipoCambio,
+                    cheque_cliente_id: req.body.cheque_cliente_id,
+                    cheque_monto: req.body.cheque_monto,
+                    cuenta_contable: req.body.cuenta_contable,
+                    cheque_subtotal: req.body.cheque_subtotal,
+                    cuenta_contable2: req.body.cuenta_contable2,
+                    cheque_iva: req.body.cheque_iva,
+                    cuenta_contable3: req.body.cuenta_contable3,
+                    cheque_factura_id: req.body.cheque_factura_id,
+                    tipo_venta: req.body.tipo_venta,
+                    NumFactura: req.body.NumFactura,
+                    FechaTransferencia: req.body.FechaTransferencia,
+                    cheque_comentario: req.body.cheque_comentario,
+                    cheque_ingreso: 1
+                }
+                console.log(response)
+                await uploaToDB(data)
+                req.flash('success', {message: 'Ingreso Timbrado correctamente', title: 'Ingreso Timbrado'})
+                return res.redirect('/dashboard/contabilidad/ingresos/buscar')
+            } else {
+                console.log(response)
+                req.flash('error', {message: 'Ooops! El ingreso no se ha podido timbrar', title: 'Error al timbrar'})
+                return res.redirect('/dashboard/contabilidad/ingresos/buscar')
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+            req.flash('error', {message: 'Ooops! El ingreso no se ha podido timbrar', title: 'Error al timbrar'})
+            return res.redirect('/dashboard/contabilidad/ingresos/buscar')
+        })
     } catch (error) {
-        console.log(error)   
+        console.log(error)
+        req.flash('error', {message: 'Ooops! El ingreso no se ha podido timbrar', title: 'Error al timbrar'})
+        return res.redirect('/dashboard/contabilidad/ingresos/buscar')
     }
 }

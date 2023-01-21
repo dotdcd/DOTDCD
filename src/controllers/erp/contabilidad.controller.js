@@ -299,7 +299,6 @@ export const renderPastContrato = async (req, res) => {
 
         const info = contrato[0][0]
         const firmas = signatures[0]
-        console.log(info)
         return res.render('contabilidad/empleados/contratoDoc', {info, firmas})
     } catch (error) {
         console.log(error)        
@@ -385,7 +384,7 @@ export const renderEMultiempresas = async(req, res) => {
     try {
         const {id} = req.params
         const empresa = await getEmpresaa(id)
-        return res.render('contabilidad/multiempresas/editar', {empresaa})
+        return res.render('contabilidad/multiempresas/editar', {empresa})
     } catch (error) {
         console.log(error)
     }
@@ -471,7 +470,7 @@ export const renderBEditar = async(req, res) => {
 //? Render Egresos
 
 const getEmpresas = async () => {
-    const empresas = await pool.query("SELECT empresa_id, empresa_razon_social FROM multiempresa")
+    const empresas = await pool.query("SELECT empresa_id, empresa_razon_social FROM multiempresa WHERE empresa_estatus_baja = 0")
 
     return empresas[0]
 }
@@ -487,7 +486,7 @@ const getCotizaciones = async () => {
         const cotizaciones = await pool.query("SELECT c.cotizacion_id as id, c.cotizacion_proyecto as proyecto, c.cotizacion_descripcion as descripcion, p.cliente_razon_social as cliente FROM cotizaciones c INNER JOIN clientes p ON p.cliente_id = c.cotizacion_cliente_id")
         let cotizacion = []
         for (const c of cotizaciones[0]) {
-            cotizacion.push([c.id, c.proyecto, c.descripcion, c.cliente, '<input type="radio" name="cheque_cotizacion_id" value="'+c.id+'">'])
+            cotizacion.push([c.id, c.proyecto, c.descripcion, c.cliente, '<input type="radio" class="form-control" name="cheque_cotizacion_id" value="'+c.id+'">'])
         }
 
         return cotizacion
@@ -544,10 +543,10 @@ export const renderEnuevos = async (req, res) => {
 
 const getVEgresos = async () => {
     try {
-        const egreso = await pool.query("SELECT c.cheque_id as id, CONCAT(bc.banco_cuenta_banco, ' - ', bc.banco_cuenta_numero) as cuenta, c.cheque_monto as monto, p.proveedor_razon_social as proveedor, IFNULL(ct.cotizacion_proyecto, 'Proyectos varios') as proyecto, c.cheque_comentario as comentario, DATE_FORMAT(c.cheque_fecha_alta, '%Y-%m-%d') as fecha FROM cheques c INNER JOIN bancos_cuentas bc ON bc.banco_cuenta_id = c.cheque_cuenta_id INNER JOIN proveedores p ON p.proveedor_id = c.cheque_proveedor_id INNER JOIN cotizaciones ct ON c.cheque_cotizacion_id WHERE c.cheque_estatus_baja = 0")
+        const egreso = await pool.query("SELECT c.cheque_id as id, CONCAT(bc.banco_cuenta_banco, ' - ', bc.banco_cuenta_numero) as cuenta, c.cheque_monto as monto, p.proveedor_razon_social as proveedor, IFNULL(ct.cotizacion_proyecto, 'Proyectos varios') as proyecto, c.cheque_comentario as comentario, DATE_FORMAT(c.cheque_fecha_alta, '%Y-%m-%d') as fecha FROM cheques c INNER JOIN bancos_cuentas bc ON bc.banco_cuenta_id = c.cheque_cuenta_id INNER JOIN proveedores p ON p.proveedor_id = c.cheque_proveedor_id LEFT JOIN cotizaciones ct ON c.cheque_cotizacion_id = ct.cotizacion_id WHERE c.cheque_estatus_baja = 0 AND c.cheque_ingreso NOT LIKE '%1%' order BY c.cheque_fecha_alta DESC LIMIT 1000")
         let egresos = []
         for (const e of egreso[0]) {
-            egresos.push([e.id, e.cuenta, e.monto, e.proveedor, e.proyecto, e.comentario, e.fecha, '<a class="btn btn-primary btn-sm" href="/gentext">Contpaq</a><a class="btn btn-primary btn-sm" href="/dashboard/egreso/ver/'+e.id+'">Editar</a>'])
+            egresos.push([e.id, e.cuenta, e.monto, e.proveedor, e.proyecto, e.comentario, e.fecha, '<center><a class="btn btn-primary btn-sm" href="/gentext/'+e.id+'">Contpaq</a><br><br><a class="btn btn-primary btn-sm" href="/dashboard/contabilidad/egresos/editar/'+e.id+'">Editar</a><center>'])
         }
         return egresos.reverse()
     } catch (error) {
@@ -571,7 +570,7 @@ const getFactIngresos = async () => {
         const factura = await pool.query("SELECT f.factura_id as id, c.cliente_razon_social, f.factura_descripcion, DATE_FORMAT(f.factura_fecha_alta, '%Y-%m-%d') as fecha FROM facturas f INNER JOIN clientes c ON c.cliente_id = f.factura_cliente_id WHERE f.factura_estatus_baja = 0")
         let facturas = []
         for (const f of factura[0]) {
-            facturas.push([f.id, f.cliente_razon_social, f.factura_descripcion, f.fecha, '<input type="radio" name="cheque_factura_id" value="'+f.id+'">'])
+            facturas.push([f.id, f.cliente_razon_social, f.factura_descripcion, f.fecha, '<input type="radio" class="form-control" name="cheque_factura_id" value="'+f.id+'">'])
         }
         return facturas.reverse()
     } catch (error) {
@@ -588,6 +587,15 @@ const getClientesInv = async () => {
     }
 }
 
+const getClaveProducto = async () => {
+    try {
+        const clave = await pool.query('SELECT * FROM catalogo_servicio')
+        return clave[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const renderInuevos = async (req, res) => {
     try {
         const empresas = await getEmpresas()
@@ -599,7 +607,9 @@ export const renderInuevos = async (req, res) => {
         const inversion = await getInversiones()
         const erogacion = await getErogaciones()
         const obras = await getObra()
-        return res.render('contabilidad/bancos/ingresos/nuevo', {empresas, clientes, facturas, cuentas, centroCostos, sucursal, inversion, erogacion, obras})
+        const catalogo = await getClaveProducto()
+
+        return res.render('contabilidad/bancos/ingresos/nuevo', {empresas, clientes, facturas, cuentas, centroCostos, sucursal, inversion, erogacion, obras, catalogo})
     } catch (error) {
         console.log(error)
     }
@@ -608,10 +618,10 @@ export const renderInuevos = async (req, res) => {
 //? Render Buscar Ingresos
 const getVIngresos = async () => {
     try {
-        const ingreso = await pool.query("SELECT c.cheque_id as id, CONCAT(bc.banco_cuenta_banco, ' - ', bc.banco_cuenta_numero) as cuenta, c.cheque_monto as monto, p.proveedor_razon_social as proveedor, IFNULL(ct.cotizacion_proyecto, 'Proyectos varios') as proyecto, c.cheque_comentario as comentario, DATE_FORMAT(c.cheque_fecha_alta, '%Y-%m-%d') as fecha FROM cheques c INNER JOIN bancos_cuentas bc ON bc.banco_cuenta_id = c.cheque_cuenta_id INNER JOIN proveedores p ON p.proveedor_id = c.cheque_proveedor_id INNER JOIN cotizaciones ct ON c.cheque_cotizacion_id WHERE c.cheque_estatus_baja = 0 AND c.cheque_ingreso = '1'")
+        const ingreso = await pool.query("SELECT c.cheque_id as id, CONCAT(bc.banco_cuenta_banco, ' - ', bc.banco_cuenta_numero) as cuenta, c.cheque_monto as monto, p.proveedor_razon_social as proveedor, c.cheque_comentario as comentario, DATE_FORMAT(c.cheque_fecha_alta, '%Y-%m-%d') as fecha FROM cheques c INNER JOIN bancos_cuentas bc ON bc.banco_cuenta_id = c.cheque_cuenta_id INNER JOIN proveedores p ON p.proveedor_id = c.cheque_proveedor_id WHERE c.cheque_ingreso NOT LIKE 1 ORDER BY `id` DESC")
         let ingresos = []
-        for (const e of ingreso[0]) {
-            egresos.push([e.id, e.cuenta, e.monto, e.proveedor, e.proyecto, e.comentario, e.fecha, '<a class="btn btn-primary btn-sm" href="/dashboard/ingresos/ver/'+e.id+'">ver</a>'])
+        for (const i of ingreso[0]) {
+            ingresos.push([i.id, i.cuenta, i.monto, i.proveedor, i.comentario, i.fecha, '<center><a class="btn btn-primary btn-sm" href="/dashboard/contabilidad/ingresos/editar/'+i.id+'">Editar</a></center>'])
         }
         return ingresos.reverse()
     } catch (error) {
@@ -623,6 +633,53 @@ export const renderIngresosbuscar = async (req, res) => {
     try {
         const ingresos = await getVIngresos()
         return res.render('contabilidad/bancos/ingresos/buscar', {ingresos})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const renderIngresosEditar = async (req, res) => {
+    try{
+        const empresas = await getEmpresas()
+        const clientes = await getClientesInv()
+        const facturas = await getFactIngresos()
+        const cuentas = await getCuentas()
+        const centroCostos = await getCentrodeCosto()
+        const sucursal = await getSucursal()
+        const inversion = await getInversiones()
+        const erogacion = await getErogaciones()
+        const obras = await getObra()
+        const e = await chequeEgresosIngresos(req.params.id)
+        console.log(e)
+        return res.render('contabilidad/bancos/ingresos/editar', {empresas, clientes, facturas, cuentas, centroCostos, sucursal, inversion, erogacion, obras, e})
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+const chequeEgresosIngresos = async (id) => {
+    try {
+        const egreso = await pool.query("SELECT * FROM cheques WHERE cheque_id = ?", [id])
+        return egreso[0][0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const renderEEditar = async (req, res) => {
+    try {
+        const empresas = await getEmpresas()
+        const proveedores = await getProveedores()
+        const cotizaciones = await getCotizaciones()
+        const cuentas = await getCuentas()
+        const centroCostos = await getCentrodeCosto()
+        const sucursal = await getSucursal()
+        const inversion = await getInversiones()
+        const erogacion = await getErogaciones()
+        const obras = await getObra()
+        const e = await chequeEgresosIngresos(req.params.id)
+        return res.render('contabilidad/bancos/egresos/editar', {empresas, proveedores, cotizaciones, cuentas, centroCostos, sucursal, inversion, erogacion, obras, e})
     } catch (error) {
         console.log(error)
     }

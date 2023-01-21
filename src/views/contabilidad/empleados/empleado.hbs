@@ -22,7 +22,7 @@
                             <div class="row">
                                 <div class="container" style="width: 100% !important;">
                                     <div class="d-flex flex-column align-items-center justify-content-center p-4">
-                                <img src="https://cdn.pixabay.com/photo/2016/08/31/11/54/icon-1633249_960_720.png" class="rounded-circle shadow-2 img-thumbnail mb-3" alt="" style="height: 150px; width:150px;">
+                                <img id="profile-img" src="https://cdn.pixabay.com/photo/2016/08/31/11/54/icon-1633249_960_720.png" class="rounded-circle shadow-2 img-thumbnail mb-3" alt="" style="height: 150px; width:150px;">
                                 <h5 class="mb-0 fw-700 text-center mt-3">
                                {{empleado.empleado_nombre}} {{empleado.empleado_paterno}} {{empleado.empleado_materno}}
                             </h5>                         
@@ -490,6 +490,19 @@
     const contratos = {{{ json pContracts }}}
     const docs = {{{ json files }}}
     const dc = {{{ json documents }}}
+
+
+
+
+var img = document.querySelector("img");
+var foto = docs[0][1];
+console.log(foto);
+var img = document.getElementById("profile-img");
+if(foto){
+    img.src = '/src/uploads/6/'+foto;
+}else{
+    img.src = "https://cdn.pixabay.com/photo/2016/08/31/11/54/icon-1633249_960_720.png";
+}
 
     function showModalDel(id) {
 		swal.fire({

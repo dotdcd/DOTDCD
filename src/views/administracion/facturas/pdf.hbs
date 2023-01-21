@@ -138,11 +138,11 @@
             <!-- begin invoice-company -->
             <div class="invoice-company text-inverse f-w-600">
                 <span class="pull-right hidden-print">
-                    <img style="height: 55px; width: 55px" src="https://dotdcd.com/img/icon_datos.png" alt="">
-                    <img style="height: 55px; width: 55px" src="https://www.dotdcd.com/img/icon_redes.png" alt="">
-                    <img style="height: 55px; width: 55px" src="https://www.dotdcd.com/img/icon_deteccion.png" alt="">
-                    <img style="height: 55px; width: 55px" src="https://dotdcd.com/img/icon_cctv.png" alt="">
-                    <img style="height: 55px; width: 55px" src="https://dotdcd.com/img/icon_acceso.png" alt="">
+                    <img style="height: 55px; width: 55px" src="/img/iconos/icon_datos.png" alt="">
+                    <img style="height: 55px; width: 55px" src="/img/iconos/icon_redes.png" alt="">
+                    <img style="height: 55px; width: 55px" src="/img/iconos/icon_deteccion.png" alt="">
+                    <img style="height: 55px; width: 55px" src="/img/iconos/icon_cctv.png" alt="">
+                    <img style="height: 55px; width: 55px" src="/img/iconos/icon_acceso.png" alt="">
                 </span>
                 <img style="height: 55px; width: 160px" src="/img/logo-dot.png" alt="">
             </div>
@@ -153,7 +153,7 @@
                 <div class="invoice-from">
                     <address class="m-t-5 m-b-5">
                         <strong>Cliente:</strong> {{cliente.cliente_razon_social}} <br>
-                        <strong>RFC:</strong> {{cliente_rfc}} <br>
+                        <strong>RFC:</strong> {{cliente.cliente_rfc}} <br>
                         <strong>Domicilio:</strong> {{cliente.cliente_calle}} No. {{cliente.cliente_numero}}, {{cliente.cliente_colonia}}, {{cliente.cliente_codigo_postal}} {{cliente.cliente_municipio}}, {{cliente.cliente_estado}} <br>
                         <strong>Fecha y Hora de Emisión:</strong> {{taxInfo.factura_fecha_alta}} <br>
                         <strong>Lugar de Expedición:</strong> 64750 <br>
@@ -226,7 +226,7 @@
                             </div>
                             <div class="sub-price">
                                 <small>I.V.A</small>
-                                <span class="text-inverse">${{{money taxInfo.prefactura_iva}}}</span>
+                                <span class="text-inverse">${{{money taxInfo.factura_iva}}}</span>
                             </div>
                         </div>
                     </div>
@@ -313,6 +313,7 @@
     integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+
     function printPdf() {
         var element = document.getElementById('container');
         html2pdf()
@@ -337,6 +338,7 @@
             .save()
             .catch(err => console.log(err));
     }
+    
 </script>
 
 {{/section}}
