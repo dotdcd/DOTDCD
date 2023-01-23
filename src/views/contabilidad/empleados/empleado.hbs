@@ -490,16 +490,27 @@
     const contratos = {{{ json pContracts }}}
     const docs = {{{ json files }}}
     const dc = {{{ json documents }}}
-
-
+    const id = {{empleado.empleado_id}}
+    docs.sort()
+let rutaFoto;
+for(let i = 0; i < docs.length; i++) {
+    if(docs[i][0] === "foto") {
+        rutaFoto = docs[i][1];
+        break;
+    }
+}
+if(rutaFoto) {
+    console.log("La propiedad foto existe con la ruta: " + rutaFoto);
+} else {
+    console.log("La propiedad foto no existe");
+}
 
 
 var img = document.querySelector("img");
-var foto = docs[0][1];
-console.log(foto);
 var img = document.getElementById("profile-img");
-if(foto){
-    img.src = '/src/uploads/6/'+foto;
+if(rutaFoto){
+    img.src = '/src/uploads/'+id+'/'+rutaFoto;
+    //img.src = '/img/AQG.jpeg'
 }else{
     img.src = "https://cdn.pixabay.com/photo/2016/08/31/11/54/icon-1633249_960_720.png";
 }

@@ -62,6 +62,10 @@ const getProdProyecto = async (id) => {
     const productos = await pool.query("SELECT * FROM cotizaciones_insumos JOIN productos ON cotizaciones_insumos.insumo_producto_id = productos.producto_id WHERE cotizaciones_insumos.insumo_cotizacion_id =" + id)
     return productos[0]
 }
+const getTipos = async (id) => {
+    const tipos = await pool.query("SELECT * FROM cotizaciones_tipos WHERE tipo_cotizacion_id =" + id)
+    return tipos[0]
+}
 export const renderOpProyEditar = async (req, res) => {
     try {
         const moneda = await getMoneda()
@@ -78,7 +82,9 @@ export const renderOpProyEditar = async (req, res) => {
         const disciplinass = await getDisciplinaProy(id)
         const niveles = await getNiveles(id)
         const prodProyecto = await getProdProyecto(id)
-        res.render('operacion/proyectos/editar', { p, clientes, sucursales, empresaa, moneda, empleados, clase, producto, disciplinass, niveles, prodProyecto })
+        const tipos = await getTipos(id)
+        console.log(tipos)
+        res.render('operacion/proyectos/editar', { p, clientes, sucursales, empresaa, moneda, empleados, clase, producto, disciplinass, niveles, prodProyecto, tipos })
     } catch (error) {
         console.log(error)
     }

@@ -130,38 +130,9 @@
                                                 </table>
 
 
-<div id="accordion">
-    {{#each disciplinass}}
-    <div class="card">
-        <div class="card-header" id="heading{{@index}}">
-            <h5 class="mb-0">
-                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapse{{@index}}" aria-expanded="true" aria-controls="collapse{{@index}}">
-                    {{diciplina_descripcion}}
-                </button>
-            </h5>
-        </div>
-        <div id="collapse{{@index}}" class="collapse" aria-labelledby="heading{{@index}}" data-parent="#accordion">
-            <div class="card-body">
-                <table class="table table-success border-rounded">
-                    {{#each niveles}}
-                    <tr>
-                        <th>{{nivel_descripcion}}</th>
-                        {{#each prodProyectoFiltrado}}
-                        {{#if nivel_id  ../nivel_id}}
-                        <td>{{producto_descripcion}}</td>
-                        <td>{{producto_codigo}}</td>
-                        <td>{{producto_fecha}}</td>
-                        <td>{{producto_precio}}</td>
-                        {{/if}}
-                        {{/each}}
-                    </tr>
-                    {{/each}}
-                </table>
-            </div>
-        </div>
-    </div>
-    {{/each}}
-</div>
+                                            <table class="table">
+
+                                            </table>
 
 
 
@@ -331,8 +302,19 @@
 
                                                 
                 const familias = {{{json disciplinass}}}
+                const tipos = {{{json tipos}}}
                 const niveles = {{{json niveles}}}
                 const productos = {{{json prodProyecto}}}
+
+                familias.sort()
+                tipos.sort()
+                niveles.sort()
+                productos.sort()
+                
+                console.log(familias)
+                console.log(tipos)
+                console.log(niveles)
+                console.log(productos)
                 
 
 

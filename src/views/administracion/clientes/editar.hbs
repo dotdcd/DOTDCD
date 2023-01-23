@@ -85,16 +85,20 @@
                                                         placeholder="Ingresa el contacto de cobranza" name="cliente_cobranza" value="{{cliente.cliente_cobranza}}">
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <span>Estatus</span>
-                                                    <select name="cliente_estatus_baja" class="form-control" id="">
-                                                        <option value="0" {{#if cliente.cliente_estatus_baja}} selected {{/if}}>Activo</option>
-                                                        <option value="1" {{#if cliente.cliente_estatus_baja}} selected {{/if}}>Inactivo</option>
-                                                    </select>
+                                                    <span>Regimen Fiscal</span>
+                                                    <input type="text" class="form-control" placeholder="Ingrese el regimen fiscal" value="{{cliente.cliente_regimen_fiscal}}" name="cliente_regimen_fiscal">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <span> Correo de Cliente </span>
                                                     <input type="text" id="simpleinput" class="form-control mb-1"
                                                         placeholder="Ingresa el correo del cliente" name="cliente_email" value="{{cliente.cliente_email}}">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span>Estatus</span>
+                                                    <select name="cliente_estatus_baja" class="form-control" id="">
+                                                        <option value="0" {{#if cliente.cliente_estatus_baja}} selected {{/if}}>Activo</option>
+                                                        <option value="1" {{#if cliente.cliente_estatus_baja}} selected {{/if}}>Inactivo</option>
+                                                    </select>
                                                 </div>
                                     
                                             </div>
