@@ -205,6 +205,8 @@ const vPrefactura = async () => {
 
 
 
+
+
 export const renderProgPrefacturar = async (req, res) => {
     try {
         const sucursal = await getSucursal()
@@ -220,7 +222,7 @@ export const renderProgPrefacturar = async (req, res) => {
         const pPrefacturas = await vPrefactura()
 
         const cotizacion = proyecto.cotizacion
-
+        const empresaF = getcurrentEmpresa()
         return res.render('administracion/facturasprefacturas/programarPrefactura', { sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta, pPrefacturas })
     } catch (error) {
         console.log(error)
@@ -228,7 +230,12 @@ export const renderProgPrefacturar = async (req, res) => {
 }
 //! End render
 
+//? Falta obtener la empresa actual para hacer la factura
 
+export const getcurrentEmpresa = () => {
+    const empresa = pool.query('SELECT cheque_empresa_id FROM cheques WHERE cheque_id ')
+    return empresa[0][0].empresa_id
+}
 //? Render prefacturar view
 
 export const renderPrefacturas = async (req, res) => {
@@ -595,6 +602,7 @@ export const verFactura = async (req, res) => {
         const xml = await getXml(prefactura.uuid)
         const cotizacion = proyecto.cotizaciones
         const pagos = await getPagos()
+        console.log(cotizacion)
         return res.render('administracion/facturas/ver', { sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta, prefactura, xml, pagos })
     } catch (error) {
         console.log(error)

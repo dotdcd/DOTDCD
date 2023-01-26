@@ -130,8 +130,47 @@
                                                 </table>
 
 
-                                            <table class="table">
+                                            <table class="table table-success text-center" id="productos">
+                                                <tr>
+                                                    <th>Producto</th>
+                                                    <th>Marca</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Material</th>
+                                                    <th>M.O.</th>
+                                                    <th>Subtotal</th>
+                                                    <th>Acciones</th>
+                                                    
+                                                </tr>
+                                                <tbody id="table-body">
+                                                {{#each prodProyecto}}
+                                                <tr>
+                                                    <td>{{producto_descripcion}}</td>
+                                                    <td>{{marca_descripcion}}</td>
+                                                    <td>{{insumo_cantidad}}</td>
+                                                    <td>{{tipo_material}}</td>
+                                                    <td>{{producto_mo}}</td>
+                                                    <td id="subtotal">{{producto_precio_tarjeta}}</td>
+                                                    <td><button type="button" class="btn btn-danger remove-row-btn" onclick="calcularTotal()">Eliminar</button></td>
+                                                </tr>
+                                                {{/each}}
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td id="total"></td>
+                                                    <td></td>
 
+                                                </tr>
+                                                </tbody>
+                                               
+                                                
+                                                <tr>
+                                                    <td><button id="add-row-btn" type="button" class="btn btn-primary">Agregar producto</button></td>
+
+                                                </tr>
+                                                
                                             </table>
 
 
@@ -269,29 +308,16 @@
     </div>
 </div>
 
-<table id="taba" class="table table-striped">
-    <thead>
-        <tr>
-            <th>Familia</th>
-            <th>Nivel</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Unidad</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-            <th>Importe</th>
-            <th>IVA</th>
-            <th>Total</th>
-            <th>Estatus Baja</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
+<table id="tabla" class="table table-striped">
+    
+    
 </table>
-
+<div id="contenido"></div>
 
 {{#section 'scripts'}}
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <style>
     .counter {
         text-align: center;
@@ -300,46 +326,144 @@
 </style>
 <script>
 
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var subtotals = document.querySelectorAll("td[id='subtotal']");
+  var sum = 0;
+  for (var i = 0; i < subtotals.length; i++) {
+    sum += parseFloat(subtotals[i].textContent);
+  }
+  document.getElementById("total").textContent = sum.toLocaleString("es-MX", {style: "currency", currency: "MXN"});
+});
+
+// onkeyup calcular total
+
+addEventListener("click", function() {
+  var subtotals = document.querySelectorAll("td[id='subtotal']");
+  var sum = 0;
+  for (var i = 0; i < subtotals.length; i++) {
+    sum += parseFloat(subtotals[i].textContent);
+  }
+  document.getElementById("total").textContent = sum.toLocaleString("es-MX", {style: "currency", currency: "MXN"});
+});
+function calcularTotal() {
+  var subtotals = document.querySelectorAll("td[id='subtotal']");
+  var sum = 0;
+  for (var i = 0; i < subtotals.length; i++) {
+    sum += parseFloat(subtotals[i].textContent);
+  }
+    document.getElementById("total").textContent = sum.toLocaleString("es-MX", {style: "currency", currency: "MXN"});
+
+}
+
+ const addRowBtn = document.getElementById("add-row-btn");
+  const tableBody = document.getElementById("table-body");
+
+
+ addRowBtn.addEventListener("click", function() {
+    
+    Swal.fire({
+  title: 'Buscar Producto',
+  input: 'text',
+  inputAttributes: {
+    autocapitalize: 'off'
+  },
+  showCancelButton: true,
+  confirmButtonText: 'Buscar',
+  showLoaderOnConfirm: true,
+  preConfirm: (login) => {
+    return fetch(`/getProducto`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.statusText)
+        }
+        return response.json()
+      })
+      .catch(error => {
+        Swal.showValidationMessage(
+          `Request failed: ${error}`
+        )
+      })
+  },
+  allowOutsideClick: () => !Swal.isLoading()
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire({
+      title: `No se pudo encontrar el producto`,
+      imageUrl: result.value.avatar_url
+    })
+  }
+})
+} );
+
+tableBody.addEventListener("click", function(event) {
+    if (event.target.classList.contains("remove-row-btn")) {
+      event.target.parentNode.parentNode.remove();
+    }
+  });
+
+//desplegar lista de productos de bajo del modal
+
+
+/*
+  addRowBtn.addEventListener("click", function() {
+    const newRow = `
+      <tr>
+        <td>Nuevo producto</td>
+        <td>Nueva marca</td>
+        <td>0</td>
+        <td>Nuevo material</td>
+        <td>$0</td>
+        <td>$0</td>
+        <td><button type class="btn btn-danger remove-row-btn">Eliminar</button></td>
+      </tr>
+    `;
+    tableBody.insertAdjacentHTML("beforeend", newRow);
+  });
+
+  
+
+
+*/
+
+
+
+
+
+
+
+
+
+
                                                 
                 const familias = {{{json disciplinass}}}
                 const tipos = {{{json tipos}}}
                 const niveles = {{{json niveles}}}
-                const productos = {{{json prodProyecto}}}
+                const producto = {{{json prodProyecto}}}
 
-                familias.sort()
-                tipos.sort()
-                niveles.sort()
-                productos.sort()
                 
-                console.log(familias)
-                console.log(tipos)
-                console.log(niveles)
-                console.log(productos)
+                familias.sort(function(a, b) {
+                    return a.orden - b.orden;
+                });
+                tipos.sort(function(a, b) {
+                    return a.orden - b.orden;
+                });
+                niveles.sort(function(a, b) {
+                    return a.orden - b.orden;
+                });
+                producto.sort(function(a, b) {
+                    return a.orden - b.orden;
+                });
                 
 
 
-            for(let i = 0 ; i < 12; i++){
-                
-                fa = familias[i].diciplina_descripcion
-                orden = familias[i].orden
-                
-                for(let j = 0 ; j < 12; j++){
-                    
-                }
-
-                console.log(fa, orden)               
-            }
-           
 
 
 
 
 
-
-
-
-
-
+ 
 
 
 

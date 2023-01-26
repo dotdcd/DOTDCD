@@ -38,6 +38,16 @@ export const updProyecto = async (req, res) => {
   }
 }
 */
+export const getProducto = async (req, res) => {
+  try {
+    const searchText = req.query.searchText;
+    const result = await pool.query(`SELECT * FROM productos WHERE producto_descripcion LIKE '%${searchText}%' AND producto_estatus_baja = 0 LIMIT 10`);
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+    res.json({ message: "Something went wrong" });
+  }
+}
 export const delProyecto = async (req, res) => {
     const id = req.params.id
     console.log(id)

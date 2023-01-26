@@ -394,3 +394,10 @@ export const renderProyectos = async (req, res) => {
 res.render('analytics/proyectos')
 
 } 
+
+
+//?Inicia reportes de departamentos
+
+export const renderEdificios = async (req, res) => {
+    res.render('analytics/edificios')
+}

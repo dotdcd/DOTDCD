@@ -30,7 +30,7 @@
                             </label><br /><br />
 
                             <div class="row mb-6">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <span>Empresa</span><br>
                                     <input type="text" id="b1" class="form-control" placeholder="Buscar empresa ">
                                     <select name="cheque_empresa_id" id="s1" class="form-control" >
@@ -40,7 +40,7 @@
                                         {{/each}}
                                     </select><br />
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <span>Cuenta de Banco</span>
                                     <input type="text" id="b2" class="form-control" placeholder="Buscar cuenta de banco">
                                     <select name="cheque_cuenta_id" id="s2" class="form-control">
@@ -50,15 +50,16 @@
                                         {{/each}}
                                     </select><br />
                                 </div>
+                                <div class="col-4">
+                                    <span>Tipo de Cambio</span>
+                                    <input type="text" class="form-control" name="TipoCambio" value="{{e.TipoCambio}}"> <br>
+                                </div>
                             </div>
 
 
                             <div class="row mb-6">
-                                <div class="col-6">
-                                    <span>Tipo de Cambio</span>
-                                    <input type="text" class="form-control" name="TipoCambio" value="{{e.TipoCambio}}"> <br>
-                                </div>
-                                <div class="col-6">
+                                
+                                <div class="col-4">
                                     <span>Proveedor</span>
                                     <input type="text" id="b3" class="form-control" placeholder="Buscar proveedor">
                                     <select name="cheque_proveedor_id" id="s3" class="form-control">
@@ -68,14 +69,12 @@
                                         {{/each}}
                                     </select><br />
                                 </div>
-                            </div>
-
-                            <div class="row mb-6">
-                                <div class="col-6">
+                            
+                                <div class="col-4">
                                     <span>Monto del Cheque</span>
                                     <input type="text" class="form-control" name="cheque_monto" id="total" onkeyup="calcular()" value="{{e.cheque_monto}}"> <br>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <span>Cuenta Contable Banco</span>
                                     <input type="text" id="b4" class="form-control" placeholder="Buscar cuenta contable de banco">
                                     <select name="cuenta_contable" id="s4" class="form-control">
@@ -88,11 +87,11 @@
                             </div>
 
                             <div class="row mb-6">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <span>Subtotal</span>
                                     <input type="text" class="form-control" name="cheque_subtotal" id="subtotal"> <br>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <span>Cuenta Contable Venta</span>
                                     <input type="text" id="b5" class="form-control" placeholder="Buscar cuenta contable venta">
                                     <select name="cuenta_contable2" id="s5" class="form-control">
@@ -102,14 +101,16 @@
                                         {{/each}}
                                     </select><br />
                                 </div>
-                            </div>
-
-                            <div class="row mb-6">
-                                <div class="col-6">
+                            
+                                <div class="col-4">
                                     <span>IVA</span>
                                     <input type="text" class="form-control" name="cheque_iva" id="iva"> <br>
                                 </div>
-                                <div class="col-6">
+                                
+                            </div>
+
+                            <div class="row mb-6">
+                                <div class="col-4">
                                     <span>Cuenta Contable Impuesto</span>
                                     <input type="text" id="b6" class="form-control" placeholder="Buscar cuenta contable impuesto">
                                     <select name="cuenta_contable3" id="s6" class="form-control">
@@ -119,27 +120,31 @@
                                         {{/each}}
                                     </select><br />
                                 </div>
-                            </div>
-
-                            <div class="row mb-6">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <span>Retención IVA</span>
                                     <input type="text" class="form-control" name="cheque_retencion" value="{{e.cheque_retencion}}"> <br>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <span>Retención ISR</span>
                                     <input type="text" class="form-control" name="retencion_isr" value="{{e.retencion_isr}}"> <br>
                                 </div>
-                                <div class="col-6">
+                                
+                                
+                            </div>
+                            <div class="row mb-6">
+                                <div class="col-4">
                                     <span>Folio</span>
                                     <input type="text" class="form-control" name="cheque_folio" value="{{e.cheque_folio}}"> <br>
                                 </div>
-                                <div class="col-md-6 col-sm-6 col-lg-6 mb-3 text-center">
-                                <label for="" class="font-weight-bold">Proyecto / Razón Social</label><br>
-                                <a class="btn btn-info disabled" data-toggle="collapse" href="#multiCollapseExample1"
-                                    role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Desplegar
-                                    Tabla</a>
-                            </div>
+                                <div class="col-4">
+                                    <label>Numero de Documento</label>
+                                    <input type="text" class="form-control" name="cheque_documento" value="{{e.cheque_documento}}"> <br>
+                                </div>
+                                <div class="col-4">
+                                    <label>Fecha de transferencia</label>
+                                    <input type="date" class="form-control" name="FechaTransferencia" value="{{e.FechaTransferencia}}">
+
+                                </div>
                             </div>
  
                             
@@ -147,25 +152,9 @@
                             <div class="col-md-12 col-sm-12 col-lg-12 mb-3">
                                 <div class="collapse multi-collapse" id="multiCollapseExample1">
                                     <div class="card card-body">
-                                        <label for="" class="font-weight-bold">Cotizacion /
-                                            Proyecto</label><br>
-                                        <!-- datatable start -->
-                                        <table id="cotizaciones"
-                                            class="table table-bordered table-hover table-striped w-100">
-                                            <thead class="bg-primary-600">
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Proyecto</th>
-                                                    <th>Descripcion</th>
-                                                    <th>Cliente</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            </tbody>
-                                        </table>
-                                        <!-- datatable end -->
+                                        <label for="" class="font-weight-bold">Cotizacion / Proyecto</label><br>
+                                        <label>{{e.cheque_cotizacion_id }}</label>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -237,20 +226,10 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-6">
-                                <div class="col-6">
-                                    <label>Numero de Documento</label>
-                                    <input type="text" class="form-control" name="cheque_documento" value="{{e.cheque_documento}}"> <br>
-                                </div>
-                                <div class="col-6">
-                                    <label>Fecha de transferencia</label>
-                                    <input type="date" class="form-control" name="FechaTransferencia" value="{{e.FechaTransferencia}}">
-
-                                </div>
-                            </div>
+                            
 
                             <label>Comentarios</label>
-                            <textarea class="form-control" name="cheque_comentario" rows="4" cols="50" value="{{e.cheque_comentario}}"></textarea><br>
+                            <textarea class="form-control" name="cheque_comentario" disabled rows="4" cols="50" style="resize: none;" value="{{e.cheque_comentario}}"></textarea><br>
 
                             <div class="row mb-6">
                                 <div class="col-6">
@@ -276,7 +255,9 @@
 
 {{#section 'scripts'}}
 <script>
-    
+    const coments = {{{json e.cheque_comentario}}};
+    const comentario = document.querySelector('textarea[name="cheque_comentario"]');
+    comentario.value = coments;
   function calcular(){
     var total = document.getElementById('total').value;
 

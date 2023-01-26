@@ -59,7 +59,7 @@ const getNiveles = async (id) => {
 }
 
 const getProdProyecto = async (id) => {
-    const productos = await pool.query("SELECT * FROM cotizaciones_insumos JOIN productos ON cotizaciones_insumos.insumo_producto_id = productos.producto_id WHERE cotizaciones_insumos.insumo_cotizacion_id =" + id)
+    const productos = await pool.query("SELECT cotizaciones_insumos.*, productos.*, marcas.*, COALESCE(tipos_material.tm_tipo, '- -') as tipo_material FROM cotizaciones_insumos LEFT JOIN productos ON cotizaciones_insumos.insumo_producto_id = productos.producto_id LEFT JOIN marcas ON productos.producto_marca_id = marcas.marca_id LEFT JOIN tipos_material ON productos.producto_material_tipo = tipos_material.tm_id WHERE cotizaciones_insumos.insumo_cotizacion_id =" + id)
     return productos[0]
 }
 const getTipos = async (id) => {
@@ -83,7 +83,6 @@ export const renderOpProyEditar = async (req, res) => {
         const niveles = await getNiveles(id)
         const prodProyecto = await getProdProyecto(id)
         const tipos = await getTipos(id)
-        console.log(tipos)
         res.render('operacion/proyectos/editar', { p, clientes, sucursales, empresaa, moneda, empleados, clase, producto, disciplinass, niveles, prodProyecto, tipos })
     } catch (error) {
         console.log(error)
@@ -109,18 +108,19 @@ export const renderOpProyBuscar = async (req, res) => {
 //? Render Requisiciones
 export const renderOpReqBuscar = async (req, res) => {
     try {
-        const rqc = await pool.query("SELECT r.requisicion_id as id, COALESCE(r.requisicion_id_remplazada, ' ') as requisicion_id_remplazada, r.requisicion_comentarios as comentarios, c.cotizacion_descripcion as cotizacion, CONCAT(e.empleado_nombre, ' ', e.empleado_paterno, ' ', e.empleado_materno) as empleado, DATE_FORMAT(r.requisicion_fecha, '%Y-%m-%d') as fecha FROM requisiciones r INNER JOIN cotizaciones c ON c.cotizacion_id = r.requisicion_cotizacion_id INNER JOIN empleados e ON e.empleado_id = r.requisicion_empleado_id")
+        const rqc = await pool.query("SELECT r.requisicion_id as id, COALESCE(r.requisicion_id_remplazada, ' ') as requisicion_id_remplazada, r.requisicion_comentarios as comentarios, c.cotizacion_descripcion as cotizacion, CONCAT(e.empleado_nombre, ' ', e.empleado_paterno, ' ', e.empleado_materno) as empleado, COALESCE(DATE_FORMAT(r.requisicion_fecha, '%Y-%m-%d'), 'sin fecha registrada') as fecha, rt.requisicion_tipo_descripcion as tipo FROM requisiciones r INNER JOIN cotizaciones c ON c.cotizacion_id = r.requisicion_cotizacion_id INNER JOIN empleados e ON e.empleado_id = r.requisicion_empleado_id INNER JOIN requisiciones_tipos rt ON r.tipo_id = rt.requisicion_tipo_id ORDER BY r.requisicion_id DESC LIMIT 1500")
         let requisiciones = []
         for (const r of rqc[0]) {
-            requisiciones.push([r.id, r.comentarios, r.cotizacion, r.empleado, r.fecha, r.comentarios, r.requisicion_id_remplazada, '<center><a href="/dashboard/operacion/requerimientos/editar/' + r.id + '" class="btn btn-lg btn-outline-success m-1" "><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delRequisicion(' + r.id + ')"><i class="fal fa-trash-alt"></i></button></center>'])
+            requisiciones.push([r.id, r.comentarios, r.cotizacion, r.empleado, r.fecha, r.tipo, r.requisicion_id_remplazada, '<center><a href="/dashboard/operacion/requerimientos/editar/' + r.id + '" class="btn btn-lg btn-outline-success m-1" "><i class="fal fa-sync"></i></a>  <button type="button" class="btn btn-lg btn-outline-danger" onClick="delRequisicion(' + r.id + ')"><i class="fal fa-trash-alt"></i></button></center>'])
         }
+        requisiciones.reverse()
         res.render('operacion/proyectos/requisiciones/buscar', { requisiciones })
     } catch (error) {
         console.log(error)
     }
 }
 const getRequisiciones = async () => {
-    const requisiciones = await pool.query("SELECT requisicion_id, requisicion_comentarios FROM requisiciones ORDER BY requisicion_id DESC")
+    const requisiciones = await pool.query("SELECT requisicion_id, requisicion_comentarios FROM requisiciones WHERE requisicion_comentarios != '' ORDER BY requisicion_id DESC")
     return requisiciones[0]
 }
 export const renderOpReqNuevo = async (req, res) => {
@@ -165,7 +165,7 @@ const getFamilias = async () => {
 }
 
 const getRequisicion = async (id) => {
-    const requisicion = await pool.query("SELECT requisiciones.requisicion_id, requisiciones.tipo_id, requisiciones.requisicion_comentarios, requisiciones.requisicion_cotizacion_id, requisiciones.requisicion_diciplina_id, requisiciones.requisicion_empleado_id, requisiciones.requisicion_empleado_id, DATE_FORMAT(requisiciones.requisicion_fecha, '%Y-%m-%d') as fecha, familias.familia_descripcion, cotizaciones.cotizacion_id, cotizaciones.cotizacion_proyecto, CONCAT(empleados.empleado_nombre, ' ', empleados.empleado_paterno, ' ', empleados.empleado_materno) as nombre_completo, requisicion_inversion_id  FROM requisiciones INNER JOIN familias ON requisiciones.requisicion_diciplina_id = familias.familia_id INNER JOIN cotizaciones ON requisiciones.requisicion_cotizacion_id = cotizaciones.cotizacion_id INNER JOIN empleados ON requisiciones.requisicion_empleado_id = empleados.empleado_id WHERE requisiciones.requisicion_id = ? ", [id])
+    const requisicion = await pool.query("SELECT requisiciones.requisicion_id, requisiciones.tipo_id, requisiciones.requisicion_comentarios, requisiciones.requisicion_cotizacion_id, requisiciones.requisicion_diciplina_id, requisiciones.requisicion_empleado_id, requisiciones.requisicion_empleado_id, DATE_FORMAT(IFNULL(requisiciones.requisicion_fecha, ''), '%Y-%m-%d') as fecha, familias.familia_descripcion, cotizaciones.cotizacion_id, cotizaciones.cotizacion_proyecto, CONCAT(empleados.empleado_nombre, ' ', empleados.empleado_paterno, ' ', empleados.empleado_materno) as nombre_completo, requisicion_inversion_id  FROM requisiciones INNER JOIN familias ON requisiciones.requisicion_diciplina_id = familias.familia_id INNER JOIN cotizaciones ON requisiciones.requisicion_cotizacion_id = cotizaciones.cotizacion_id INNER JOIN empleados ON requisiciones.requisicion_empleado_id = empleados.empleado_id WHERE requisiciones.requisicion_id = ? ", [id])
     return requisicion[0][0]
 }
 
@@ -179,6 +179,12 @@ const getCcliente = async (id) => {
     const cliente = await pool.query("SELECT clientes.cliente_razon_social FROM cotizaciones INNER JOIN clientes ON cotizaciones.cotizacion_cliente_id = clientes.cliente_id WHERE cotizaciones.cotizacion_id = ?" , [id])
     return cliente[0][0]
 }
+
+const getLista = async (id) => { 
+    const lista = await pool.query("SELECT producto_descripcion, marca_descripcion, partida_requisicion_id, partida_producto_id, partida_cantidad, partida_ultimamodificacion, producto_modelo, partida_cantidad as requerido ,  CASE  WHEN ocd.orden_fecha_entrega IS NULL THEN 'sin fecha registrada'  ELSE LEFT (ocd.orden_fecha_entrega, 10)  END AS orden_fecha_entrega,  ifnull(oc.orden_id, 0) as orden_id  FROM requisiciones_partidas  JOIN productos ON producto_id = partida_producto_id  JOIN marcas ON marca_id = producto_marca_id  LEFT JOIN ordenes_compra oc ON oc.orden_requisicion_id = partida_requisicion_id  LEFT JOIN ordenes_compra_detalle ocd ON ocd.detalle_orden_id = oc.orden_id AND ocd.detalle_producto_id = partida_producto_id  WHERE partida_requisicion_id ="+id+"  ORDER BY partida_oden")
+        return lista[0]
+}
+
 export const renderOpReqEditar = async (req, res) => {
     try {
         const { id } = req.params.id
@@ -191,12 +197,13 @@ export const renderOpReqEditar = async (req, res) => {
         const r = await getRequisicion(req.params.id)
         const clienteA = await getCcliente(id)
         const info = await getInfo(req.params.id)
-        console.log(info)
-        return res.render('operacion/proyectos/requisiciones/editar', { clientes, empleados, cotizaciones, empresas, inversion, familias, r, clienteA })
+        const lista = await getLista(req.params.id)
+        return res.render('operacion/proyectos/requisiciones/editar', { clientes, empleados, cotizaciones, empresas, inversion, familias, r, clienteA, info, lista })
     } catch (error) {
         console.log(error)
     }
 }
+
 //! Render Requisiciones
 
 //? render proyecto atuorizado

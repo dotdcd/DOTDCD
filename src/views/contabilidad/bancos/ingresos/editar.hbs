@@ -3,7 +3,7 @@
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
                 <h2>
-                    <span class="fw-300"><strong>Ver</strong> <i>Egreso</i></span>
+                    <span class="fw-300"><strong>Ver</strong> <i>Ingresos</i></span>
                 </h2>
                 <div class="panel-toolbar">
                     <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
@@ -26,7 +26,7 @@
                     <form class="form-group" method="post" action="/addEgreso">
                         <div class="container">
                             <label class="form-label col-12" for="simpleinput">
-                                <h3 class="text-center">Egresos</h3>
+                                <h3 class="text-center">Ingresos</h3>
                             </label><br /><br />
 
                             <div class="row mb-6">
@@ -263,13 +263,13 @@
 
                             <div class="col-md-6 col-sm-6 col-lg-6 mb-3">
                                     <label>Comentarios</label>
-                            <textarea class="form-control" name="cheque_comentario" rows="4" cols="50" value="{{e.cheque_comentario}}"></textarea><br>
+                            <textarea class="form-control" name="cheque_comentario" rows="3" cols="45" style="resize: none; " disabled value="{{e.cheque_comentario}}"></textarea><br>
 
                                 </div>
                             </div>
 
                             
-                            <div class="row mb-6">
+                            <div class="row mb-6 mt-1">
                                 <div class="col-6">
                                     <span>Numero de factura</span>
                                     <input type="text" class="form-control" name="NumFactura" value="{{e.NumFactura}}"> <br>
@@ -293,10 +293,21 @@
 {{#section 'scripts'}}
 <script>
  
+function calcular(){
+    var total = document.getElementById('total').value;
+
+    //calcular el 16% de la cotizacion
+    var iva = total * 0.16;
+    document.getElementById('iva').value = iva.toFixed(2);
+
+    //calcular el subtotal
+    var subtotal = total - iva;
+    document.getElementById('subtotal').value = subtotal.toFixed(2);
+
+    
+  }
 
 
- 
-   
     document.addEventListener("DOMContentLoaded", function() {
   // Seleccionar todos los inputs y selects
   var inputs = document.querySelectorAll("input, select");
@@ -305,7 +316,7 @@
   for (var i = 0; i < inputs.length; i++) {
     inputs[i].disabled = true;
   }
-    
+    calcular()
 });
 </script>
 {{/section}}

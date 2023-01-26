@@ -30,7 +30,7 @@
                             </label><br /><br />
 
                             <div class="row mb-6">
-                                <div class="col-6">
+                                <div class="col-3">
                                     <span>Empresa</span>
                                     <input type="text" id="b1" class="form-control" placeholder="Buscar empresa">
                                     <select name="cheque_empresa_id" id="s1" class="form-control">
@@ -40,7 +40,7 @@
                                         {{/each}}
                                     </select><br />
                                 </div>
-                                <div class="col-6">
+                                <div class="col-3">
                                     <span>Cuenta de Banco</span>
                                     <input type="text" id="b2" class="form-control" placeholder="Buscar cuenta de banco">
                                     <select name="cheque_cuenta_id" id="s2" class="form-control">
@@ -50,15 +50,11 @@
                                         {{/each}}
                                     </select><br />
                                 </div>
-                            </div>
-
-
-                            <div class="row mb-6">
-                                <div class="col-6">
+                                <div class="col-3">
                                     <span>Tipo de Cambio</span>
                                     <input type="text" class="form-control" name="TipoCambio"> <br>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-3">
                                     <span>Cliente</span>
                                     <input type="text" id="b3" class="form-control" placeholder="Buscar cliente">
                                     <select name="cheque_cliente_id" id="s3" class="form-control">
@@ -70,12 +66,18 @@
                                 </div>
                             </div>
 
+
+
                             <div class="row mb-6">
-                                <div class="col-6">
+                                <div class="col-3">
                                     <span>Monto de Ingreso</span>
                                     <input type="text" class="form-control" name="cheque_monto" id="total" onkeyup="calcular()"> <br>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-3">
+                                    <span>Subtotal</span>
+                                    <input type="text" class="form-control" name="cheque_subtotal" id="subtotal"> <br>
+                                </div>
+                                <div class="col-3">
                                     <span>Cuenta Contable Banco</span>
                                     <input type="text" id="b4" class="form-control" placeholder="Buscar cuenta contable de banco">
                                     <select name="cuenta_contable" id="s4" class="form-control">
@@ -85,14 +87,9 @@
                                         {{/each}}
                                     </select><br />
                                 </div>
-                            </div>
 
-                            <div class="row mb-6">
-                                <div class="col-6">
-                                    <span>Subtotal</span>
-                                    <input type="text" class="form-control" name="cheque_subtotal" id="subtotal"> <br>
-                                </div>
-                                <div class="col-6">
+                                
+                                <div class="col-3">
                                     <span>Cuenta Contable Venta</span>
                                     <input type="text" id="b5" class="form-control" placeholder="Buscar cuenta contable venta">
                                     <select name="cuenta_contable2" id="s5" class="form-control">
@@ -104,12 +101,14 @@
                                 </div>
                             </div>
 
+                            
+
                             <div class="row mb-6">
-                                <div class="col-6">
+                                <div class="col-3">
                                     <span>IVA</span>
                                     <input type="text" class="form-control" name="cheque_iva" id="iva"> <br>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-3">
                                     <span>Cuenta Contable IVA por cobrar</span>
                                     <input type="text" id="b6" class="form-control" placeholder="Buscar cuenta contable iva por cobrar">
                                     <select name="cuenta_contable3" id="s6" class="form-control">
@@ -119,14 +118,12 @@
                                         {{/each}}
                                     </select><br />
                                 </div>
-                            </div>
-
-                            <div class="row mb-6">
-                                <div class="col-6">
+                            
+                                <div class="col-3">
                                     <span>Folio</span>
                                     <input type="text" class="form-control" name="i_folio"> <br>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-3">
                                     <span>Clave Prod/servicio</span>
                                     <select required name="clave" id="selectClave" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
@@ -148,8 +145,7 @@
                             <div class="col-md-12 col-sm-12 col-lg-12 mb-3">
                                 <div class="collapse multi-collapse" id="multiCollapseExample1">
                                     <div class="card card-body">
-                                        <label for="" class="font-weight-bold">Cotizacion /
-                                            Proyecto</label><br>
+                                        <label for="" class="font-weight-bold">Facturas</label><br>
                                         <!-- datatable start -->
                                         <table id="cotizaciones"
                                             class="table table-bordered table-hover table-striped w-100">
@@ -172,7 +168,7 @@
                             </div>
 
                             <div class="row mb-6">
-                                <div class="col-6">
+                                <div class="col-3">
                                     <label>Tipo de venta</label>
                                     <input type="text" id="b7" class="form-control" placeholder="Buscar tipo de venta">
                                     <select name="tipo_venta" id="s7" class="form-control">
@@ -183,23 +179,18 @@
                                         <option value="4">OBRA</option>
                                     </select>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-3">
                                     <span>Numero de factura</span>
                                     <input type="text" class="form-control" name="NumFactura"> <br>
                                 </div>
-                            </div>
-
-                            
-                            
-
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6 col-lg-6 mb-3">
+                           
+                                <div class="col-3">
                                     <label>Fecha de transferencia</label>
-                            <input type="date" class="form-control" name="FechaTransferencia">
+                            <input type="date" class="form-control" id="fechaActual" name="FechaTransferencia">
                             
                                 </div>
 
-                            <div class="col-md-6 col-sm-6 col-lg-6 mb-3">
+                            <div class="col-3">
                                     <label for="" class="font-weight-bold">Metodo de pago</label><br>
                                     <input type="text" id="buscarMetodoPago" class="form-control" placeholder="Buscar Forma de Pago">
                                     <select required name="mpago" id="selectMetodoPago" class="form-control">
@@ -210,8 +201,29 @@
                                 </div>
                             </div>
 
-                            <label>Comentarios</label>
-                            <textarea class="form-control" name="cheque_comentario" rows="4" cols="50"></textarea><br>
+                            <div class="row">
+                                <div class="col-3">
+                                    <label>¿Utiliza UUID?</label>
+                                    <select name="" class="form-control" onchange="cambiouuid()" id="uuid">
+                                        <option value="" disabled hidden selected></option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </select>       
+                                </div>
+
+                            <div class="col-3" id="uuidc">
+                                    <label for="" class="font-weight-bold" id="uuidc">UUID</label><br>
+                                    <input type="text" class="form-control" placeholder="Ingresa el UUID" id="uuidc">
+                                    
+                                </div>
+                                <div class="col-6">
+                                <label>Comentarios</label>
+                            <textarea class="form-control" name="cheque_comentario" rows="4" cols="10"></textarea>
+                            </div>
+
+                            </div>
+
+                            <br>
 
 
                             <br><br>
@@ -229,6 +241,32 @@
 
 {{#section 'scripts'}}
 <script>
+
+window.onload = function(){
+  var fecha = new Date(); //Fecha actual
+  var mes = fecha.getMonth()+1; //obteniendo mes
+  var dia = fecha.getDate(); //obteniendo dia
+  var ano = fecha.getFullYear(); //obteniendo año
+  if(dia<10)
+    dia='0'+dia; //agrega cero si el menor de 10
+  if(mes<10)
+    mes='0'+mes //agrega cero si el menor de 10
+  document.getElementById('fechaActual').value=ano+"-"+mes+"-"+dia;
+}
+
+function cambiouuid(){
+    var uuid = document.getElementById('uuid').value;
+    
+    if(uuid == 1){
+        document.getElementById('uuidc').style.display = 'block';
+    }else if(uuid == 0){
+        document.getElementById('uuidc').style.display = 'none';
+    }
+    console.log(uuid);
+}
+
+
+
     const facturas = {{{ json facturas }}}
 function calcular(){
     var total = document.getElementById('total').value;

@@ -232,7 +232,7 @@
                             <div class="row mt-3 mb-3">
 
 
-                                <div class="col-md-6 col-sm-6 col-lg-6 mb-3">
+                                    <div class="col-md-4 col-sm-4 col-lg-4 mb-3">
                                     <label for="" class="font-weight-bold">Forma de Pago</label><br>
                                    <input type="text" id="buscarFormaPago" class="form-control" placeholder="Buscar Forma de Pago">
 
@@ -263,7 +263,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-6 col-sm-6 col-lg-6 mb-3">
+                                <div class="col-md-4 col-sm-4 col-lg-4 mb-3">
                                     <label for="" class="font-weight-bold">Metodo de pago</label><br>
                                     <input type="text" id="buscarMetodoPago" class="form-control" placeholder="Buscar Forma de Pago">
                                     <select required name="mpago" id="selectMetodoPago" class="form-control">
@@ -272,6 +272,16 @@
                                         <option value="PUE">Pago en una sola exhibición</option>
                                     </select>
                                 </div>
+                                <div class="col-md-4 col-sm-4 col-lg-4 mb-3">
+                                    <label for="" class="font-weight-bold">Empresa</label>
+                                    <input type="text" id="buscarEmpresa" class="form-control" placeholder="Buscar Empresa">
+                                    <select name="" id="selectEmpresa" class="form-control" id="">
+                                        {{#each empresa}}
+                                            <option value="{{this.id}}">{{this.nombre}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+
 
 
                                 
@@ -279,8 +289,6 @@
                             </div>
                                 <h1 class="text-center mb-3 mt-3">Conceptos</h1>
                             <div class="row mt-3 mb-3">
-
-
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
                                     <label for="" class="font-weight-bold">Cantidad</label><br>
                                     <input required class="form-control" type="text" name="cantidad" id=""
@@ -387,6 +395,7 @@
     buscarEnSelect("buscarTipoVenta", "selectTipoVenta");
     buscarEnSelect("buscarCFDI", "selectCFDI");
     buscarEnSelect("buscarUnidades", "selectUnidades");
+    buscarEnSelect("buscarEmpresa", "selectEmpresa");
     $(document).ready(function () {
 
         // initialize datatable

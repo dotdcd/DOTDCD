@@ -147,7 +147,7 @@
 
 									<label for="proyecto">Total</label>
 									<input type="text" disabled class="form-control" id="total" name="total"
-										placeholder="" ><br>
+										placeholder=""><br>
 
 									<label for="proyecto">Costo</label>
 									<input type="text" disabled class="form-control" id="" name="costo" placeholder=""
@@ -158,24 +158,28 @@
 										value="{{p.pf}}"><br>
 
 									<label for="proyecto">Facturado</label>
-									<input type="text" disabled class="form-control" id="facturado"
-										value="" name="" placeholder=""><br>
+									<input type="text" disabled class="form-control" id="facturado" value="" name=""
+										placeholder=""><br>
 
 									<label for="proyecto">Por facturar</label>
-									<input type="text" disabled class="form-control"  id="porFacturar" name=""
+									<input type="text" disabled class="form-control" id="porFacturar" name=""
 										placeholder=""><br>
 
 									<label for="proyecto">Comprado</label>
-									<input type="text" disabled class="form-control" id="comprado" name="" placeholder=""><br>
+									<input type="text" disabled class="form-control" id="comprado" name=""
+										placeholder=""><br>
 
 									<label for="proyecto">Por comprar</label>
-									<input type="text" disabled class="form-control" id="porComprar" name="" placeholder=""><br>
+									<input type="text" disabled class="form-control" id="porComprar" name=""
+										placeholder=""><br>
 
 									<label for="proyecto">Cobrado</label>
-									<input type="text" disabled class="form-control" id="cobrado" name="" placeholder=""><br>
+									<input type="text" disabled class="form-control" id="cobrado" name=""
+										placeholder=""><br>
 
 									<label for="proyecto">Por cobrar</label>
-									<input type="text" disabled class="form-control" id="porCobrar" name="" placeholder=""><br>
+									<input type="text" disabled class="form-control" id="porCobrar" name=""
+										placeholder=""><br>
 								</div>
 							</div>
 						</div>
@@ -200,111 +204,129 @@
 {{#section 'scripts'}}
 
 <script>
-const facturado = {{{json facturado}}};
-	const pcobrado = {{{json pcobrado}}};
-	const comprado = {{{json comprado}}};
-	const moneda = {{{json moneda}}};
-	var costo = {{p.costo}};
-	var moneda_uso = {{p.cotizacion_moneda_id}};
-	console.log(moneda_uso)
+	const facturado = {{{ json facturado }}};
+	const pcobrado = {{{ json pcobrado }}};
+	const comprado = {{{ json comprado }}};
+	const moneda = {{{ json moneda }}};
+	var costo = {{ p.costo }};
+	var moneda_uso = {{ p.cotizacion_moneda_id }};
 
-	document.addEventListener('DOMContentLoaded', function() {
+	document.addEventListener('DOMContentLoaded', function () {
+
+
+		if ({{ p.cotizacion_moneda_id }} == 1){
+		//?Obtener lo facturado y por facturar
+		var facturadoT = facturado.factura_total * moneda[2].moneda_cotizacion;
+		var facturadoT_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(facturadoT.toFixed(2));
+		document.getElementById('facturado').value = facturadoT_formateado;
+
+		//? Definir en dolares el total
+		var total = {{ p.total }} * moneda[2].moneda_cotizacion;
+	var total_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(total.toFixed(2));
+	document.getElementById('total').value = total_formateado;
+
+	var pFacturar = total - facturadoT;
+	var pFacturar_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(pFacturar.toFixed(2));
+	document.getElementById('porFacturar').value = pFacturar_formateado;
+
+	var dolares = total * moneda[2].moneda_cotizacion;
+
+	//? por comprar
+	var porComprar = costo - comprado;
+	var porComprar_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(porComprar.toFixed(2));
+	document.getElementById('porComprar').value = porComprar_formateado;
+
+	//?comprado
+	var comprado_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(comprado.toFixed(2));
+	document.getElementById('comprado').value = comprado_formateado;
+
+	//? cobrado
+	var cobrado_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(pcobrado.cobrado.toFixed(2));
+	document.getElementById('cobrado').value = cobrado_formateado;
+
+	//? por cobrar
+	var porCobrar = total - pcobrado.cobrado;
+	var porCobrar_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(porCobrar.toCobrar.toFixed(2));
+	document.getElementById('porCobrar').value = porCobrar_formateado;
+
+			
+
+		} else if ({{ p.cotizacion_moneda_id }}  == 2) {
+		//?Obtener lo facturado y por facturar
+		var facturadoT = facturado.factura_total * moneda[2].moneda_cotizacion;
+		var facturadoT_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'USD' }).format(facturadoT.toFixed(2));
+		document.getElementById('facturado').value = facturadoT_formateado;
+
+		//? Definir en dolares el total
+		var total = {{ p.total }} * moneda[2].moneda_cotizacion;
+	var total_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'USD' }).format(total.toFixed(2));
+	document.getElementById('total').value = total_formateado;
+
+	var pFacturar = total - facturadoT;
+	var pFacturar_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'USD' }).format(pFacturar.toFixed(2));
+	document.getElementById('porFacturar').value = pFacturar_formateado;
+
+	var dolares = total * moneda[2].moneda_cotizacion;
+
+	//? por comprar
+	var porComprar = costo - comprado;
+	var porComprar_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'USD' }).format(porComprar.toFixed(2));
+	document.getElementById('porComprar').value = porComprar_formateado;
+
+	//?comprado
+	var comprado_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'USD' }).format(comprado.toFixed(2));
+	document.getElementById('comprado').value = comprado_formateado;
+
+	//? cobrado
+	var cobrado_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'USD' }).format(pcobrado.cobrado.toFixed(2));
+	document.getElementById('cobrado').value = cobrado_formateado;
+
+	//? por cobrar
+	var porCobrar = total - pcobrado.cobrado;
+	var porCobrar_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'USD' }).format(porCobrar.toCobrar.toFixed(2));
+	document.getElementById('porCobrar').value = porCobrar_formateado;
+
+		} else if ({{ p.cotizacion_moneda_id }}  == 3) {
+		//?Obtener lo facturado y por facturar
+		var facturadoT = facturado.factura_total * moneda[2].moneda_cotizacion;
+		var facturadoT_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'EUR' }).format(facturadoT.toFixed(2));
+		document.getElementById('facturado').value = facturadoT_formateado;
+
+		//? Definir en dolares el total
+		var total = {{ p.total }} * moneda[2].moneda_cotizacion;
+	var total_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'EUR' }).format(total.toFixed(2));
+	document.getElementById('total').value = total_formateado;
+
+	var pFacturar = total - facturadoT;
+	var pFacturar_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'EUR' }).format(pFacturar.toFixed(2));
+	document.getElementById('porFacturar').value = pFacturar_formateado;
+
+	var dolares = total * moneda[2].moneda_cotizacion;
+
+	//? por comprar
+	var porComprar = costo - comprado;
+	var porComprar_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'EUR' }).format(porComprar.toFixed(2));
+	document.getElementById('porComprar').value = porComprar_formateado;
+
+	//?comprado
+	var comprado_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'EUR' }).format(comprado.toFixed(2));
+	document.getElementById('comprado').value = comprado_formateado;
+
+	//? cobrado
+	var cobrado_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'EUR' }).format(pcobrado.cobrado.toFixed(2));
+	document.getElementById('cobrado').value = cobrado_formateado;
+
+	//? por cobrar
+	var porCobrar = total - pcobrado.cobrado;
+	var porCobrar_formateado = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'EUR' }).format(porCobrar.toCobrar.toFixed(2));
+	document.getElementById('porCobrar').value = porCobrar_formateado;
+}
+
 		
-
-		if({{p.cotizacion_moneda_id}} == 1){
-			//?Obtener lo facturado y por facturar
-			
-			facturadoT = facturado.factura_total * moneda[0].moneda_cotizacion
-
-
-			document.getElementById('facturado').value = facturadoT
-			
-			//? Definir en dolares el total
-			var total = {{p.total}} * moneda[0].moneda_cotizacion
-			document.getElementById('total').value = total
-			console.log(moneda[0].moneda_cotizacion)
-
-			pFacturar = total - facturadoT
-
-			dolares = total * moneda[0].moneda_cotizacion
-
-			//? por facturar
-			pFacturar = dolares - facturadoT
-			document.getElementById('porFacturar').value = pFacturar
-
-			
-			//? por comprar
-			porComprar = costo - comprado
-			document.getElementById('porComprar').value = porComprar
-			//?comprado
-			document.getElementById('comprado').value = comprado
-			//? cobrado
-			document.getElementById('cobrado').value = pcobrado.cobrado
-			//? por cobrar
-			document.getElementById('porCobrar').value = total - pcobrado.cobrado
-			
-
-			
-
-		} else if({{p.cotizacion_moneda_id}}  == 2){
-			//?Obtener lo facturado y por facturar
-			facturadoT = facturado.factura_total * moneda[1].moneda_cotizacion
-			document.getElementById('facturado').value = facturadoT
-			
-			//? Definir en dolares el total
-			var total = {{p.total}} *moneda[1].moneda_cotizacion
-			document.getElementById('total').value = total
-
-			pFacturar = total - facturadoT
-
-			dolares = total 
-			
-			//? por facturar
-			pFacturar = dolares - facturadoT
-			document.getElementById('porFacturar').value = pFacturar
-
-			//? por comprar
-			porComprar = costo - comprado
-			document.getElementById('porComprar').value = porComprar
-			//?comprado
-			document.getElementById('comprado').value = comprado
-			//? cobrado
-			document.getElementById('cobrado').value = pcobrado.cobrado
-			//? por cobrar
-			document.getElementById('porCobrar').value = total - pcobrado.cobrado
-
-		} else if({{p.cotizacion_moneda_id}}  == 3) {
-			//?Obtener lo facturado y por facturar
-			facturadoT = facturado.factura_total * moneda[2].moneda_cotizacion
-			document.getElementById('facturado').value = facturadoT
-			
-			//? Definir en dolares el total
-			var total = {{p.total}} *moneda[2].moneda_cotizacion
-			document.getElementById('total').value = total
-
-			pFacturar = total - facturadoT
-
-			dolares = total * moneda[2].moneda_cotizacion
-
-			//? por facturar
-			pFacturar = dolares - facturadoT
-			document.getElementById('porFacturar').value = pFacturar
-
-			//? por comprar
-			porComprar = costo - comprado
-			document.getElementById('porComprar').value = porComprar
-			//?comprado
-			document.getElementById('comprado').value = comprado
-			//? cobrado
-			document.getElementById('cobrado').value = pcobrado.cobrado
-			//? por cobrar
-			document.getElementById('porCobrar').value = total - pcobrado.cobrado
-
-		}
 		
 	
 	}, false);
-	
+
 </script>
 
 {{/section}}
