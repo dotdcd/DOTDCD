@@ -1,12 +1,20 @@
 {{#section 'styles'}}
 <style>
     table {
-        font-size: 8px !important;
+        font-size: 10px !important;
+          font-weight: bold !important;
+
     }
 
     th {
         background-color: #007BFF !important;
+          font-weight: bold;
+
     }
+    table td {
+    font-weight: bold;
+}
+    
 </style>
 {{/section}}
 
@@ -84,8 +92,8 @@
                     <td class="bg-warning">xx</td>
 
                     <td class="bg-info font-weight-bold">10</td>
-                    <td class="bg-info">xx</td>
-                    <td class="bg-info">xx</td>
+                    <td class="bg-info font-weight-bold">xx</td>
+                    <td class="bg-info font-weight-bold ">xx</td>
 
                     <td class="bg-info font-weight-bold">28</td>
                     <td class="bg-info">xx</td>
@@ -2961,5 +2969,14 @@
 }
 updateScreen();
 */
+
+function makeTDsBold() {
+    var tds = document.querySelectorAll("table td");
+    for (var i = 0; i < tds.length; i++) {
+        tds[i].style.fontWeight = "bold";
+    }
+}
+addEventListener("load", makeTDsBold);
+
 </script>
 {{/section}}

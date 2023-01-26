@@ -152,9 +152,25 @@
                             <div class="col-md-12 col-sm-12 col-lg-12 mb-3">
                                 <div class="collapse multi-collapse" id="multiCollapseExample1">
                                     <div class="card card-body">
-                                        <label for="" class="font-weight-bold">Cotizacion / Proyecto</label><br>
-                                        <label>{{e.cheque_cotizacion_id }}</label>
-                                        
+                                        <label for="" class="font-weight-bold">Cotizacion /
+                                            Proyecto</label><br>
+                                        <!-- datatable start -->
+                                        <table id="cotizaciones"
+                                            class="table table-bordered table-hover table-striped w-100">
+                                            <thead class="bg-primary-600">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Proyecto</th>
+                                                    <th>Descripcion</th>
+                                                    <th>Cliente</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                        <!-- datatable end -->
                                     </div>
                                 </div>
                             </div>
