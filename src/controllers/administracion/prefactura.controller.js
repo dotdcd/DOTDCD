@@ -1,5 +1,6 @@
 import { pool } from '../../db.js'
-
+import axios from 'axios'
+import fetch from 'node-fetch'
 //? Add prefactura
 
 export const addPrefactura = async (req, res) => {
@@ -38,6 +39,26 @@ export const delPrefactura = async (req, res) => {
 export const renderMultiremision = async (req, res) => {
     try {
         return res.render('administracion/facturasprefacturas/prefacturasprogramadas')
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+//?get tipo de cambio tiempo real
+export const getTipoValor = async (req, res) => {
+    try {
+        const {moneda} = req.body.moneda
+        const usd = await axios.get(`https://api.apilayer.com/exchangerates_data/convert?to=mxn&from=usd&amount=${moneda}`, {
+            headers: {
+                'apikey': 'QfjQVmIDquyMGOr3g3wxfPvlFSWaNt2g'
+            }
+        })
+        .then(response => {console.log(response.data)})
+        .catch(error => {console.log(error)})
+
+        console.log(moneda)
+        return res.json({usd})
     } catch (error) {
         console.log(error)
     }

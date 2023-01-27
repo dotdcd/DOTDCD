@@ -46,7 +46,7 @@ rutas.get('/dashboard/inicio/respaldo', renderRespaldo)
 
 //?Operacion Routes
 
-//?proyectos Routes
+//?proyectos Routes2222222222
 rutasErp.get('/dashboard/operacion/proyectos/nuevo', [authenticateUser, isAdmin], renderOpProyNuevo)
 rutasErp.get('/dashboard/operacion/proyectos/buscar', [authenticateUser, isAdmin], renderOpProyBuscar)
 rutasErp.get('/dashboard/operacion/proyectos/editar/:id', [authenticateUser, isAdmin], renderOpProyEditar)

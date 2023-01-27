@@ -173,7 +173,7 @@ const getMoneda = async () => {
 }
 
 const getFactura = async () => {
-    const factura = await pool.query('SELECT tipo_venta FROM facturas')
+    const factura = await pool.query('SELECT tipo_venta, uso_cfdi FROM facturas')
     return factura[0]
 }
 
@@ -503,7 +503,7 @@ export const renderFacturas = async (req, res) => {
 
 const getClaveProducto = async () => {
     try {
-        const clave = await pool.query('SELECT * FROM catalogo_servicio')
+        const clave = await pool.query('SELECT UPPER(id_sat) as id_sat, UPPER(servicio) as servicio, UPPER(empresa) as empresa FROM catalogo_servicio')
         return clave[0]
     } catch (error) {
         console.log(error)
@@ -528,7 +528,12 @@ const getUnidades = async () => {
     }
 }
 
+//?obtener valor en tiempo real 
+
 //? Render Facturar
+
+
+
 export const renderFacturar = async (req, res) => {
     try {
         const sucursal = await getSucursal()
@@ -544,6 +549,7 @@ export const renderFacturar = async (req, res) => {
         const catalogo = await getClaveProducto()
         const usos = await getUsosCfdi()
         const unidades = await getUnidades()
+        
         const cotizacion = proyecto.cotizacion
 
         return res.render('administracion/facturas/facturar', { sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta, catalogo, usos, unidades })
@@ -602,7 +608,7 @@ export const verFactura = async (req, res) => {
         const xml = await getXml(prefactura.uuid)
         const cotizacion = proyecto.cotizaciones
         const pagos = await getPagos()
-        console.log(cotizacion)
+        
         return res.render('administracion/facturas/ver', { sucursal, empresa, centroCostos, cliente, inversion, cotizacion, folios, remision, moneda, tipoVenta, prefactura, xml, pagos })
     } catch (error) {
         console.log(error)

@@ -1,0 +1,15 @@
+{
+    "date": "2023-01-27",
+    "historical": true,
+    "info": {
+      "rate": 18.77183,
+      "timestamp": 1674837363
+    },
+    "query": {
+      "amount": 5,
+      "from": "USD",
+      "to": "MXN"
+    },
+    "result": 93.85915,
+    "success": true
+  }

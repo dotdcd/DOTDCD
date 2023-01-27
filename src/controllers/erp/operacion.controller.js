@@ -48,11 +48,6 @@ const getCotizacionClase = async () => {
     return cotizacionClase[0]
 }
 
-const getDisciplinaProy = async (id) => {
-    const disciplina = await pool.query("SELECT * FROM cotizaciones_diciplinas WHERE diciplina_cotizacion_id = " + id)
-    return disciplina[0]
-}
-
 const getNiveles = async (id) => {
     const niveles = await pool.query("SELECT * FROM cotizaciones_niveles WHERE nivel_cotizacion_id = " + id)
     return niveles[0]
@@ -66,6 +61,29 @@ const getTipos = async (id) => {
     const tipos = await pool.query("SELECT * FROM cotizaciones_tipos WHERE tipo_cotizacion_id =" + id)
     return tipos[0]
 }
+
+const getDisciplinaProy = async (id) => {
+    const disciplina = await pool.query("SELECT * FROM cotizaciones_diciplinas WHERE diciplina_cotizacion_id = " + id)
+    return disciplina[0]
+}
+
+
+const getInsumos = async (disc, cot) => {
+    const insumo = await pool.query("SELECT i.insumo_cotizacion_id, i.insumo_nivel_id, p.producto_descripcion as producto, i.insumo_cantidad, i.insumo_precio_mo, i.insumo_precio_ma, i.insumo_tipo_id FROM cotizaciones_insumos i INNER JOIN productos p ON p.producto_id = i.insumo_producto_id WHERE i.insumo_cotizacion_id = "+cot+" AND i.insumo_diciplina_id = "+disc+" AND i.insumo_estatus_baja = 0")
+    return insumo[0]
+}
+
+const getInsumosProy = async (id) => {
+    const disciplina = await getDisciplinaProy(id)
+    //console.log(disciplina)
+    for (const d of disciplina) {
+        const insumo = await getInsumos(d.diciplina_id, id)
+        d['insumos'] = insumo
+    }
+
+    return disciplina
+}
+
 export const renderOpProyEditar = async (req, res) => {
     try {
         const moneda = await getMoneda()
@@ -83,7 +101,10 @@ export const renderOpProyEditar = async (req, res) => {
         const niveles = await getNiveles(id)
         const prodProyecto = await getProdProyecto(id)
         const tipos = await getTipos(id)
-        res.render('operacion/proyectos/editar', { p, clientes, sucursales, empresaa, moneda, empleados, clase, producto, disciplinass, niveles, prodProyecto, tipos })
+
+        const insumos = await getInsumosProy(id)
+        //console.log(insumos)
+        res.render('operacion/proyectos/editar', { p, clientes, sucursales, empresaa, moneda, empleados, clase, producto, disciplinass, niveles, prodProyecto, tipos, insumos })
     } catch (error) {
         console.log(error)
     }

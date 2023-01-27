@@ -12,7 +12,7 @@
     }
 
     .invoice-company {
-        font-size: 20px
+        font-size: 15px
     }
 
     .invoice-header {
@@ -35,7 +35,7 @@
     .invoice-date .date,
     .invoice-from strong,
     .invoice-to strong {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 600
     }
 
@@ -82,31 +82,36 @@
         width: 25%;
         background: #2d353c;
         color: #fff;
-        font-size: 28px;
+        font-size: 35px;
         text-align: right;
         vertical-align: bottom;
         font-weight: 300
     }
-
+    .t{
+        font-size: 12px;
+    }
+    .size{
+        font-size: 16px;
+    }
     .invoice-price .invoice-price-right small {
         display: block;
         opacity: .6;
         position: absolute;
         top: 10px;
         left: 10px;
-        font-size: 12px
+        font-size: 20px
     }
 
     .invoice-footer {
         border-top: 1px solid #ddd;
         padding-top: 10px;
-        font-size: 10px
+        font-size: 15px
     }
 
     .invoice-note {
         color: #999;
         margin-top: 30px;
-        font-size: 85%
+        font-size: 10px
     }
 
     .invoice>div:not(.invoice-footer) {
@@ -126,7 +131,10 @@
     }
 
     .data{
-        font-size: 9px;
+        font-size: 12px;
+    }
+    span{
+        font-size: 14px;
     }
 </style>
 {{/section}}
@@ -138,13 +146,13 @@
             <!-- begin invoice-company -->
             <div class="invoice-company text-inverse f-w-600">
                 <span class="pull-right hidden-print">
-                    <img style="height: 55px; width: 55px" src="/img/iconos/icon_datos.png" alt="">
-                    <img style="height: 55px; width: 55px" src="/img/iconos/icon_redes.png" alt="">
-                    <img style="height: 55px; width: 55px" src="/img/iconos/icon_deteccion.png" alt="">
-                    <img style="height: 55px; width: 55px" src="/img/iconos/icon_cctv.png" alt="">
-                    <img style="height: 55px; width: 55px" src="/img/iconos/icon_acceso.png" alt="">
+                    <img style="height: 80px; width: 80px" src="/img/iconos/icon_datos.png" alt="">
+                    <img style="height: 80px; width: 80px" src="/img/iconos/icon_redes.png" alt="">
+                    <img style="height: 80px; width: 80px" src="/img/iconos/icon_deteccion.png" alt="">
+                    <img style="height: 80px; width: 80px" src="/img/iconos/icon_cctv.png" alt="">
+                    <img style="height: 80px; width: 80px" src="/img/iconos/icon_acceso.png" alt="">
                 </span>
-                <img style="height: 55px; width: 160px" src="/img/logo-dot.png" alt="">
+                <img style="height: 80px; width: 260px" src="/img/logo-dot.png" alt="">
             </div>
             <hr style="color: #0000 !important; background-color: #0000;"/>
             <!-- end invoice-company -->
@@ -152,13 +160,20 @@
             <div class="invoice-header">
                 <div class="invoice-from">
                     <address class="m-t-5 m-b-5">
-                        <strong>Empresa:</strong> <br>
-                        <strong>Cliente:</strong> {{cliente.cliente_razon_social}} <br>
-                        <strong>RFC:</strong> {{cliente.cliente_rfc}} <br>
-                        <strong>Domicilio:</strong> {{cliente.cliente_calle}} No. {{cliente.cliente_numero}}, {{cliente.cliente_colonia}}, {{cliente.cliente_codigo_postal}} {{cliente.cliente_municipio}}, {{cliente.cliente_estado}} <br>
-                        <strong>Regimen Fiscal:</strong> <br>
-                        <strong>Fecha y Hora de Emisión:</strong> {{taxInfo.factura_fecha_alta}} <br>
-                        <strong>Lugar de Expedición:</strong> 64750 <br>
+                        
+                        <strong>RFC: </strong> <span>{{cliente.cliente_rfc}}</span> <br>
+                        <strong>Domicilio Fiscal: </strong> <span>{{cliente.cliente_calle}} No. {{cliente.cliente_numero}}, {{cliente.cliente_colonia}}, {{cliente.cliente_codigo_postal}} {{cliente.cliente_municipio}}, {{cliente.cliente_estado}}</span> <br>
+                        <strong>Lugar de Expedición: </strong> <span>64750</span> <br>
+                        <strong>Regimen Fiscal: </strong> <br>
+                        <br><br><br><br>
+                        <strong>Cliente: </strong> <span>{{cliente.cliente_razon_social}}</span> <br>
+                        <strong>RFC</strong> <span>{{cliente.cliente_rfc}}</span> <br>
+                        <strong>Domicilio Fiscal: </strong> <span>{{cliente.cliente_calle}} No.{{cliente.cliente_numero}}, {{cliente.cliente_colonia}} {{cliente.cliente_codigo_postal}} {{cliente.cliente_municipio}} {{cliente.cliente_estado}}</span> <br>
+                        <strong>Uso de CFDI: </strong> <span>{{cliente.uso_cfdi}}</span> <br>
+                        <strong>Regimen Fiscal: </strong> <span> 601 - General de Ley Personas Morales</span> <br>
+
+                        
+                       
 
                     </address>
                 </div>
@@ -166,15 +181,16 @@
                 </div>
                 <div class="invoice-from">
                     <address class="m-t-5 m-b-5">
-                        <strong>Forma de Pago</strong> <br>
-                        {{formaPago.id}} - {{formaPago.descripcion}} <br>
-                        <strong>Método de Pago</strong> <br>
-                        {{#if (is taxInfo.mpago 'PPD')}} PPD - Pago en parcialidades o diferido {{else}} PUE - Pago en una sola exhibición {{/if}}<br>
-                        <strong>TIPO DE COMPROBANTE: I - Ingreso</strong> <br>
-                        <strong>SERIE-FOLIO: {{taxInfo.factura_factura}} </strong><br>
-                        Fecha y Hora de Certificación <br>
-                        <strong>{{taxInfo.factura_fecha_alta}}</strong> <br>
-                        REGIMEN FISCAL: 601 - General de Ley Personas Morales <br>
+                        <strong>TIPO DE COMPROBANTE: </strong> <span>I - Ingreso</span><br>
+                        <strong>Forma de Pago :</strong> 
+                        <span>{{formaPago.id}} - {{formaPago.descripcion}}</span> <br>
+                        <strong>Método de Pago :</strong> <span>{{#if (is taxInfo.mpago 'PPD')}} PPD - Pago en parcialidades o diferido {{else}} PUE - Pago en una sola exhibición {{/if}}</span><br>
+                        <strong>SERIE-FOLIO: </strong> <span>{{taxInfo.factura_factura}}</span> <br>
+                        <strong>UUID: </strong> <span>{{prefactura.uuid}}</span> <br>
+                        <strong>Fecha y Hora de Certificación</strong> <br>
+                        <span>{{taxInfo.factura_fecha_alta}}</span> <br>
+                        <strong>Fecha y Hora de Emisión:</strong><span> {{taxInfo.factura_fecha_alta}} </span><br>
+                        
                     </address>
                 </div>
             </div>
@@ -183,10 +199,10 @@
             <div class="invoice-content">
                 <!-- begin table-responsive -->
                 <div class="table-responsive">
-                    <table class="table table-invoice">
+                    <table class="table table-invoice size">
                         <thead>
                             <tr>
-                                <th>CANT</th>
+                                <th>CANTIDAD</th>
                                 <th>DESCRIPCIÓN</th>
                                 <th class="text-center" width="10%">PRECIO</th>
                                 <th class="text-center" width="10%">IMPDESC</th>
@@ -243,7 +259,7 @@
             <div class="invoice-note">
                 TIPO DE RELACION: - <br>
                 CFDI RELACIONADO: <br>
-                ESTE DOCUMENTO ES UNA REPRESENTACION IMPRESA DE UN CFDI <br>
+                ESTE DOCUMENTO ES UNA REPRESENTACION IMPRESA DE UN CFDI
                 EFECTOS FISCALES AL PAGO <br>
             </div>
             <!-- end invoice-note -->
@@ -287,9 +303,9 @@
                     DOT DCD
                 </p>
                 <p class="text-center">
-                    <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> PASEO DE LA ESPERANZA No. 1204, Valle
+                    <span class="m-r-10 t"><i class="fa fa-fw fa-lg fa-globe"></i> PASEO DE LA ESPERANZA No. 1204, Valle
                         del Mirador, Monterrey, Nuevo León, México. 64750 |</span>
-                    <span class="m-r-10"><i class="fa fa-file-text"></i> RFC DDC041020CT0</span>
+                    <span class="m-r-10 t"><i class="fa fa-file-text"></i> RFC DDC041020CT0</span>
                 </p>
             </div>
             <!-- end invoice-footer -->
@@ -320,14 +336,14 @@
         var element = document.getElementById('container');
         html2pdf()
             .set({
-                margin: 1,
+                margin: 0.5,
                 filename: 'documento.pdf',
                 image: {
                     type: 'jpeg',
                     quality: 0.98
                 },
                 html2canvas: {
-                    scale: 3, // A mayor escala, mejores gráficos, pero más peso
+                    scale: 4, // A mayor escala, mejores gráficos, pero más peso
                     letterRendering: true,
                 },
                 jsPDF: {
@@ -339,8 +355,14 @@
             .from(element)
             .save()
             .catch(err => console.log(err));
+
+
     }
     
+
+
+    var cliente = {{{json prefactura.uuid}}}
+    console.log(cliente)
 </script>
 
 {{/section}}

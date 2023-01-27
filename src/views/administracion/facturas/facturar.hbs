@@ -17,7 +17,9 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <div class="panel-tag">
-                        Estas a punto de crear una factura y timbrarla frente al SAT, recuerda que una vez creada no podras modificarla.  LLena los campos con cuidado y verifica que los datos sean correctos antes de dar click al botón de timbrar."
+                        Estas a punto de crear una factura y timbrarla frente al SAT, recuerda que una vez creada no
+                        podras modificarla. LLena los campos con cuidado y verifica que los datos sean correctos antes
+                        de dar click al botón de timbrar."
                     </div>
                     <div class="row text-center ">
                         <div class="col-12">
@@ -27,12 +29,10 @@
                     <form method="post" action="/addFactura">
                         <div class="container">
                             <div class="row mt-3 mb-3">
-                                
-
-
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Cliente</label><br>
-                                    <input type="text" id="buscarCliente" class="form-control" placeholder="Buscar Cliente">
+                                    <input type="text" id="buscarCliente" class="form-control"
+                                        placeholder="Buscar Cliente">
                                     <select required name="factura_cliente_id" id="selectCliente" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
                                         {{#each cliente}}
@@ -40,307 +40,253 @@
                                         {{/each}}
                                     </select>
                                 </div>
-
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Descripción</label><br>
                                     <input required class="form-control" type="text" name="factura_descripcion" id=""
                                         placeholder="Descripción">
                                 </div>
-
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Inversion</label><br>
-                                    <input type="text" id="buscarInversion" class="form-control" placeholder="Buscar Inversion">
-                                    <select required name="factura_inversion_id" id="selectInversion" class="form-control">
+                                    <input type="text" id="buscarInversion" class="form-control"
+                                        placeholder="Buscar Inversion">
+                                    <select required name="factura_inversion_id" id="selectInversion"
+                                        class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
                                         {{#each inversion}}
                                         <option value="{{inversion_id}}">{{inversion_clave}}</option>
                                         {{/each}}
                                     </select>
                                 </div>
-
                                 <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                     <label for="" class="font-weight-bold">Centro de Costo</label><br>
-                                    <input type="text" id="buscarCentroCostos" class="form-control" placeholder="Buscar empresa">
-                                    <select required name="factura_centrodecostos_id" id="selectCentroCostos" class="form-control">
+                                    <input type="text" id="buscarCentroCostos" class="form-control"
+                                        placeholder="Buscar empresa">
+                                    <select required name="factura_centrodecostos_id" id="selectCentroCostos"
+                                        class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
                                         {{#each centroCostos}}
                                         <option value="{{id}}">{{nombre}}</option>
                                         {{/each}}
                                     </select>
                                 </div>
-
                             </div>
                             <br>
-                            <center>
-                        
-                                <div class="col-md-6 col-sm-6 col-lg-3 mb-3 text-center">
-                                    <label for="" class="font-weight-bold">Proyecto / Razón Social</label><br>
-                                    <a class="btn btn-info" data-toggle="collapse" href="#multiCollapseExample1"
-                                        role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Desplegar Tabla</a>
-                                </div></center><br>
-
-                                
-                                    <div class="col-md-12 col-sm-12 col-lg-12 mb-3">
-                                        <div class="collapse multi-collapse" id="multiCollapseExample1">
-                                            <div class="card card-body">
-                                                <label for="" class="font-weight-bold">Cotizacion /
-                                                    Proyecto</label><br>
-                                                <!-- datatable start -->
-                                                <table id="cotizaciones"
-                                                    class="table table-bordered table-hover table-striped w-100">
-                                                    <thead class="bg-primary-600">
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>Proyecto - Razon Social</th>
-                                                            <th>Acciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                    </tbody>
-                                                </table>
-                                                <!-- datatable end -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                            <div class="row mt-3 mb-3">
-
-                                
-                                
-
-                                <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                    <label for="" class="font-weight-bold">Anticipo</label><br>
-                                    <select required name="factura_anticipo_id" id="" class="form-control">
-                                        <option selected disabled>Seleccionar</option>
-                                        <option value="2">Anticipo</option>
-                                    </select>
-                                </div>
-
-
-
-                                <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                    <label for="" class="font-weight-bold">Factura / Remision</label><br>
-                                    <input type="text" id="buscarFacturaRemision" class="form-control" placeholder="Buscar Factura / Remision">
-                                    <select required name="factura_remisionfactura_id" id="selectFacturaRemision" class="form-control">
-                                        <option selected disabled value="">Seleccionar</option>
-                                        {{#each remision}}
-                                        <option value="{{remisionfactura_id}}">{{remisionfactura_descripcion}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
-
-                                <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                    <label for="" class="font-weight-bold">Moneda</label><br>
-                                    <input type="text" id="buscarMoneda" class="form-control" placeholder="Buscar moneda">
-                                    <select required name="factura_moneda_id" id="selectMoneda" class="form-control">
-                                        <option selected disabled value="">Seleccionar</option>
-                                        {{#each moneda}}
-                                        <option value="{{moneda_id}}">{{moneda_descripcion}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
-
-
-                                <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                    <label for="" class="font-weight-bold">Tipo de Venta</label><br>
-                                    <input type="text" id="buscarTipoVenta" class="form-control" placeholder="Buscar moneda">
-                                    <select required  name="tipo_venta" id="selectTipoVenta" class="form-control">
-                                        <option selected disabled value="">Seleccionar</option>
-                                        <option value="1">POLIZA</option>
-                                        <option value="2">RENTA</option>
-                                        <option value="3">VENTA</option>
-                                        <option value="4">OBRA</option>
-                                    </select>
-                                </div>
-
-                            </div>
-
-                            <div class="row mt-3 mb-3">
-
-                                
-
-
-                                <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                    <label for="" class="font-weight-bold">Subtotal</label><br>
-                                    <input required class="form-control" step="0.01" type="text" name="factura_subtotal"
-                                        id="subtotal" placeholder="Subtotal" onchange="totaal()">
-                                </div>
-
-
-                                <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                    <label for="" class="font-weight-bold">IVA</label><br>
-                                    <input required class="form-control" step="0.01" type="text" name="factura_iva" id="ivaa"
-                                        placeholder="IVA">
-                                </div>
-
-                                <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                    <label for="" class="font-weight-bold">TOTAL</label><br>
-                                    <input required class="form-control" type="number" step="0.01" name="factura_total"
-                                        id="total" placeholder="Total">
-                                </div>
-
-
-                                <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                    <label for="" class="font-weight-bold">Tipo de cambio</label><br>
-                                    <input required class="form-control" type="text" name="tipo_cambio" id=""
-                                        placeholder="Tipo de Cambio">
-                                </div>
-
-                            </div>
-
-                        
-                            <div class="row mt-3 mb-3">
-
-                                <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                    <label for="" class="font-weight-bold">Fecha Alta</label>
-                                    <i for="">(no menor a 72 horas)</i><br>
-                                    <input required class="form-control" type="date" name="factura_fecha_alta" id="" max="{{{maxminDate 1}}}">
-                                </div>
-
-
-                                <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                    <label for="" class="font-weight-bold">Observaciones</label><br>
-                                    <input required class="form-control" type="text" name="factura_observaciones" id=""
-                                        placeholder="Observaciones">
-                                </div>
-
-
-                                <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                    <label for="" class="font-weight-bold">Correo de cliente</label><br>
-                                    <input required class="form-control" type="text" name="correo" id=""
-                                        placeholder="E-Mail del Cliente">
-                                </div>
-
-
-                                <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
-                                    <label for="" class="font-weight-bold">Uso de CFDI</label><br>
-                                    <input type="text" id="buscarCFDI" class="form-control" placeholder="Buscar Factura / Remision">
-                                    <select required name="uso_cfdi" id="selectCFDI" class="form-control">
-                                        <option selected disabled value="">Seleccionar</option>
-                                        {{#each usos}}
-                                            <option value="{{this.id}}">{{this.descripcion}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
-
-                            </div>
-
-                            <div class="row mt-3 mb-3">
-
-
-                                    <div class="col-md-4 col-sm-4 col-lg-4 mb-3">
-                                    <label for="" class="font-weight-bold">Forma de Pago</label><br>
-                                   <input type="text" id="buscarFormaPago" class="form-control" placeholder="Buscar Forma de Pago">
-
-                                    <select required name="forma_pago" id="selectFormaPago" class="form-control">
-                                        <option selected disabled hidden value="">Seleccionar</option>
-                                        <option value="01">Efectivo</option>
-                                        <option value="02">Cheque nominativo</option>
-                                        <option value="03">Transferencia electrónica de fondos</option>
-                                        <option value="04">Tarjeta de crédito</option>
-                                        <option value="05">Monedero Electrónico</option>
-                                        <option value="06">Dinero electrónico</option>
-                                        <option value="08">Vales de despensa</option>
-                                        <option value="12">Dación en pago</option>
-                                        <option value="13">Pago por subrogación</option>
-                                        <option value="14">Pago por consignación</option>
-                                        <option value="15">Condonación</option>
-                                        <option value="17">Compensación</option>
-                                        <option value="23">Novación</option>
-                                        <option value="24">Confusión</option>
-                                        <option value="25">Remisión de deuda</option>
-                                        <option value="26">Prescripción o caducidad</option>
-                                        <option value="27">A satisfacción del acreedor</option>
-                                        <option value="28">Tarjeta de débito</option>
-                                        <option value="29">Tarjeta de servicios</option>
-                                        <option value="30">Aplicación de anticipos</option>
-                                        <option value="31">Intermediario pagos</option>
-                                        <option value="99">Por definir</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-4 col-sm-4 col-lg-4 mb-3">
-                                    <label for="" class="font-weight-bold">Metodo de pago</label><br>
-                                    <input type="text" id="buscarMetodoPago" class="form-control" placeholder="Buscar Forma de Pago">
-                                    <select required name="mpago" id="selectMetodoPago" class="form-control">
-                                        <option selected disabled value="">Seleccionar</option>
-                                        <option value="PPD">Pago en parcialidades o diferido</option>
-                                        <option value="PUE">Pago en una sola exhibición</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 col-sm-4 col-lg-4 mb-3">
-                                    <label for="" class="font-weight-bold">Empresa</label>
-                                    <input type="text" id="buscarEmpresa" class="form-control" placeholder="Buscar Empresa">
-                                    <select name="" id="selectEmpresa" class="form-control" id="">
-                                        {{#each empresa}}
-                                            <option value="{{this.id}}">{{this.nombre}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
-
-
-
-                                
-
-                            </div>
-                                <h1 class="text-center mb-3 mt-3">Conceptos</h1>
+                            <h1 class="text-center mb-3 mt-3">Conceptos</h1>
                             <div class="row mt-3 mb-3">
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
                                     <label for="" class="font-weight-bold">Cantidad</label><br>
                                     <input required class="form-control" type="text" name="cantidad" id=""
                                         placeholder="Cantidad">
                                 </div>
-
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
                                     <label for="" class="font-weight-bold">Clave de unidad</label><br>
-                                    <input type="text" id="buscarUnidades" class="form-control" placeholder="Buscar Clave de unidad">
+                                    <input type="text" id="buscarUnidades" class="form-control"
+                                        placeholder="Buscar Clave de unidad">
                                     <select required name="cUnidad" id="selectUnidades" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
                                         {{#each unidades}}
-                                            <option value="{{this.codigo}}">{{this.codigo}} - {{this.descripcion}}</option>
+                                        <option value="{{this.codigo}}">{{this.codigo}} - {{this.descripcion}}</option>
                                         {{/each}}
                                     </select>
                                 </div>
-
-
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
                                     <label for="" class="font-weight-bold">Valor unitario</label><br>
                                     <input required class="form-control" type="text" name="vUnitario" id=""
                                         placeholder="Valor unitario">
                                 </div>
-
                             </div>
                             <div class="row mt-3 mb-3">
-
-                                <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
+                                <div class="col-md-6 col-sm-12 col-lg-6 mb-1">
                                     <label for="" class="font-weight-bold">Clave Producto Servicio</label><br>
-                                    <input type="text" id="buscarClave" class="form-control" placeholder="Buscar Clave Producto Servicio">
+                                    <input type="text" id="buscarClave" class="form-control"
+                                        placeholder="Buscar Clave Producto Servicio">
                                     <select required name="clave" id="selectClave" class="form-control">
                                         <option selected disabled value="">Seleccionar</option>
                                         {{#each catalogo}}
-                                            <option value="{{id_sat}}">{{servicio}}</option>
+                                        <option value="{{id_sat}}">{{id_sat}} - {{servicio}}</option>
                                         {{/each}}
                                     </select>
                                 </div>
-
-                                <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
+                                <div class="col-md-6 col-sm-12 col-lg-6 mb-1">
                                     <label for="" class="font-weight-bold">Importe</label><br>
                                     <input required class="form-control" type="text" name="importe" id=""
                                         placeholder="Importe">
                                 </div>
-
-                                <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
-                                    <label for="" class="font-weight-bold">Descuento</label><br>
-                                    <input required class="form-control" type="text" name="descuento" id=""
-                                        placeholder="Descuento">
-                                </div>
-
                             </div>
-                        
+                            <br>
+                            <center>
+
+                                <div class="col-md-6 col-sm-6 col-lg-3 mb-3 text-center">
+                                    <label for="" class="font-weight-bold">Proyecto / Razón Social</label><br>
+                                    <a class="btn btn-info" data-toggle="collapse" href="#multiCollapseExample1"
+                                        role="button" aria-expanded="false"
+                                        aria-controls="multiCollapseExample1">Desplegar Tabla</a>
+                                </div>
+                            </center><br>
+                            <div class="col-md-12 col-sm-12 col-lg-12 mb-3">
+                                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                    <div class="card card-body">
+                                        <label for="" class="font-weight-bold">Cotizacion /
+                                            Proyecto</label><br>
+                                        <!-- datatable start -->
+                                        <table id="cotizaciones"
+                                            class="table table-bordered table-hover table-striped w-100">
+                                            <thead class="bg-primary-600">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Proyecto - Razon Social</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                        <!-- datatable end -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Factura / Remision</label><br>
+                                <input type="text" id="buscarFacturaRemision" class="form-control"
+                                    placeholder="Buscar Factura / Remision">
+                                <select required name="factura_remisionfactura_id" id="selectFacturaRemision"
+                                    class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    {{#each remision}}
+                                    <option value="{{remisionfactura_id}}">{{remisionfactura_descripcion}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Moneda</label><br>
+                                <input type="text" id="buscarMoneda" class="form-control" placeholder="Buscar moneda">
+                                <select required name="factura_moneda_id" id="selectMoneda" onchange="setTipoCambio()"
+                                    class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    {{#each moneda}}
+                                    <option value="{{moneda_id}}">{{moneda_descripcion}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Tipo de Venta</label><br>
+                                <input type="text" id="buscarTipoVenta" class="form-control"
+                                    placeholder="Buscar moneda">
+                                <select required name="tipo_venta" id="selectTipoVenta" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    <option value="1">POLIZA</option>
+                                    <option value="2">RENTA</option>
+                                    <option value="3">VENTA</option>
+                                    <option value="4">OBRA</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Subtotal</label><br>
+                                <input required class="form-control" step="0.01" type="text" name="factura_subtotal"
+                                    id="subtotal" placeholder="Subtotal" onchange="totaal()">
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">IVA</label><br>
+                                <input required class="form-control" step="0.01" type="text" name="factura_iva"
+                                    id="ivaa" placeholder="IVA">
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">TOTAL</label><br>
+                                <input required class="form-control" type="number" step="0.01" name="factura_total"
+                                    id="total" placeholder="Total">
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Tipo de cambio</label><br>
+                                <input required class="form-control" type="text" name="tipo_cambio" id="tipo_cambio"
+                                    placeholder="Tipo de Cambio">
+                            </div>
+                        </div>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Fecha Alta</label>
+                                <i for="">(no menor a 72 horas)</i><br>
+                                <input required class="form-control" type="date" name="factura_fecha_alta" id="fecha"
+                                    max="{{{maxminDate 1}}}">
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Observaciones</label><br>
+                                <input required class="form-control" type="text" name="factura_observaciones" id=""
+                                    placeholder="Observaciones">
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Correo de cliente</label><br>
+                                <input required class="form-control" type="text" name="correo" id=""
+                                    placeholder="E-Mail del Cliente">
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
+                                <label for="" class="font-weight-bold">Uso de CFDI</label><br>
+                                <input type="text" id="buscarCFDI" class="form-control"
+                                    placeholder="Buscar Factura / Remision">
+                                <select required name="uso_cfdi" id="selectCFDI" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    {{#each usos}}
+                                    <option value="{{this.id}}">{{this.id}} - {{this.descripcion}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-md-4 col-sm-4 col-lg-4 mb-3">
+                                <label for="" class="font-weight-bold">Forma de Pago</label><br>
+                                <input type="text" id="buscarFormaPago" class="form-control"
+                                    placeholder="Buscar Forma de Pago">
+                                <select required name="forma_pago" id="selectFormaPago" class="form-control">
+                                    <option selected disabled hidden value="">Seleccionar</option>
+                                    <option value="01">01 - Efectivo</option>
+                                    <option value="02">02 - Cheque nominativo</option>
+                                    <option value="03">03 - Transferencia electrónica de fondos</option>
+                                    <option value="04">04 - Tarjeta de crédito</option>
+                                    <option value="05">05 - Monedero Electrónico</option>
+                                    <option value="06">06 - Dinero electrónico</option>
+                                    <option value="08">08 - Vales de despensa</option>
+                                    <option value="12">12 - Dación en pago</option>
+                                    <option value="13">13 - Pago por subrogación</option>
+                                    <option value="14">14 - Pago por consignación</option>
+                                    <option value="15">15 - Condonación</option>
+                                    <option value="17">17 - Compensación</option>
+                                    <option value="23">23 - Novación</option>
+                                    <option value="24">24 - Confusión</option>
+                                    <option value="25">25 - Remisión de deuda</option>
+                                    <option value="26">26 - Prescripción o caducidad</option>
+                                    <option value="27">27 - A satisfacción del acreedor</option>
+                                    <option value="28">28 - Tarjeta de débito</option>
+                                    <option value="29">29 - Tarjeta de servicios</option>
+                                    <option value="30">30 - Aplicación de anticipos</option>
+                                    <option value="31">31 - Intermediario pagos</option>
+                                    <option value="99">99 - Por definir</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-lg-4 mb-3">
+                                <label for="" class="font-weight-bold">Metodo de pago</label><br>
+                                <input type="text" id="buscarMetodoPago" class="form-control"
+                                    placeholder="Buscar Metodo de Pago">
+                                <select required name="mpago" id="selectMetodoPago" class="form-control">
+                                    <option selected disabled value="">Seleccionar</option>
+                                    <option value="PPD">PPD - Pago en parcialidades o diferido</option>
+                                    <option value="PUE">PUE - Pago en una sola exhibición</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-lg-4 mb-3">
+                                <label for="" class="font-weight-bold">Empresa</label>
+                                <input type="text" id="buscarEmpresa" class="form-control" placeholder="Buscar Empresa">
+                                <select name="" id="selectEmpresa" class="form-control" id="">
+                                    {{#each empresa}}
+                                    <option value="{{this.id}}">{{this.nombre}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-md-12 text-center mt-5">
                             <button type="submit" class="btn btn-outline-success btn-lg">Timbrar Factura</button>
                         </div>
@@ -351,38 +297,40 @@
     </div>
 </div>
 {{#section 'scripts'}}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <script>
     const cotizacion = {{{ json cotizacion }}}
 
- 
 
 
- function buscarEnSelect(inputId, selectId) {
-    // Obtener el input de búsqueda y el select
-    var input = document.getElementById(inputId);
-    var select = document.getElementById(selectId);
 
-    // Agregar un evento keyup al input de búsqueda
-    input.addEventListener("keyup", function(){
-      // Obtener el valor del input
-      var valor = this.value.toLowerCase();
+    function buscarEnSelect(inputId, selectId) {
+        // Obtener el input de búsqueda y el select
+        var input = document.getElementById(inputId);
+        var select = document.getElementById(selectId);
 
-      // Recorrer todos los option del select
-      for (var i = 0; i < select.length; i++) {
-        var option = select.options[i];
-        // Si el texto del option incluye el valor del input
-        if (option.text.toLowerCase().includes(valor)) {
-          // Mostrar el option
-          option.style.display = "block";
-        } else {
-          // Ocultar el option
-          option.style.display = "none";
-        }
-      }
-    });
-    
+        // Agregar un evento keyup al input de búsqueda
+        input.addEventListener("keyup", function () {
+            // Obtener el valor del input
+            var valor = this.value.toLowerCase();
 
-  }
+            // Recorrer todos los option del select
+            for (var i = 0; i < select.length; i++) {
+                var option = select.options[i];
+                // Si el texto del option incluye el valor del input
+                if (option.text.toLowerCase().includes(valor)) {
+                    // Mostrar el option
+                    option.style.display = "block";
+                } else {
+                    // Ocultar el option
+                    option.style.display = "none";
+                }
+            }
+        });
+
+
+    }
 
     buscarEnSelect("buscarCliente", "selectCliente");
     buscarEnSelect("buscarClave", "selectClave");
@@ -403,7 +351,7 @@
             {
                 data: cotizacion,
                 responsive: true,
-                lengthChange: false   ,
+                lengthChange: false,
                 dom:
                     "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
                     "<'row'<'col-sm-12'tr>>" +
@@ -452,6 +400,81 @@
         document.getElementById('total').value = total.toFixed(2)
     }
 
+    /*
+    
+    // Importar el paquete request
+    const request = require('request');
+    
+    // URL de la API
+    const apiUrl = 'http://apilayer.com/exchange/convert';
+    
+    // Opciones de la solicitud
+    const options = {
+        url: apiUrl,
+        qs: {
+            access_key: 'QfjQVmIDquyMGOr3g3wxfPvlFSWaNt2g', // Reemplaza por tu access_key
+            from: 'USD',
+            to: 'MXN',
+            amount: '1'
+        }
+    };
+    
+    // Realizar la solicitud a la API
+    request(options, (error, response, body) => {
+        if (error) {
+            console.log(`Error: ${error}`);
+            return;
+        }
+    
+        if (response.statusCode !== 200) {
+            console.log(`Error: ${response.statusCode} - ${response.statusMessage}`);
+            return;
+        }
+    
+        // Parsear la respuesta a un objeto JavaScript
+        const data = JSON.parse(body);
+    
+        // Imprimir el valor del dólar en pesos mexicanos
+        console.log(`1 Dólar = ${data.result} Pesos Mexicanos`);
+    });
+    */
+
+    //poner fecha acctual a input
+    function setCurrentDate() {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("fecha").value = today;
+    }
+
+    addEventListener('load', setCurrentDate, false);
+
+
+
+    //set tipo de cambio
+    function setTipoCambio() {
+        var select = document.getElementById("selectMoneda").value;
+        console.log('funciona el primer statement');
+        if (select == 1) {
+            document.getElementById("tipo_cambio").value = 1;
+            console.log('SELECTED PESO');
+        } else if (select == 2) {
+axios.get('/getTipoValor', {data: 'data'})
+  .then(response => {
+console.log(response)  })
+  .catch(error => {
+    // manejar el error
+    console.log(error);
+  });           
+            console.log('SELECCIONASTE DOLAR');
+        }
+        else if (select == 3) {
+            document.getElementById("tipo_cambio").value = 25.00;
+            console.log('SELECTED EURO');
+        }
+    }
 
 </script>
 {{/section}}
