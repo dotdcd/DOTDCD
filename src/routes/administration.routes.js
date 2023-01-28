@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import { authenticateUser, isAdmin } from "../middlewares/auth.js";
 
-import { addPrefactura, getTipoValor } from "../controllers/administracion/prefactura.controller.js";
+import { addPrefactura } from "../controllers/administracion/prefactura.controller.js";
 import { addCliente, updCliente, delCliente} from "../controllers/administracion/cliente.controller.js";
 import { addDisciplina, updDisciplina, delDisciplina} from "../controllers/administracion/disciplina.controller.js";
 import { addProveedor, updProveedor, delProveedor } from "../controllers/administracion/proveedor.controller.js";
@@ -17,7 +17,6 @@ const administrationRoutes = Router();
 administrationRoutes.post('/addPrefactura', addPrefactura)
 
 //?Factura Get tipo de valor
-administrationRoutes.get('/getTipoValor', getTipoValor)
 
 //? Marca Add
 administrationRoutes.post('/addMarca', addMarca)

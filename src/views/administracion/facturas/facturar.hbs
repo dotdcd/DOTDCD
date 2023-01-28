@@ -163,7 +163,7 @@
                             <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                 <label for="" class="font-weight-bold">Moneda</label><br>
                                 <input type="text" id="buscarMoneda" class="form-control" placeholder="Buscar moneda">
-                                <select required name="factura_moneda_id" id="selectMoneda" onchange="setTipoCambio()"
+                                <select required name="factura_moneda_id" id="selectMoneda" onchange=""
                                     class="form-control">
                                     <option selected disabled value="">Seleccionar</option>
                                     {{#each moneda}}
@@ -453,28 +453,7 @@
 
 
 
-    //set tipo de cambio
-    function setTipoCambio() {
-        var select = document.getElementById("selectMoneda").value;
-        console.log('funciona el primer statement');
-        if (select == 1) {
-            document.getElementById("tipo_cambio").value = 1;
-            console.log('SELECTED PESO');
-        } else if (select == 2) {
-axios.get('/getTipoValor', {data: 'data'})
-  .then(response => {
-console.log(response)  })
-  .catch(error => {
-    // manejar el error
-    console.log(error);
-  });           
-            console.log('SELECCIONASTE DOLAR');
-        }
-        else if (select == 3) {
-            document.getElementById("tipo_cambio").value = 25.00;
-            console.log('SELECTED EURO');
-        }
-    }
+   
 
 </script>
 {{/section}}
