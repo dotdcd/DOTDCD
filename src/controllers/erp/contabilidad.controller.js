@@ -232,6 +232,19 @@ const getTestifys = async () => {
     }
 }
 
+const getContractsOff = async () => {
+    try {
+        const contracts = await pool.query("SELECT i.firma, i.nombre, i.apellidos, p.puesto_descripcion as departamento, s.sucursal_nombre as sucursal, i.sueldo, e.empresa_razon_social as empresa, i.inicio, i.vencimiento, i.fecha_firma, i.reconocimiento, i.empleado_id, i.status, i.periodo FROM (SELECT e.empleado_nombre as nombre, CONCAT(e.empleado_paterno, ' ', e.empleado_materno) as apellidos, e.empleado_puesto_id as departamento, e.sucursal_id as sucursal, c.sueldo as sueldo, e.empleado_empresa_id as empresa, DATE_FORMAT(c.fecha_inicio, '%Y-%m-%d') as inicio, DATE_FORMAT(c.fecha_fin, '%Y-%m-%d') as vencimiento, DATE_FORMAT(c.fecha_firma, '%Y-%m-%d') as fecha_firma, c.empleado_id, c.status, c.periodo, c.firma, DATE_FORMAT(c.reconocimiento, '%Y-%m-%d') as reconocimiento FROM CONTRATOS c INNER JOIN empleados e ON e.empleado_id = c.empleado_id) i INNER JOIN puestos p ON i.departamento = p.puesto_id INNER JOIN sucursal s ON i.sucursal = s.sucursal_id INNER JOIN multiempresa e ON i.empresa = e.empresa_id WHERE i.status = 2 AND i.vencimiento BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 15 DAY)")
+        let contratos = []
+        for (const c of contracts[0]) {
+            contratos.push([c.nombre, c.apellidos, c.departamento, c.sucursal, c.empresa, c.periodo+' meses', c.sueldo, c.inicio, c.vencimiento, c.fecha_firma, c.reconocimiento])
+        }
+        return contratos
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const getTotalContracts = async () => {
     try {
         const contracts = await pool.query("SELECT COUNT(*) as total FROM CONTRATOS WHERE status = 2")
@@ -251,8 +264,9 @@ export const renderContratos = async(req, res) => {
     const totals = await getTotal()
     const contracts = await getTotalContracts()
     const empresa = await getEmpresa()
+    const contratosOff = await getContractsOff()
 
-    return res.render('contabilidad/empleados/contratos', {empleados, waitContracts, actualContracts, testifys, totals, contracts, empresa})
+    return res.render('contabilidad/empleados/contratos', {empleados, waitContracts, actualContracts, testifys, totals, contracts, empresa, contratosOff})
 }
 
 export const renderSignature = async(req, res) => {
