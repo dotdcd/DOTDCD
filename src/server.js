@@ -20,6 +20,7 @@ import { checkPrefacturas } from './helpers/prefacturasMantenimiento.js';
 
 //? Importar rutas
 import rutasAnalytics from './routes/analytics.routes.js';
+import inicioRoutes from './routes/inicio.routes.js';
 import rutasErp from './routes/erp.routes.js';
 import rutasIndex from './routes/index.routes.js';
 import rutasMarcas from './routes/marcas.routes.js';
@@ -103,6 +104,7 @@ app.use((req, res, next) => {
 
 //? Routes files
 app.use(rutasAnalytics);
+app.use(inicioRoutes);
 app.use(rutasErp);
 app.use(rutasIndex);
 app.use(rutasMarcas);

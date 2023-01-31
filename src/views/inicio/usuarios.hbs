@@ -40,15 +40,16 @@
 									<div class="row align-items-center mt-4">
 										<div class="col-6">
 											<select name="status" id="" class="form-control">
-												<option value="" selected disabled>Status</option>
+												<option value="" selected disabled>Estatus</option>
 												<option value="1">Activo</option>
 												<option value="0">Inactivo</option>
 											</select>
 										</div>
 										<div class="col-6 text-center">
-											<select name="id_empleado" id="" class="form-control" required>
+											<input type="text" name="" id="inputEmpleados" class="form-control" placeholder="Filtrar Empleados">
+											<select name="id_empleado" id="selectEmpleados" class="form-control" required>
 												<option value="" selected disabled>Empleado</option>
-												{{#each empleado}}
+												{{#each empleadosss}}
                                                 <option value="{{id}}" class="form-control">{{empleado}}</option>
                                                 {{/each}}
 											</select>
@@ -68,43 +69,46 @@
 	</div>
 </div>
 </div>
-<div class="row">
-	<div class="col-xl-12">
-		<div id="panel-1" class="panel">
-			<div class="panel-hdr">
-				<h2>
-					Usuarios <span class="fw-300"><i>DOTDCD - ERP</i></span>
-				</h2>
-				<div class="panel-toolbar">
-					<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
-						data-original-title="Collapse"></button>
-					<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
-						data-offset="0,10" data-original-title="Fullscreen"></button>
-					<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
-						data-original-title="Close"></button>
+<!--DT-->
+	<div class="row">
+		<div class="col-xl-12">
+			<div id="panel-1" class="panel">
+				<div class="panel-hdr">
+					<h2>
+						Empleados <span class="fw-300"><i>DOTDCD</i></span>
+					</h2>
+					<div class="panel-toolbar">
+						<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip"
+							data-offset="0,10" data-original-title="Collapse"></button>
+						<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+							data-offset="0,10" data-original-title="Fullscreen"></button>
+						<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+							data-original-title="Close"></button>
+					</div>
 				</div>
-			</div>
-			<div class="panel-container show">
-				<div class="panel-content">
-					<!-- datatable start -->
-					<table id="dt-basic-example" class=" table table-bordered table-hover table-striped w-100">
-						<thead class="bg-primary-600">
-							<tr>
-								<th>Nombre</th>
-								<th>Usuario</th>
-								<th>Modificar</th>
-							</tr>
-						</thead>
-						<tbody>
+				<div class="panel-container show">
+					<div class="panel-content">
+						<!-- datatable start -->
+						<table id="usuarios" class="table table-bordered table-hover table-striped w-100">
+							<thead class="bg-primary-600">
+								<tr>
+									<th>ID</th>
+									<th>Usuario</th>
+									<th>Nombre</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+							<tbody>
 
-						</tbody>
-					</table>
-					<!-- datatable end -->
+							</tbody>
+						</table>
+						<!-- datatable end -->
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+	<!--DT-->
 
 {{#section 'scripts'}}
 
@@ -112,52 +116,46 @@
 <script src="/js/datagrid/datatables/datatables.export.js"></script>
 
 <script>
-	const usuario = {{{ json usuario }}}
+function buscarEnSelect(inputId, selectId) {
+        // Obtener el input de búsqueda y el select
+        var input = document.getElementById(inputId);
+        var select = document.getElementById(selectId);
+
+        // Agregar un evento keyup al input de búsqueda
+        input.addEventListener("keyup", function () {
+            // Obtener el valor del input
+            var valor = this.value.toLowerCase();
+
+            // Recorrer todos los option del select
+            for (var i = 0; i < select.length; i++) {
+                var option = select.options[i];
+                // Si el texto del option incluye el valor del input
+                if (option.text.toLowerCase().includes(valor)) {
+                    // Mostrar el option
+                    option.style.display = "block";
+                } else {
+                    // Ocultar el option
+                    option.style.display = "none";
+                }
+            }
+        });
 
 
-	document.querySelector("#btn").addEventListener("click", function () {
-		$longitud = 8; //numero de caracteres
-		$clave = generarClave($longitud);
-		document.querySelector("#result").value = $clave;
-	});
-
-
-	/*Función principal | Generador de claves | Password Generator*/
-	function generarClave(long) {
-		/*caracteres permitidos*/
-		let caracteres = "Aa0BbCc1DdEe2FfGgHh3IiJj4KkLl5MmNn6OoPp7QqRr8SsTt9UuVv*WwXxYyZz$",
-			clave = '',
-			numero;
-
-		/*creacion de clave*/
-		for (let i = 0; i < long; i++) {
-			numero = getNumero(0, caracteres.length);
-			clave += caracteres.substring(numero, numero + 1);
-		}
-		return clave;
-	}
-
-
-	/*Función para generar un numero aleatorio*/
-	function getNumero(min, max) {
-		return Math.floor(Math.random() * (max - min)) + min;
-	}
-
-	console.log($clave)
-
+    }
+	buscarEnSelect("inputEmpleados", "selectEmpleados");
+	var usuario = {{{ json uarray }}}
 	$(document).ready(function () {
 
 		// initialize datatable
-		$('#dt-basic-example').dataTable(
+		$('#usuarios').dataTable(
 			{
-				data: empleados,
+				data: usuario,
 				responsive: true,
 				lengthChange: false,
 				dom:
 					"<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
 					"<'row'<'col-sm-12'tr>>" +
 					"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-				"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
 				buttons: [
 
 					{
@@ -194,7 +192,39 @@
 			});
 
 	});
+	
 
+/*
+	document.querySelector("#btn").addEventListener("click", function () {
+		$longitud = 8; //numero de caracteres
+		$clave = generarClave($longitud);
+		document.querySelector("#result").value = $clave;
+	});
+
+
+	//Función principal | Generador de claves | Password Generator
+	function generarClave(long) {
+		//caracteres permitidos
+		let caracteres = "Aa0BbCc1DdEe2FfGgHh3IiJj4KkLl5MmNn6OoPp7QqRr8SsTt9UuVv*WwXxYyZz$",
+			clave = '',
+			numero;
+
+		//creacion de clave
+		for (let i = 0; i < long; i++) {
+			numero = getNumero(0, caracteres.length);
+			clave += caracteres.substring(numero, numero + 1);
+		}
+		return clave;
+	}
+
+
+	//Función para generar un numero aleatorio
+	function getNumero(min, max) {
+		return Math.floor(Math.random() * (max - min)) + min;
+	}
+
+	console.log($clave)
+*/
 	$('#imageInput').on('change', function () {
 		$input = $(this);
 		if ($input.val().length > 0) {

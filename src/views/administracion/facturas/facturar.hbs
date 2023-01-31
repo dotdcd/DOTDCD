@@ -33,7 +33,7 @@
                                     <label for="" class="font-weight-bold">Cliente</label><br>
                                     <input type="text" id="buscarCliente" class="form-control"
                                         placeholder="Buscar Cliente">
-                                    <select required name="factura_cliente_id" id="selectCliente" class="form-control">
+                                    <select required name="factura_cliente_id" id="selectCliente" class="form-control" onchange="filtrar()">
                                         <option selected disabled value="">Seleccionar</option>
                                         {{#each cliente}}
                                         <option value="{{cliente_id}}">{{cliente_razon_social}}</option>
@@ -164,7 +164,7 @@
                                 <label for="" class="font-weight-bold">Moneda</label><br>
                                 <input type="text" id="buscarMoneda" class="form-control" placeholder="Buscar moneda">
                                 <select required name="factura_moneda_id" id="selectMoneda" 
-                                    class="form-control">
+                                    class="form-control" onchange="llenartc()" >
                                     <option selected disabled value="">Seleccionar</option>
                                     {{#each moneda}}
                                     <option value="{{moneda_id}}">{{moneda_descripcion}}</option>
@@ -186,7 +186,7 @@
 
                             <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                 <label for="" class="font-weight-bold">Folio</label><br>
-                                <input required class="form-control" type="text" name="folio" id="tipo_cambio"
+                                <input required class="form-control" type="text" name="folio" id=""
                                     placeholder="folio">
                             </div>
 
@@ -406,6 +406,21 @@
         document.getElementById('ivaa').value = iva.toFixed(2)
         document.getElementById('total').value = total.toFixed(2)
     }
+function filtrar() {
+  const select = document.getElementById("selectCliente");
+  const selectedOption = select.options[select.selectedIndex].text;
+  const searchInputs = document.querySelectorAll("input[type=search]");
+  searchInputs.forEach(input => {
+  input.value = selectedOption;
+  input.focus();
+  
+
+});
+
+}
+document.getElementById("selectCliente").addEventListener("change", filtrar);
+
+
 
     /*
     
@@ -460,7 +475,34 @@
 
 
 
-   
+
+function llenartc() {
+    var moneda = document.getElementById("selectMoneda").value;
+    if (moneda == 1) {
+        document.getElementById("tipo_cambio").value = 1;
+    } else if (moneda == 2){
+         getTp()  
+    } else if (moneda == 3){
+        document.getElementById("tipo_cambio").value = 20.47;
+}
+
+async function getTp() {
+        const tp = await fetch('https://api.apilayer.com/exchangerates_data/latest?symbols=MXN&base=USD', { 
+            headers: {
+            'apikey': 'g9BprsTZa4IjG17aeyRxk7JFWSEGLO3g'
+            }
+        })
+        .then(async(response) => {
+            const data = await response.json()
+            const tipoCambio = data.rates.MXN
+            document.getElementById("tipo_cambio").value = tipoCambio.toFixed(2);
+        })
+   }
+
+
+  
+
+
 
 </script>
 {{/section}}

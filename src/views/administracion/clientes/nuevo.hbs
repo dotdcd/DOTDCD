@@ -91,8 +91,21 @@
                                                 </div><br>
                                                 <div class="col-md-4 mt-2">
                                                     <span>Regimen Fiscal</span>
-                                                    <input type="text" id="simpleinput" class="form-control mb-1"
-                                                        placeholder="Ingresa el regimen fiscal" name="cliente_regimen_fiscal">
+                                                    <Select name="cliente_regimen_fiscal" class="form-control">
+                                                        <option value="" hidden selected>Seleccionar</option>
+                                                        {{#each rf}}
+                                                        <option value="{{this.id}}">{{this.id}} - {{this.rf_descripcion}}</option>
+                                                        {{/each}}
+                                                    </Select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span>Uso CFDI</span>
+                                                    <select name="cfdi" class="form-control" id="">
+                                                        <option value="" selected hidden >Seleccionar</option>
+                                                        {{#each cfdi}}
+                                                        <option value="{{this.id}}" {{#if (is ../cliente.cliente_cfdi this.id)}}selected{{/if}}>{{this.id}} - {{this.descripcion}}</option>
+                                                        {{/each}}
+                                                    </select>
                                                 </div><br>
                                     
                                             </div>

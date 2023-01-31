@@ -86,7 +86,12 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <span>Regimen Fiscal</span>
-                                                    <input type="text" class="form-control" placeholder="Ingrese el regimen fiscal" value="{{cliente.cliente_regimen_fiscal}}" name="cliente_regimen_fiscal">
+                                                    <Select name="cliente_regimen_fiscal" class="form-control">
+                                                        <option value="" hidden selected>Seleccionar</option>
+                                                        {{#each rf}}
+                                                        <option value="{{this.id}}" {{#if (is ../cliente.cliente_regimen_fiscal this.id)}}selected{{/if}}>{{this.id}} - {{this.rf_descripcion}}</option>
+                                                        {{/each}}
+                                                    </Select>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <span> Correo de Cliente </span>
@@ -98,6 +103,15 @@
                                                     <select name="cliente_estatus_baja" class="form-control" id="">
                                                         <option value="0" {{#if cliente.cliente_estatus_baja}} selected {{/if}}>Activo</option>
                                                         <option value="1" {{#if cliente.cliente_estatus_baja}} selected {{/if}}>Inactivo</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span>Uso CFDI</span>
+                                                    <select name="cfdi" class="form-control" id="">
+                                                        <option value="0" {{#if cliente.cliente_estatus_baja}} selected {{/if}}>Activo</option>
+                                                        {{#each cfdi}}
+                                                        <option value="{{this.id}}" {{#if (is ../cliente.cliente_cfdi this.id)}}selected{{/if}}>{{this.id}} - {{this.descripcion}}</option>
+                                                        {{/each}}
                                                     </select>
                                                 </div>
                                     

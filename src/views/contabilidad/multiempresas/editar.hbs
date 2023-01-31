@@ -33,7 +33,12 @@
                         <div class="row mt-6">
                             <div class="col-md-6">
                                 <label for="Colonia ">Regimen Fiscal </label>
-                                <input type="text" class="form-control" name="empresa_regimen_fiscal" value="{{empresa.empresa_regimen_fiscal}}" placeholder="Ingrese el regimen fiscal">
+                                <Select name="empresa_regimen_fiscal" class="form-control">
+                                    <option value="" hidden selected>Seleccionar</option>
+                                    {{#each rf}}
+                                    <option value="{{this.id}}" {{#if (is ../empresa.empresa_regimen_fiscal this.id)}}selected{{/if}}>{{this.id}} - {{this.rf_descripcion}}</option>
+                                    {{/each}}
+                                </Select>
                             </div>
                             <div class="col-md-6">
                                 <label for="Ciudad y estado">Codigo Postal</label>

@@ -3,8 +3,9 @@ import {pool} from '../db.js';
 import { read } from 'fs-extra';
 
 //? Controllers
+
 import { renderEmployees, renderAnalytics, renderProyectos, renderEdificios } from '../controllers/erp/analytics.controller.js';
-import { renderUsuarios } from '../controllers/erp/inicio.controller.js';
+import { renderUsuarios, renderEditarUsuario } from '../controllers/erp/inicio.controller.js';
 import { renderOpProyAutorizarProyecto, renderOpProyAutorizar, renderOpProyNuevo,renderOpProyBuscar, renderOpProyEditar, renderOpReqBuscar, renderOpReqEditar, renderOpReqNuevo, renderFolioNuevo, renderFolioEditar, renderFolioBuscar } from '../controllers/erp/operacion.controller.js';
 import { renderEprovMarca, renderProdNuevo,renderProdEditar, renderAdProvMarcaNuevo, renderDeditar, renderAdEditar, renderCeditar, renderPBEditar, renderAdBuscar, renderAdNuevo, renderDCEditar, renderVerPprefactura, renderVerPrefacturas, renderAdProvMarca, renderCliBuscar, renderCliEditar, renderPrefacturas, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar, renderProgPrefacturar, renderDnuevo, renderDbuscar, renderCbuscar, renderCnuevo, renderFacturas, renderFacturar, verFactura, renderProdBuscar,  renderTaxPdf} from '../controllers/erp/administracion.controller.js';
 
@@ -29,6 +30,7 @@ rutasErp.get('/dashboard/analytics/edificios', [authenticateUser, isAdmin], rend
 
 //?Inicio Routes
 rutasErp.get('/dashboard/inicio/usuarios', [authenticateUser, isAdmin], renderUsuarios)
+rutasErp.get('/dashboard/inicio/usuario/editar/:id', [authenticateUser, isAdmin], renderEditarUsuario)
 /*
 rutas.get('/dashboard/inicio/respaldo', renderRespaldo)
 

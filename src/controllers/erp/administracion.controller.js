@@ -102,8 +102,11 @@ export const renderAdProvMarcaNuevo = async (req, res) => {
 
 //?clientes
 export const renderCliNuevo = async (req, res) => {
-
-    res.render('administracion/clientes/nuevo')
+    const regimen_fiscal = await pool.query('SELECT * FROM regimen_fiscal')
+    const rf = regimen_fiscal[0]
+    const cfd = await pool.query('SELECT * FROM uso_cfdi')
+    const cfdi = cfd[0]
+    res.render('administracion/clientes/nuevo', { rf, cfdi })
 }
 
 export const renderCliBuscar = async (req, res) => {
@@ -120,6 +123,7 @@ export const renderCliBuscar = async (req, res) => {
 //* Editar cliente
 const getCliente = async (id) => {
     try {
+
         const cliente = await pool.query('SELECT * FROM clientes WHERE cliente_id = ?', [id])
         return cliente[0][0]
     } catch (error) {
@@ -129,7 +133,11 @@ const getCliente = async (id) => {
 export const renderCliEditar = async (req, res) => {
     try {
         const cliente = await getCliente(req.params.id)
-        res.render('administracion/clientes/editar', { cliente })
+        const regimen_fiscal = await pool.query('SELECT * FROM regimen_fiscal')
+        const rf = regimen_fiscal[0]
+        const cfd = await pool.query('SELECT * FROM uso_cfdi')
+        const cfdi = cfd[0]
+        res.render('administracion/clientes/editar', { cliente, rf, cfdi })
     } catch (error) {
         console.log(error)
     }
@@ -620,7 +628,7 @@ export const verFactura = async (req, res) => {
 
 const getTaxInfo = async (id) => {
     try {
-        const timbrado = await pool.query('SELECT factura_empresa_id as empresa, factura_cliente_id, factura_descripcion as descripcion, uso_cfdi, factura_fecha_alta, forma_pago, mpago, `cadena_sat`, `uuid`, `sello_sat`, `sello_cfdi`, `qr`, factura_factura, `factura_subtotal`, `factura_iva`, `factura_total` FROM facturas WHERE factura_id = ?', [id])
+        const timbrado = await pool.query('SELECT f.factura_empresa_id as empresa, f.factura_cliente_id, f.factura_descripcion as descripcion, f.uso_cfdi, DATE_FORMAT(f.factura_fecha_alta, "%d/%b/%Y") as factura_fecha_alta, f.forma_pago, f.mpago, f.cadena_sat, f.uuid, f.sello_sat, f.sello_cfdi, f.qr, f.factura_factura, f.factura_subtotal, f.factura_iva, f.factura_total, f.factura_c_unidad, f.factura_clave_prod, emp.empresa_razon_social, mon.moneda_descripcion, f.tipo_cambio FROM facturas f JOIN multiempresa emp ON f.factura_empresa_id = emp.empresa_id JOIN monedas mon ON f.factura_moneda_id = mon.moneda_id WHERE f.factura_id = ?', [id]) 
         return timbrado[0][0]
     } catch (error) {
         console.log(error)
@@ -661,6 +669,7 @@ export const renderTaxPdf = async (req, res) => {
         const cliente = await getClientInfo(taxInfo.factura_cliente_id)
         const empresa = await getEmpresaInfo(taxInfo.empresa)
         const formaPago = await getFormaPago(taxInfo.forma_pago)
+        console.log(taxInfo)
         return res.render('administracion/facturas/pdf', { taxInfo, cliente, empresa, formaPago })
     } catch (error) {
         console.log(error)

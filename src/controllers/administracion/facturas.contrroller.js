@@ -82,7 +82,7 @@ export const addFactura = async (req, res) => {
                         ValorUnitario: req.body.vUnitario,
                         Importe: req.body.importe,
                         Descuento: req.body.descuento,
-                        ObjetoImp: "04",
+                        ObjetoImp: "01",
                     }
                 ],
             }

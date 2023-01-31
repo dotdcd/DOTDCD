@@ -1,0 +1,112 @@
+<div class="row">
+	<div class="col-xl-12">
+		<div id="panel-1" class="panel">
+			<div class="panel-hdr">
+				<h2>
+					Editar Usuario <span class="fw-300"><i></i></span>
+				</h2>
+				<div class="panel-toolbar">
+					<button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
+						data-originalbmnvxzcbhmgchdghjitle="Collapse"></button>
+					<button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+						data-offset="0,10" data-original-title="Fullscreen"></button>
+					<button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
+						data-original-title="Close"></button>
+				</div>
+			</div>
+			<div class="panel-container show">
+				<div class="panel-content">
+					<section>
+						<form action="/updUser/{{{usuarioID}}}" method="POST" class="container">
+							<div class="row justify-content-center">
+								<div class="col-12 col-md-8 col-lg-8 col-xl-6">
+									<div class="row">
+										<div class="col text-center">
+											<h1>Editar Usuario</h1>
+											<p class="text-h3">Acceso al ERP.</p>
+                                            <i>Nota: la contraseña está encriptada, 
+                                               no se puede editar</i>
+										</div>
+									</div>
+									<div class="row align-items-center mt-4">
+										<div class="col">
+											<input type="text" class="form-control" placeholder="Usuario" value="{{usuarioA.username}}" name="username" required>
+										</div>
+									</div>
+                                    <!-- En este campo viene la contrasena encriptada, 
+                                        no se puede editar, solo se puede cambiar la contraseña desde el perfil del usuario
+									<div class="row align-items-center mt-4">
+										<div class="col">
+											<input type="text" class="form-control" value="{{usuarioA.password}}" placeholder="Contraseña"
+												name="password" required>
+										</div>
+									</div>
+                                    -->
+									<div class="row align-items-center mt-4">
+										<div class="col-6">
+											<select name="status" id="" class="form-control">
+												<option value="" hidden selected disabled>Status</option>
+												<option value="1" {{#if (is usuarioA.status 1)}} selected {{/if}}>Activo</option>
+												<option value="0" {{#if (is usuarioA.status 0)}} selected {{/if}}>Inactivo</option>
+											</select>
+											<div class="container text-center"><i class="">Para dar de baja un usuario 
+												se debe de cambiar el estatus</i></div>
+										</div>
+										<div class="col-6 text-center">
+											<input type="text" name="" id="inputEmpleados" class="form-control" placeholder="Filtrar Empleados">
+											<select name="id_empleado" id="selectEmpleados" class="form-control" required>
+												<option value="" selected disabled>Empleado</option>
+												{{#each empleadosss}}
+                                                <option value="{{id}}" {{#if (is ../usuarioA.id_empleado id)}} selected {{/if}} class="form-control">{{empleado}}</option>
+                                                {{/each}}
+											</select>
+										</div>
+									</div>
+									<div class="row justify-content-start mt-4">
+										<div class="col-lg-12 text-center">
+											<center>
+												<a href="/dashboard/inicio/usuarios"><button class="btn btn-danger mt-4 btn-lg btn-bloc" type="button">Cancelar</button></a>
+												<button class="btn btn-info mt-4 btn-lg btn-bloc" type="submit" >Agregar</button>
+											</center>
+										</div>
+									</div>
+								</div>
+						</form>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+{{#section 'scripts'}}
+<script>
+function buscarEnSelect(inputId, selectId) {
+        // Obtener el input de búsqueda y el select
+        var input = document.getElementById(inputId);
+        var select = document.getElementById(selectId);
+
+        // Agregar un evento keyup al input de búsqueda
+        input.addEventListener("keyup", function () {
+            // Obtener el valor del input
+            var valor = this.value.toLowerCase();
+
+            // Recorrer todos los option del select
+            for (var i = 0; i < select.length; i++) {
+                var option = select.options[i];
+                // Si el texto del option incluye el valor del input
+                if (option.text.toLowerCase().includes(valor)) {
+                    // Mostrar el option
+                    option.style.display = "block";
+                } else {
+                    // Ocultar el option
+                    option.style.display = "none";
+                }
+            }
+        });
+
+
+    }
+	buscarEnSelect("inputEmpleados", "selectEmpleados");
+</script>
+{{/section}}

@@ -36,12 +36,14 @@ export const renderOpProyNuevo = async (req, res) => {
         const empresaa = await getEmpresa()
         const clientes = await getCliente()
         const empleados = await getEmpleado()
+        
         res.render('operacion/proyectos/nuevo', { clientes, sucursales, empresaa, moneda, empleados })
     } catch (error) {
         console.log(error)
 
     }
 }
+
 
 const getCotizacionClase = async () => {
     const cotizacionClase = await pool.query("SELECT * FROM cotizaciones_clases")
@@ -84,6 +86,7 @@ const getInsumosProy = async (id) => {
     return disciplina
 }
 
+
 export const renderOpProyEditar = async (req, res) => {
     try {
         const moneda = await getMoneda()
@@ -101,7 +104,6 @@ export const renderOpProyEditar = async (req, res) => {
         const niveles = await getNiveles(id)
         const prodProyecto = await getProdProyecto(id)
         const tipos = await getTipos(id)
-
         const insumos = await getInsumosProy(id)
         //console.log(insumos)
         res.render('operacion/proyectos/editar', { p, clientes, sucursales, empresaa, moneda, empleados, clase, producto, disciplinass, niveles, prodProyecto, tipos, insumos })

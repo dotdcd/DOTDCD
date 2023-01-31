@@ -54,7 +54,7 @@
     .invoice-price .invoice-price-right {
         display: table-cell;
         padding: 20px;
-        font-size: 20px;
+        font-size: 25px;
         font-weight: 600;
         width: 75%;
         position: relative;
@@ -68,7 +68,7 @@
     }
 
     .invoice-price small {
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 400;
         display: block
     }
@@ -91,7 +91,8 @@
         font-size: 12px;
     }
     .size{
-        font-size: 16px;
+        font-size: 13px;
+        text-align: center;
     }
     .invoice-price .invoice-price-right small {
         display: block;
@@ -131,7 +132,7 @@
     }
 
     .data{
-        font-size: 12px;
+        font-size: 10px;
     }
     span{
         font-size: 14px;
@@ -160,16 +161,16 @@
             <div class="invoice-header">
                 <div class="invoice-from">
                     <address class="m-t-5 m-b-5">
-                        
-                        <strong>RFC: </strong> <span>{{cliente.cliente_rfc}}</span> <br>
-                        <strong>Domicilio Fiscal: </strong> <span>{{cliente.cliente_calle}} No. {{cliente.cliente_numero}}, {{cliente.cliente_colonia}}, {{cliente.cliente_codigo_postal}} {{cliente.cliente_municipio}}, {{cliente.cliente_estado}}</span> <br>
+                        <strong>Emisor : </strong> <span>{{taxInfo.empresa_razon_social}}</span> <br>
+                        <strong>RFC: </strong> <span>{{empresa.empresa_rfc}}</span> <br>
+                        <strong>Domicilio Fiscal: </strong> <span>{{empresa.empresa_direccion}}, {{empresa.empresa_colonia}}, {{empresa.empresa_cp}} {{empresa.empresa_ciudad_estado}}, {{cliente.cliente_estado}}</span> <br>
                         <strong>Lugar de Expedición: </strong> <span>64750</span> <br>
-                        <strong>Regimen Fiscal: </strong> <br>
+                        <strong>Regimen Fiscal: </strong> <span>{{empresa.empresa_regimen_fiscal}}</span><br>
                         <br><br><br><br>
                         <strong>Cliente: </strong> <span>{{cliente.cliente_razon_social}}</span> <br>
                         <strong>RFC</strong> <span>{{cliente.cliente_rfc}}</span> <br>
                         <strong>Domicilio Fiscal: </strong> <span>{{cliente.cliente_calle}} No.{{cliente.cliente_numero}}, {{cliente.cliente_colonia}} {{cliente.cliente_codigo_postal}} {{cliente.cliente_municipio}} {{cliente.cliente_estado}}</span> <br>
-                        <strong>Uso de CFDI: </strong> <span>{{cliente.uso_cfdi}}</span> <br>
+                        <strong>Uso de CFDI: </strong> <span>{{taxInfo.uso_cfdi}}</span> <br>
                         <strong>Regimen Fiscal: </strong> <span> 601 - General de Ley Personas Morales</span> <br>
 
                         
@@ -186,10 +187,9 @@
                         <span>{{formaPago.id}} - {{formaPago.descripcion}}</span> <br>
                         <strong>Método de Pago :</strong> <span>{{#if (is taxInfo.mpago 'PPD')}} PPD - Pago en parcialidades o diferido {{else}} PUE - Pago en una sola exhibición {{/if}}</span><br>
                         <strong>SERIE-FOLIO: </strong> <span>{{taxInfo.factura_factura}}</span> <br>
-                        <strong>UUID: </strong> <span>{{prefactura.uuid}}</span> <br>
-                        <strong>Fecha y Hora de Certificación</strong> <br>
-                        <span>{{taxInfo.factura_fecha_alta}}</span> <br>
-                        <strong>Fecha y Hora de Emisión:</strong><span> {{taxInfo.factura_fecha_alta}} </span><br>
+                        <strong>UUID: </strong> <span>{{taxInfo.uuid}}</span> <br>
+                        <strong>Fecha y Hora de Certificación: </strong><span id="fechaFormat"> {{taxInfo.factura_fecha_alta}}</span><br>
+                        <strong>Fecha y Hora de Emisión: </strong><spa id="fechaFormat2"> {{taxInfo.factura_fecha_alta}} </span><br>
                         
                     </address>
                 </div>
@@ -203,7 +203,9 @@
                         <thead>
                             <tr>
                                 <th>CANTIDAD</th>
-                                <th>DESCRIPCIÓN</th>
+                                <th>UNIDAD</th>
+                                <th>CLAVE</th>
+                                <th colspan="3">DESCRIPCION</th>
                                 <th class="text-center" width="10%">PRECIO</th>
                                 <th class="text-center" width="10%">IMPDESC</th>
                                 <th class="text-center" width="20%">IMPORTE</th>
@@ -214,7 +216,9 @@
                                 <td>
                                     1.00
                                 </td>
-                                <td >{{taxInfo.descripcion}}</td>
+                                <td>{{taxInfo.factura_c_unidad}}</td>
+                                <td>{{taxInfo.factura_clave_prod}}</td>
+                                <td colspan="3">{{taxInfo.descripcion}}</td>
                                 <td class="text-center">${{{ money taxInfo.factura_subtotal }}}</td>
                                 <td class="text-center">$0.00</td>
                                 <td class="text-center">${{{ money taxInfo.factura_subtotal }}}</td>
@@ -226,8 +230,8 @@
                 <div class="">
                     <div class="invoice-price-left">
                         <small>( {{{ntp taxInfo.factura_total}}} 00/100 M.N.)</small><br>
-                        <small>Moneda: MXN - Peso Mexicano</small><br>
-                        <small>Tipo de cambio: 1.0000</small><br>
+                        <small id="monedaF">Moneda: MXN - Peso Mexicano</small><br>
+                        <small>Tipo de cambio: {{taxInfo.tipo_cambio}}</small><br>
                     </div>
 
                 </div> <br>
@@ -237,19 +241,19 @@
                         <div class="invoice-price-row">
                             <div class="sub-price">
                                 <small>SUBTOTAL</small>
-                                <span class="text-inverse">${{{money taxInfo.factura_subtotal}}}</span>
+                                <span class="text-inverse h3">${{{money taxInfo.factura_subtotal}}}</span>
                             </div>
                             <div class="sub-price">
-                                <i class="fa fa-plus text-muted"></i>
+                                <i class="fa fa-plus text-muted h3"></i>
                             </div>
                             <div class="sub-price">
                                 <small>I.V.A</small>
-                                <span class="text-inverse">${{{money taxInfo.factura_iva}}}</span>
+                                <span class="text-inverse h3">${{{money taxInfo.factura_iva}}}</span>
                             </div>
                         </div>
                     </div>
                     <div class="invoice-price-right">
-                        <small>TOTAL</small> <span class="f-w-600">${{{money taxInfo.factura_total}}}</span>
+                        <small>TOTAL</small> <span class="f-w-600 h4">${{{money taxInfo.factura_total}}}</span>
                     </div>
                 </div>
                 <!-- end invoice-price -->
@@ -266,8 +270,6 @@
 
             <div class="invoice-header">
                 <div class="invoice-from data">
-
-
                 </div>
                 <div class="invoice-to">
                     <div class="invoice-date">
@@ -284,20 +286,20 @@
                 <div class="invoice-date">
                     <div style="width: 500px;">
                         <address class="m-t-5 m-b-5">
-                            <div style="background-color: grey !important; width: 550px"><strong class="text-inverse" style="font-size: 11px; color: #ffff; padding-left: 5px;">Sello digital CFDI</strong></div>
+                            <div style="background-color: grey !important; width: 550px"><strong class="text-inverse" style="font-size: 10px; color: #ffff; padding-left: 5px;">Sello digital CFDI</strong></div>
                             <div style="overflow-wrap: break-word;"><p class="data">{{taxInfo.sello_cfdi}}</p></div>
                             <br>
-                            <div style="background-color: grey !important; width: 550px"><strong class="text-inverse" style="font-size: 11px; color: #ffff; padding-left: 5px;">Sello del SAT</strong></div>
+                            <div style="background-color: grey !important; width: 550px"><strong class="text-inverse" style="font-size: 10px; color: #ffff; padding-left: 5px;">Sello del SAT</strong></div>
                             <p class="data" style="overflow-wrap: break-word;">{{taxInfo.sello_sat}}</p>
                             <br>
-                            <div style="background-color: grey !important; width: 550px"><strong class="text-inverse" style="font-size: 11px; color: #ffff; padding-left: 5px;">Cadena original del complemento de certificación digital del SAT</strong></div>
+                            <div style="background-color: grey !important; width: 550px"><strong class="text-inverse" style="font-size: 10px; color: #ffff; padding-left: 5px;">Cadena original del complemento de certificación digital del SAT</strong></div>
                             <p class="data" style="overflow-wrap: break-word;">{{taxInfo.cadena_sat}}
                             </p>
                         </address>
                     </div>
                 </div>
             </div>
-            <!-- begin invoice-footer -->
+            <!-- begin invoice-footer 
             <div class="invoice-footer">
                 <p class="text-center m-b-5 f-w-600">
                     DOT DCD
@@ -308,7 +310,9 @@
                     <span class="m-r-10 t"><i class="fa fa-file-text"></i> RFC DDC041020CT0</span>
                 </p>
             </div>
-            <!-- end invoice-footer -->
+             end invoice-footer -->
+
+
         </div>
     </div>
 </div>
@@ -331,6 +335,23 @@
     integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+
+    function replaceMonthName() {
+  var element = document.getElementById("fechaFormat");
+  var element2 = document.getElementById("fechaFormat2");
+  var months_upper = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  var months_lower = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+  var months_es = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+
+  for (var i = 0; i < months_upper.length; i++) {
+    element.innerHTML = element.innerHTML.replace(months_upper[i], months_es[i]).replace(months_lower[i], months_es[i]);
+    element2.innerHTML = element2.innerHTML.replace(months_upper[i], months_es[i]).replace(months_lower[i], months_es[i]);
+  }
+}
+
+
+replaceMonthName();
+addEventListener("load", replaceMonthName);
 
     function printPdf() {
         var element = document.getElementById('container');
@@ -359,10 +380,16 @@
 
     }
     
+const moneda = {{{json taxInfo.moneda_descripcion}}}
 
+if (moneda === "PESOS") {
+  document.getElementById("monedaF").innerHTML = "Moneda: MXN - Peso Mexicano";
+} else if (moneda === "DOLARES") {
+  document.getElementById("monedaF").innerHTML = "Moneda: USD - Dólar Estadounidense";
+} else if (moneda === "EUROS"){
+    document.getElementById("monedaF").innerHTML = "Moneda: EUR - Euro";
+}
 
-    var cliente = {{{json prefactura.uuid}}}
-    console.log(cliente)
 </script>
 
 {{/section}}

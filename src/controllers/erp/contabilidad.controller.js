@@ -265,7 +265,7 @@ export const renderContratos = async(req, res) => {
     const contracts = await getTotalContracts()
     const empresa = await getEmpresa()
     const contratosOff = await getContractsOff()
-
+    
     return res.render('contabilidad/empleados/contratos', {empleados, waitContracts, actualContracts, testifys, totals, contracts, empresa, contratosOff})
 }
 
@@ -381,7 +381,9 @@ export const renderBMultiempresas = async(req, res) => {
     }
 }
 export const renderNMultiempresas = async(req, res) => {
-    res.render('contabilidad/multiempresas/nuevo')
+    const regimenfiscal = await pool.query("SELECT id, rf_descripcion FROM regimen_fiscal")
+    const rf = regimenfiscal[0]
+    res.render('contabilidad/multiempresas/nuevo', {rf})
 }
 
 
@@ -398,7 +400,9 @@ export const renderEMultiempresas = async(req, res) => {
     try {
         const {id} = req.params
         const empresa = await getEmpresaa(id)
-        return res.render('contabilidad/multiempresas/editar', {empresa})
+        const regimenfiscal = await pool.query("SELECT id, rf_descripcion FROM regimen_fiscal")
+    const rf = regimenfiscal[0]
+        return res.render('contabilidad/multiempresas/editar', {empresa, rf})
     } catch (error) {
         console.log(error)
     }
