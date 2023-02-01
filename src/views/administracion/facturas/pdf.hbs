@@ -228,7 +228,7 @@
                 </div>
                 <!-- end table-responsive -->
                 <div class="">
-                    <div class="invoice-price-left">
+                    <div class="invoice-price-left" id="containerr">
                         <small class="mr-1">( {{{ntp taxInfo.factura_total}}}</small><small id="equi"> </small><small>)</small><br>
                         <small id="monedaF">Moneda: MXN - Peso Mexicano</small><br>
                         <small>Tipo de cambio: {{taxInfo.tipo_cambio}}</small><br>
@@ -381,17 +381,25 @@ addEventListener("load", replaceMonthName);
     }
     
 const moneda = {{{json taxInfo.moneda_descripcion}}}
-
 if (moneda === "PESOS") {
   document.getElementById("monedaF").innerHTML = "Moneda: MXN - Peso Mexicano";
    document.getElementById("equi").innerHTML = "00/100 M.N.";
 } else if (moneda === "DOLARES") {
   document.getElementById("monedaF").innerHTML = "Moneda: USD - Dólar Estadounidense";
   document.getElementById("equi").innerHTML = "00/100 USD";
+  replaceWordsInDiv();
 
 } else if (moneda === "EUROS"){
     document.getElementById("monedaF").innerHTML = "Moneda: EUR - Euro";
     document.getElementById("equi").innerHTML = "00/100 EUR";
+}
+
+function replaceWordsInDiv() {
+  const container = document.getElementById("containerr");
+  let newHTML = container.innerHTML;
+  newHTML = newHTML.replace(/Peso/g, " Dólare");
+  newHTML = newHTML.replace(/Pesos/g, " Dólares ");
+  container.innerHTML = newHTML;
 }
 
 

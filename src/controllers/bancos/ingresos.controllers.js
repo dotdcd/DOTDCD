@@ -116,7 +116,7 @@ export const addIngreso = async (req, res) => {
                                             ImpSaldoAnt: factura.factura_total,
                                             ImpPagado: req.body.cheque_monto,
                                             ImpSaldoInsoluto: factura.factura_total - req.body.cheque_monto,
-                                            ObjetoImpDR: "04",
+                                            ObjetoImpDR: "02",
                                             EquivalenciaDR: "1",
                                         }
                                     ]
@@ -128,7 +128,7 @@ export const addIngreso = async (req, res) => {
             }
         }
 
-        await axios.post(`${SW_SAPIENS_URL}/api/v1/timbrado`, data, {
+        await axios.post(`${SW_SAPIENS_URL}/v3/cfdi33/issue/json/v4`, data, {
             headers: {
                 'Content-Type': 'application/jsontoxml;',
                 'Authorization': 'Bearer ' + SW_TOKEN
