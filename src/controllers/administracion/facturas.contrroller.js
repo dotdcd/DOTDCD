@@ -55,7 +55,7 @@ export const addFactura = async (req, res) => {
                 Descuento: req.body.descuento,
                 Moneda: (req.body.factura_moneda_id == 1) ? "MXN" : "USD",
                 TipoCambio: req.body.tipo_cambio,
-                Total: req.body.factura_total,
+                Total: req.body.importe,
                 TipoDeComprobante: "I",
                 Exportacion: "01",
                 LugarExpedicion: empresa.empresa_cp,
@@ -81,10 +81,9 @@ export const addFactura = async (req, res) => {
                         Descripcion: req.body.factura_descripcion,
                         ValorUnitario: req.body.vUnitario,
                         Importe: req.body.importe,
-                        Descuento: req.body.descuento,
                         ObjetoImp: "01", //?avisame coñio
                     }
-                ],
+                ]
             }
     
             await axios.post(`${SW_SAPIENS_URL}/v3/cfdi33/issue/json/v4`, data, {
