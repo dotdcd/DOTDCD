@@ -3,7 +3,7 @@
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
                 <h2>
-                    Agregar Proyecto <span class="fw-300"><i>DOTDCD - ERP</i></span>
+                    Editar Proyecto <span class="fw-300"><i>DOTDCD - ERP</i></span>
                 </h2>
                 <div class="panel-toolbar">
                     <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
@@ -28,21 +28,6 @@
                                     <div class="container"> <!-- sistema de niveles -->
                                         <div class="row">
                                             <div class="table-responsive rounded">
-                                                <div id="accordion">
-                                                <h3>Section 1</h3>
-                                                    <div>
-                                                        <p>Content of section 1</p>
-                                                    </div>
-                                                <h3>Section 2</h3>
-                                                    <div>
-                                                        <p>Content of section 2</p>
-                                                    </div>
-                                                <h3>Section 3</h3>
-                                                    <div>
-                                                        <p>Content of section 3</p>
-                                                    </div>
-                                                </div>
-
                                                 <table class=" table table-success  ">
                                                     <thead class="rounded ">
                                                         <tr class="text-center">
@@ -145,7 +130,9 @@
                                                 </table>
 
 
-                                            <table class="table table-success text-center" id="productos">
+                                            <!--
+
+                                                <table class="table table-success text-center" id="productos">
                                                 <tr>
                                                     <th>Producto</th>
                                                     <th>Marca</th>
@@ -187,59 +174,73 @@
                                                 </tr>
                                                 
                                             </table>
-
-
-
-
-
-
-
+                                             -->
                                             </div>
                                         </div>
                                     </div> <br><br>
-                                    <br><br>
-                                    <div class="row">
-                                        <div class="accordion" id="insumosAccordion">
-  {{#each insumos}}
-    <div class="card">
-      <div class="card-header" id="heading{{@index}}">
-        <h2 class="mb-0">
-          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{@index}}" aria-expanded="true" aria-controls="collapse{{@index}}">
-            {{diciplina_descripcion}}
-          </button>
-        </h2>
-      </div>
+                                
 
-      <div id="collapse{{@index}}" class="collapse" aria-labelledby="heading{{@index}}" data-parent="#insumosAccordion">
-        <div class="card-body">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Precio MO</th>
-                <th>Precio MA</th>
-                <th>Tipo</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each insumos}}
-                <tr>
-                  <td>{{producto}}</td>
-                  <td>{{insumo_cantidad}}</td>
-                  <td>{{insumo_precio_mo}}</td>
-                  <td>{{insumo_precio_ma}}</td>
-                  <td>{{insumo_tipo_id}}</td>
-                </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  {{/each}}
-</div>
+
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="accordion w-100 bg-success" id="insumosAccordion">
+                                            {{#each insumos}}
+                                                <div class="card">
+                                                <div class="card-header" id="heading{{@index}}">
+                                                    <h2 class="mb-0">
+                                                    <button class="btn btn-block btn-lg text-white" style="background-color: #5A9A5A;"  type="button" data-toggle="collapse" data-target="#collapse{{@index}}" aria-expanded="true" aria-controls="collapse{{@index}}">
+                                                        {{diciplina_descripcion}}
+                                                    </button>
+                                                    </h2>
+                                                </div>
+
+                                                <div id="collapse{{@index}}" class="collapse" aria-labelledby="heading{{@index}}" data-parent="#insumosAccordion">
+                                                    <div class="card-body">
+                                                    <table class="table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Producto</th>
+                                                            <th>Cantidad</th>
+                                                            <th>Precio MO</th>
+                                                            <th>Precio MA</th>
+                                                            <th>Tipo</th>
+                                                            <th>Accion</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {{#each insumos}}
+                                                            <tr>
+                                                            <td>{{producto}}</td>
+                                                            <td>{{insumo_cantidad}}</td>
+                                                            <td>{{insumo_precio_mo}}</td>
+                                                            <td >{{insumo_precio_ma}}</td>
+                                                            <td>{{insumo_tipo_id}}</td>
+                                                            <td><button type="button" class="btn btn-danger remove-row-btn" onclick="calcularTotal()">Eliminar</button></td>
+
+                                                            </tr>
+                                                        {{/each}}
+                                                        </tbody>
+                                                    </table>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            {{/each}}
+                                            </div>
+                                        </div>
                                     </div>
+
+
+
+
+
+
+
+
+
+
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             <span>Cliente</span>
@@ -383,6 +384,7 @@
 <script>
 
 
+console.log({{{json insumos}}});
 
 document.addEventListener("DOMContentLoaded", function() {
   var subtotals = document.querySelectorAll("td[id='subtotal']");
@@ -665,14 +667,8 @@ tableBody.addEventListener("click", function(event) {
 
     }
 
-const accordion = document.getElementById("accordion");
-const sections = accordion.getElementsByTagName("h3");
 
-for (let i = 0; i < sections.length; i++) {
-    sections[i].addEventListener("click", function () {
-        this.nextElementSibling.classList.toggle("show");
-    });
-}
+
 
 
 </script>

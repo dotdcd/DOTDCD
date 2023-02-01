@@ -51,7 +51,7 @@ export const addFactura = async (req, res) => {
                 NoCertificado: "",
                 Certificado: "",
                 CondicionesDePago: "CondicionesDePago",
-                SubTotal: req.body.factura_total,
+                SubTotal: req.body.factura_subtotal,
                 Descuento: req.body.descuento,
                 Moneda: (req.body.factura_moneda_id == 1) ? "MXN" : "USD",
                 TipoCambio: req.body.tipo_cambio,
@@ -82,7 +82,7 @@ export const addFactura = async (req, res) => {
                         ValorUnitario: req.body.vUnitario,
                         Importe: req.body.importe,
                         Descuento: req.body.descuento,
-                        ObjetoImp: "01",
+                        ObjetoImp: "01", //?avisame coñio
                     }
                 ],
             }

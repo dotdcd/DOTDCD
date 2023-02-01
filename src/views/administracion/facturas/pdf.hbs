@@ -229,7 +229,7 @@
                 <!-- end table-responsive -->
                 <div class="">
                     <div class="invoice-price-left">
-                        <small>( {{{ntp taxInfo.factura_total}}} 00/100 M.N.)</small><br>
+                        <small class="mr-1">( {{{ntp taxInfo.factura_total}}}</small><small id="equi"> </small><small>)</small><br>
                         <small id="monedaF">Moneda: MXN - Peso Mexicano</small><br>
                         <small>Tipo de cambio: {{taxInfo.tipo_cambio}}</small><br>
                     </div>
@@ -384,11 +384,17 @@ const moneda = {{{json taxInfo.moneda_descripcion}}}
 
 if (moneda === "PESOS") {
   document.getElementById("monedaF").innerHTML = "Moneda: MXN - Peso Mexicano";
+   document.getElementById("equi").innerHTML = "00/100 M.N.";
 } else if (moneda === "DOLARES") {
   document.getElementById("monedaF").innerHTML = "Moneda: USD - Dólar Estadounidense";
+  document.getElementById("equi").innerHTML = "00/100 USD";
+
 } else if (moneda === "EUROS"){
     document.getElementById("monedaF").innerHTML = "Moneda: EUR - Euro";
+    document.getElementById("equi").innerHTML = "00/100 EUR";
 }
+
+
 
 </script>
 

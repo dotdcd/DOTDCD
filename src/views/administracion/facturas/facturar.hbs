@@ -75,7 +75,7 @@
                             <div class="row mt-3 mb-3">
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
                                     <label for="" class="font-weight-bold">Cantidad</label><br>
-                                    <input required class="form-control" type="text" name="cantidad" id=""
+                                    <input required class="form-control" type="text" name="cantidad" onkeyup="calcularSubtotal()" id="cantidad"
                                         placeholder="Cantidad">
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-lg-4 mb-1">
@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-lg-6 mb-1">
                                     <label for="" class="font-weight-bold">Importe</label><br>
-                                    <input required class="form-control" type="text" name="importe" id=""
+                                    <input required class="form-control" type="text" name="importe" id="importe" onkeyup="calcularSubtotal()"
                                         placeholder="Importe">
                                 </div>
                             </div>
@@ -195,7 +195,7 @@
                             <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                 <label for="" class="font-weight-bold">Subtotal</label><br>
                                 <input required class="form-control" step="0.01" type="text" name="factura_subtotal"
-                                    id="subtotal" placeholder="Subtotal" onchange="totaal()">
+                                    id="subtotal" placeholder="Subtotal" onkeyup="totaal()">
                             </div>
                             <div class="col-md-6 col-sm-6 col-lg-3 mb-3">
                                 <label for="" class="font-weight-bold">IVA</label><br>
@@ -311,7 +311,21 @@
 
 
 
+    //Calcular el subtotal 
+    function calcularSubtotal() {
+        var subtotal = document.getElementById('subtotal'); // obtienes el elemento del subtotal
+        var cantidad = document.getElementById('cantidad').value;   // obtienes el valor de la cantidad
+        var importe = document.getElementById('importe').value;     // obtienes el valor del importe
 
+
+        subtotal.value = cantidad * importe;  // calculas el subtotal
+        totaal() //llamas a la funcion total para que se calcule el total
+        
+    }
+
+
+
+   //Filtro para los select
     function buscarEnSelect(inputId, selectId) {
         // Obtener el input de búsqueda y el select
         var input = document.getElementById(inputId);
@@ -338,7 +352,7 @@
 
 
     }
-
+    //Funcion para buscar en los select
     buscarEnSelect("buscarCliente", "selectCliente");
     buscarEnSelect("buscarClave", "selectClave");
     buscarEnSelect("buscarInversion", "selectInversion");
@@ -413,8 +427,8 @@ function filtrar() {
   searchInputs.forEach(input => {
   input.value = selectedOption;
   input.focus();
+  input.dispatchEvent(new Event("keyup"));
   
-
 });
 
 }
@@ -422,44 +436,7 @@ document.getElementById("selectCliente").addEventListener("change", filtrar);
 
 
 
-    /*
-    
-    // Importar el paquete request
-    const request = require('request');
-    
-    // URL de la API
-    const apiUrl = 'http://apilayer.com/exchange/convert';
-    
-    // Opciones de la solicitud
-    const options = {
-        url: apiUrl,
-        qs: {
-            access_key: 'QfjQVmIDquyMGOr3g3wxfPvlFSWaNt2g', // Reemplaza por tu access_key
-            from: 'USD',
-            to: 'MXN',
-            amount: '1'
-        }
-    };
-    
-    // Realizar la solicitud a la API
-    request(options, (error, response, body) => {
-        if (error) {
-            console.log(`Error: ${error}`);
-            return;
-        }
-    
-        if (response.statusCode !== 200) {
-            console.log(`Error: ${response.statusCode} - ${response.statusMessage}`);
-            return;
-        }
-    
-        // Parsear la respuesta a un objeto JavaScript
-        const data = JSON.parse(body);
-    
-        // Imprimir el valor del dólar en pesos mexicanos
-        console.log(`1 Dólar = ${data.result} Pesos Mexicanos`);
-    });
-    */
+   
 
     //poner fecha acctual a input
     function setCurrentDate() {
@@ -483,8 +460,11 @@ function llenartc() {
     } else if (moneda == 2){
          getTp()  
     } else if (moneda == 3){
-        document.getElementById("tipo_cambio").value = 20.47;
+        getTpEUR()
 }
+
+}
+
 
 async function getTp() {
         const tp = await fetch('https://api.apilayer.com/exchangerates_data/latest?symbols=MXN&base=USD', { 
@@ -495,10 +475,21 @@ async function getTp() {
         .then(async(response) => {
             const data = await response.json()
             const tipoCambio = data.rates.MXN
-            document.getElementById("tipo_cambio").value = tipoCambio.toFixed(2);
+            document.getElementById("tipo_cambio").value = tipoCambio.toFixed(4);
         })
    }
-
+async function getTpEUR() {
+        const tp = await fetch('https://api.apilayer.com/exchangerates_data/latest?symbols=MXN&base=EUR', { 
+            headers: {
+            'apikey': 'g9BprsTZa4IjG17aeyRxk7JFWSEGLO3g'
+            }
+        })
+        .then(async(response) => {
+            const data = await response.json()
+            const tipoCambio = data.rates.EUR
+            document.getElementById("tipo_cambio").value = tipoCambio.toFixed(4);
+        })
+   }
 
   
 
