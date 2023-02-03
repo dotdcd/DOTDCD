@@ -65,6 +65,7 @@
                                             <td id="tipo"></td>
                                         </tr>
                                     </table>
+                                    
 
                                     <table class="table table-striped table-hover table-info table-bordered ">
                                         <tr class="text-center">
@@ -75,7 +76,7 @@
                                             <th>Ordenados</th>
                                             <th>Por requerir</th>
                                             <th>Fecha Entrega</th>
-                                            <th>Acciones</th>
+                                            
                                         </tr>
                                             {{#each lista}}
                                         <tr>
@@ -86,7 +87,7 @@
                                             <td class="text-center">{{partida_cantidad}}</td>
                                             <td class="text-center">{{partida_cantidad}}</td>
                                             <td>{{orden_fecha_entrega}}</td>
-                                            <td> <button class="btn btn-danger" type="button">Eliminar</button> </td>
+                                                                                       
                                         </tr>
                                             {{/each}}
                                             <tr>
@@ -213,7 +214,6 @@
 
 
 
-
 var products = []
 const productsList = document.querySelector("#products-list");
 productsList.innerHTML = "";
@@ -239,7 +239,6 @@ input.addEventListener("keyup", () => {
     });
   }
 });
-
 
 
 
@@ -273,6 +272,7 @@ input.addEventListener("keyup", () => {
         tipo.innerHTML = 'Proyecto';
     }
     var tipoR = {{r.tipo_id}}1;
+
 </script>
 
 {{/section}}

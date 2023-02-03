@@ -55,7 +55,7 @@ export const addFactura = async (req, res) => {
                 Descuento: req.body.descuento,
                 Moneda: (req.body.factura_moneda_id == 1) ? "MXN" : "USD",
                 TipoCambio: req.body.tipo_cambio,
-                Total: req.body.importe,
+                Total: req.body.factura_total,
                 TipoDeComprobante: "I",
                 Exportacion: "01",
                 LugarExpedicion: empresa.empresa_cp,
@@ -80,10 +80,33 @@ export const addFactura = async (req, res) => {
                         Unidad: req.body.unidad,
                         Descripcion: req.body.factura_descripcion,
                         ValorUnitario: req.body.vUnitario,
-                        Importe: req.body.importe,
-                        ObjetoImp: "02", //?avisame coñio
+                        Importe: req.body.factura_total,
+                        ObjetoImp: "02",
+                        Impuestos: {
+                            Traslados: [
+                              {
+                                Base: req.body.factura_iva,
+                                Importe: req.body.factura_iva,
+                                Impuesto: "002",
+                                TasaOCuota: "0.160000",
+                                TipoFactor: "Tasa"
+                              }
+                            ]
+                        }
                     }
-                ]
+                ],
+                Impuestos: {
+                    TotalImpuestosTrasladados: req.body.factura_iva,
+                    Traslados: [
+                        {
+                            Base: req.body.factura_iva,
+                            Importe: req.body.factura_iva,
+                            Impuesto: "002",
+                            TasaOCuota: "0.160000",
+                            TipoFactor: "Tasa"
+                        }
+                    ]
+              }
             }
     
             await axios.post(`${SW_SAPIENS_URL}/v3/cfdi33/issue/json/v4`, data, {

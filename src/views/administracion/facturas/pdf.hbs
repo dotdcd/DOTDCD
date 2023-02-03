@@ -153,7 +153,7 @@
                     <img style="height: 80px; width: 80px" src="/img/iconos/icon_cctv.png" alt="">
                     <img style="height: 80px; width: 80px" src="/img/iconos/icon_acceso.png" alt="">
                 </span>
-                <img style="height: 80px; width: 260px" src="/img/logo-dot.png" alt="">
+                <img style="height: 80px; width: 260px" id="logo-empresa" src="" alt="">
             </div>
             <hr style="color: #0000 !important; background-color: #0000;"/>
             <!-- end invoice-company -->
@@ -336,70 +336,140 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 
-    function replaceMonthName() {
-  var element = document.getElementById("fechaFormat");
-  var element2 = document.getElementById("fechaFormat2");
-  var months_upper = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  var months_lower = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
-  var months_es = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
 
+
+//Rutas a las imagenes
+
+//funcion para cambiar la imagen segun la empresa
+function logo(){
+    var empresas = [
+  { id: 3, ruta: '/img/logo-dot.png' },
+  { id: 15, ruta: '/img/dot a' },
+  { id: 16, ruta: '/img/dot b' },
+  { id: 17, ruta: '/img/dot MEXICO ' },
+  {id: 18, ruta: '/img/dot ASOCIADOS'},
+    {id: 19, ruta: '/img/dot RENTADMIN '},
+
+  // ... agregar aquí las demás empresas
+];
+
+var idEmpresa ={{{json taxInfo.empresa}}};
+var rutaImagen;
+
+for (var i = 0; i < empresas.length; i++) {
+  if (empresas[i].id === idEmpresa) {
+    rutaImagen = empresas[i].ruta;
+    break;
+  }
+}
+
+if (rutaImagen) {
+  // Mostrar la imagen correspondiente a la empresa seleccionada
+  document.getElementById('logo-empresa').src = rutaImagen;
+} else {
+  // Mostrar una imagen por defecto en caso de no encontrar la empresa seleccionada
+  document.getElementById('logo-empresa').src = '/img/logo-dot.png';
+}
+
+
+}
+addEventListener('load', logo);
+logo();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//esta funcion es para cambiar el nombre de los meses en español
+//porque el formato de fecha que se recibe es en ingles
+    function replaceMonthName() {
+  var element = document.getElementById("fechaFormat"); //obtiene el elemento por id
+  var element2 = document.getElementById("fechaFormat2"); //obtiene el elemento por id
+  
+  //arreglo de meses en ingles
+  var months_upper = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  //arreglo de meses en ingles
+  var months_lower = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+  //arreglo de meses en español
+  var months_es = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+ //ciclo para recorrer el arreglo de meses en ingles
   for (var i = 0; i < months_upper.length; i++) {
+    //reemplaza los meses en ingles por los meses en español
     element.innerHTML = element.innerHTML.replace(months_upper[i], months_es[i]).replace(months_lower[i], months_es[i]);
+    //reemplaza los meses en ingles por los meses en español
     element2.innerHTML = element2.innerHTML.replace(months_upper[i], months_es[i]).replace(months_lower[i], months_es[i]);
   }
 }
 
-
+//llama a la funcion al cargar la pagina
 replaceMonthName();
+
+//llama a la funcion al cargar la pagina
 addEventListener("load", replaceMonthName);
 
+
+//esta funcion es para crear el pdf
     function printPdf() {
-        var element = document.getElementById('container');
-        html2pdf()
+        var element = document.getElementById('container'); //obtiene el elemento por id
+        html2pdf() //llama a la funcion html2pdf
             .set({
-                margin: 0.5,
-                filename: 'documento.pdf',
+                margin: 0.5, //margen de la pagina
+                filename: 'documento.pdf', //nombre del archivo
                 image: {
-                    type: 'jpeg',
-                    quality: 0.98
+                    type: 'jpeg', // png o jpeg
+                    quality: 0.98 //calidad de la imagen
                 },
                 html2canvas: {
                     scale: 4, // A mayor escala, mejores gráficos, pero más peso
-                    letterRendering: true,
+                    letterRendering: true, //si es verdadero, los caracteres serán más nítidos
                 },
                 jsPDF: {
-                    unit: "in",
-                    format: "a3",
+                    unit: "in", //in o mm
+                    format: "a3", //tamaño de la pagina
                     orientation: 'portrait' // landscape o portrait
                 }
             })
-            .from(element)
-            .save()
-            .catch(err => console.log(err));
+            .from(element) //obtiene el elemento por id
+            .save() //guarda el archivo
+            .catch(err => console.log(err)); //captura el error
 
 
     }
-    
+    //
 const moneda = {{{json taxInfo.moneda_descripcion}}}
+console.log(moneda)
+//Esta función reemplaza las palabras Peso y Pesos por Dólares y Dólar
 if (moneda === "PESOS") {
-  document.getElementById("monedaF").innerHTML = "Moneda: MXN - Peso Mexicano";
-   document.getElementById("equi").innerHTML = "00/100 M.N.";
-} else if (moneda === "DOLARES") {
-  document.getElementById("monedaF").innerHTML = "Moneda: USD - Dólar Estadounidense";
-  document.getElementById("equi").innerHTML = "00/100 USD";
-  replaceWordsInDiv();
+  document.getElementById("monedaF").innerHTML = "Moneda: MXN - Peso Mexicano"; //reemplaza el texto
+   document.getElementById("equi").innerHTML = "00/100 M.N."; //reemplaza el texto
+} else if (moneda === "DOLARES") { 
+  document.getElementById("monedaF").innerHTML = "Moneda: USD - Dólar Estadounidense"; //reemplaza el texto
+  document.getElementById("equi").innerHTML = "00/100 USD"; //reemplaza el texto
+  replaceWordsInDiv(); //llama a la funcion
 
 } else if (moneda === "EUROS"){
-    document.getElementById("monedaF").innerHTML = "Moneda: EUR - Euro";
-    document.getElementById("equi").innerHTML = "00/100 EUR";
+    document.getElementById("monedaF").innerHTML = "Moneda: EUR - Euro"; //reemplaza el texto
+    document.getElementById("equi").innerHTML = "00/100 EUR";   //reemplaza el texto
 }
-
+//Esta función reemplaza las palabras Peso y Pesos por Dólares y Dólar respectivamente
 function replaceWordsInDiv() {
-  const container = document.getElementById("containerr");
+  const container = document.getElementById("containerr"); //obtiene el elemento por id
   let newHTML = container.innerHTML;
-  newHTML = newHTML.replace(/Peso/g, " Dólare");
+  newHTML = newHTML.replace(/Peso/g, " Dólare"); //reemplaza el texto
   newHTML = newHTML.replace(/Pesos/g, " Dólares ");
-  container.innerHTML = newHTML;
+  container.innerHTML = newHTML; //reemplaza el texto
 }
 
 

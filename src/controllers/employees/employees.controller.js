@@ -140,6 +140,8 @@ export const dwnEmployee = async (req, res) => {
     try {
         const { id } = req.params
         await pool.query('UPDATE empleados SET empleado_estatus_baja = 1 WHERE empleado_id = ?', [id])
+        await pool.query('DELETE FROM CONTRATOS WHERE empleado_id = ?', [id])
+        await pool.query('UPDATE usuarios SET status = 0 AND roles = 0 WHERE id_empleado = ?', [id])  
         return res.status(200).json({ message: 'Empleado dado de baja', status: 200 })
     } catch (error) {
         console.log(error)

@@ -54,17 +54,13 @@
                                                                     style="background-color: #BEEDE8;"
                                                                     class="form-control" id="">
                                                                     <option value="0" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 0)}} selected
-                                                                        {{/if}}>Cotizada</option>
+                                                                        p.cotizacion_autorizada_estatus 0)}} selected {{/if}}>Cotizada</option>
                                                                     <option value="1" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 1)}} selected
-                                                                        {{/if}}>Autorizada</option>
+                                                                        p.cotizacion_autorizada_estatus 1)}} selected {{/if}}>Autorizada</option>
                                                                     <option value="2" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 2)}} selected
-                                                                        {{/if}}>Terminada</option>
+                                                                        p.cotizacion_autorizada_estatus 2)}} selected {{/if}}>Terminada</option>
                                                                     <option value="9" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 9)}} selected
-                                                                        {{/if}}>Poliza</option>
+                                                                        p.cotizacion_autorizada_estatus 9)}} selected {{/if}}>Poliza</option>
                                                                 </select>
                                                             </td>
                                                             <td>{{p.cotizacion_fecha_alta}}</td>
@@ -75,8 +71,7 @@
                                                                     style="background-color: #BEEDE8; color:black !important; width: 100%; height: 100%;">
                                                                     {{#each moneda}}
                                                                     <option value="{{moneda_id}}" {{#if
-                                                                        (is../p.cotizacion_moneda_id moneda_id) }}
-                                                                        selected {{/if}}>{{moneda_descripcion}}</option>
+                                                                        (is../p.cotizacion_moneda_id moneda_id) }} selected {{/if}}>{{moneda_descripcion}}</option>
                                                                     {{/each}}
                                                                 </select></td>
                                                             <td></td>
@@ -106,10 +101,8 @@
                                                         <td id="txtpf">{{p.pf}}</td>
                                                         <td><select name="" class="form-control" disabled id=""
                                                                 style="background-color: #BEEDE8; color:black !important; width: 100%; height: 100%;">
-                                                                <option value="0" {{#if (is p.estimacion_iva 0
-                                                                    estimacion_iva)}} selected {{/if}}>No</option>
-                                                                <option value="1" {{#if (is p.estimacion_iva 1
-                                                                    estimacion_iva)}} selected {{/if}}>Si</option>
+                                                                <option value="0" {{#if (is p.estimacion_iva 0 estimacion_iva)}} selected {{/if}}>No</option>
+                                                                <option value="1" {{#if (is p.estimacion_iva 1 estimacion_iva)}} selected {{/if}}>Si</option>
                                                             </select></td>
                                                         <td><input type="text" id="descuento_porcentaje"
                                                                 class="form-control"
@@ -129,8 +122,115 @@
                                                     </tbody>
                                                 </table>
 
+                                                {{#if (is p.cotizacion_tipo_id 1)}} 
 
-                                            <!--
+                                                    <table class="table table-success">
+                                                    <tr>
+                                                        <th>Producto</th>
+                                                        <th>Marca</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Material</th>
+                                                        <th>M.O.</th>
+                                                        <th>Subtotal</th>
+                                                    </tr>
+                                                    {{#each psimple}}
+                                                        <tr>
+                                                            <td>{{producto_descripcion}}</td>
+                                                            <td>{{marca_descripcion}}</td>
+                                                            <td id="insumo_cantidad">{{insumo_cantidad}}</td>
+                                                            <td id="insumo_precio_ma">{{insumo_precio_ma}}</td>
+                                                            <td id="insumo_precio_mo">{{insumo_precio_mo}}</td>
+                                                            <td id="simpleSubtotal" ></td>
+                                                        </tr>
+                                                    {{/each}}
+                                                    <tr class="justify-content-center text-align-center">
+                                                        <td colspan="6"><center><button type="button" onclick="addProducto()" class="btn btn-info">Agregar Insumo</button> <button type="button" onclick="addServicio()" class="btn btn-warning">Agregar Servicio</button></center> </td>   
+                                                    </tr>
+
+                                                </table>
+                                                {{/if}}
+                                                    
+                                                    {{#if (is p.cotizacion_tipo_id 2)}}
+                                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="accordion w-100 bg-success" id="insumosAccordion">
+                                                {{#each insumos}}
+                                                <div class="card">
+                                                    <div class="card-header" id="heading{{@index}}">
+                                                        <h2 class="mb-0">
+                                                            <button class="btn btn-block btn-lg text-white"
+                                                                style="background-color: #5A9A5A;" type="button"
+                                                                data-toggle="collapse" data-target="#collapse{{@index}}"
+                                                                aria-expanded="true" aria-controls="collapse{{@index}}">
+                                                                {{diciplina_descripcion}}
+                                                            </button>
+                                                        </h2>
+                                                    </div>
+
+                                                    <div id="collapse{{@index}}" class="collapse"
+                                                        aria-labelledby="heading{{@index}}"
+                                                        data-parent="#insumosAccordion">
+                                                        <div class="card-body">
+                                                            <table class="table table-hover text-center">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Producto</th>
+                                                                        <th>Marca</th>
+                                                                        <th>Cantidad</th>
+                                                                        <th>Material</th>
+                                                                        <td>Insumo Precio MA</td>
+                                                                        <th>Precio MO</th>
+                                                                        <th>Subtotal</th>
+                                                                        <th>Accion</th>
+                                                                    </tr>
+
+                                                                    <tr>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {{#each insumos}}
+                                                                    <tr>
+                                                                        <td>{{producto}}</td>
+                                                                        <td>{{marca_descripcion}}</td>
+                                                                        <td>{{insumo_cantidad}}</td>
+                                                                        <td>{{tm_tipo}}</td>
+                                                                        <td>{{insumo_precio_ma}}</td>
+                                                                        <td>{{insumo_precio_mo}}</td>
+                                                                        <td id="subtotal">{{importe}}</td>
+
+                                                                        <td>
+                                                                            <div class="d-flex justify-content-between">
+                                                                                <button
+                                                                                    class="btn btn-circle btn-sm btn-primary m-1">agregar</button>
+                                                                                <button
+                                                                                    class="btn btn-circle btn-sm btn-secondary m-1">eliminar</button>
+                                                                                <button
+                                                                                    class="btn btn-circle btn-sm btn-success m-1">editar</button>
+                                                                            </div>
+
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    {{/each}}
+                                                                    <tr>
+                                                                        <td>Total</td>
+                                                                        <td id="total"></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                                    {{/if}}
+
+
+
+                                                <!--
 
                                                 <table class="table table-success text-center" id="productos">
                                                 <tr>
@@ -178,58 +278,12 @@
                                             </div>
                                         </div>
                                     </div> <br><br>
-                                
 
 
 
 
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="accordion w-100 bg-success" id="insumosAccordion">
-                                            {{#each insumos}}
-                                                <div class="card">
-                                                <div class="card-header" id="heading{{@index}}">
-                                                    <h2 class="mb-0">
-                                                    <button class="btn btn-block btn-lg text-white" style="background-color: #5A9A5A;"  type="button" data-toggle="collapse" data-target="#collapse{{@index}}" aria-expanded="true" aria-controls="collapse{{@index}}">
-                                                        {{diciplina_descripcion}}
-                                                    </button>
-                                                    </h2>
-                                                </div>
 
-                                                <div id="collapse{{@index}}" class="collapse" aria-labelledby="heading{{@index}}" data-parent="#insumosAccordion">
-                                                    <div class="card-body">
-                                                    <table class="table">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Producto</th>
-                                                            <th>Cantidad</th>
-                                                            <th>Precio MO</th>
-                                                            <th>Precio MA</th>
-                                                            <th>Tipo</th>
-                                                            <th>Accion</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        {{#each insumos}}
-                                                            <tr>
-                                                            <td>{{producto}}</td>
-                                                            <td>{{insumo_cantidad}}</td>
-                                                            <td>{{insumo_precio_mo}}</td>
-                                                            <td >{{insumo_precio_ma}}</td>
-                                                            <td>{{insumo_tipo_id}}</td>
-                                                            <td><button type="button" class="btn btn-danger remove-row-btn" onclick="calcularTotal()">Eliminar</button></td>
-
-                                                            </tr>
-                                                        {{/each}}
-                                                        </tbody>
-                                                    </table>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                            {{/each}}
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
 
 
 
@@ -366,8 +420,8 @@
 </div>
 
 <table id="tabla" class="table table-striped">
-    
-    
+
+
 </table>
 <div id="contenido"></div>
 
@@ -384,290 +438,129 @@
 <script>
 
 
-console.log({{{json insumos}}});
-
-document.addEventListener("DOMContentLoaded", function() {
-  var subtotals = document.querySelectorAll("td[id='subtotal']");
-  var sum = 0;
-  for (var i = 0; i < subtotals.length; i++) {
-    sum += parseFloat(subtotals[i].textContent);
-  }
-  document.getElementById("total").textContent = sum.toLocaleString("es-MX", {style: "currency", currency: "MXN"});
-});
-
-// onkeyup calcular total
-
-addEventListener("click", function() {
-  var subtotals = document.querySelectorAll("td[id='subtotal']");
-  var sum = 0;
-  for (var i = 0; i < subtotals.length; i++) {
-    sum += parseFloat(subtotals[i].textContent);
-  }
-  document.getElementById("total").textContent = sum.toLocaleString("es-MX", {style: "currency", currency: "MXN"});
-});
-function calcularTotal() {
-  var subtotals = document.querySelectorAll("td[id='subtotal']");
-  var sum = 0;
-  for (var i = 0; i < subtotals.length; i++) {
-    sum += parseFloat(subtotals[i].textContent);
-  }
-    document.getElementById("total").textContent = sum.toLocaleString("es-MX", {style: "currency", currency: "MXN"});
-
-}
-
- const addRowBtn = document.getElementById("add-row-btn");
-  const tableBody = document.getElementById("table-body");
-
-
- addRowBtn.addEventListener("click", function() {
-    
-    Swal.fire({
-  title: 'Buscar Producto',
-  input: 'text',
-  inputAttributes: {
-    autocapitalize: 'off'
-  },
+        //alerta para producto
+        function addProducto(){
+            Swal.fire({
+  title: 'Agregar Producto',
+  html: `
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <label for="first-input">Nombre</label>
+                <input id="first-input" class="form-control">
+                <label for="second-input">Marca</label>
+                <input id="second-input" class="form-control">
+            </div>
+            <div class="col-6">
+                <label for="third-input">Cantidad</label>
+                <input id="third-input" class="form-control">
+                <label for="fourth-input">Materiales</label>
+                <input id="fourth-input" class="form-control">
+            </div>
+        </div>
+    </div>
+  `,
   showCancelButton: true,
-  confirmButtonText: 'Buscar',
-  showLoaderOnConfirm: true,
-  preConfirm: (login) => {
-    return fetch(`/getProducto`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.statusText)
-        }
-        return response.json()
-      })
-      .catch(error => {
-        Swal.showValidationMessage(
-          `Request failed: ${error}`
-        )
-      })
-  },
-  allowOutsideClick: () => !Swal.isLoading()
+  confirmButtonText: 'Submit',
+  preConfirm: () => {
+    return [
+      document.getElementById('first-input').value,
+      document.getElementById('second-input').value,
+      document.getElementById('third-input').value,
+      document.getElementById('fourth-input').value
+    ]
+  }
 }).then((result) => {
   if (result.isConfirmed) {
     Swal.fire({
-      title: `No se pudo encontrar el producto`,
-      imageUrl: result.value.avatar_url
+      title: 'Submitted Information',
+      html: `
+        First Input: ${result.value[0]}<br>
+        Second Input: ${result.value[1]}<br>
+        Third Input: ${result.value[2]}<br>
+        Fourth Input: ${result.value[3]}
+      `
     })
   }
 })
-} );
-
-tableBody.addEventListener("click", function(event) {
-    if (event.target.classList.contains("remove-row-btn")) {
-      event.target.parentNode.parentNode.remove();
-    }
-  });
-
-//desplegar lista de productos de bajo del modal
-
-
-/*
-  addRowBtn.addEventListener("click", function() {
-    const newRow = `
-      <tr>
-        <td>Nuevo producto</td>
-        <td>Nueva marca</td>
-        <td>0</td>
-        <td>Nuevo material</td>
-        <td>$0</td>
-        <td>$0</td>
-        <td><button type class="btn btn-danger remove-row-btn">Eliminar</button></td>
-      </tr>
-    `;
-    tableBody.insertAdjacentHTML("beforeend", newRow);
-  });
-
-  
-
-
-*/
-
-
-
-
-
-
-
-
-
-
-                                                
-                const familias = {{{json disciplinass}}}
-                const tipos = {{{json tipos}}}
-                const niveles = {{{json niveles}}}
-                const producto = {{{json prodProyecto}}}
-
-                
-                familias.sort(function(a, b) {
-                    return a.orden - b.orden;
-                });
-                tipos.sort(function(a, b) {
-                    return a.orden - b.orden;
-                });
-                niveles.sort(function(a, b) {
-                    return a.orden - b.orden;
-                });
-                producto.sort(function(a, b) {
-                    return a.orden - b.orden;
-                });
-                
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-    const btnToggles = document.getElementsByClassName("btn-toggle");
-    for (const btnToggle of btnToggles) {
-        btnToggle.addEventListener("click", function () {
-            const nextRow = this.parentNode.parentNode.nextElementSibling;
-            nextRow.style.display = nextRow.style.display === "table-row" ? "none" : "table-row";
-            const icon = this.querySelector("i");
-            icon.classList.toggle("fa-plus");
-            icon.classList.toggle("fa-minus");
-            btnToggle.classList.toggle("btn-success");
-            btnToggle.classList.toggle("btn-danger");
-        });
-    }
-
-    var printedTexts = [];
-    var contadores = {};
-
-    function agregarProductoLista() {
-        var select = document.getElementById("mySelect");
-        var selectedIndex = select.selectedIndex;
-        var selectedOption = select.options[selectedIndex];
-        var selectedText = selectedOption.text;
-
-        var table = document.getElementById("myTable");
-
-        if (printedTexts.includes(selectedText)) {
-            contadores[selectedText] += 1;
-            // encuentra la fila existente con el texto seleccionado
-            var existingRow = table.querySelector("td:contains(" + selectedText + ")");
-            // actualiza el contador en la fila existente
-            existingRow.querySelector(".counter" + id).forEach(function (counter) {
-                counter.textContent = contadores[selectedText]
-                console.log(printedTexts, contadores);
-            });
-        } else {
-            printedTexts.push(selectedText);
-            contadores[selectedText] = 1;
-            var newRow = table.insertRow();
-            var newCell = newRow.insertCell();
-            newCell.innerHTML = selectedText;
-            var newCounterCell = newRow.insertCell();
-            newCounterCell.innerHTML = contadores[selectedText];
-            newCounterCell.classList.add("counter" + id);
-            console.log(printedTexts, contadores);
-        }
-        console.log(printedTexts, contadores);
-    }
-
-
-    function enfocarInput() {
-        document.getElementById("miInput").focus();
-    }
-
-    document.getElementById("miBoton").addEventListener("click", enfocarInput);
-
-
-    function calcular_pie(caso) {
-        if (caso == 1) {
-            //alert('1');
-            document.getElementById("descuento_cantidad").value = roundToTwo((parseFloat(document.getElementById("descuento_porcentaje").value) * parseFloat(unformatNumber(document.getElementById("total_sin_descuento").innerHTML))) / 100);
-        }
-        else
-            if (caso == 2) {
-                //alert('2');
-                document.getElementById("descuento_porcentaje").value = roundToTwo((parseFloat(document.getElementById("descuento_cantidad").value) * 100) / parseFloat(unformatNumber(document.getElementById("total_sin_descuento").innerHTML)));
-            }
-
-        var tot_sdesc = parseFloat(unformatNumber(document.getElementById("total_sin_descuento").innerHTML)) + 0;
-        if (parseFloat(document.getElementById("descuento_cantidad").value) == 0 || parseFloat(document.getElementById("descuento_porcentaje").value) == 0) {
-            document.getElementById("descuento_cantidad").value = '';
-            document.getElementById("descuento_porcentaje").value = '';
-            var desc_cant = roundToTwo(0.00);
-            var desc_pcje = roundToTwo(0.00);
-        }
-        else {
-            var desc_cant = roundToTwo(parseFloat(document.getElementById("descuento_cantidad").value));
-            var desc_pcje = roundToTwo(parseFloat(document.getElementById("descuento_porcentaje").value));
-        }
-        //var tot_pie   = formatNumber(roundToTwo(tot_sdesc - desc_cant), '$');
-        var tot_pie = tot_sdesc - desc_cant;
-        document.getElementById("pie_total").innerHTML = formatNumber(roundToTwo(tot_pie), '$');
-        document.getElementById("pie_iva").innerHTML = formatNumber(roundToTwo(tot_pie * 0.16), '$');
-        document.getElementById("pie_total_con_iva").innerHTML = formatNumber(roundToTwo(tot_pie * 1.16), '$');
-        console.log(tot_pie, desc_cant, desc_pcje)
-
-        if (caso == 1 || caso == 2) {
-            $.ajax({
-                type: 'GET', url: './Cotizacion_descuento_actualizar.php?cotizacion_id=' + producto_cotizacion_id + '&descuento=' + desc_pcje, success: function (resultado) {
-                    if (resultado != "") {
-                        alert(resultado);
-                        RightContext.initialize();
-                    }
-                    else
-                        RightContext.initialize();
-                }
-            });
-        }
-    }
-
-    function roundToTwo(value) {
-        if (parseFloat(value) > 0)
-            return (Math.round(value * 100) / 100);
-        else
-            return 0.00;
-    }
-
-
-
-
-
-    function checkTotal() {
-        cotizacion_id = document.getElementById("cotizacion_id").value;
-        total = document.getElementById("txttotal").value;
-        total = total.replace(/[$,]+/g, "");
-        total = parseInt(total);
-        if (total == 0) {
-            $.ajax({
-                type: 'GET', url: './Cotizacion_get_total.php?cotizacion_id=' + cotizacion_id,
-                success: function (resultado) {
-                    if (resultado != "") {
-                        var datos = resultado.split("|");
-                        document.getElementById("txttotal").value = datos[0];
-                        document.getElementById("txtcosto").value = datos[1];
-                        document.getElementById("txtpf").value = datos[2];
-                    }
-                }
-            });
-
-            var url = 'https://dotdcd.com/erp/Cotizacion_editar.php?cotizacion_id=' + cotizacion_id;
-            strFeatures = 'toolbar=no,menubar=no,location=no,resizable=no,scrollbars=no,width=700px,height=250px,top=5px,left=100px,status=no,resize=no';
-            popupWin = window.open(url, 'Cotizacion', strFeatures);
         }
 
-    }
+
+//funcion para agregar servicio
+function addServicio(){
+            Swal.fire({
+  title: 'Submit your information',
+  html: `
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <label for="first-input">Nombre</label>
+                <input id="first-input" class="form-control">
+                <label for="second-input">Marca</label>
+                <input id="second-input" class="form-control">
+            </div>
+            <div class="col-6">
+                <label for="third-input">Cantidad</label>
+                <input id="third-input" class="form-control">
+                <label for="fourth-input">Materiales</label>
+                <input id="fourth-input" class="form-control">
+            </div>
+        </div>
+    </div>
+  `,
+  showCancelButton: true,
+  confirmButtonText: 'Submit',
+  preConfirm: () => {
+    return [
+      document.getElementById('first-input').value,
+      document.getElementById('second-input').value,
+      document.getElementById('third-input').value,
+      document.getElementById('fourth-input').value
+    ]
+  }
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire({
+      title: 'Submitted Information',
+      html: `
+        First Input: ${result.value[0]}<br>
+        Second Input: ${result.value[1]}<br>
+        Third Input: ${result.value[2]}<br>
+        Fourth Input: ${result.value[3]}
+      `
+    })
+  }
+})
+        }
 
 
+
+
+
+
+
+
+    //funcion para calcular subtotal de insumo para cotizacion simple
+    function calcularSubtotal() {
+       var cantidad = document.getElementById("insumo_cantidad").innerText;
+        var ma = document.getElementById("insumo_precio_ma").innerText;
+        var mo = document.getElementById("insumo_precio_mo").innerText;
+            cantidad = parseFloat(cantidad);
+            ma = parseFloat(ma);
+            mo = parseFloat(mo);
+
+         
+
+		     subtotal = (ma + mo) * cantidad
+             console.log(ma,  mo, cantidad)
+             console.log((1116.78 + 28.65)*187)
+            document.getElementById("simpleSubtotal").innerHTML = "$" + subtotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+}
+    
+    calcularSubtotal();
+    addEventListener("load", calcularSubtotal);
+    
 
 
 
@@ -677,25 +570,24 @@ tableBody.addEventListener("click", function(event) {
 {{#section 'styles'}}
 <style>
     #accordion {
-  width: 400px;
-}
+        width: 400px;
+    }
 
-#accordion h3 {
-  cursor: pointer;
-  padding: 10px;
-  background-color: #f0f0f0;
-  border-bottom: 1px solid #ccc;
-}
+    #accordion h3 {
+        cursor: pointer;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-bottom: 1px solid #ccc;
+    }
 
-#accordion div {
-  display: none;
-  padding: 10px;
-  background-color: #fdfdfd;
-}
+    #accordion div {
+        display: none;
+        padding: 10px;
+        background-color: #fdfdfd;
+    }
 
-#accordion div.show {
-  display: block;
-}
-
+    #accordion div.show {
+        display: block;
+    }
 </style>
 {{/section}}

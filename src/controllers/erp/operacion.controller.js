@@ -71,7 +71,7 @@ const getDisciplinaProy = async (id) => {
 
 
 const getInsumos = async (disc, cot) => {
-    const insumo = await pool.query("SELECT i.insumo_cotizacion_id, i.insumo_nivel_id, p.producto_descripcion as producto, i.insumo_cantidad, i.insumo_precio_mo, i.insumo_precio_ma, i.insumo_tipo_id FROM cotizaciones_insumos i INNER JOIN productos p ON p.producto_id = i.insumo_producto_id WHERE i.insumo_cotizacion_id = "+cot+" AND i.insumo_diciplina_id = "+disc+" AND i.insumo_estatus_baja = 0")
+    const insumo = await pool.query("SELECT i.insumo_cotizacion_id, i.insumo_nivel_id, p.producto_descripcion as producto, p.producto_marca_id, m.marca_descripcion, tm.tm_tipo, p.producto_precio_tarjeta, i.insumo_cantidad, (i.insumo_cantidad * p.producto_precio_tarjeta) as importe, i.insumo_precio_mo, i.insumo_precio_ma, i.insumo_tipo_id FROM cotizaciones_insumos i INNER JOIN productos p ON p.producto_id = i.insumo_producto_id INNER JOIN marcas m ON p.producto_marca_id = m.marca_id INNER JOIN tipos_material tm ON p.producto_material_tipo = tm.tm_id WHERE i.insumo_cotizacion_id = "+cot+" AND i.insumo_diciplina_id = "+disc+" AND i.insumo_estatus_baja = 0")
     return insumo[0]
 }
 
@@ -86,7 +86,10 @@ const getInsumosProy = async (id) => {
     return disciplina
 }
 
-
+const productosSimple = async (id) => {
+    const productos = await pool.query("SELECT producto_descripcion, marca_descripcion, insumo_diciplina_id, insumo_nivel_id, insumo_tipo_id, insumo_producto_id, insumo_cantidad, insumo_precio_ma, insumo_precio_mo FROM cotizaciones_insumos JOIN productos ON insumo_producto_id = producto_id JOIN marcas ON producto_marca_id = marca_id WHERE insumo_cotizacion_id = " + id)
+    return productos[0]
+}
 export const renderOpProyEditar = async (req, res) => {
     try {
         const moneda = await getMoneda()
@@ -105,8 +108,8 @@ export const renderOpProyEditar = async (req, res) => {
         const prodProyecto = await getProdProyecto(id)
         const tipos = await getTipos(id)
         const insumos = await getInsumosProy(id)
-        //console.log(insumos)
-        res.render('operacion/proyectos/editar', { p, clientes, sucursales, empresaa, moneda, empleados, clase, producto, disciplinass, niveles, prodProyecto, tipos, insumos })
+        const psimple = await productosSimple(id)
+        res.render('operacion/proyectos/editar', { p, clientes, sucursales, empresaa, moneda, empleados, clase, producto, disciplinass, niveles, prodProyecto, tipos, insumos, psimple })
     } catch (error) {
         console.log(error)
     }
