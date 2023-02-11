@@ -1,3 +1,32 @@
+{{#section 'styles'}}
+<style>
+    .counter {
+        text-align: center;
+        font-weight: bold;
+    }
+    #accordion {
+        width: 400px;
+    }
+
+    #accordion h3 {
+        cursor: pointer;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-bottom: 1px solid #ccc;
+    }
+
+    #accordion div {
+        display: none;
+        padding: 10px;
+        background-color: #fdfdfd;
+    }
+
+    #accordion div.show {
+        display: block;
+    }
+</style>
+{{/section}}
+
 <div class="row">
     <div class="col-xl-12">
         <div id="panel-1" class="panel">
@@ -27,7 +56,7 @@
                                 <div class="col-md-12">
                                     <div class="container"> <!-- sistema de niveles -->
                                         <div class="row">
-                                            <div class="table-responsive rounded">
+                                            <div class="table rounded">
                                                 <table class=" table table-success  ">
                                                     <thead class="rounded ">
                                                         <tr class="text-center">
@@ -54,13 +83,17 @@
                                                                     style="background-color: #BEEDE8;"
                                                                     class="form-control" id="">
                                                                     <option value="0" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 0)}} selected {{/if}}>Cotizada</option>
+                                                                        p.cotizacion_autorizada_estatus 0)}} selected
+                                                                        {{/if}}>Cotizada</option>
                                                                     <option value="1" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 1)}} selected {{/if}}>Autorizada</option>
+                                                                        p.cotizacion_autorizada_estatus 1)}} selected
+                                                                        {{/if}}>Autorizada</option>
                                                                     <option value="2" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 2)}} selected {{/if}}>Terminada</option>
+                                                                        p.cotizacion_autorizada_estatus 2)}} selected
+                                                                        {{/if}}>Terminada</option>
                                                                     <option value="9" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 9)}} selected {{/if}}>Poliza</option>
+                                                                        p.cotizacion_autorizada_estatus 9)}} selected
+                                                                        {{/if}}>Poliza</option>
                                                                 </select>
                                                             </td>
                                                             <td>{{p.cotizacion_fecha_alta}}</td>
@@ -71,7 +104,8 @@
                                                                     style="background-color: #BEEDE8; color:black !important; width: 100%; height: 100%;">
                                                                     {{#each moneda}}
                                                                     <option value="{{moneda_id}}" {{#if
-                                                                        (is../p.cotizacion_moneda_id moneda_id) }} selected {{/if}}>{{moneda_descripcion}}</option>
+                                                                        (is../p.cotizacion_moneda_id moneda_id) }}
+                                                                        selected {{/if}}>{{moneda_descripcion}}</option>
                                                                     {{/each}}
                                                                 </select></td>
                                                             <td></td>
@@ -101,8 +135,10 @@
                                                         <td id="txtpf">{{p.pf}}</td>
                                                         <td><select name="" class="form-control" disabled id=""
                                                                 style="background-color: #BEEDE8; color:black !important; width: 100%; height: 100%;">
-                                                                <option value="0" {{#if (is p.estimacion_iva 0 estimacion_iva)}} selected {{/if}}>No</option>
-                                                                <option value="1" {{#if (is p.estimacion_iva 1 estimacion_iva)}} selected {{/if}}>Si</option>
+                                                                <option value="0" {{#if (is p.estimacion_iva 0
+                                                                    estimacion_iva)}} selected {{/if}}>No</option>
+                                                                <option value="1" {{#if (is p.estimacion_iva 1
+                                                                    estimacion_iva)}} selected {{/if}}>Si</option>
                                                             </select></td>
                                                         <td><input type="text" id="descuento_porcentaje"
                                                                 class="form-control"
@@ -122,10 +158,11 @@
                                                     </tbody>
                                                 </table>
 
-                                                {{#if (is p.cotizacion_tipo_id 1)}} 
-
-                                                    <table class="table table-success">
+                                                {{#if (is p.cotizacion_tipo_id 1)}}
+                                    
+                                                <table class="table table-success">
                                                     <tr>
+                                                        <th>Acciones</th>
                                                         <th>Producto</th>
                                                         <th>Marca</th>
                                                         <th>Cantidad</th>
@@ -134,99 +171,104 @@
                                                         <th>Subtotal</th>
                                                     </tr>
                                                     {{#each psimple}}
-                                                        <tr>
-                                                            <td>{{producto_descripcion}}</td>
-                                                            <td>{{marca_descripcion}}</td>
-                                                            <td id="insumo_cantidad">{{insumo_cantidad}}</td>
-                                                            <td id="insumo_precio_ma">{{insumo_precio_ma}}</td>
-                                                            <td id="insumo_precio_mo">{{insumo_precio_mo}}</td>
-                                                            <td id="simpleSubtotal" ></td>
-                                                        </tr>
+                                                    <tr>
+                                                        <td class="row"> <span class="col-sm-12 col-md-6"><button class="btn btn-danger btn-sm" type="button" onclick="dltInsumo({{insumo_orden}})"><i class="fal fa-light fa-trash-can"></i></button> </span> <span class="col-sm-12 col-md-6"><button class="btn btn-info btn-sm"><i class="fal fa-light fa-pen-to-square"></i></button></span> </td>
+                                                        <td >{{producto_descripcion}}</td>
+                                                        <td class="text-center">{{marca_descripcion}}</td>
+                                                        <td class="insumo_cantidad text-center">{{insumo_cantidad}}</td>
+                                                        <td class="insumo_precio_ma text-center">{{insumo_precio_ma}}</td>
+                                                        <td class="insumo_precio_mo text-center">{{insumo_precio_mo}}</td>
+                                                        <td class="simpleSubtotal text-center"></td>
+                                                    </tr>
                                                     {{/each}}
                                                     <tr class="justify-content-center text-align-center">
-                                                        <td colspan="6"><center><button type="button" onclick="addProducto()" class="btn btn-info">Agregar Insumo</button> <button type="button" onclick="addServicio()" class="btn btn-warning">Agregar Servicio</button></center> </td>   
+                                                        <td colspan="6">
+                                                        <center><button type="button" onclick="showAddProductModal()" class="btn btn-info">Agregar Insumo</button> <button type="button" onclick="addServicio()" class="btn btn-warning">Agregar Servicio</button></center>
+                                                        </td>
                                                     </tr>
-
                                                 </table>
                                                 {{/if}}
-                                                    
-                                                    {{#if (is p.cotizacion_tipo_id 2)}}
-                                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="accordion w-100 bg-success" id="insumosAccordion">
-                                                {{#each insumos}}
-                                                <div class="card">
-                                                    <div class="card-header" id="heading{{@index}}">
-                                                        <h2 class="mb-0">
-                                                            <button class="btn btn-block btn-lg text-white"
-                                                                style="background-color: #5A9A5A;" type="button"
-                                                                data-toggle="collapse" data-target="#collapse{{@index}}"
-                                                                aria-expanded="true" aria-controls="collapse{{@index}}">
-                                                                {{diciplina_descripcion}}
-                                                            </button>
-                                                        </h2>
-                                                    </div>
 
-                                                    <div id="collapse{{@index}}" class="collapse"
-                                                        aria-labelledby="heading{{@index}}"
-                                                        data-parent="#insumosAccordion">
-                                                        <div class="card-body">
-                                                            <table class="table table-hover text-center">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Producto</th>
-                                                                        <th>Marca</th>
-                                                                        <th>Cantidad</th>
-                                                                        <th>Material</th>
-                                                                        <td>Insumo Precio MA</td>
-                                                                        <th>Precio MO</th>
-                                                                        <th>Subtotal</th>
-                                                                        <th>Accion</th>
-                                                                    </tr>
+                                                {{#if (is p.cotizacion_tipo_id 2)}}
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="accordion w-100 bg-success" id="insumosAccordion">
+                                                            {{#each insumos}}
+                                                            <div class="card">
+                                                                <div class="card-header" id="heading{{@index}}">
+                                                                    <h2 class="mb-0">
+                                                                        <button class="btn btn-block btn-lg text-white"
+                                                                            style="background-color: #5A9A5A;"
+                                                                            type="button" data-toggle="collapse"
+                                                                            data-target="#collapse{{@index}}"
+                                                                            aria-expanded="true"
+                                                                            aria-controls="collapse{{@index}}">
+                                                                            {{diciplina_descripcion}}
+                                                                        </button>
+                                                                    </h2>
+                                                                </div>
 
-                                                                    <tr>
+                                                                <div id="collapse{{@index}}" class="collapse"
+                                                                    aria-labelledby="heading{{@index}}"
+                                                                    data-parent="#insumosAccordion">
+                                                                    <div class="card-body">
+                                                                        <table class="table table-hover text-center">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Acciones</th>
+                                                                                    <th>Producto</th>
+                                                                                    <th>Marca</th>
+                                                                                    <th>Cantidad</th>
+                                                                                    <th>Material</th>
+                                                                                    <td>Insumo Precio MA</td>
+                                                                                    <th>Precio MO</th>
+                                                                                    <th>Subtotal</th>
+                                                                                    <th>Accion</th>
+                                                                                </tr>
 
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    {{#each insumos}}
-                                                                    <tr>
-                                                                        <td>{{producto}}</td>
-                                                                        <td>{{marca_descripcion}}</td>
-                                                                        <td>{{insumo_cantidad}}</td>
-                                                                        <td>{{tm_tipo}}</td>
-                                                                        <td>{{insumo_precio_ma}}</td>
-                                                                        <td>{{insumo_precio_mo}}</td>
-                                                                        <td id="subtotal">{{importe}}</td>
+                                                                                <tr>
 
-                                                                        <td>
-                                                                            <div class="d-flex justify-content-between">
-                                                                                <button
-                                                                                    class="btn btn-circle btn-sm btn-primary m-1">agregar</button>
-                                                                                <button
-                                                                                    class="btn btn-circle btn-sm btn-secondary m-1">eliminar</button>
-                                                                                <button
-                                                                                    class="btn btn-circle btn-sm btn-success m-1">editar</button>
-                                                                            </div>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody id="table-bodyy" class="table-bodyy">
+                                                                                {{#each insumos}}
+                                                                                <tr>
+                                                                                    <td> <button class="btn btn-danger"><i class="fal fa-light fa-trash-can"></i></button> </td>
+                                                                                    <td>{{producto}}</td>
+                                                                                    <td>{{marca_descripcion}}</td>
+                                                                                    <td>{{insumo_cantidad}}</td>
+                                                                                    <td>{{tm_tipo}}</td>
+                                                                                    <td>{{insumo_precio_ma}}</td>
+                                                                                    <td>{{insumo_precio_mo}}</td>
+                                                                                    <td id="subtotal">{{importe}}</td>
 
-                                                                        </td>
+                                                                                    <td>
+                                                                                        <div
+                                                                                            class="d-flex justify-content-between">
 
-                                                                    </tr>
-                                                                    {{/each}}
-                                                                    <tr>
-                                                                        <td>Total</td>
-                                                                        <td id="total"></td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
+                                                                                            <button
+                                                                                                class="btn btn-circle btn-sm btn-secondary m-1">eliminar</button>
+
+                                                                                        </div>
+
+                                                                                    </td>
+
+                                                                                </tr>
+                                                                                {{/each}}
+                                                                                <tr>
+                                                                                    <td>Total</td>
+                                                                                    <td id="total"></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {{/each}}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{/each}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                                    {{/if}}
+                                                {{/if}}
 
 
 
@@ -283,7 +325,7 @@
 
 
 
-                                    
+
 
 
 
@@ -426,113 +468,196 @@
 <div id="contenido"></div>
 
 {{#section 'scripts'}}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<style>
-    .counter {
-        text-align: center;
-        font-weight: bold;
-    }
-</style>
 <script>
+    function showAddProductModal() {
+        Swal.fire({
+            title: 'Agregar Producto',
+            html: '<div class="container"> <div class="row"> <div class="col-6"> <label for="first-input">Nombre</label> <input onkeyup="performAxiosCall();" id="first-input" class="form-control"> <label for="second-input">Marca</label> <input  id="second-input" class="form-control"> </div> <div class="col-6"> <label for="third-input">Cantidad</label> <input id="third-input" class="form-control"> <label for="fourth-input">Materiales</label> <input id="fourth-input" class="form-control"> <label for="fifth-input">Precio</label> <input id="fifth-input" class="form-control"> </div> </div> <div class="row"> <div class="col-12"> <label for="product-select">Seleccione un producto</label> <select id="product-select" class="form-control"> <option value="">Seleccione un producto</option> </select> </div> </div> </div> ',
+            showCancelButton: true,
+            confirmButtonText: 'Submit',
+            preConfirm: () => {
+                return [
+                    document.getElementById('first-input').value,
+                    document.getElementById('second-input').value,
+                    document.getElementById('third-input').value,
+                    document.getElementById('fourth-input').value,
+                    document.getElementById('fifth-input').value
+                ]
+            }
+        });
+    }
+    let previousSearch = '';
+    let previousResult = null;
+    let timeout = null;
+
+    function performAxiosCall() {
+        const inputs = [
+            document.getElementById('first-input'),
+            document.getElementById('second-input'),
+            document.getElementById('third-input'),
+            document.getElementById('fourth-input'),
+            document.getElementById('fifth-input')
+        ];
+
+        inputs.forEach(input => {
+            input.addEventListener('keyup', () => {
+                console.log('key up');
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    const [firstInput, secondInput, thirdInput, fourthInput, fifthInput] = inputs.map(input => input.value);
+                    const searchText = `${firstInput}`;
+                    if (searchText === previousSearch) {
+                        // Actualiza la lista select con los resultados de la búsqueda previa
+                        updateSelect(previousResult);
+                    } else {
+                        // Realiza la búsqueda en tiempo real usando Axios
+                        axios.get(`/getProducto?searchText=${searchText}`)
+                            .then(response => {
+                                // Actualiza la lista select con los productos
+                                previousResult = response.data[0];
+                                previousSearch = searchText;
+                                updateSelect(previousResult);
+                            })
+                            .catch(error => {
+                                // Maneja el error aquí
+                                console.error(error);
+                            });
+                    }
+                }, 500);
+            });
+        });
+    }
 
 
-        //alerta para producto
-        function addProducto(){
-            Swal.fire({
-  title: 'Agregar Producto',
-  html: `
-    <div class="container">
+
+    function updateSelect(result) {
+        const select = document.getElementById('product-select');
+        select.innerHTML = '';
+        const option = document.createElement('option');
+        option.value = '';
+        option.text = 'Seleccione un producto';
+        select.appendChild(option);
+        result.forEach(product => {
+            const option = document.createElement('option');
+            option.value = product.producto_id;
+            option.text = product.producto_descripcion;
+            select.appendChild(option);
+        });
+    }
+
+
+
+   
+
+
+
+
+    //funcion para agregar servicio
+    function addServicio() {
+  var fechaActual = getCurrentDateSQL();
+  Swal.fire({
+    title: 'Agregar Servicio',
+    html: `
+      <div class="container">
         <div class="row">
-            <div class="col-6">
-                <label for="first-input">Nombre</label>
-                <input id="first-input" class="form-control">
-                <label for="second-input">Marca</label>
-                <input id="second-input" class="form-control">
-            </div>
-            <div class="col-6">
-                <label for="third-input">Cantidad</label>
-                <input id="third-input" class="form-control">
-                <label for="fourth-input">Materiales</label>
-                <input id="fourth-input" class="form-control">
-            </div>
+          <div class="col-6">
+            <input type="text" hidden class="form-control">
+            <label for="first-input">Descripcion</label>
+            <input id="first-input" class="form-control mb-2">
+            <label for="second-input">Cantidad</label>
+            <input id="second-input" class="form-control" onkeyup="formcalculate()">
+          </div>
+          <div class="col-6">
+            <label for="third-input">Precio</label>
+            <input id="third-input" class="form-control mb-2"  onkeyup="formcalculate()">
+            <label for="fourth-input">total</label>
+            <input id="fourth-input" class="form-control" >
+          </div>
         </div>
-    </div>
-  `,
-  showCancelButton: true,
-  confirmButtonText: 'Submit',
-  preConfirm: () => {
-    return [
-      document.getElementById('first-input').value,
-      document.getElementById('second-input').value,
-      document.getElementById('third-input').value,
-      document.getElementById('fourth-input').value
-    ]
-  }
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire({
-      title: 'Submitted Information',
-      html: `
-        First Input: ${result.value[0]}<br>
-        Second Input: ${result.value[1]}<br>
-        Third Input: ${result.value[2]}<br>
-        Fourth Input: ${result.value[3]}
-      `
-    })
-  }
-})
+      </div>
+    `,
+    showCancelButton: true,
+    confirmButtonText: 'Agregar',
+    preConfirm: () => {
+      return [
+        document.getElementById('first-input').value,
+        document.getElementById('second-input').value,
+        document.getElementById('third-input').value,
+        document.getElementById('fourth-input').value
+      ]
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      axios.post('/addServicio', {
+        "producto_codigo": "SERVICIO",
+        "producto_modelo": "SERVICIO",
+        "producto_marca_id": "102",
+        "producto_unidad_id": 20,
+        "producto_tipo_id": 3,
+        "producto_familia_id": 11,
+        "producto_serie_id": 1,
+        "producto_costo": 0,
+        "producto_costo_fecha": fechaActual,
+        "producto_mo": 0,
+        "producto_icampo": 0,
+        "producto_ioficina": 0,
+        "producto_hm": 0,
+        "producto_financiero": 0,
+        "producto_utilidad": 0,
+        producto_descripcion: result.value[0],
+        producto_precio_tarjeta: result.value[3],
+        producto_precio_venta: result.value[3],
+        producto_marca_id: 102,
+        cantidad: result.value[1],
+        total: result.value[4],
+        insumo_cotizacion_id: {{p.cotizacion_id}}
+      })
+        .then(function (response) {
+          Swal.fire({
+            title: 'Servicio Agregado',
+            text: 'El servicio ha sido agregado exitosamente'
+          });
+            location.reload();
+        })
+        .catch(function (error) {
+          Swal.fire({
+                            title: 'Error al agregar servicio',
+                            text: 'Ha ocurrido un error al agregar el servicio, por favor intenta de nuevo'
+                        })
+                    });
+            }
+        })
+    }
+
+    function formcalculate() {
+        var cantidad = document.getElementById("second-input").value;
+        var precio = document.getElementById("third-input").value;
+        var total = cantidad * precio;
+        document.getElementById("fourth-input").value = total.toFixed(2);
+    }
+
+    //funcion fecha actual
+    function getCurrentDateSQL() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
         }
 
-
-//funcion para agregar servicio
-function addServicio(){
-            Swal.fire({
-  title: 'Submit your information',
-  html: `
-    <div class="container">
-        <div class="row">
-            <div class="col-6">
-                <label for="first-input">Nombre</label>
-                <input id="first-input" class="form-control">
-                <label for="second-input">Marca</label>
-                <input id="second-input" class="form-control">
-            </div>
-            <div class="col-6">
-                <label for="third-input">Cantidad</label>
-                <input id="third-input" class="form-control">
-                <label for="fourth-input">Materiales</label>
-                <input id="fourth-input" class="form-control">
-            </div>
-        </div>
-    </div>
-  `,
-  showCancelButton: true,
-  confirmButtonText: 'Submit',
-  preConfirm: () => {
-    return [
-      document.getElementById('first-input').value,
-      document.getElementById('second-input').value,
-      document.getElementById('third-input').value,
-      document.getElementById('fourth-input').value
-    ]
-  }
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire({
-      title: 'Submitted Information',
-      html: `
-        First Input: ${result.value[0]}<br>
-        Second Input: ${result.value[1]}<br>
-        Third Input: ${result.value[2]}<br>
-        Fourth Input: ${result.value[3]}
-      `
-    })
-  }
-})
+        if (mm < 10) {
+            mm = '0' + mm
         }
 
+        today = yyyy + '-' + mm + '-' + dd;
+        return today;
+    }
 
 
 
@@ -540,54 +665,52 @@ function addServicio(){
 
 
 
-    //funcion para calcular subtotal de insumo para cotizacion simple
-    function calcularSubtotal() {
-       var cantidad = document.getElementById("insumo_cantidad").innerText;
-        var ma = document.getElementById("insumo_precio_ma").innerText;
-        var mo = document.getElementById("insumo_precio_mo").innerText;
-            cantidad = parseFloat(cantidad);
-            ma = parseFloat(ma);
-            mo = parseFloat(mo);
 
-         
+    
+     // Función para calcular subtotal de insumo para cotización simple
+function calcularSubtotal() {
+// Obtener todas las filas de la tabla
+var filas = document.querySelectorAll("tr");
 
-		     subtotal = (ma + mo) * cantidad
-             console.log(ma,  mo, cantidad)
-             console.log((1116.78 + 28.65)*187)
-            document.getElementById("simpleSubtotal").innerHTML = "$" + subtotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-
+// Iterar sobre cada fila
+filas.forEach(function(fila) {
+// Obtener las celdas de cada fila
+var celdas = fila.querySelectorAll("td");
+// Verificar si la fila tiene las celdas necesarias
+if (celdas.length >= 6) {
+// Obtener los valores de cantidad, ma y mo
+var cantidad = celdas[3].innerText;
+var ma = celdas[4].innerText;
+var mo = celdas[5].innerText;
+  // Si el precio de ma es vacío, o igual a 0, entonces hacer la suma sin la multiplicación de ma
+  if (ma == " " || ma == 0 || ma == null) {
+    var subtotal = cantidad * mo;
+  } else {
+    // Si el precio de ma no es vacío, entonces hacer la suma con la multiplicación de ma
+    var subtotal = cantidad * ma;
+  }
+  // Dar formato de moneda al resultado de subtotal
+  celdas[6].innerText = "$" + subtotal.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
 }
-    
-    calcularSubtotal();
+});
+}
+
     addEventListener("load", calcularSubtotal);
-    
+    for (var i = 0; i < 5; i++) {
+        calcularSubtotal()
+    }
+    const dltInsumo = async(id) => {
+  try {
+     axios.post('/deleteInsumo/' + id)
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 
+
+    const idee = 1
+console.log(idee);
 
 </script>
-{{/section}}
-
-{{#section 'styles'}}
-<style>
-    #accordion {
-        width: 400px;
-    }
-
-    #accordion h3 {
-        cursor: pointer;
-        padding: 10px;
-        background-color: #f0f0f0;
-        border-bottom: 1px solid #ccc;
-    }
-
-    #accordion div {
-        display: none;
-        padding: 10px;
-        background-color: #fdfdfd;
-    }
-
-    #accordion div.show {
-        display: block;
-    }
-</style>
 {{/section}}

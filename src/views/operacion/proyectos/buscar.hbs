@@ -40,7 +40,24 @@
 		</div>
 	</div>
 </div>
-
+<div class="container">
+	<div class="row ">
+		<div class="col-12">
+			<center>
+				<button type="button" class="btn btn-lg btn-success" id="prefacturarBtn">Prefacturar</button>
+				<br><br>
+				<i>Para prefacturar proyectos</i>
+			</center>
+		</div>
+	</div>
+</div>
+{{#section 'head'}}
+<style>
+	#proyecctosTable2 tbody td, #proyecctosTable2 thead th {
+  font-size: smaller;
+}
+</style>
+{{/section}}
 {{#section 'scripts'}}
 
 <script src="/js/datagrid/datatables/datatables.bundle.js"></script>
@@ -50,6 +67,124 @@
 
 <script src="/controllers/operacion.controller.js"></script>
 <script>
+
+
+
+
+
+
+
+const proyectos2 = {{{ json proyArr2 }}}
+const prefacturarBtn = document.getElementById("prefacturarBtn");
+
+prefacturarBtn.addEventListener("click", function() {
+  Swal.fire({
+    title: "Prefactura",
+	width: "65vw",
+    html: `
+      <div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<table id="proyecctosTable2" class=" table table-bordered table-hover table-striped" >
+						<thead class="bg-primary-600">
+							<tr>
+								<th>Número</th>
+								<th>Cliente</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+			</div>
+		</div>
+	  </div>
+    `,
+    showCancelButton: true,
+    confirmButtonText: "Prefacturar",
+    cancelButtonText: "Cancelar"
+  }).then((result) => {
+    if (result.isConfirmed) {
+        let selectedCheckboxes = [];
+		let checkboxes = document.querySelectorAll("input[type=checkbox]");
+		checkboxes.forEach(checkbox => {
+			if (checkbox.checked) {
+			selectedCheckboxes.push(checkbox.value);
+			}
+  		});
+
+		axios.post('/operacion/prefacturar', {proyectos: selectedCheckboxes})
+		.then(function (response) {
+			Swal.fire("Prefacturado", `Los proyectos se pre - facturaron correctamente`, "success");
+		})
+		.catch(function (error) {
+			Swal.fire("Error", `Ocurrio un error al pre - facturar los proyectos`, "error");
+		});
+    }
+  });
+
+
+
+  // initialize datatable
+		$('#proyecctosTable2').dataTable(
+			{
+				data: proyectos2,
+				responsive: true,
+				lengthChange: false,
+				dom:
+					"<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'lB>>" +
+					"<'row'<'col-sm-12'tr>>" +
+					"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+				buttons: [
+
+					{
+						extend: 'pdfHtml5',
+						text: 'PDF',
+						titleAttr: 'Generate PDF',
+						className: 'btn-outline-danger btn-sm mr-1'
+					},
+					{
+						extend: 'excelHtml5',
+						text: 'Excel',
+						titleAttr: 'Generate Excel',
+						className: 'btn-outline-success btn-sm mr-1'
+					},
+					{
+						extend: 'csvHtml5',
+						text: 'CSV',
+						titleAttr: 'Generate CSV',
+						className: 'btn-outline-primary btn-sm mr-1'
+					},
+					{
+						extend: 'copyHtml5',
+						text: 'Copy',
+						titleAttr: 'Copy to clipboard',
+						className: 'btn-outline-primary btn-sm mr-1'
+					},
+					{
+						extend: 'print',
+						text: 'Print',
+						titleAttr: 'Print Table',
+						className: 'btn-outline-primary btn-sm'
+					}
+				]
+			});
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	const proyectos = {{{ json proyArr }}}
 
 

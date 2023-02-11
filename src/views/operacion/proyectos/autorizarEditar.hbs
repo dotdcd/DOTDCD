@@ -101,6 +101,9 @@
 
 							<div class="col-md-6">
 								<div class="form-group">
+									<label for="Responsable del proyecto">Responsable</label>
+									<input type="text" class="form-control" id="" name="cotizacion_responsable"
+										placeholder="" value="{{p.cotizacion_responsable}}"><br>
 									<label for="proyecto">Arq. Responsable</label>
 									<select name="cotizacion_arq_responsable" class="form-control" id="">
 										{{#each empleados}}
@@ -137,13 +140,19 @@
 											BAJA</option>
 									</select><br>
 
-									<label for="liquidada">Liquidada</label>
+									<div class="row">
+										<div class="col-6 text-center">
+											<label for="liquidada">Liquidada</label>
 									<input type="checkbox" name="liquidada_sn" id="liquidada" class="form-control"
 										value="1" {{#if (is p.liquidada_sn 1)}} checked {{/if}}><br>
 
-									<label for="siroc">SIROC</label>
+									
+										</div>
+										<div class="col-6 text-center">
+											<label for="siroc">SIROC</label>
 									<input type="checkbox" name="siroc_sn" id="siroc" class="form-control" value="1"
 										{{#if (is p.siroc_sn 1)}} checked {{/if}}><br>
+										</div>									</div>
 
 									<label for="proyecto">Total</label>
 									<input type="text" disabled class="form-control" id="total" name="total"

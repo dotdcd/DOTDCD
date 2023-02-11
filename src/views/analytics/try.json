@@ -1,0 +1,237 @@
+{
+    Edificio: 'DOMELA I',
+    Deptos: [
+      {
+        Unidad: 'DEP. 1- 101',
+        Costo: '0',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '1/1/1900 12:00:00 AM',
+        FechaFin: '1/1/1900 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 2 - 102',
+        Costo: '0',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '1/1/1900 12:00:00 AM',
+        FechaFin: '1/1/1900 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 3 - 103',
+        Costo: '11800',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '1/20/2023 12:00:00 AM',
+        FechaFin: '7/20/2023 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 4 - 104',
+        Costo: '11800',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '1/1/2023 12:00:00 AM',
+        FechaFin: '7/1/2023 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 5 -111',
+        Costo: '10300',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '2/7/2023 12:00:00 AM',
+        FechaFin: '2/7/2024 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 6 - 112',
+        Costo: '10300',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '12/15/2022 12:00:00 AM',
+        FechaFin: '12/15/2023 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 7 -113',
+        Costo: '0',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '1/1/1900 12:00:00 AM',
+        FechaFin: '1/1/1900 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 8 - 114',
+        Costo: '10300',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '8/1/2022 12:00:00 AM',
+        FechaFin: '8/1/2023 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 9 -115',
+        Costo: '0',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '1/1/1900 12:00:00 AM',
+        FechaFin: '1/1/1900 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 10 -201',
+        Costo: '12000',
+        Parking: '1200',
+        Mantenimientos: '2',
+        FechaIni: '2/1/2023 12:00:00 AM',
+        FechaFin: '2/1/2024 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 11 - 202',
+        Costo: '10800',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '12/1/2022 12:00:00 AM',
+        FechaFin: '12/1/2023 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 12 -203',
+        Costo: '10800',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '3/2/2022 12:00:00 AM',
+        FechaFin: '3/2/2023 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 13 -204',
+        Costo: '0',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '1/1/1900 12:00:00 AM',
+        FechaFin: '1/1/1900 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 14 - 211',
+        Costo: '10300',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '8/1/2022 12:00:00 AM',
+        FechaFin: '8/1/2023 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 15 -212',
+        Costo: '10300',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '12/1/2022 12:00:00 AM',
+        FechaFin: '12/1/2023 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 16 - 213',
+        Costo: '0',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '1/1/1900 12:00:00 AM',
+        FechaFin: '1/1/1900 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 17 -214',
+        Costo: '11300',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '1/1/2023 12:00:00 AM',
+        FechaFin: '7/1/2023 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 18 -215',
+        Costo: '10300',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '2/3/2023 12:00:00 AM',
+        FechaFin: '2/3/2024 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 19 - 301',
+        Costo: '10800',
+        Parking: '0',
+        Mantenimientos: '1',
+        FechaIni: '1/4/2023 12:00:00 AM',
+        FechaFin: '1/4/2024 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 20 - 302',
+        Costo: '10800',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '8/3/2022 12:00:00 AM',
+        FechaFin: '8/3/2023 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 21 - 303',
+        Costo: '10800',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '1/4/2023 12:00:00 AM',
+        FechaFin: '1/4/2024 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 22 - 304',
+        Costo: '0',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '1/1/1900 12:00:00 AM',
+        FechaFin: '1/1/1900 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 23 -311',
+        Costo: '10300',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '8/2/2022 12:00:00 AM',
+        FechaFin: '8/2/2023 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 24 - 312',
+        Costo: '11300',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '2/5/2023 12:00:00 AM',
+        FechaFin: '8/5/2023 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 25 - 313',
+        Costo: '10300',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '5/15/2022 12:00:00 AM',
+        FechaFin: '5/15/2023 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 26 - 314',
+        Costo: '10300',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '2/2/2023 12:00:00 AM',
+        FechaFin: '2/2/2024 12:00:00 AM'
+      },
+      {
+        Unidad: 'DEP. 27 -315',
+        Costo: '10300',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '2/13/2022 12:00:00 AM',
+        FechaFin: '2/13/2023 12:00:00 AM'
+      },
+      {
+        Unidad: 'Area Comun',
+        Costo: '0',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '1/1/1900 12:00:00 AM',
+        FechaFin: '1/1/1900 12:00:00 AM'
+      },
+      {
+        Unidad: 'Area Comun',
+        Costo: '0',
+        Parking: '0',
+        Mantenimientos: '0',
+        FechaIni: '1/1/1900 12:00:00 AM',
+        FechaFin: '1/1/1900 12:00:00 AM'
+      }
+    ]
+}

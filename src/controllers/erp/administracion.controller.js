@@ -498,9 +498,25 @@ const vfactura = async () => {
     }
 }
 
+const getPreF = async () => {
+    try {
+        const prefactura = await pool.query('SELECT * FROM prefacturas')
+        const proy = []
+        for (const p of prefactura[0]) {
+            const cotizaciones = await pool.query('SELECT * FROM prefacturas_proyectos WHERE prefactura_id = ?', [p.prefactura_id])
+            proy.push([p.prefactura_id, cotizaciones[0]])
+        }
+        return proy
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const renderFacturas = async (req, res) => {
     try {
         const facturas = await vfactura()
+        const prefacturas = await getPreF()
+        console.log(prefacturas)
         return res.render('administracion/facturas/facturas', { facturas })
     } catch (error) {
         console.log(error)

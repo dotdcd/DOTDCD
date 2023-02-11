@@ -20,7 +20,9 @@
     }
 </style>
 {{/section}}
-    <h3>Departamentos</h3>
+    <div class="container-fluid">
+        <h3 class="display-4 font-weight-bold text-center">Información Global</h3>
+    </div>
 
         
         
@@ -30,111 +32,43 @@
 
 
 
+<div class="container-fluid text-center justify-content-center" id="cardsContainer">
 
+    </div>
 
     <div class="row justify-content-center">
-        <div class="col-sm col-xl-2 text-center">
+        <div class="col-sm col-xl-3 text-center">
             <div class="p-3  rounded overflow-hidden position-relative text-dark mb-g" style="background-color: rgb(132, 204, 65);">
                 <h1 class="display-4 font-weight-bold">Global</h1>
                 <div class="">
                     <h5 class="display-4 d-block l-h-n m-0 fw-500">
-                        <div class="row">
-                            <div class="col-6"><i class="fal fa-light fa-city"></i> 90%</div>
-                            <div class="col-6"><i class="fal fa-light fa-square-parking"></i> 90%</div>
+                        <div class="row mb-3">
+                            <div class="col-6 text-center"><i class="fal fa-light fa-city"></i>  <span class="text-center" id="porcentajeGlobalEdificios"></span></div>
+                            <div class="col-6 text-center"><i class="fal fa-light fa-square-parking"></i>  <span id="porcentajeGlobalParking" class="text-center" ></span> </div>
                         </div>
                         <div class="row">
-                            <div class="col-6">236/230</div>
-                            <div class="col-6">87/140</div>
+                            <div class="col-6">{{global.Total}}/{{global.Occupation}}</div>
+                            <div class="col-6">{{global.TotalParking}}/{{global.ParkingOccupation}}</div>
                         </div>
                     </h5>
                 </div>
             </div>
         </div>
-        <div class="col-sm col-xl-2 text-center">
-            <div class="p-3  rounded overflow-hidden position-relative  text-dark mb-g" style="background-color: #BFE0F9;">
-                <h1 class="display-4 font-weight-bold">Aguanaval</h1>
-                <div class="">
-                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                        <div class="row">
-                            <div class="col-6"><i class="fal fa-light fa-city"></i></div>
-                            <div class="col-6"><i class="fal fa-light fa-square-parking"></i></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">15/14</div>
-                            <div class="col-6">5/5</div>
-                        </div>
-                    </h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm col-xl-2 text-center">
-            <div class="p-3 bg-success rounded overflow-hidden position-relative  text-dark mb-g">
-                <h1 class="display-4 font-weight-bold">Lilie</h1>
-                <div class="">
-                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                        <div class="row">
-                            <div class="col-6"><i class="fal fa-light fa-city"></i></div>
-                            <div class="col-6"><i class="fal fa-light fa-square-parking"></i></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">37/35</div>
-                            <div class="col-6">10/10</div>
-                        </div>
-                    </h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm col-xl-2 text-center">
-            <div class="p-3 bg-secondary rounded overflow-hidden position-relative  text-dark mb-g">
-                <h1 class="display-4 font-weight-bold">Lobre</h1>
-                <div class="">
-                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                        <div class="row">
-                            <div class="col-6"><i class="fal fa-light fa-city"></i></div>
-                            <div class="col-6"><i class="fal fa-light fa-square-parking"></i></div>
-                        </div>
-                         <div class="row">
-                            <div class="col-6">24/23</div>
-                            <div class="col-6">15/15</div>
-                         </div>
-                    </h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm col-xl-2 text-center">
-            <div class="p-3 bg-warning-400 rounded overflow-hidden position-relative text-dark mb-g">
-                <h1 class="display-4 font-weight-bold">Domelia I</h1>
-                <div class="">
-                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                        <div class="row">
-                            <div class="col-6"><i class="fal fa-light fa-city"></i></div>
-                            <div class="col-6"><i class="fal fa-light fa-square-parking"></i></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">27/24</div>
-                            <div class="col-6">16/16</div>
-                        </div>
-                    </h3>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-<div class="row justify-content-center">
-    <div class="col-sm col-xl-2 text-center">
+
+
+<div class="col-sm col-xl-3 text-center">
             <div class="p-3  rounded overflow-hidden position-relative text-dark mb-g" style="background-color: rgb(132, 204, 65);">
                 <h1 class="display-4 font-weight-bold"></h1>
                 <div class="">
                     <h5 class="display-4 d-block l-h-n m-0 fw-500 pb-3">
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center mb-2">
                             <div class="col-2">M</div>
                             <div class="col-2">A</div>
                             <div class="col-2">L</div>
                             <div class="col-2">C</div>
                             <div class="col-2">E</div>
                         </div>
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center mb-2">
                             <div class="col-2"><i class="fal fa-light fa-wrench"></i></div>
                             <div class="col-2"><i class="fal fa-light fa-file-check"></i></div>
                             <div class="col-2"><i class="fal fa-light fa-phone"></i></div>
@@ -142,80 +76,32 @@
                             <div class="col-2"><i class="fal fa-light fa-handshake"></i></div>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-2">0</div>
-                        <div class="col-2">0</div>
-                        <div class="col-2">0</div>
-                        <div class="col-2">0</div>
-                        <div class="col-2">0</div>
+                            <div class="col-2">{{malce.Mttos}}</div>
+                        <div class="col-2">{{malce.Aplicaciones}}</div>
+                        <div class="col-2">{{malce.Llamadas}}</div>
+                        <div class="col-2">{{malce.Citas}}</div>
+                        <div class="col-2">{{malce.Entregas}}</div>
 
                         </div>
                     </h5>
                 </div>
             </div>
         </div>
-    <div class="col-sm col-xl-2 text-center">
-            <div class="p-3 bg-info-200 rounded overflow-hidden position-relative text-dark mb-g">
-                <h1 class="display-4 font-weight-bold">Domelia II</h1>
-                <div class="">
-                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                        <div class="row">
-                            <div class="col-6"><i class="fal fa-light fa-city"></i></div>
-                            <div class="col-6"><i class="fal fa-light fa-square-parking"></i></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">36 / 33</div>
-                            <div class="col-6">20/20</div>
-                        </div>
-                    </h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm col-xl-2 text-center">
-            <div class="p-3 bg-danger-300 rounded overflow-hidden position-relative text-dark mb-g">
-                <h1 class="display-4 font-weight-bold">Piet</h1>
-                <div class="">
-                    <h4 class="display-4 d-block l-h-n m-0 fw-500">
-                        <div class="row">
-                            <div class="col-6"><i class="fal fa-light fa-city"></i></div>
-                            <div class="col-6"><i class="fal fa-light fa-square-parking"></i></div>
-                        </div>
-                     <div class="row">
-                        <div class="col-6">65/63</div>
-                        <div class="col-6">42/42</div>
-                     </div>
-                    </h4>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-sm col-xl-2 text-center">
-            <div class="p-3 bg-primary rounded overflow-hidden position-relative text-dark mb-g">
-                <h1 class="display-4 font-weight-bold">Vilmos</h1>
-                <div class="">
-                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                        <div class="row">
-                            <div class="col-6"><i class="fal fa-light fa-city"></i></div>
-                            <div class="col-6"><i class="fal fa-light fa-square-parking"></i></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">32/17</div>
-                            <div class="col-6">19/19</div>
-                        </div>
-                    </h3>
-                </div>
-            </div>
-        </div>
 
+        
         
     </div>
+
     
  
-
-
+<br><br>
+<div class="container-fluid border-top">
+        <h3 class="display-4 font-weight-bold text-center">Financiero</h3>
+    </div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h3>Financiero</h3>
+            
             <table class="table table-stripped table-info bordered table-bordered  table-striped">
                 <tr class="bg-info text-light">
                     <th>DP</th>
@@ -2190,971 +2076,223 @@
 
 
 
+ 
 
-
-
-
-<div class="container-fluid">
+   <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h3>Servicios</h3>
-            <table class="table table-stripped bordered table-bordered table-info  table-striped">
-                <tr class="bg-info text-light">
-                    <th>DP</th>
-                    <th>CF</th>
-                    <th>PK</th>
-                    <th>DP</th>
-                    <th>CF</th>
-                    <th>PK</th>
-                    <th>DP</th>
-                    <th>CF</th>
-                    <th>PK</th>
-                    <th>DP</th>
-                    <th>CF</th>
-                    <th>PK</th>
-                    <th>DP</th>
-                    <th>CF</th>
-                    <th>PK</th>
-                    <th>DP</th>
-                    <th>CF</th>
-                    <th>PK</th>
-                    <th>DP</th>
-                    <th>CF</th>
-                    <th>PK</th>
-                    <th>DP</th>
-                    <th>CF</th>
-                    <th>PK</th>
-                    <th>DP</th>
-                    <th>CF</th>
-                    <th>PK</th>
-                    <th>DP</th>
-                    <th>CF</th>
-                    <th>PK</th>
-                    <th>DP</th>
-                    <th>CF</th>
-                    <th>PK</th>
-                    <th>DP</th>
-                    <th>CF</th>
-                    <th>PK</th>
-                    <th>DP</th>
-                    <th>CF</th>
-                    <th>PK</th>
-
-
-
-
+            <table class="table table-success bordered table-bordered ">
+                
+                <tr>
+                    {{#each infoEdificiosGeneral}}
+                    <th>{{Edificio}}</th>
+                    {{/each}}
                 </tr>
                 <tr>
-                    <td>1</td>
-                    <td>XX</td>
-                    <td>XX</td>
-
-                    <td class="bg-success font-weight-bold">4</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-success font-weight-bold">25</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">7</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">1</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-warning font-weight-bold">19</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">10</td>
-                    <td class="bg-info font-weight-bold">XX</td>
-                    <td class="bg-info font-weight-bold ">XX</td>
-
-                    <td class="bg-info font-weight-bold">28</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">11</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">29</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">47</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold">1</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">19</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
+                    {{#each infoEdificiosGeneral}}
+                    <td>
+                    {{#each Deptos}}
+                    <p>{{Unidad}} : {{Costo}} : 12/22/1212</p>
+                    {{/each}}
+                    </td>
+                    {{/each}}
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>XX</td>
-                    <td>XX</td>
-
-                    <td class="bg-success font-weight-bold">5</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-success font-weight-bold">26</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">8</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">2</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning font-weight-bold">20</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">11</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">29</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">12</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">30</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">48</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold">2</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">20</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>XX</td>
-                    <td>XX</td>
-
-                    <td class="bg-success font-weight-bold">6</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-success font-weight-bold">27</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">9</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">3</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-warning font-weight-bold">21</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">12</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">30</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">13</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">31</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">49</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold">3</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">21</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>XX</td>
-                    <td>XX</td>
-
-                    <td class="bg-success font-weight-bold">7</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-success font-weight-bold">28</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">10</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">4</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-warning font-weight-bold">22</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">13</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">31</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">14</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-danger font-weight-bold">32</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">50</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold">4</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">22</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>XX</td>
-                    <td>XX</td>
-
-                    <td class="bg-success font-weight-bold">8</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-success font-weight-bold">29</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">11</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">5</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-warning font-weight-bold">23</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">14</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">33</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">15</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-danger font-weight-bold">33</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">51</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold">5</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">23</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>XX</td>
-                    <td>XX</td>
-
-                    <td class="bg-success font-weight-bold">30</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-success font-weight-bold">31</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">12</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">6</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-warning font-weight-bold">24</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">15</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">34</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">16</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-danger font-weight-bold">34</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">52</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold">6</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">24</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>XX</td>
-                    <td>XX</td>
-
-                    <td class="bg-success font-weight-bold">10</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-success font-weight-bold">32</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">13</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">7</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-warning font-weight-bold">25</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">16</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">35</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">17</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-danger font-weight-bold">35</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">53</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-
-                    <td class="bg-primary font-weight-bold">7</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">25</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>XX</td>
-                    <td>XX</td>
-
-                    <td class="bg-success font-weight-bold">11</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-success font-weight-bold">33</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">14</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">8</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-warning font-weight-bold">26</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">17</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">36</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">18</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-danger font-weight-bold">36</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">54</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold">8</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">26</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>xx</td>
-                    <td>xx</td>
-
-                    <td class="bg-success font-weight-bold">12</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-success font-weight-bold">34</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">15</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">9</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-warning font-weight-bold">27</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">18</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">1</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-danger font-weight-bold">19</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-danger font-weight-bold">37</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-
-                    <td class="bg-danger font-weight-bold">55</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold">9</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">27</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td>XX</td>
-                    <td>XX</td>
-
-                    <td class="bg-success font-weight-bold">13</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-success font-weight-bold">35</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">16</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">10</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">1</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">19</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">2</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-danger font-weight-bold">20</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">38</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">56</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold">10</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">28</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td>XX</td>
-                    <td>XX</td>
-
-                    <td class="bg-success font-weight-bold">14</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-success font-weight-bold">36</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">17</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">11</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">2</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">20</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">3</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-danger font-weight-bold">21</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">39</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">57</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold">11</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">29</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                </tr>
-                <tr>
-                    <td>12</td>
-                    <td>XX</td>
-                    <td>XX</td>
-
-                    <td class="bg-success font-weight-bold">15</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-success font-weight-bold">37</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">18</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">12</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-
-                    <td class="bg-info font-weight-bold">3</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">21</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">4</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-danger font-weight-bold">22</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">40</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">58</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold">12</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">30</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                </tr>
-                <tr>
-                    <td>13</td>
-                    <td>XX</td>
-                    <td>XX</td>
-
-                    <td class="bg-success font-weight-bold">16</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">1</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">19</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">13</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">4</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">22</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">5</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-danger font-weight-bold">23</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">41</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">59</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold">13</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">31</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                </tr>
-                <tr>
-                    <td>14</td>
-                    <td>XX</td>
-                    <td>XX</td>
-
-                    <td class="bg-success font-weight-bold">17</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">2</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">20</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">14</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">5</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">23</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">6</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">24</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">42</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">60</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold">14</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">32</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                </tr>
-                <tr>
-                    <td>15</td>
-                    <td>XX</td>
-                    <td>XX</td>
-
-                    <td class="bg-success font-weight-bold">18</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">3</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">21</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">15</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">6</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">24</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">7</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-danger font-weight-bold">25</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">43</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">61</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold">15</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">33</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                </tr>
-                <tr>
-                    <td class="bg-success font-weight-bold">1</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-success font-weight-bold">20</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">4</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">22</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">16</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">7</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">25</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">8</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-danger font-weight-bold">26</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">44</td>
-                    <td class="bg-danger">xx</td>
-                    <td class="bg-danger">xx</td>
-                    <td class="bg-danger font-weight-bold">62</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-
-                    <td class="bg-primary font-weight-bold">16</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary font-weight-bold">34</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-                </tr>
-                <tr>
-                    <td class="bg-success font-weight-bold">2</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-success font-weight-bold">22</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">5</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">23</td>
-                    <td class="bg-secondary">xx</td>
-                    <td class="bg-secondary">xx</td>
-
-                    <td class="bg-warning font-weight-bold">17</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">8</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">26</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">9</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">27</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">45</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">63</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold">17</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">xx</td>
-
-                </tr>
-                <tr>
-                    <td class="bg-success font-weight-bold">3</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-success font-weight-bold">24</td>
-                    <td class="bg-success">XX</td>
-                    <td class="bg-success">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">6</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-secondary font-weight-bold">24</td>
-                    <td class="bg-secondary">XX</td>
-                    <td class="bg-secondary">XX</td>
-
-                    <td class="bg-warning font-weight-bold">18</td>
-                    <td class="bg-warning">XX</td>
-                    <td class="bg-warning">XX</td>
-
-                    <td class="bg-info font-weight-bold">9</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-info font-weight-bold">27</td>
-                    <td class="bg-info">XX</td>
-                    <td class="bg-info">XX</td>
-
-                    <td class="bg-danger font-weight-bold">10</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">28</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">46</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger font-weight-bold">64</td>
-                    <td class="bg-danger">XX</td>
-                    <td class="bg-danger">XX</td>
-
-                    <td class="bg-primary font-weight-bold ">18</td>
-                    <td class="bg-primary">XX</td>
-                    <td class="bg-primary">XX</td>
-
-                </tr>
-
             </table>
+
+
         </div>
     </div>
+   </div>
+<!-- 
+
+    <div id="slider">
+  <div class="slide">
+    <h1>Hola</h1>
+    <table class="table table-success bordered table-bordered ">
+                
+                <tr>
+                    {{#each infoEdificiosGeneral}}
+                    <th>{{Edificio}}</th>
+                    {{/each}}
+                </tr>
+                <tr>
+                    {{#each infoEdificiosGeneral}}
+                    <td>
+                    {{#each Deptos}}
+                    <p>{{Unidad}} : {{Costo}} : 12/22/1212</p>
+                    {{/each}}
+                    </td>
+                    {{/each}}
+                </tr>
+            </table>
+  </div>
+  <div class="slide">
+    <h1>como</h1>
+    <table class="table table-secondary bordered table-bordered ">
+                
+                <tr>
+                    {{#each infoEdificiosGeneral}}
+                    <th>{{Edificio}}</th>
+                    {{/each}}
+                </tr>
+                <tr>
+                    {{#each infoEdificiosGeneral}}
+                    <td>
+                    {{#each Deptos}}
+                    <p>{{Unidad}} : {{Costo}} : 12/22/1212</p>
+                    {{/each}}
+                    </td>
+                    {{/each}}
+                </tr>
+            </table>
+  </div>
+  <div class="slide">
+    <h1>estas</h1>
+   <table class="table">
+    <tr>
+        <th>DP</th>
+        <th>DP</th>
+        <th>DP</th>
+    </tr>
+    {{#each infoEdificiosGeneral}}
+    <tr>
+        {{#each Deptos}}
+        <td>{{Unidad}}</td>
+        <td>{{Costo}}</td>
+        <td>12/22/1212</td>
+        {{/each}}
+    </tr>
+    {{/each}}
+   </table>
+  </div>
 </div>
 
+-->
+
+
+{{#section 'styles'}}
+<style>
+#slider {
+  width: 800px;
+  height: 400px;
+  position: relative;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.slide:first-child {
+  display: block;
+}
+
+
+</style>
+{{/section}}
 {{#section 'scripts'}}
 <script>
+const datos = {{{json infoEdificiosGeneral}}}
+const infoEdificiosGeneral = {{{json infoEdificiosGeneral}}}
+
+
+
+/*
+var slideIndex = 1;
+
+function showSlides() {
+var i;
+var slides = document.getElementsByClassName("slide");
+var dots = document.getElementsByClassName("dot");
+for (i = 0; i < slides.length; i++) {
+slides[i].style.display = "none";
+}
+slideIndex++;
+if (slideIndex > slides.length) {
+slideIndex = 1;
+}
+for (i = 0; i < dots.length; i++) {
+dots[i].className = dots[i].className.replace(" active", "");
+}
+slides[slideIndex - 1].style.display = "block";
+dots[slideIndex - 1].className += " active";
+setTimeout(showSlides, 5000); // Change image every 5 seconds
+}
+
+showSlides();
+*/
+  
+function printEdificio(index) {
+  var table = document.createElement("table");
+  table.className = "table table-success bordered table-bordered";
+
+  var thead = document.createElement("thead");
+  var tr = document.createElement("tr");
+
+  var th = document.createElement("th");
+  th.textContent = infoEdificiosGeneral[index].Edificio;
+  tr.appendChild(th);
+
+  thead.appendChild(tr);
+  table.appendChild(thead);
+
+  var tbody = document.createElement("tbody");
+
+  var limit = 10;
+  var count = 0;
+  var row;
+
+  infoEdificiosGeneral[index].Deptos.forEach(function(depto) {
+    if (count % limit == 0) {
+      if (row) {
+        tbody.appendChild(row);
+      }
+      row = document.createElement("tr");
+    }
+
+    var td = document.createElement("td");
+    var td1 = document.createElement("td");
+    var td2 = document.createElement("td");
+    td.innerHTML = depto.Unidad;
+    td1.innerHTML = depto.Costo;
+    td2.innerHTML = depto.Fecha;
+    row.appendChild(td);
+    row.appendChild(td1);
+    row.appendChild(td2);
+
+    count++;
+
+    if (count % 10 == 0) {
+      limit = 10;       
+    }
+  });
+
+  if (row) {
+    tbody.appendChild(row);
+  }
+
+  table.appendChild(tbody);
+
+  document.querySelector(".col-md-12").appendChild(table);
+}
+printEdificio(0); // Imprime el primer edificio
+printEdificio(1); // Imprime el segundo edificio
+printEdificio(2); // Imprime el tercer edificio
+printEdificio(3); // Imprime el cuarto edificio
+printEdificio(4); // Imprime el quinto edificio
+printEdificio(5); // Imprime el sexto edificio
+printEdificio(6); // Imprime el septimo edificio
+printEdificio(7); // Imprime el octavo edificio
+
+
+
+
+
+
     /*
     function updateScreen() {
     setInterval(() => {
@@ -3171,6 +2309,101 @@ function makeTDsBold() {
     }
 }
 addEventListener("load", makeTDsBold);
+
+
+
+
+
+
+
+const global = {{{json global}}} 
+const infoEdificios = {{{json infoEdificios}}}
+infoEdificios.sort((a, b) => (a.EdificioName > b.EdificioName) ? 1 : -1)
+infoEdificiosGeneral.sort((a, b) => (a.EdificioName > b.EdificioName) ? 1 : -1)
+
+            
+
+
+
+//hacer porcentaje global
+function getPercentaje() {
+    const global = {{{json global}}} 
+
+    var porcentajeGlobalParking = document.getElementById("porcentajeGlobalParking");
+    var porcentajeGlobalEdificios = document.getElementById("porcentajeGlobalEdificios");
+
+    var valor1 = (global.Occupation / global.Total) * 100;
+    var valor2 = ( global.ParkingOccupation / global.TotalParking ) * 100;
+
+    porcentajeGlobalParking.innerHTML = valor2.toFixed(0) + "%";
+    porcentajeGlobalEdificios.innerHTML = valor1.toFixed(0) + "%";
+}
+/*
+function getPercentajeEdificios() {
+  for (const building of infoEdificios) {
+    const occupationPercentage = ((building.Occupation / building.Total) * 100).toFixed(0);
+    const parkingOccupationPercentage = ((building.ParkingOccupation / building.TotalParking) * 100).toFixed(0);
+
+    console.log(`Edificio: ${building.EdificioName}`);
+    console.log(`Porcentaje de ocupación: ${occupationPercentage}%`);
+    console.log(`Porcentaje de ocupación de estacionamiento: ${parkingOccupationPercentage}%`);
+    console.log("");
+  }
+}*/
+
+getPercentajeEdificios()
+getPercentaje() 
+
+//? genera los cards, con colores de clases de bootstrap
+function getPercentajeEdificios() {
+  const colors = [    "bg-primary",    "bg-secondary",    "bg-success",    "bg-danger",    "bg-warning",    "bg-info",    "bg-light"  ];
+  let index = 0; //? contador para el array de colores
+  const row = document.createElement("div");    //? crea la fila
+  row.className = "row justify-content-center"; //? tamaño de la fila
+  for (const building of infoEdificios) {
+    if (building.Total === 0 || building.Total === "" || building.TotalParking === 0 || building.TotalParking === "") { //? si no hay unidades o estacionamientos, no se muestra
+      continue;
+    }
+
+    const occupationPercentage = ((building.Occupation / building.Total) * 100).toFixed(0); //? porcentaje de ocupación
+    const parkingOccupationPercentage = ((building.ParkingOccupation / building.TotalParking) * 100).toFixed(0); //? porcentaje de ocupación de estacionamiento
+
+    const card = document.createElement("div"); //? crea la card
+    card.className = "col-3"; //? tamaño de la card
+    card.innerHTML = `
+      <div class="p-3 ${colors[index]} rounded shadow-lg overflow-hidden position-relative  text-dark mb-g">
+        <h1 class="display-4 font-weight-bold" id="titulo2">${building.EdificioName}</h1>
+        <div class="">
+          <h3 class="display-4 d-block l-h-n m-0 fw-500">
+            <div class="row  mb-3">
+              <div class="col-6"><i class="fal fa-light fa-city"></i> <span>${occupationPercentage}%</span></div> 
+              <div class="col-6"><i class="fal fa-light fa-square-parking"></i> <span>${parkingOccupationPercentage}%</span></div>
+            </div>
+            <div class="row">
+              <div class="col-6">${building.Total}/${building.Occupation}</div>
+              <div class="col-6">${building.TotalParking}/${building.ParkingOccupation}</div>
+            </div>
+          </h3>
+        </div>
+      </div>
+    `; //? contenido de la card
+    row.appendChild(card); //? agrega la card a la fila
+    index = (index + 1) % colors.length; //? cambia el color de la card
+  }
+
+  document.querySelector("#cardsContainer").appendChild(row); //? agrega la fila a la pagina
+}
+
+
+
+//funcion para crear tabla con el json de infoEdificiosGeneral
+
+
+
+console.log(infoEdificiosGeneral)
+console.log(infoEdificiosGeneral[0].Deptos[0].Unidad)
+console.log(infoEdificiosGeneral[0].Costo)
+
 
 </script>
 {{/section}}

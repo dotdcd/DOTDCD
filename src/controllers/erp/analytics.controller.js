@@ -1,5 +1,6 @@
 import {pool} from '../../db.js'
 import {colors} from '../../helpers/colors.js'
+import axios from 'axios'
 
 //* RENDER Employees
 
@@ -398,6 +399,77 @@ res.render('analytics/proyectos')
 
 //?Inicia reportes de departamentos
 
+//? get global info about all towers
+const getGlobal = async () => {
+    try {
+        const global = await axios.post('http://rentadmin.mx/api/Info/Occupation/global', {}, {
+            headers: {
+                "KeyAuth": "Ah2#lb5$@"
+            }
+        })
+        .catch(async(error) => {
+            console.log(error)
+        })
+        return global.data.Data[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+//? GET global info about towers
+const getEdificios = async () => {
+    try {
+        const edificios = await axios.post('http://rentadmin.mx/api/Info/Occupation/building', {}, {
+            headers: {
+                "KeyAuth": "Ah2#lb5$@"
+            }
+        })
+        .catch(async(error) => {
+            console.log(error)
+        })
+        return edificios.data.Data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+//? GET general info about towers
+const getEdificiosGeneral = async () => {
+    try {
+        const edificios = await axios.post('http://rentadmin.mx/api/Info/Depto', {}, {
+            headers: {
+                "KeyAuth": "Ah2#lb5$@"
+            }
+        })
+        .catch(async(error) => {
+            console.log(error)
+        })
+        return edificios.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getMALCE = async () => {
+    try {
+        const malce = await axios.post('http://rentadmin.mx/api/Info/Malce', {}, {
+            headers: {
+                "KeyAuth": "Ah2#lb5$@"
+            }
+        })
+        .catch(async(error) => {
+            console.log(error)
+        })
+        return malce.data.Data[0]
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const renderEdificios = async (req, res) => {
-    res.render('analytics/edificios')
+    const global = await getGlobal()
+    const infoEdificios = await getEdificios()
+    const infoEdificiosGeneral = await getEdificiosGeneral()
+    const malce = await getMALCE()
+    res.render('analytics/edificios', {global, infoEdificios, infoEdificiosGeneral, malce})
 }

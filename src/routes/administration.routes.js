@@ -104,5 +104,9 @@ administrationRoutes.post('/updProducto/:id', updProducto)
 administrationRoutes.post('/delProducto/:id', delProducto)
 
 
+
+
+
+
 // Path: prefactura.controller.js
 export default administrationRoutes;
