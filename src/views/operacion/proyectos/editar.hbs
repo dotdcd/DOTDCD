@@ -116,11 +116,9 @@
 
                                                             <td id="miBoton" class="text-center" colspan="4">
                                                                 <h4 class="text-black">Observaciones</h4>
-                                                                <textarea name="" id="" cols="30" rows="2" disabled
+                                                                <textarea name="" id="" cols="30" rows="3" disabled
                                                                     class="form-control">{{p.cotizacion_observaciones}}</textarea>
-                                                                <button style="cursor:pointer;"
-                                                                    class="btn btn-primary  btn-block "
-                                                                    type="button">Modificar</button>
+                                                                
                                                             </td>
 
                                                         </tr>
@@ -172,7 +170,7 @@
                                                     </tr>
                                                     {{#each psimple}}
                                                     <tr>
-                                                        <td class="row"> <span class="col-sm-12 col-md-6"><button class="btn btn-danger btn-sm" type="button" onclick="dltInsumo({{insumo_orden}})"><i class="fal fa-light fa-trash-can"></i></button> </span> <span class="col-sm-12 col-md-6"><button class="btn btn-info btn-sm"><i class="fal fa-light fa-pen-to-square"></i></button></span> </td>
+                                                        <td class="row"> <span class="col-sm-12 col-md-6"><button class="btn btn-danger btn-sm" type="button" onclick="dltInsumo({{insumo_orden}}, {{p.cotizacion_id}})"><i class="fal fa-light fa-trash-can"></i></button> </span> </td>
                                                         <td >{{producto_descripcion}}</td>
                                                         <td class="text-center">{{marca_descripcion}}</td>
                                                         <td class="insumo_cantidad text-center">{{insumo_cantidad}}</td>
@@ -181,6 +179,15 @@
                                                         <td class="simpleSubtotal text-center"></td>
                                                     </tr>
                                                     {{/each}}
+                                                    <tr class="justi-right">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>Total</td>
+                                                        <td id="muestraTotal"></td>
+                                                    </tr>
                                                     <tr class="justify-content-center text-align-center">
                                                         <td colspan="6">
                                                         <center><button type="button" onclick="showAddProductModal()" class="btn btn-info">Agregar Insumo</button> <button type="button" onclick="addServicio()" class="btn btn-warning">Agregar Servicio</button></center>
@@ -473,23 +480,152 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    function showAddProductModal() {
-        Swal.fire({
-            title: 'Agregar Producto',
-            html: '<div class="container"> <div class="row"> <div class="col-6"> <label for="first-input">Nombre</label> <input onkeyup="performAxiosCall();" id="first-input" class="form-control"> <label for="second-input">Marca</label> <input  id="second-input" class="form-control"> </div> <div class="col-6"> <label for="third-input">Cantidad</label> <input id="third-input" class="form-control"> <label for="fourth-input">Materiales</label> <input id="fourth-input" class="form-control"> <label for="fifth-input">Precio</label> <input id="fifth-input" class="form-control"> </div> </div> <div class="row"> <div class="col-12"> <label for="product-select">Seleccione un producto</label> <select id="product-select" class="form-control"> <option value="">Seleccione un producto</option> </select> </div> </div> </div> ',
-            showCancelButton: true,
-            confirmButtonText: 'Submit',
-            preConfirm: () => {
-                return [
-                    document.getElementById('first-input').value,
-                    document.getElementById('second-input').value,
-                    document.getElementById('third-input').value,
-                    document.getElementById('fourth-input').value,
-                    document.getElementById('fifth-input').value
-                ]
-            }
-        });
+    
+
+
+function muestraTotal() {
+  var filas = document.getElementsByClassName('simpleSubtotal');
+  var total = 0;
+  for (var i = 0; i < filas.length; i++) {
+    var subtotal = parseFloat(filas[i].innerHTML);
+    total += subtotal;
+  }
+  document.getElementById('muestraTotal').innerHTML = total.toFixed(2);
+  console.log(total);
+}
+muestraTotal();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ function calcularTarjeta(producto_precio_tarjetaa,producto_moo, icampoo, ioficinaa, hmm, financieroo, utilidadd) {
+        
+        const Mcott = 21 * 100;
+
+        const jornada = 100 * 21
+
+        const true_mo = (100 * 21) * producto_moo;
+        const moneda_pesos = Mcott;
+        const ventat = parseFloat(producto_precio_tarjetaa)
+        const mo = parseFloat(true_mo)
+        
+        const icampo = parseFloat(icampoo)
+        const ioficina = parseFloat(ioficinaa)
+        const hm = parseFloat(hmm)
+        const financiero = parseFloat(financieroo)
+        const utilidad = parseFloat(utilidadd)
+
+
+        const v00 = roundToTwo(ventat);
+        //? aqui el v01 calcula el Costo MO que esta en la tabla, pero no se como hacer para que se multiplique por la cantidad de jornadas
+        const v01 = roundToTwo(((parseFloat(jornada) * mo) / moneda_pesos)); // obtener total de tabla de jornadas
+        const v02 = roundToTwo(((v00) + (v01)));
+        const v10 = roundToTwo(0);
+        const v11 = roundToTwo((v01 * hm) / 100);
+        const v12 = roundToTwo((v10) + (v11));
+        const v20 = roundToTwo((v00) + (v10));
+        const v21 = roundToTwo((v01) + (v11));
+        const v22 = roundToTwo((v20) + (v21));
+        const v30 = roundToTwo((icampo * v20) / 100);
+        const v31 = roundToTwo((icampo * v21) / 100);
+        const v32 = roundToTwo(v30 + v31);
+        const v40 = roundToTwo((ioficina * v20) / 100);
+        const v41 = roundToTwo((ioficina * v21) / 100);
+        const v42 = roundToTwo(v40 + v41);
+        const v50 = roundToTwo(v30 + v40);
+        const v51 = roundToTwo(v31 + v41);
+        const v52 = roundToTwo(v50 + v51);
+        const v50a = roundToTwo(v20 + v50);
+        const v51a = roundToTwo(v21 + v51);
+        const v52a = roundToTwo(v50a + v51a);
+        const v60 = roundToTwo((v50a * financiero) / 100);
+        const v61 = roundToTwo((v51a * financiero) / 100);
+        const v62 = roundToTwo(v60 + v61);
+        const v70 = roundToTwo(v50a + v60);
+        const v71 = roundToTwo(v51a + v61);
+        const v72 = roundToTwo(v70 + v71);
+
+        const v80 = roundToTwo((v50a * utilidad) / 100);
+        const v81 = roundToTwo((v51a * utilidad) / 100);
+        const v82 = roundToTwo(v80 + v81);
+        const v90 = roundToTwo(v70 + v80);
+        const v91 = roundToTwo(v71 + v81);
+        const v92 = roundToTwo(v90 + v91);
+        
+        return {v90, v91, v92, v00};
     }
+
+function roundToTwo(value) {
+        if (parseFloat(value) > 0) {
+            return (Math.round(value * 100) / 100);
+        } else {
+            return 0.00;
+        }
+    }
+
+
+
+
+
+    function showAddProductModal() {
+    Swal.fire({
+        title: 'Agregar Producto',
+        html: `
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="first-input">Nombre</label>
+                        <input onkeyup="performAxiosCall();" id="first-input" class="form-control">
+
+                        <label for="second-input">Marca</label>
+                        <input id="second-input" class="form-control">
+
+                        <label for="third-input">Materiales</label>
+                        <input onkeyup="calcularModal()" id="third-input" class="form-control">
+
+                        <label for="fourth-input">M. O.</label>
+                        <input onkeyup="calcularModal()"  id="fourth-input" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <label for="fifth-input">Cantidad</label>
+                        <input onkeyup="calcularModal()" id="fifth-input" class="form-control">
+                        <label for="sixth-input">Precio</label>
+                        <input disabled id="sixth-input" class="form-control">
+                        <label for="seventh-input">PF</label>
+                        <input disabled id="seventh-input" class="form-control">
+                        <label for="eighth-input">Total</label>
+                        <input disabled id="eighth-input" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="product-select">Seleccione un producto</label>
+                    <select id="product-select" class="form-control">
+                        <option value="">Seleccione un producto</option>
+                    </select>
+                </div>
+            </div>
+        `,
+        showCancelButton: true,
+        width: '50vw',
+        confirmButtonText: 'Submit',
+        preConfirm: () => {
+            enviarData()
+        }
+    });
+}
+
+
     let previousSearch = '';
     let previousResult = null;
     let timeout = null;
@@ -505,7 +641,6 @@
 
         inputs.forEach(input => {
             input.addEventListener('keyup', () => {
-                console.log('key up');
                 clearTimeout(timeout);
                 timeout = setTimeout(() => {
                     const [firstInput, secondInput, thirdInput, fourthInput, fifthInput] = inputs.map(input => input.value);
@@ -533,21 +668,106 @@
     }
 
 
+let datta = {}
+  function updateSelect(products) {
+ const select = document.getElementById('product-select');
 
-    function updateSelect(result) {
-        const select = document.getElementById('product-select');
-        select.innerHTML = '';
-        const option = document.createElement('option');
-        option.value = '';
-        option.text = 'Seleccione un producto';
-        select.appendChild(option);
-        result.forEach(product => {
-            const option = document.createElement('option');
-            option.value = product.producto_id;
-            option.text = product.producto_descripcion;
-            select.appendChild(option);
+ select.innerHTML = '<option value="">Seleccione un producto</option>';
+
+ products.forEach(product => {
+     const option = document.createElement('option');
+     option.value = product.producto_id;
+     option.innerText = product.producto_descripcion;
+     select.appendChild(option);
+ });
+
+
+
+ select.addEventListener('change', event => {
+     let selectedProduct = null;
+     for (let i = 0; i < products.length; i++) {
+       if (products[i].producto_id == event.target.value) {
+         selectedProduct = products[i];
+         break;
+       }
+     }
+    console.log(selectedProduct)
+     if (selectedProduct) {
+         const precio = calcularTarjeta(selectedProduct.producto_precio_tarjeta , selectedProduct.producto_mo, selectedProduct.producto_icampo, selectedProduct.producto_ioficina, selectedProduct.producto_hm, selectedProduct.producto_financiero, selectedProduct.producto_utilidad);
+         
+         document.getElementById('first-input').value = selectedProduct.producto_descripcion;
+         document.getElementById('second-input').value = selectedProduct.marca_descripcion;
+         document.getElementById('third-input').value = precio.v90;
+         document.getElementById('fourth-input').value = precio.v91;
+         document.getElementById('fifth-input').value = 1;
+         document.getElementById('sixth-input').value = precio.v92;
+         document.getElementById('seventh-input').value = selectedProduct.producto_financiero;
+         const totalo = (parseFloat(document.getElementById('fifth-input').value) * parseFloat(document.getElementById('sixth-input').value));
+         document.getElementById('eighth-input').value = totalo;
+
+         // Crea el objeto con los datos a enviar
+         const data = {
+           cotizacion_id: {{p.cotizacion_id}},
+           disciplina_id: selectedProduct.producto_familia_id,
+            //orden de compra numero incrementable
+           producto: selectedProduct.producto_id,
+           descripcion: selectedProduct.producto_descripcion, // no se necesita pero aqui esta xd 
+           marca: selectedProduct.producto_marca_id,
+           ma: precio.v90,
+           mo: precio.v91,
+           cantidad: document.getElementById('fifth-input').value,
+           precio: precio.v92,
+           financiero: selectedProduct.producto_financiero,
+           total: totalo,
+           tarjeta_producto_mo: selectedProduct.producto_mo, 
+           tarjeta_producto_icampo: selectedProduct.producto_icampo, 
+           tarjeta_producto_ioficina :selectedProduct.producto_ioficina, 
+           tarjeta_producto_hm: selectedProduct.producto_hm, 
+           tarjeta_producto_financiero :selectedProduct.producto_financiero,
+           tarjeta_producto_utilidad:selectedProduct.producto_utilidad
+           
+         };
+         
+         llenarObjeto(data)
+         
+     }
+ });
+}
+function llenarObjeto(data){
+    datta = data
+    
+    return datta
+}
+console.log(datta)
+function enviarData() {
+  
+    
+    axios.post('/addProductToProject', datta)
+        .then(response => {
+            // Maneja la respuesta aquí
+            location.reload();
+        })
+        .catch(error => {
+            // Maneja el error aquí
+            console.error(error);
         });
-    }
+}
+
+function calcularModal() {
+    ma = parseFloat(document.getElementById('third-input').value);
+mo = parseFloat(document.getElementById('fourth-input').value);
+
+Cantidad = parseFloat(document.getElementById('fifth-input').value);
+Precio = parseFloat(document.getElementById('sixth-input').value);
+
+precio = ma + mo;
+total = precio * Cantidad;
+
+document.getElementById('seventh-input').value = precio.toFixed(2);
+document.getElementById('eighth-input').value = total.toFixed(2);
+
+
+}
 
 
 
@@ -616,12 +836,8 @@
         total: result.value[4],
         insumo_cotizacion_id: {{p.cotizacion_id}}
       })
-        .then(function (response) {
-          Swal.fire({
-            title: 'Servicio Agregado',
-            text: 'El servicio ha sido agregado exitosamente'
-          });
-            location.reload();
+        .then(response => {
+          location.reload();
         })
         .catch(function (error) {
           Swal.fire({
@@ -669,39 +885,54 @@
     
      // Función para calcular subtotal de insumo para cotización simple
 function calcularSubtotal() {
-// Obtener todas las filas de la tabla
-var filas = document.querySelectorAll("tr");
+  // Obtener todas las filas de la tabla
+  var filas = document.querySelectorAll("tr");
 
-// Iterar sobre cada fila
-filas.forEach(function(fila) {
-// Obtener las celdas de cada fila
-var celdas = fila.querySelectorAll("td");
-// Verificar si la fila tiene las celdas necesarias
-if (celdas.length >= 6) {
-// Obtener los valores de cantidad, ma y mo
-var cantidad = celdas[3].innerText;
-var ma = celdas[4].innerText;
-var mo = celdas[5].innerText;
-  // Si el precio de ma es vacío, o igual a 0, entonces hacer la suma sin la multiplicación de ma
-  if (ma == " " || ma == 0 || ma == null) {
-    var subtotal = cantidad * mo;
-  } else {
-    // Si el precio de ma no es vacío, entonces hacer la suma con la multiplicación de ma
-    var subtotal = cantidad * ma;
-  }
-  // Dar formato de moneda al resultado de subtotal
-  celdas[6].innerText = "$" + subtotal.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
+  // Inicializar el total en 0
+  var total = 0;
+
+  // Iterar sobre cada fila
+  filas.forEach(function(fila) {
+    // Obtener las celdas de cada fila
+    var celdas = fila.querySelectorAll("td");
+    // Verificar si la fila tiene las celdas necesarias
+    if (celdas.length >= 6) {
+      // Obtener los valores de cantidad, ma y mo
+      var cantidad = parseInt(celdas[3].innerText);
+      var ma = parseFloat(celdas[4].innerText);
+      var mo = parseFloat(celdas[5].innerText);
+      // Verificar que los valores sean numéricos
+      if (isNaN(cantidad) || isNaN(ma) || isNaN(mo)) {
+        return;
+      }
+      // Si el precio de ma es vacío, o igual a 0, entonces hacer la suma sin la multiplicación de ma
+      if (ma == 0 || ma == null || isNaN(ma)) {
+        var subtotal = cantidad * mo;
+      } else {
+        // Si el precio de ma no es vacío, entonces hacer la suma con la multiplicación de ma
+        var subtotal = cantidad * ma;
+      }
+      // Dar formato de moneda al resultado de subtotal
+      celdas[6].innerText = "$" + subtotal.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
+      // Sumar el subtotal al total
+      total += subtotal;
+    }
+  });
+
+  // Dar formato de moneda al total
+  var celdaTotal1 = document.getElementById("muestraTotal");
+  celdaTotal1.innerText = "$" + total.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
 }
-});
-}
+
+
 
     addEventListener("load", calcularSubtotal);
     for (var i = 0; i < 5; i++) {
         calcularSubtotal()
     }
-    const dltInsumo = async(id) => {
+    const dltInsumo = async(id, cotizacion_id) => {
   try {
-     axios.post('/deleteInsumo/' + id)
+     axios.post('/deleteInsumo/' + id, {{cotizacion_id}})
   } catch (error) {
     console.log(error);
   }
@@ -709,8 +940,7 @@ var mo = celdas[5].innerText;
 
 
 
-    const idee = 1
-console.log(idee);
+    
 
 </script>
 {{/section}}
