@@ -2,9 +2,11 @@ import {pool} from '../../db.js'
 
 export const addProyecto = async (req, res) => {
     try {
+      console.log(req.body)
       await pool.query('INSERT INTO cotizaciones SET ?', [req.body])
       req.flash('success', { title: 'Proyecto / Cotización agregado', message: 'El Proyecto / Cotización se ha agregado correctamente' })
-      return res.redirect('/dashboard/operacion/proyectos/buscar')
+      const id = await pool.query('SELECT cotizacion_id FROM cotizaciones WHERE cotizacion_id = (SELECT MAX(cotizacion_id) FROM cotizaciones)')
+      return res.redirect('/dashboard/operacion/proyectos/editar/' + id[0][0].cotizacion_id)
     } catch (error) {
       console.error(error)
       req.flash('error', { title: 'Ooops!', message: 'El Proyecto / Cotización ya existe' })
@@ -108,7 +110,7 @@ export const addServicio = async (req, res) => {
     return res.status(200).json({ message: "Producto agregado correctamente" })
   } catch (error) {
     console.log(error);
-    res.json({ message: "Error en la consulta, no se puede agregar el servicio" });
+     return res.status(500).json({ message: "Something went wrong" });
   }
 }; 
 
@@ -188,7 +190,7 @@ export const delProyecto = async (req, res) => {
   export const addProducto = async (req, res) => {
     try {
       const maxOrden = await getMaxOrden();
-        
+      console.log(req.body);
       const insumo = {
         insumo_cotizacion_id: req.body.cotizacion_id,
         insumo_cantidad: req.body.cantidad,
@@ -227,15 +229,12 @@ export const delProyecto = async (req, res) => {
   //* Falta traer el params desde el front porque no lo reconoce
   export const deleteInsumo = async (req, res) => {
     const id = req.params.id;
-    console.log(id)
     try {
       await pool.query('DELETE FROM cotizaciones_insumos WHERE insumo_orden = ?', [id]);
-      req.flash('success', { title: 'Insumo eliminado', message: 'El insumo se ha eliminado correctamente' });
-     // res.render('/dashboard/operacion/proyectos/buscar')
+      return res.status(200).json({ message: "Insumo eliminado correctamente" })
     } catch (error) {
       console.log(error);
-      req.flash('error', { title: 'Ooops!', message: 'Error al eliminar el insumo' });
-      //res.render('/dashboard/operacion/proyectos/buscar')
+      return res.status(500).json({ message: "Error en la consulta, no se puede eliminar el insumo" });
     }
   };
 

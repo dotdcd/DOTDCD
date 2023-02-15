@@ -9,22 +9,22 @@ const getMoneda = async () => {
 }
 
 const getSucursal = async () => {
-    const sucursal = await pool.query("SELECT sucursal_id, sucursal_nombre FROM sucursal")
+    const sucursal = await pool.query("SELECT sucursal_id, sucursal_nombre FROM sucursal ORDER BY sucursal_nombre ASC")
     return sucursal[0]
 }
 
 const getEmpresa = async () => {
-    const empresa = await pool.query("SELECT empresa_id, empresa_razon_social FROM multiempresa WHERE empresa_estatus_baja = 0")
+    const empresa = await pool.query("SELECT empresa_id, empresa_razon_social FROM multiempresa WHERE empresa_estatus_baja = 0 ORDER BY empresa_razon_social ASC")
     return empresa[0]
 }
 
 const getCliente = async () => {
-    const cliente = await pool.query("SELECT cliente_id, cliente_razon_social FROM clientes")
+    const cliente = await pool.query("SELECT cliente_id, cliente_razon_social FROM clientes ORDER BY cliente_razon_social ASC")
     return cliente[0]
 }
 
 const getEmpleado = async () => {
-    const empleado = await pool.query("SELECT empleado_id, CONCAT(empleado_nombre, ' ', empleado_paterno, ' ', empleado_materno) as nombre_completo FROM empleados WHERE empleado_estatus_baja = 0")
+    const empleado = await pool.query("SELECT empleado_id, CONCAT(empleado_nombre, ' ', empleado_paterno, ' ', empleado_materno) as nombre_completo FROM empleados WHERE empleado_estatus_baja = 0 ORDER BY nombre_completo ASC")
     return empleado[0]
 
 }

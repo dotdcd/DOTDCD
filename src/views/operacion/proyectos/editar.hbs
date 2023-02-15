@@ -649,6 +649,8 @@ function roundToTwo(value) {
                         // Actualiza la lista select con los resultados de la búsqueda previa
                         updateSelect(previousResult);
                     } else {
+
+                        
                         // Realiza la búsqueda en tiempo real usando Axios
                         axios.get(`/getProducto?searchText=${searchText}`)
                             .then(response => {
@@ -681,57 +683,66 @@ let datta = {}
      select.appendChild(option);
  });
 
+//onkeyup guardar el valor del input 5
+document.getElementById('fifth-input').addEventListener('keyup', event => {
+    const quantity = parseFloat(document.getElementById('fifth-input').value);
+    console.log(quantity);
+});
+
+//? onchange select
 
 
- select.addEventListener('change', event => {
-     let selectedProduct = null;
-     for (let i = 0; i < products.length; i++) {
-       if (products[i].producto_id == event.target.value) {
-         selectedProduct = products[i];
-         break;
-       }
-     }
-    console.log(selectedProduct)
-     if (selectedProduct) {
-         const precio = calcularTarjeta(selectedProduct.producto_precio_tarjeta , selectedProduct.producto_mo, selectedProduct.producto_icampo, selectedProduct.producto_ioficina, selectedProduct.producto_hm, selectedProduct.producto_financiero, selectedProduct.producto_utilidad);
-         
-         document.getElementById('first-input').value = selectedProduct.producto_descripcion;
-         document.getElementById('second-input').value = selectedProduct.marca_descripcion;
-         document.getElementById('third-input').value = precio.v90;
-         document.getElementById('fourth-input').value = precio.v91;
-         document.getElementById('fifth-input').value = 1;
-         document.getElementById('sixth-input').value = precio.v92;
-         document.getElementById('seventh-input').value = selectedProduct.producto_financiero;
-         const totalo = (parseFloat(document.getElementById('fifth-input').value) * parseFloat(document.getElementById('sixth-input').value));
-         document.getElementById('eighth-input').value = totalo;
+function actualizarCantidad(selectedProduct) {
+    const quantity = parseFloat(document.getElementById('fifth-input').value);
+    const precio = calcularTarjeta(selectedProduct.producto_precio_tarjeta , selectedProduct.producto_mo, selectedProduct.producto_icampo, selectedProduct.producto_ioficina, selectedProduct.producto_hm, selectedProduct.producto_financiero, selectedProduct.producto_utilidad);
+    const totalo = (quantity * parseFloat(precio.v92));
+    document.getElementById('eighth-input').value = totalo;
 
-         // Crea el objeto con los datos a enviar
-         const data = {
-           cotizacion_id: {{p.cotizacion_id}},
-           disciplina_id: selectedProduct.producto_familia_id,
-            //orden de compra numero incrementable
-           producto: selectedProduct.producto_id,
-           descripcion: selectedProduct.producto_descripcion, // no se necesita pero aqui esta xd 
-           marca: selectedProduct.producto_marca_id,
-           ma: precio.v90,
-           mo: precio.v91,
-           cantidad: document.getElementById('fifth-input').value,
-           precio: precio.v92,
-           financiero: selectedProduct.producto_financiero,
-           total: totalo,
-           tarjeta_producto_mo: selectedProduct.producto_mo, 
-           tarjeta_producto_icampo: selectedProduct.producto_icampo, 
-           tarjeta_producto_ioficina :selectedProduct.producto_ioficina, 
-           tarjeta_producto_hm: selectedProduct.producto_hm, 
-           tarjeta_producto_financiero :selectedProduct.producto_financiero,
-           tarjeta_producto_utilidad:selectedProduct.producto_utilidad
-           
-         };
-         
-         llenarObjeto(data)
-         
-     }
- });
+    const data = {
+        cotizacion_id: {{p.cotizacion_id}},
+        disciplina_id: selectedProduct.producto_familia_id,
+        producto: selectedProduct.producto_id,
+        descripcion: selectedProduct.producto_descripcion,
+        marca: selectedProduct.producto_marca_id,
+        ma: precio.v90,
+        mo: precio.v91,
+        cantidad: quantity,
+        precio: precio.v92,
+        financiero: selectedProduct.producto_financiero,
+        total: totalo,
+        tarjeta_producto_mo: selectedProduct.producto_mo,
+        tarjeta_producto_icampo: selectedProduct.producto_icampo,
+        tarjeta_producto_ioficina: selectedProduct.producto_ioficina,
+        tarjeta_producto_hm: selectedProduct.producto_hm,
+        tarjeta_producto_financiero: selectedProduct.producto_financiero,
+        tarjeta_producto_utilidad: selectedProduct.producto_utilidad
+    };
+
+    llenarObjeto(data);
+}
+
+select.addEventListener('change', event => {
+    let selectedProduct = null;
+    for (let i = 0; i < products.length; i++) {
+        if (products[i].producto_id == event.target.value) {
+            selectedProduct = products[i];
+            break;
+        }
+    }
+
+    if (selectedProduct) {
+        document.getElementById('first-input').value = selectedProduct.producto_descripcion;
+        document.getElementById('second-input').value = selectedProduct.marca_descripcion;
+        document.getElementById('third-input').value = calcularTarjeta(selectedProduct.producto_precio_tarjeta, selectedProduct.producto_mo, selectedProduct.producto_icampo, selectedProduct.producto_ioficina, selectedProduct.producto_hm, selectedProduct.producto_financiero, selectedProduct.producto_utilidad).v90;
+        document.getElementById('fourth-input').value = calcularTarjeta(selectedProduct.producto_precio_tarjeta, selectedProduct.producto_mo, selectedProduct.producto_icampo, selectedProduct.producto_ioficina, selectedProduct.producto_hm, selectedProduct.producto_financiero, selectedProduct.producto_utilidad).v91;
+        document.getElementById('sixth-input').value = calcularTarjeta(selectedProduct.producto_precio_tarjeta, selectedProduct.producto_mo, selectedProduct.producto_icampo, selectedProduct.producto_ioficina, selectedProduct.producto_hm, selectedProduct.producto_financiero, selectedProduct.producto_utilidad).v92;
+        document.getElementById('seventh-input').value = selectedProduct.producto_financiero;
+        
+        actualizarCantidad(selectedProduct);
+    }
+});
+
+
 }
 function llenarObjeto(data){
     datta = data
@@ -741,6 +752,8 @@ function llenarObjeto(data){
 console.log(datta)
 function enviarData() {
   
+    datta.cantidad = parseFloat(document.getElementById('fifth-input').value);
+    datta.total = parseFloat(document.getElementById('eighth-input').value);
     
     axios.post('/addProductToProject', datta)
         .then(response => {
@@ -777,7 +790,7 @@ document.getElementById('eighth-input').value = total.toFixed(2);
 
 
     //funcion para agregar servicio
-    function addServicio() {
+function addServicio() {
   var fechaActual = getCurrentDateSQL();
   Swal.fire({
     title: 'Agregar Servicio',
@@ -920,9 +933,9 @@ function calcularSubtotal() {
   });
 
   // Dar formato de moneda al total
-  var celdaTotal1 = document.getElementById("muestraTotal");
-  celdaTotal1.innerText = "$" + total.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
-}
+    var celdaTotal1 = document.getElementById("muestraTotal");
+        celdaTotal1.innerText = "$" + total.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
+    }
 
 
 
@@ -930,13 +943,23 @@ function calcularSubtotal() {
     for (var i = 0; i < 5; i++) {
         calcularSubtotal()
     }
-    const dltInsumo = async(id, cotizacion_id) => {
-  try {
-     axios.post('/deleteInsumo/' + id, {{cotizacion_id}})
-  } catch (error) {
-    console.log(error);
-  }
-}
+
+    const dltInsumo = async(id) => {
+        try {
+            axios.post('/deleteInsumo/' + id)
+                .then(response => {
+                    location.reload();
+                })
+                .catch(function (error) {
+                    Swal.fire({
+                    title: 'Error al eliminar insumo',
+                    text: 'Ha ocurrido un error al eliminar el insumo, por favor intenta de nuevo'
+                    })
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
 
