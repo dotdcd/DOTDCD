@@ -147,10 +147,12 @@ export const renderOpReqBuscar = async (req, res) => {
         console.log(error)
     }
 }
+
 const getRequisiciones = async () => {
     const requisiciones = await pool.query("SELECT requisicion_id, requisicion_comentarios FROM requisiciones WHERE requisicion_comentarios != '' ORDER BY requisicion_id DESC")
     return requisiciones[0]
 }
+
 export const renderOpReqNuevo = async (req, res) => {
     try {
         const clientes = await getClientes()

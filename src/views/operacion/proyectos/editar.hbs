@@ -100,7 +100,7 @@
                                                         </tr>
                                                         <tr>
                                                             <th>Moneda</th>
-                                                            <td><select name="" class="form-control" disabled id=""
+                                                            <td><select  name="" class="form-control" disabled id=""
                                                                     style="background-color: #BEEDE8; color:black !important; width: 100%; height: 100%;">
                                                                     {{#each moneda}}
                                                                     <option value="{{moneda_id}}" {{#if
@@ -140,12 +140,14 @@
                                                             </select></td>
                                                         <td><input type="text" id="descuento_porcentaje"
                                                                 class="form-control"
-                                                                value="{{p.cotizacion_descuento_porcentaje}}"
-                                                                onKeyup="calcular_pie(1);"></td>
+                                                                type="number"
+                                                                value="{{#if (is p.cotizacion_descuento_porcentaje 0)}} {{else}} {{p.cotizacion_descuento_porcentaje}} {{/if}}"
+                                                                onKeyup="calculateDescuento(1)"></td>
                                                         <td><input type="text" id="descuento_cantidad"
                                                                 class="form-control"
-                                                                value="{{p.cotizacion_descuento_porcentaje}}"
-                                                                onKeyup="calcular_pie(2);"></td>
+                                                                type="number"
+                                                                value="{{#if (is p.cotizacion_descuento_porcentaje 0)}} {{else}} {{p.cotizacion_descuento_porcentaje}} {{/if}}"
+                                                                onKeyup="calculateDescuento(2)"></td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="4">
@@ -179,13 +181,25 @@
                                                         <td class="simpleSubtotal text-center"></td>
                                                     </tr>
                                                     {{/each}}
-                                                    <tr class="justi-right">
+                                                    <tr class="text-center">
+                                                       
                                                         <td></td>
                                                         <td></td>
+                                                        <td>I.V.A.</td>
+                                                        <td>TOTAL</td>
+                                                        <td>Costo</td>
+                                                        <td>% PF</td>
+                                                        <td>Total general de la cotización</td>
+                                                        
+                                                    </tr>
+                                                    <tr class="text-center">
+                                                        
                                                         <td></td>
                                                         <td></td>
-                                                        <td></td>
-                                                        <td>Total</td>
+                                                        <td id="muestraIva"></td>
+                                                        <td id="muestraTotalFinal"></td>
+                                                        <td>0</td>
+                                                        <td>{{p.pf}}</td>
                                                         <td id="muestraTotal"></td>
                                                     </tr>
                                                     <tr class="justify-content-center text-align-center">
@@ -385,7 +399,7 @@
                                             </select><br />
 
                                             <span>IVA</span>
-                                            <select name="estimacion_iva" id="" class="form-control">
+                                            <select name="estimacion_iva" disabled id="" class="form-control">
                                                 <option value="0" {{#if (is p.estimacion_iva 0 estimacion_iva)}}
                                                     selected {{/if}}>No</option>
                                                 <option value="1" {{#if (is p.estimacion_iva 1 estimacion_iva)}}
@@ -480,20 +494,43 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    
 
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  muestraTotal();
+});
 
 function muestraTotal() {
   var filas = document.getElementsByClassName('simpleSubtotal');
   var total = 0;
   for (var i = 0; i < filas.length; i++) {
-    var subtotal = parseFloat(filas[i].innerHTML);
-    total += subtotal;
+    var subtotal = parseFloat(filas[i].innerHTML.replace(/[^0-9.-]+/g,""));
+    if (!isNaN(subtotal)) {
+      total += subtotal;
+    }
   }
   document.getElementById('muestraTotal').innerHTML = total.toFixed(2);
-  console.log(total);
+
+  //calcular el iva
+  var iva = total * 0.16;
+  document.getElementById('muestraIva').innerHTML = '$'+iva.toFixed(2) ;
+
+    //calcular el total
+    var total = total + iva;
+    document.getElementById('muestraTotalFinal').innerHTML = '$'+total.toFixed(2) ;
+
+    totalOrg = total;
+    return total;
 }
-muestraTotal();
+
+
 
 
 
@@ -679,7 +716,7 @@ let datta = {}
  products.forEach(product => {
      const option = document.createElement('option');
      option.value = product.producto_id;
-     option.innerText = product.producto_descripcion;
+     option.innerText = product.producto_modelo + ' - ' +product.producto_descripcion;
      select.appendChild(option);
  });
 
@@ -961,7 +998,56 @@ function calcularSubtotal() {
         }
     }
 
+    let totalOrg = calcularSubtotal(); 
+    
+    function calculateDescuento(op) {
+        // Get the cell element by its ID
+        var muestraTotalCell = document.getElementById("muestraTotal");
+        var muestraTotalText = muestraTotalCell.textContent;
+        var muestraTotalNumeric = muestraTotalText.replace("$", "").replace(",", "");
+        var muestraTotalValue = parseFloat(muestraTotalNumeric);
+        const descuentoPorcentaje = document.getElementById("descuento_porcentaje").value;
+        const descuentoCantidad = document.getElementById("descuento_cantidad").value;
+            
+        if (!descuentoPorcentaje || !descuentoCantidad) {
+            calcularSubtotal();
+        }
 
+        if(op == 1){
+            const descuento = document.getElementById("descuento_porcentaje").value;
+            if(isNaN(descuento)){
+                calcularSubtotal();
+                return;
+            }
+            const porcentaje = parseFloat(descuento) / 100
+            const rebaje = muestraTotalValue * porcentaje;
+            const total = muestraTotalValue - (muestraTotalValue * porcentaje);
+            if(isNaN(total) || isNaN(rebaje) || rebaje === 0){
+                calcularSubtotal();
+                return;
+            }
+
+            document.getElementById("muestraTotal").innerHTML = total.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');;
+            document.getElementById("descuento_cantidad").value = rebaje.toFixed(2);
+        } else {
+            const descuento = document.getElementById("descuento_cantidad").value;
+            if(isNaN(descuento)){
+                calcularSubtotal();
+                return;
+            }
+            const porcentaje = (descuento / muestraTotalValue) * 100;
+            const total = muestraTotalValue - descuento
+            if(isNaN(total) || isNaN(porcentaje)){
+                calcularSubtotal();
+                return;
+            }
+            if(total < 0){
+                calcularSubtotal();
+                return;
+            }
+            document.getElementById("muestraTotal").innerHTML = total.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');;
+            document.getElementById("descuento_porcentaje").value = porcentaje.toFixed(2);}
+    }
 
     
 
