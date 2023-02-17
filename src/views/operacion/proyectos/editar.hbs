@@ -500,11 +500,13 @@ function enviarPF() {
     const costoElement = document.getElementById('costo');
     let costo = parseFloat(costoElement.innerText);
 
-    const posicionF =( (total - costo) / costo * 100).toFixed(2);
+    let posicionF;
+    if (costo === 0) {
+        posicionF = 0;
+    } else {
+        posicionF = ((total - costo) / costo * 100).toFixed(2);
+    }
     
-    console.log(posicionF);
-    console.log(costo);
-    console.log(total);
     
     const posicionFElement = document.getElementById('pf');
     posicionFElement.innerHTML = '<span>% ' + posicionF + '</span>';
@@ -516,10 +518,10 @@ function enviarPF() {
         .catch(error => {
         console.error(error);
         });
-    }
+}
 
 document.addEventListener('DOMContentLoaded', function() {
-  enviarPF();
+    enviarPF();
 });
 
 
