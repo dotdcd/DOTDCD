@@ -31,7 +31,7 @@
                                                 <div class="col-6">
                                         <span>Cliente</span>
                                         <select name="cotizacion_cliente_id" class="form-control" id="">
-                                            <option value=""></option>
+                                            <option value="" hidden selected>Seleccionar</option>
                                             {{#each clientes}}
                                                     <option value="{{cliente_id}}">{{cliente_razon_social}}</option>
                                             {{/each}}
@@ -43,7 +43,7 @@
 
                                         <span>Empleado</span>
                                         <select name="cotizacion_empleado_id" class="form-control" id="">
-                                            <option value=""></option>
+                                            <option value="" hidden selected>Seleccionar</option>
                                             {{#each empleados}}
                                                     <option value="{{empleado_id}}">{{nombre_completo}}</option>
                                             {{/each}}
@@ -58,7 +58,7 @@
 
                                         <span>Moneda</span>
                                         <select name="cotizacion_moneda_id" id="" class="form-control">
-                                            <option value=""></option>
+                                            <option value="" hidden selected>Seleccionar</option>
                                             {{#each moneda}}
                                                     <option value="{{moneda_id}}">{{moneda_descripcion}}</option>
                                             {{/each}}
@@ -71,7 +71,7 @@
                                         </select><br/>
 
                                         <span>Fecha</span>
-                                        <input type="date" class="form-control" name="cotizacion_fecha_alta"><br/>
+                                        <input type="date" class="form-control" id="fecha" name="cotizacion_fecha_alta"><br/>
                                         </div>
                                         
 
@@ -79,7 +79,7 @@
                                             <div class="col-6">
                                                 <span>Empresa </span><!--Empresas loop-->
                                         <select name="cotizacion_empresa_id" id="" class="form-control">
-                                            <option value=""></option>
+                                            <option value="" hidden selected>Seleccionar</option>
                                             {{#each empresaa}}
                                                     <option value="{{id}}">{{empresa_razon_social}}</option>
                                             {{/each}}
@@ -87,7 +87,7 @@
 
                                         <span>Sucursal</span>
                                         <select name="sucursal_id" class="form-control" id="">
-                                            <option value=""></option>
+                                            <option value="" hidden selected>Seleccionar</option>
                                             {{#each sucursales}}
                                                     <option value="{{sucursal_id}}">{{sucursal_nombre}}</option>
                                             {{/each}}
@@ -128,3 +128,27 @@
     </div>
 </div>
 
+{{#section 'scripts'}}
+<script>
+    function getCurrentDateSQL() {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+
+    today = yyyy + '-' + mm + '-' + dd;
+    return today;
+}
+addEventListener('load', function () {
+    document.getElementById('fecha').value = getCurrentDateSQL();
+});
+</script>
+{{/section}}

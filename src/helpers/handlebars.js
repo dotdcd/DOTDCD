@@ -103,6 +103,10 @@ export const helpers = {
             console.log(min)
             return min
         }
+    },
+    isDolar: function (a) {
+        const b = a / 21
+        return b.toFixed(2)
     }
 }
 

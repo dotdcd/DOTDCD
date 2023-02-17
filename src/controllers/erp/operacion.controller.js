@@ -19,7 +19,7 @@ const getEmpresa = async () => {
 }
 
 const getCliente = async () => {
-    const cliente = await pool.query("SELECT cliente_id, cliente_razon_social FROM clientes ORDER BY cliente_razon_social ASC")
+    const cliente = await pool.query("SELECT cliente_id, cliente_razon_social FROM clientes WHERE cliente_razon_social IS NOT NULL AND cliente_razon_social <> '' ORDER BY cliente_razon_social ASC")
     return cliente[0]
 }
 
@@ -87,8 +87,20 @@ const getInsumosProy = async (id) => {
 }
 
 const productosSimple = async (id) => {
-    const productos = await pool.query("SELECT producto_id, insumo_orden, producto_descripcion, marca_descripcion, insumo_diciplina_id, insumo_nivel_id, insumo_tipo_id, insumo_producto_id, insumo_cantidad, insumo_precio_ma, insumo_precio_mo FROM cotizaciones_insumos JOIN productos ON insumo_producto_id = producto_id JOIN marcas ON producto_marca_id = marca_id WHERE insumo_cotizacion_id = " + id)
-    return productos[0]
+    const productos = await pool.query("SELECT producto_id, producto_moneda_id, producto_costo, insumo_orden, producto_descripcion, producto_modelo, marca_descripcion, insumo_diciplina_id, insumo_nivel_id, insumo_tipo_id, insumo_producto_id, insumo_cantidad, insumo_precio_ma, insumo_precio_mo, producto_precio_venta FROM cotizaciones_insumos JOIN productos ON insumo_producto_id = producto_id JOIN marcas ON producto_marca_id = marca_id WHERE insumo_cotizacion_id = " + id)
+    
+    let suma = []
+    for (const p of productos[0]) {
+        //console.log(p)
+        //console.log(p.producto_moneda_id, p.producto_costo, p.insumo_cantidad, p.insumo_cantidad * p.producto_costo)
+        const costo = (p.producto_moneda_id == 1) ? p.producto_costo * p.insumo_cantidad : (p.producto_costo * p.insumo_cantidad * 21);
+        suma.push(costo)
+    }
+    
+    const total = suma.reduce((acc, curr) => acc + curr, 0)
+
+
+    return { productos: productos[0], total: total }
 }
 export const renderOpProyEditar = async (req, res) => {
     try {

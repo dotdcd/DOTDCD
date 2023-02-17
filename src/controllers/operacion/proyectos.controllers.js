@@ -126,58 +126,21 @@ export const delProyecto = async (req, res) => {
       console.log(error)
       req.flash('error', {title: 'Ooops!', message: 'Error al eliminar el Proyecto / Cotizacion'})
       return res.redirect('back');
-
+2
     }
   }
 
   export const updServicio = async (req, res) => {
-    const maxOrden = await getMaxOrden();
+    
     try {
-      const producto =  {
-        producto_codigo: req.body.producto_codigo,
-        producto_modelo: req.body.producto_modelo,
-        producto_marca_id: req.body.producto_marca_id ,
-        producto_unidad_id: req.body.producto_unidad_id ,
-        producto_tipo_id: req.body.producto_tipo_id ,
-        producto_familia_id: req.body.producto_familia_id ,
-        producto_serie_id: req.body.producto_serie_id ,
-        producto_costo: req.body.producto_costo ,
-        producto_costo_fecha: req.body.producto_costo_fecha ,
-        producto_mo: req.body.producto_mo ,
-        producto_icampo:  req.body.producto_icampo ,
-        producto_ioficina:  req.body.producto_ioficina ,
-        producto_hm: req.body.producto_hm ,
-        producto_financiero: req.body.producto_financiero ,
-        producto_utilidad: req.body.producto_utilidad ,
-        producto_descripcion: req.body.producto_descripcion ,
-    };
-  
-      await pool.query("UPDATE productos SET ? WHERE producto_id = ", [producto]);
-  
-      const productoInsertado = await pool.query("SELECT * FROM `productos` WHERE producto_id = (SELECT MAX(producto_id) FROM productos)");
       
-      
+      const id = req.params.id;
       const insumo = {
-        insumo_cotizacion_id: req.body.insumo_cotizacion_id,
-        insumo_cantidad: req.body.cantidad,
-        insumo_producto_id: productoInsertado[0][0].producto_id,
-        insumo_precio_mo: req.body.producto_precio_venta,
-        insumo_orden: maxOrden + 1,
-        tarjeta_ma_costo: "0",
-        tarjeta_mo_jornadas: "0",
-        tarjeta_mo_ayudante_salario: "0",
-        tarjeta_mo_ayudante_jornadas: "0",
-        tarjeta_mo_ingeniero_salario: "0",
-        tarjeta_mo_ingeniero_jornadas: "0",
-        tarjeta_mo_supervisor_salario: "0",
-        tarjeta_mo_supervisor_jornadas: "0",
-        tarjeta_hm_porcentaje: "0",
-        tarjeta_icampo_porcentaje: "0",
-        tarjeta_ioficina_porcentaje: "0",
-        tarjeta_financiamiento_porcentaje: "0",
+        insumo_cantidad: parseFloat(req.body.insumo_cantidad),
+        insumo_precio_mo: parseFloat(req.body.insumo_precio_mo)
       }
 
-      await pool.query("INSERT INTO cotizaciones_insumos SET ?", [insumo]);
+      await pool.query("UPDATE cotizaciones_insumos SET insumo_cantidad = ?, insumo_precio_mo = ? WHERE insumo_orden = " + id, [insumo.insumo_cantidad, insumo.insumo_precio_mo]);
       return res.status(200).json({ message: "Producto agregado correctamente" })
     } catch (error) {
       console.log(error);
@@ -185,12 +148,26 @@ export const delProyecto = async (req, res) => {
     }
   };
 
+  export const updProducto = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const insumo = {
+        insumo_cantidad: parseFloat(req.body.insumo_cantidad),
+
+      }
+
+       await pool.query("UPDATE cotizaciones_insumos SET insumo_cantidad = ? WHERE insumo_orden = " + id, [insumo.insumo_cantidad]);
+       return res.status(200).json({ message: "Producto agregado correctamente" })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   //? add producto
 
   export const addProducto = async (req, res) => {
     try {
       const maxOrden = await getMaxOrden();
-      console.log(req.body);
       const insumo = {
         insumo_cotizacion_id: req.body.cotizacion_id,
         insumo_cantidad: req.body.cantidad,
@@ -225,7 +202,7 @@ export const delProyecto = async (req, res) => {
     }
   }
  
-  //! delete insumo
+
   //* Falta traer el params desde el front porque no lo reconoce
   export const deleteInsumo = async (req, res) => {
     const id = req.params.id;
@@ -238,7 +215,23 @@ export const delProyecto = async (req, res) => {
     }
   };
 
+  export const addPf = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const {pf} = req.body;
 
+      await pool.query("UPDATE cotizaciones SET pf = ? WHERE cotizacion_id = " + id, [pf]);
+
+      return res.status(200).json({ message: "https://imgs.search.brave.com/zoEmIKBRA2UeKY3uCtqCivLoo1DDfsDTPPLPDTlXroc/rs:fit:450:600:1/g:ce/aHR0cDovLzIuYnAu/YmxvZ3Nwb3QuY29t/Ly0wSUZFZUIzN19t/ay9VU2V4UE5pWU5K/SS9BQUFBQUFBQVR6/Zy9iUURYUmhQN2Nt/dy9zMTYwMC8xMTAy/NV8yODc5NTc1NDA2/NDgwXzE0MDMyODQ0/NTZfbi5qcGc" })
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ message: "Error en la consulta, no se puede agregar la prefactura" });
+    }
+  }
+
+  //! END PROYECTOS
+
+  //! START PREFACTURAS
   //? prefactura
   const getIdPre = async () => {
     try {
