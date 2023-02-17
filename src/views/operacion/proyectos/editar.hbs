@@ -168,7 +168,7 @@
                                                     <tr>
                                                         <td class="row"> <span class="col-sm-12 col-md-6"><button class="btn btn-danger btn-sm" type="button" onclick="dltInsumo({{insumo_orden}}, {{p.cotizacion_id}})"><i class="fal fa-light fa-trash-can"></i></button> </span> <span><button type="button" onclick="showEditServicioProduct({{insumo_orden}}, '{{producto_descripcion}}', {{insumo_cantidad}}, {{insumo_precio_mo}}, '{{marca_descripcion}}', '{{insumo_precio_ma}}' )" class="btn btn-sm btn-info"><i class="fal fa-light fa-pen-to-square"></i></button></span></td>
                                                         <td ><span>{{producto_descripcion}}</span> <br> <span> {{producto_modelo}}  </span> </td>
-                                                        <td class="text-center">{{productos.marca_descripcion}}</td>
+                                                        <td class="text-center">{{marca_descripcion}}</td>
                                                         <td class="insumo_cantidad text-center">{{insumo_cantidad}}</td>
                                                         <td class="insumo_precio_ma text-center">{{insumo_precio_ma}}</td>
                                                         <td class="insumo_precio_mo text-center">{{insumo_precio_mo}}</td>
@@ -191,7 +191,7 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td id="muestraIva"></td>
-                                                        <td id="muestraTotalFinal" ></td>
+                                                        <td id="totalIVA" ></td>
                                                         <td id="costo">{{#if (is p.cotizacion_moneda_id 1)}} {{psimple.total}} {{else}} {{{isDolar psimple.total}}} {{/if}}</td>
                                                         <td id="pf">{{p.pf}}</td>
                                                         <td id="muestraTotal"></td>
@@ -490,27 +490,32 @@
 <script>
 
 
-
+console.log({{{json psimple.productos}}})
 
 function enviarPF() {
     const aidi = {{{json p.cotizacion_id}}};
     const totalElement = document.getElementById('muestraTotal').innerText;
     const total = parseFloat(totalElement.replace(/\$|,/g, ""));
-    
+    const trueTotal = total + (total * 0.16)
     const costoElement = document.getElementById('costo');
     let costo = parseFloat(costoElement.innerText);
+
+
+    console.log(totalElement + 'total');
+    console.log(costo + 'costo');
+   
 
     let posicionF;
     if (costo === 0) {
         posicionF = 0;
     } else {
-        posicionF = ((total - costo) / costo * 100).toFixed(2);
+        posicionF = ((trueTotal - costo) / costo * 100).toFixed(2);
     }
     
     
     const posicionFElement = document.getElementById('pf');
     posicionFElement.innerHTML = '<span>% ' + posicionF + '</span>';
-
+ console.log(posicionF + 'posicionF')
     axios.post('/addPF/' + aidi, { posicionF })
         .then(response => {
         console.log(response.data.message);
@@ -554,7 +559,7 @@ function muestraTotal() {
 
     //calcular el total
     var total = total + iva;
-    document.getElementById('muestraTotalFinal').innerHTML = '$'+total.toFixed(2) ;
+    document.getElementById('totalIVA').innerHTML = '$'+total.toFixed(2) ;
 
     totalOrg = total;
     return total;
