@@ -168,6 +168,7 @@ export const delProyecto = async (req, res) => {
   export const addProducto = async (req, res) => {
     try {
       const maxOrden = await getMaxOrden();
+      console.log(req.body.ma_costo)
       const insumo = {
         insumo_cotizacion_id: req.body.cotizacion_id,
         insumo_cantidad: req.body.cantidad,
@@ -176,6 +177,7 @@ export const delProyecto = async (req, res) => {
         insumo_precio_mo: req.body.mo,
         insumo_orden: maxOrden + 1,
         insumo_precio_ma: req.body.ma,
+        tarjeta_ma_costo: req.body.ma_costo,
         tarjeta_mo_jornadas: req.body.tarjeta_producto_mo,
         tarjeta_hm_porcentaje: req.body.tarjeta_producto_hm,
         tarjeta_icampo_porcentaje: req.body.tarjeta_producto_icampo,
@@ -185,6 +187,7 @@ export const delProyecto = async (req, res) => {
 
       const tarjeta = {
         tarjeta_cotizacion_id: req.body.cotizacion_id,
+        tarjeta_ma_costo: req.body.ma_costo,
         tarjeta_mo_jornadas: req.body.tarjeta_producto_mo,
         tarjeta_hm_porcentaje: req.body.tarjeta_producto_hm,
         tarjeta_icampo_porcentaje: req.body.tarjeta_producto_icampo,

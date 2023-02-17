@@ -692,6 +692,8 @@ function roundToTwo(value) {
                     <select id="product-select" class="form-control">
                         <option value="">Seleccione un producto</option>
                     </select>
+                    <input type="text" hidden id="product-id">
+                    <input type="text" hidden id="product-price">
                 </div>
             </div>
         `,
@@ -794,6 +796,8 @@ function updateSelect(products) {
             //document.getElementById('seventh-input').value = precio.v62;
             const totalo = (parseFloat(document.getElementById('fifth-input').value) * parseFloat(document.getElementById('sixth-input').value));
             document.getElementById('eighth-input').value = totalo;
+            document.getElementById('product-id').value = selectedProduct.producto_costo;
+            document.getElementById('product-price').value = selectedProduct.producto_moneda_id;
             // Crea el objeto con los datos a enviar
             const data = {
                 cotizacion_id: {{p.cotizacion_id}},
@@ -802,7 +806,7 @@ function updateSelect(products) {
                 producto: selectedProduct.producto_id,
                 descripcion: selectedProduct.producto_descripcion, // no se necesita pero aqui esta xd 
                 marca: selectedProduct.producto_marca_id,
-                ma: precio.v90,
+                ma_costo: precio.v90,
                 mo: precio.v91,
                 cantidad: document.getElementById('fifth-input').value,
                 precio: precio.v92,
@@ -835,6 +839,7 @@ function enviarData() {
   
     datta.cantidad = parseFloat(document.getElementById('fifth-input').value);
     datta.total = parseFloat(document.getElementById('eighth-input').value);
+    datta.ma =  parseFloat(document.getElementById('third-input').value);
     
     axios.post('/addProductToProject', datta)
         .then(response => {
@@ -847,12 +852,23 @@ function enviarData() {
         });
 }
 
-function calcularModal(pcosto, moneda) {
+function calcularModal(ppcosto, ppmoneda) {
     const ma = parseFloat(document.getElementById('third-input').value);
     const mo = parseFloat(document.getElementById('fourth-input').value);
 
     const Cantidad = parseFloat(document.getElementById('fifth-input').value);
 
+    let pcosto, moneda;
+
+    if(!ppcosto || !ppmoneda){
+        pcosto = parseFloat(document.getElementById('product-id').value);
+        moneda = parseFloat(document.getElementById('product-price').value);
+    } else {
+        pcosto = ppcosto;
+        moneda = ppmoneda;
+    }
+
+    console.log(ma, mo, Cantidad, pcosto, moneda)
     let pc
 
     if (moneda_cotizacion == 1){
@@ -867,6 +883,7 @@ function calcularModal(pcosto, moneda) {
 
     
     const pf =  (ma - pc) / pc * 100;
+    
     
     document.getElementById("seventh-input").value = pf.toFixed(2);
     //document.getElementById('seventh-input').value = precio.toFixed(2);
