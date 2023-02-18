@@ -97,7 +97,7 @@ const productosSimple = async (id) => {
         suma.push(costo)
     }
     
-    const total = suma.reduce((acc, curr) => acc + curr, 0)
+    const total = suma.reduce((acc, curr) => acc + curr, 0).toFixed(2)
 
 
     return { productos: productos[0], total: total }

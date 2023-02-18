@@ -24,6 +24,8 @@
     #accordion div.show {
         display: block;
     }
+
+    
 </style>
 {{/section}}
 
@@ -60,7 +62,7 @@
                                                 <table class="table">
                                                     <thead class="rounded ">
                                                         <tr class="text-center">
-                                                            <th colspan="4" class="text-center"  style="background-color:#425877; color:white;">
+                                                            <th colspan="4" class="text-center" style="background-image: -webkit-gradient(linear, right top, left top, from(rgba(46, 182, 151, .18)), to(transparent));background-image: linear-gradient(270deg, rgba(46, 182, 151, .18), transparent);background-color: #445175;color: #fff;" >
                                                                 <h3 class="h3">Resumen</h3>
                                                             </th>
 
@@ -116,8 +118,11 @@
 
                                                             <td id="miBoton" class="text-center" colspan="4">
                                                                 <h4 class="text-black">Observaciones</h4>
-                                                                <textarea name="" id="" cols="30" rows="3" disabled
-                                                                    class="form-control">{{p.cotizacion_observaciones}}</textarea>
+
+                                                                
+                                                            <textarea name="cotizacion_observaciones" id="" cols="30" rows="3"  class="form-control text-center pt-4" style="resize: none; min-height: 90px; max-height: 90px;">{{p.cotizacion_observaciones}}</textarea>
+                                                                
+                                                            <button class="btn btn-sm btn-info mt-3" type="submit">Actualizar observacion</button>
                                                                 
                                                             </td>
 
@@ -142,12 +147,12 @@
                                                                 class="form-control"
                                                                 type="number"
                                                                 value="{{#if (is p.cotizacion_descuento_porcentaje 0)}} {{else}} {{p.cotizacion_descuento_porcentaje}} {{/if}}"
-                                                                onKeyup="calculateDescuento(1)"></td>
+                                                                onChange="calculateDescuento(1)"></td>
                                                         <td><input type="text" id="descuento_cantidad"
                                                                 class="form-control"
                                                                 type="number"
-                                                                value="{{#if (is p.cotizacion_descuento_porcentaje 0)}} {{else}} {{p.cotizacion_descuento_porcentaje}} {{/if}}"
-                                                                onKeyup="calculateDescuento(2)"></td>
+                                                                value=""
+                                                                onchange="calculateDescuento(2)"></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -155,7 +160,7 @@
                                                 {{#if (is p.cotizacion_tipo_id 1)}}
                                     
                                                 <table class="table" >
-                                                    <tr style="background-color:#425877; color:white;">
+                                                    <tr style="background-image: -webkit-gradient(linear, right top, left top, from(rgba(46, 182, 151, .18)), to(transparent));background-image: linear-gradient(270deg, rgba(46, 182, 151, .18), transparent);background-color: #445175;color: #fff;">
                                                         <th>Acciones</th>
                                                         <th>Producto</th>
                                                         <th>Marca</th>
@@ -176,25 +181,22 @@
                                                     </tr>
                                                     {{/each}}
                                                     <tr class="text-center">
-                                                       
                                                         <td></td>
                                                         <td></td>
+                                                        <td>% PF</td>
+                                                        <td>Costo</td>
+                                                        <td>Subtotal</td>
                                                         <td>I.V.A.</td>
                                                         <td>TOTAL</td>
-                                                        <td>Costo</td>
-                                                        <td>% PF</td>
-                                                        <td>Total general de la cotización</td>
-                                                        
                                                     </tr>
                                                     <tr class="text-center">
-                                                        
                                                         <td></td>
                                                         <td></td>
+                                                        <td id="pf">{{p.pf}}</td>
+                                                        <td id="costo">{{#if (is p.cotizacion_moneda_id 1)}} {{psimple.total}} {{else}} {{{isDolar psimple.total}}} {{/if}}</td>
+                                                        <td id="muestraTotal"></td>
                                                         <td id="muestraIva"></td>
                                                         <td id="totalIVA" ></td>
-                                                        <td id="costo">{{#if (is p.cotizacion_moneda_id 1)}} {{psimple.total}} {{else}} {{{isDolar psimple.total}}} {{/if}}</td>
-                                                        <td id="pf">{{p.pf}}</td>
-                                                        <td id="muestraTotal"></td>
                                                     </tr>
                                                     <tr class="justify-content-center text-align-center">
                                                         <td colspan="6">
@@ -285,53 +287,6 @@
                                                 </div>
                                                 {{/if}}
 
-
-
-                                                <!--
-
-                                                <table class="table table-success text-center" id="productos">
-                                                <tr>
-                                                    <th>Producto</th>
-                                                    <th>Marca</th>
-                                                    <th>Cantidad</th>
-                                                    <th>Material</th>
-                                                    <th>M.O.</th>
-                                                    <th>Subtotal</th>
-                                                    <th>Acciones</th>
-                                                    
-                                                </tr>
-                                                <tbody id="table-body">
-                                                {{#each prodProyecto}}
-                                                <tr>
-                                                    <td>{{producto_descripcion}}</td>
-                                                    <td>{{marca_descripcion}}</td>
-                                                    <td>{{insumo_cantidad}}</td>
-                                                    <td>{{tipo_material}}</td>
-                                                    <td>{{producto_mo}}</td>
-                                                    <td id="subtotal">{{producto_precio_tarjeta}}</td>
-                                                    <td><button type="button" class="btn btn-danger remove-row-btn" onclick="calcularTotal()">Eliminar</button></td>
-                                                </tr>
-                                                {{/each}}
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td id="total"></td>
-                                                    <td></td>
-
-                                                </tr>
-                                                </tbody>
-                                               
-                                                
-                                                <tr>
-                                                    <td><button id="add-row-btn" type="button" class="btn btn-primary">Agregar producto</button></td>
-
-                                                </tr>
-                                                
-                                            </table>
-                                             -->
                                             </div>
                                         </div>
                                     </div> <br><br>
@@ -340,19 +295,8 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-                                    <div class="row">
+                                    <!-- 
+                                        <div class="row">
                                         <div class="col-md-6">
                                             <span>Cliente</span>
                                             <select name="cotizacion_cliente_id" class="form-control" id="">
@@ -400,7 +344,7 @@
                                                     selected {{/if}}>Si</option>
                                             </select><br />
 
-                                            <span>Empresa </span><!--Empresas loop-->
+                                            <span>Empresa </span>
                                             <select name="cotizacion_empresa_id" id="" class="form-control">
                                                 {{#each empresaa}}
                                                 <option value="{{id}}" {{#if (is../p.cotizacion_empresa_id id) }}
@@ -408,7 +352,7 @@
                                                 {{/each}}
                                             </select><br />
                                         </div>
-                                        <!--aqui se divide-->
+                                        
                                         <div class="col-md-6">
 
 
@@ -453,6 +397,7 @@
                                             </select>
                                         </div>
                                     </div>
+                                    
                                                  
                                     <br><br>
                                     <div class="row">
@@ -464,7 +409,7 @@
                                                 class="btn btn-danger btn-lg btn-block">Cancelar</a>
 
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -490,6 +435,9 @@
 <script>
 
 
+
+
+
 console.log({{{json psimple.productos}}})
 
 function enviarPF() {
@@ -509,7 +457,7 @@ function enviarPF() {
     if (costo === 0) {
         posicionF = 0;
     } else {
-        posicionF = ((trueTotal - costo) / costo * 100).toFixed(2);
+        posicionF = ((trueTotal - costo) / total * 100).toFixed(2);
     }
     
     
@@ -527,7 +475,10 @@ function enviarPF() {
 
 document.addEventListener('DOMContentLoaded', function() {
     enviarPF();
+    muestraTotal();
+    
 });
+
 
 
 
@@ -538,11 +489,9 @@ var moneda_cotizacion = {{{json p.cotizacion_moneda_id}}};
 
 console.log(moneda_cotizacion + '111');
 
-document.addEventListener("DOMContentLoaded", function() {
-  muestraTotal();
-});
 
 function muestraTotal() {
+    const desc = {{{json p.cotizacion_descuento_porcentaje}}};
     const filas = document.getElementsByClassName('simpleSubtotal');
   var total = 0;
   for (var i = 0; i < filas.length; i++) {
@@ -550,6 +499,10 @@ function muestraTotal() {
     if (!isNaN(subtotal)) {
       total += subtotal;
     }
+  }
+
+  if(desc != 0){
+    total = total - (total * (desc / 100));
   }
   document.getElementById('muestraTotal').innerHTML = total.toFixed(2);
 
@@ -561,6 +514,17 @@ function muestraTotal() {
     var total = total + iva;
     document.getElementById('totalIVA').innerHTML = '$'+total.toFixed(2) ;
 
+    axios.post('/addTotal/' + {{{json p.cotizacion_id}}}, { 
+        total: total.toFixed(2),
+        iva: iva.toFixed(2)
+        
+     })
+        .then(response => {
+        console.log(response.data.message);
+        })
+        .catch(error => {
+        console.error(error);
+        });
     totalOrg = total;
     return total;
 }
@@ -1009,6 +973,8 @@ function calcularSubtotal() {
   // Obtener todas las filas de la tabla
   var filas = document.querySelectorAll("tr");
 
+  const desc = {{{json p.cotizacion_descuento_porcentaje}}}
+
   // Inicializar el total en 0
   var total = 0;
 
@@ -1037,7 +1003,9 @@ function calcularSubtotal() {
       celdas[6].innerText = "$" + subtotal.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
       // Sumar el subtotal al total
       total += subtotal;
+
     }
+
 });
 
 // Dar formato de moneda al total
@@ -1047,10 +1015,7 @@ var celdaTotal1 = document.getElementById("muestraTotal");
 
 
 
-addEventListener("load", calcularSubtotal);
-for (var i = 0; i < 5; i++) {
-    calcularSubtotal()
-}
+
 
 const dltInsumo = async(id) => {
     try {
@@ -1071,58 +1036,85 @@ const dltInsumo = async(id) => {
 
 let totalOrg = calcularSubtotal(); 
     
-    function calculateDescuento(op) {
-        // Get the cell element by its ID
-        var muestraTotalCell = document.getElementById("muestraTotal");
-        var muestraTotalText = muestraTotalCell.textContent;
-        var muestraTotalNumeric = muestraTotalText.replace("$", "").replace(",", "");
-        var muestraTotalValue = parseFloat(muestraTotalNumeric);
-        const descuentoPorcentaje = document.getElementById("descuento_porcentaje").value;
-        const descuentoCantidad = document.getElementById("descuento_cantidad").value;
-            
-        if (!descuentoPorcentaje || !descuentoCantidad) {
-            document.getElementById("descuento_porcentaje").value = 0;
-            document.getElementById("descuento_cantidad").value = 0;
+ function calculateDescuento(op, shouldReload = true) {
+    // Get the cell element by its ID
+    const id = {{{json p.cotizacion_id}}};
+
+    var muestraTotalCell = document.getElementById("muestraTotal");
+    var muestraTotalText = muestraTotalCell.textContent;
+    var muestraTotalNumeric = muestraTotalText.replace("$", "").replace(",", "");
+    var muestraTotalValue = parseFloat(muestraTotalNumeric);
+    console.log(muestraTotalValue)
+    const descuentoPorcentaje = document.getElementById("descuento_porcentaje").value;
+    const descuentoCantidad = document.getElementById("descuento_cantidad").value;
+
+    axios.put('/addDescuento/' + id, {
+        descuento: descuentoPorcentaje
+    })
+
+    if (op == 1) {
+        const descuento = document.getElementById("descuento_porcentaje").value;
+        if (isNaN(descuento)) {
             calcularSubtotal();
+            return;
+        }
+        const porcentaje = parseFloat(descuento) / 100
+        const rebaje = muestraTotalValue * porcentaje;
+        const total = muestraTotalValue - (muestraTotalValue * porcentaje);
+        console.log(descuento)
+        console.log(rebaje)
+        console.log(total)
+        if (isNaN(total) || isNaN(rebaje) || rebaje === 0) {
+            calcularSubtotal();
+            if (shouldReload) {
+                location.reload();
+            }
+            return;
         }
 
-        if(op == 1){
-            const descuento = document.getElementById("descuento_porcentaje").value;
-            if(isNaN(descuento)){
-                calcularSubtotal();
-                return;
-            }
-            const porcentaje = parseFloat(descuento) / 100
-            const rebaje = muestraTotalValue * porcentaje;
-            const total = muestraTotalValue - (muestraTotalValue * porcentaje);
-            if(isNaN(total) || isNaN(rebaje) || rebaje === 0){
-                calcularSubtotal();
-                return;
-            }
+        document.getElementById("muestraTotal").innerText = total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');;
+        document.getElementById("descuento_cantidad").value = rebaje.toFixed(2);
+        console.log(total)
 
-            document.getElementById("muestraTotal").innerHTML = total.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');;
-            document.getElementById("descuento_cantidad").value = rebaje.toFixed(2);
-        } else if (op == 2) {
-            const descuento = document.getElementById("descuento_cantidad").value;
-            if(isNaN(descuento)){
-                calcularSubtotal();
-                return;
-            }
-            const porcentaje = (descuento / muestraTotalValue) * 100;
-            const total = muestraTotalValue - descuento
-            if(isNaN(total) || isNaN(porcentaje)){
-                calcularSubtotal();
-                return;
-            }
-            if(total < 0){
-                calcularSubtotal();
-                return;
-            }
-            document.getElementById("muestraTotal").innerHTML = total.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');;
-            document.getElementById("descuento_porcentaje").value = porcentaje.toFixed(2);}
+    } else if (op == 2) {
+        const descuento = document.getElementById("descuento_cantidad").value;
+        if (isNaN(descuento)) {
+            calcularSubtotal();
+            return
+        }
+        const porcentaje = (descuento / muestraTotalValue) * 100;
+        const total = muestraTotalValue - descuento
+        if (isNaN(total) || isNaN(porcentaje)) {
+            calcularSubtotal();
+            return
+        }
+        if (total < 0) {
+            calcularSubtotal();
+            return
+        }
+        document.getElementById("muestraTotal").innerHTML = total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');;
+        document.getElementById("descuento_porcentaje").value = porcentaje.toFixed(2);
+        axios.put('/addDescuento/' + id, {
+            descuento: porcentaje.toFixed(2)
+        })
+
     }
+    if (shouldReload) {
+        location.reload();
+    }
+}
 
-    
+// Llama la función cuando se carga la página
+calculateDescuento(1, false);
+
+// Llama la función cuando cambia el valor del input
+document.getElementById("descuento_porcentaje").addEventListener("change", function () {
+    calculateDescuento(1);
+});
+
+document.getElementById("descuento_cantidad").addEventListener("change", function () {
+    calculateDescuento(2);
+});
 
 
 

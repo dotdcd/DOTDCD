@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {addRequisicion, updRequisicion, delRequisicion} from "../controllers/operacion/requisicion.controller.js";
-import {addProyecto, updProyecto, delProyecto, getProductoo, addServicio, deleteInsumo, addPrefacturaOP, addProducto, updProducto, updServicio, addPf} from "../controllers/operacion/proyectos.controllers.js";
+import {addProyecto, updProyecto, delProyecto, getProductoo, addServicio, deleteInsumo, addPrefacturaOP, addProducto, updProducto, updServicio, addPf, addDescuento} from "../controllers/operacion/proyectos.controllers.js";
 import {updAutorizacion, delAutorizacion} from "../controllers/operacion/autorizacion.controller.js";
 import {addFolio, updFolio, delFolio} from "../controllers/operacion/folio.controller.js";
 const rutasOperacion = Router();
@@ -26,6 +26,7 @@ rutasOperacion.post('/addProductToProject', addProducto)//? add producto cotizac
 rutasOperacion.put('/updProductToProject/:id', updProducto)//? upd producto cotizacion / proyecto
 rutasOperacion.put('/updServiceToProject/:id', updServicio)//? upd producto cotizacion / proyecto
 rutasOperacion.post('/addPf/:id', addPf)//? add pf to cotizacion / proyecto
+rutasOperacion.put('/addDescuento/:id', addDescuento)//? add descuento to cotizacion / proyecto
 
 
 

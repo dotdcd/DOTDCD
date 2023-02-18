@@ -19,7 +19,7 @@ export const updProyecto = async (req, res) => {
         await pool.query('UPDATE cotizaciones set ? WHERE cotizacion_id = '+req.params.id, [req.body])
 
         req.flash('success', {title: 'Proyecto / Cotizacion actualizado', message: 'El Proyecto / Cotizacion se ha actualizado correctamente'})
-        return res.redirect('/dashboard/operacion/proyectos/buscar')
+        return res.redirect('/dashboard/operacion/proyectos/editar/'+req.params.id)
     } catch (error) {
         console.log(error)
         req.flash('error', {title: 'Ooops!', message: 'El Proyecto / Cotizacion ya existe'})
@@ -43,7 +43,7 @@ export const updProyecto = async (req, res) => {
 export const getProductoo = async (req, res) => {
   try {
     const searchText = req.query.searchText;
-    const result = await pool.query(`SELECT productos.*, marcas.* FROM productos JOIN marcas ON productos.producto_marca_id = marcas.marca_id WHERE producto_descripcion LIKE '%${searchText}%' OR producto_modelo LIKE '${searchText}' AND producto_estatus_baja = 0 LIMIT 15`);
+    const result = await pool.query(`SELECT productos.*, marcas.* FROM productos JOIN marcas ON productos.producto_marca_id = marcas.marca_id WHERE LOWER(producto_descripcion) LIKE LOWER('%${searchText}%')  OR UPPER(producto_descripcion) LIKE UPPER('%${searchText}%') OR LOWER(producto_modelo) LIKE LOWER('${searchText}')  OR UPPER(producto_modelo) LIKE UPPER('${searchText}') AND producto_estatus_baja = 0 LIMIT 15`);
     res.json(result);
   } catch (error) {
     console.error(error);
@@ -229,6 +229,18 @@ export const delProyecto = async (req, res) => {
     } catch (error) {
       console.log(error)
       return res.status(500).json({ message: "Error en la consulta, no se puede agregar la prefactura" });
+    }
+  }
+
+  export const addDescuento = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const {descuento} = req.body;
+      //console.log(descuento)
+
+      await pool.query("UPDATE cotizaciones SET cotizacion_descuento_porcentaje = ? WHERE cotizacion_id = " + id, [descuento]);
+    } catch (error) {
+      console.log(error)
     }
   }
 
