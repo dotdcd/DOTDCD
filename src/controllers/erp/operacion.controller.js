@@ -87,11 +87,12 @@ const getInsumosProy = async (id) => {
 }
 
 const productosSimple = async (id) => {
+    
     const productos = await pool.query("SELECT producto_id, tarjeta_ma_costo, producto_moneda_id, producto_costo, insumo_orden, producto_descripcion, producto_modelo, marca_descripcion, insumo_diciplina_id, insumo_nivel_id, insumo_tipo_id, insumo_producto_id, insumo_cantidad, insumo_precio_ma, insumo_precio_mo, producto_precio_venta FROM cotizaciones_insumos JOIN productos ON insumo_producto_id = producto_id JOIN marcas ON producto_marca_id = marca_id WHERE insumo_cotizacion_id = " + id)
     
     let suma = []
     for (const p of productos[0]) {
-        console.log(p)
+        
         //console.log(p.producto_moneda_id, p.producto_costo, p.insumo_cantidad, p.insumo_cantidad * p.producto_costo)
         const costo = (p.producto_moneda_id == 1) ? p.insumo_precio_ma * p.insumo_cantidad : ((p.insumo_precio_ma * p.insumo_cantidad) * 21);
         suma.push(costo)

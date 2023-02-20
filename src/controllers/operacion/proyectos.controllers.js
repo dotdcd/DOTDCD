@@ -44,8 +44,9 @@ export const updProyecto = async (req, res) => {
 */
 export const getProductoo = async (req, res) => {
   try {
+    console.log(req.query.searchText)
     const searchText = req.query.searchText;
-    const result = await pool.query(`SELECT productos.*, marcas.* FROM productos JOIN marcas ON productos.producto_marca_id = marcas.marca_id WHERE (LOWER(producto_descripcion) LIKE LOWER('%${searchText}%') OR UPPER(producto_descripcion) LIKE UPPER('%${searchText}%') OR LOWER(producto_modelo) LIKE LOWER('${searchText}') OR UPPER(producto_modelo) LIKE UPPER('${searchText}')) AND producto_estatus_baja = 0 LIMIT 15`);
+    const result = await pool.query(`SELECT productos.*, marcas.* FROM productos JOIN marcas ON productos.producto_marca_id = marcas.marca_id WHERE (LOWER(producto_descripcion) LIKE LOWER('%${searchText}%') OR UPPER(producto_descripcion) LIKE UPPER('%${searchText}%') OR LOWER(producto_modelo) LIKE LOWER('%${searchText}%') OR UPPER(producto_modelo) LIKE UPPER('${searchText}')) AND producto_estatus_baja = 0 LIMIT 15`);
     res.json(result);
   } catch (error) {
     console.error(error);
