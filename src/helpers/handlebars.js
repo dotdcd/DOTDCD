@@ -107,6 +107,10 @@ export const helpers = {
     isDolar: function (a) {
         const b = a / 21
         return b.toFixed(2)
+    },
+    isPesos: function (a) {
+        const b = a * 21
+        return b.toFixed(2)
     }
 }
 

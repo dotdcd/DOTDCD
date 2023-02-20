@@ -59,103 +59,7 @@
                                     <div class="container"> <!-- sistema de niveles -->
                                         <div class="row">
                                             <div class="table rounded">
-                                                <table class="table">
-                                                    <thead class="rounded ">
-                                                        <tr class="text-center">
-                                                            <th colspan="4" class="text-center" style="background-image: -webkit-gradient(linear, right top, left top, from(rgba(46, 182, 151, .18)), to(transparent));background-image: linear-gradient(270deg, rgba(46, 182, 151, .18), transparent);background-color: #445175;color: #fff;" >
-                                                                <h3 class="h3">Resumen</h3>
-                                                            </th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                        <tr>
-                                                            <th>Nombre del Proyecto</th>
-                                                            <td>{{p.cotizacion_proyecto}}</td>
-                                                            <th>Estatus</th>
-                                                            <th>Fecha</th>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <th>Descripcion del Proyecto</th>
-                                                            <td>{{p.cotizacion_descripcion}}</td>
-                                                            <td>
-                                                                <select name="" disabled
-                                                                    style="background-color: #BEEDE8;"
-                                                                    class="form-control" id="">
-                                                                    <option value="0" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 0)}} selected
-                                                                        {{/if}}>Cotizada</option>
-                                                                    <option value="1" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 1)}} selected
-                                                                        {{/if}}>Autorizada</option>
-                                                                    <option value="2" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 2)}} selected
-                                                                        {{/if}}>Terminada</option>
-                                                                    <option value="9" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 9)}} selected
-                                                                        {{/if}}>Poliza</option>
-                                                                </select>
-                                                            </td>
-                                                            <td>{{p.cotizacion_fecha_alta}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Moneda</th>
-                                                            <td><select  name="" class="form-control" disabled id=""
-                                                                    style="background-color: #BEEDE8; color:black !important; width: 100%; height: 100%;">
-                                                                    {{#each moneda}}
-                                                                    <option value="{{moneda_id}}" {{#if
-                                                                        (is../p.cotizacion_moneda_id moneda_id) }}
-                                                                        selected {{/if}}>{{moneda_descripcion}}</option>
-                                                                    {{/each}}
-                                                                </select></td>
-                                                            <td></td>
-
-                                                            <td></td>
-                                                        </tr>
-                                                        <tr class="">
-
-                                                            <td id="miBoton" class="text-center" colspan="4">
-                                                                <h4 class="text-black">Observaciones</h4>
-
-                                                                
-                                                            <textarea name="cotizacion_observaciones" id="" cols="30" rows="3"  class="form-control text-center pt-4" style="resize: none; min-height: 90px; max-height: 90px;">{{p.cotizacion_observaciones}}</textarea>
-                                                                
-                                                            <button class="btn btn-sm btn-info mt-3" type="submit">Actualizar observacion</button>
-                                                                
-                                                            </td>
-
-                                                        </tr>
-                                                        <tr>
-                                                        <tr>
-                                                            <th>% PF</th>
-                                                            <th>IVA</th>
-                                                            <th>% Descuento</th>
-                                                            <th>Cantidad Descuento</th>
-                                                        </tr>
-
-                                                        <td id="txtpf">{{p.pf}}</td>
-                                                        <td><select name="" class="form-control" disabled id=""
-                                                                style="background-color: #BEEDE8; color:black !important; width: 100%; height: 100%;">
-                                                                <option value="0" {{#if (is p.estimacion_iva 0
-                                                                    estimacion_iva)}} selected {{/if}}>No</option>
-                                                                <option value="1" {{#if (is p.estimacion_iva 1
-                                                                    estimacion_iva)}} selected {{/if}}>Si</option>
-                                                            </select></td>
-                                                        <td><input type="text" id="descuento_porcentaje"
-                                                                class="form-control"
-                                                                type="number"
-                                                                value="{{#if (is p.cotizacion_descuento_porcentaje 0)}} {{else}} {{p.cotizacion_descuento_porcentaje}} {{/if}}"
-                                                                onChange="calculateDescuento(1)"></td>
-                                                        <td><input type="text" id="descuento_cantidad"
-                                                                class="form-control"
-                                                                type="number"
-                                                                value=""
-                                                                onchange="calculateDescuento(2)"></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                                
 
                                                 {{#if (is p.cotizacion_tipo_id 1)}}
                                     
@@ -175,9 +79,23 @@
                                                         <td ><span>{{producto_descripcion}}</span> <br> <span> {{producto_modelo}}  </span> </td>
                                                         <td class="text-center">{{marca_descripcion}}</td>
                                                         <td class="insumo_cantidad text-center">{{insumo_cantidad}}</td>
-                                                        <td class="insumo_precio_ma text-center">{{insumo_precio_ma}}</td>
-                                                        <td class="insumo_precio_mo text-center">{{insumo_precio_mo}}</td>
-                                                        <td class="simpleSubtotal text-center"></td>
+                                                        <td class="insumo_precio_ma text-center"> $
+                                                        {{#if (is ../p.cotizacion_moneda_id 1 )}} 
+                                                            {{#if (is producto_moneda_id 1)}} 
+                                                                {{{insumo_precio_ma}}} 
+                                                            {{else}} 
+                                                                {{{isPesos insumo_precio_ma}}} 
+                                                            {{/if}}
+                                                        {{else}} 
+                                                            {{#if (is producto_moneda_id 2)}} 
+                                                                {{{insumo_precio_ma}}} 
+                                                            {{else}} 
+                                                                {{{isDolar insumo_precio_ma}}} 
+                                                            {{/if}}
+                                                        {{/if}}
+                                                        </td>
+                                                        <td class="insumo_precio_mo text-center">$ {{insumo_precio_mo}}</td>
+                                                        <td class="simpleSubtotal text-center">$</td>
                                                     </tr>
                                                     {{/each}}
                                                     <tr class="text-center">
@@ -193,7 +111,7 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td id="pf">{{p.pf}}</td>
-                                                        <td id="costo">{{#if (is p.cotizacion_moneda_id 1)}} {{psimple.total}} {{else}} {{{isDolar psimple.total}}} {{/if}}</td>
+                                                        <td id="costo">$ {{#if (is p.cotizacion_moneda_id 1)}} {{{psimple.total}}} {{else}} {{{isDolar psimple.total}}} {{/if}}</td>
                                                         <td id="muestraTotal"></td>
                                                         <td id="muestraIva"></td>
                                                         <td id="totalIVA" ></td>
@@ -295,124 +213,105 @@
 
 
 
-                                    <!-- 
-                                        <div class="row">
-                                        <div class="col-md-6">
-                                            <span>Cliente</span>
-                                            <select name="cotizacion_cliente_id" class="form-control" id="">
-                                                {{#each clientes}}
-                                                <option value="{{cliente_id}}" {{#if (is../p.cotizacion_cliente_id
-                                                    cliente_id) }} selected {{/if}}>{{cliente_razon_social}}</option>
-                                                {{/each}}
-                                            </select><br />
-
-                                            <span>Contacto</span>
-                                            <input type="text" id="simpleinput" class="form-control" placeholder=""
-                                                name="cotizacion_contacto" value="{{p.cotizacion_contacto}}"><br />
-
-                                            <span>Empleado</span>
-                                            <select name="cotizacion_empleado_id" class="form-control" id="">
-                                                {{#each empleados}}
-                                                <option value="{{empleado_id}}" {{#if (is../p.cotizacion_empleado_id
-                                                    empleado_id) }} selected {{/if}}>{{nombre_completo}}</option>
-                                                {{/each}}
-                                            </select><br />
-
-                                            <span> Tipo de cotización</span>
-                                            <select name="cotizacion_tipo_id" class="form-control" id="">
-                                                {{#each clase}}
-                                                <option value="{{cotizacion_tipo_id}}" {{#if (is../p.cotizacion_tipo_id
-                                                    cotizacion_tipo_id) }} selected {{/if}}>
-                                                    {{cotizacion_tipo_descripcion}}
-                                                </option>
-                                                {{/each}}
-                                            </select><br />
-
-                                            <span>Moneda</span>
-                                            <select name="cotizacion_moneda_id" id="" class="form-control">
-                                                {{#each moneda}}
-                                                <option value="{{moneda_id}}" {{#if (is../p.cotizacion_moneda_id
-                                                    moneda_id) }} selected {{/if}}>{{moneda_descripcion}}</option>
-                                                {{/each}}
-                                            </select><br />
-
-                                            <span>IVA</span>
-                                            <select name="estimacion_iva" disabled id="" class="form-control">
-                                                <option value="0" {{#if (is p.estimacion_iva 0 estimacion_iva)}}
-                                                    selected {{/if}}>No</option>
-                                                <option value="1" {{#if (is p.estimacion_iva 1 estimacion_iva)}}
-                                                    selected {{/if}}>Si</option>
-                                            </select><br />
-
-                                            <span>Empresa </span>
-                                            <select name="cotizacion_empresa_id" id="" class="form-control">
-                                                {{#each empresaa}}
-                                                <option value="{{id}}" {{#if (is../p.cotizacion_empresa_id id) }}
-                                                    selected {{/if}}>{{empresa_razon_social}}</option>
-                                                {{/each}}
-                                            </select><br />
-                                        </div>
-                                        
-                                        <div class="col-md-6">
-
-
-                                            <span>Sucursal</span>
-                                            <select name="sucursal_id" class="form-control" id="">
-                                                {{#each sucursales}}
-                                                <option value="{{sucursal_id}}" {{#if (is../p.sucursal_id sucursal_id)
-                                                    }} selected {{/if}}>{{sucursal_nombre}}</option>
-                                                {{/each}}
-                                            </select><br />
-
-                                            <span>Nombre del Proyecto</span>
-                                            <input type="text" class="form-control" name="cotizacion_proyecto"
-                                                value="{{p.cotizacion_proyecto}}"><br />
-
-                                            <span>Descripcion</span>
-                                            <input type="text" class="form-control" name="cotizacion_descripcion"
-                                                value="{{p.cotizacion_descripcion}}"><br />
-
-                                            <span>Ubicacion de la Obra</span>
-                                            <input type="text" class="form-control" name="cotizacion_ubicacion"
-                                                value="{{p.cotizacion_ubicacion}}"><br />
-
-                                            <span>Condiciones Comerciales</span>
-                                            <input type="text" class="form-control"
-                                                name="cotizacion_condiciones_comerciales"
-                                                value="{{p.cotizacion_condiciones_comerciales}}"><br />
-
-                                            <span>Observaciones</span>
-                                            <input id="miInput" type="text" class="form-control"
-                                                name="cotizacion_observaciones"
-                                                value="{{p.cotizacion_observaciones}}"><br />
-
-                                            <span>Estatus</span>
-                                            <select name="cotizacion_estatus_baja" class="form-control" id="">
-                                                <option value="0" {{#if (is p.cotizacion_estatus_baja 0)}} selected
-                                                    {{/if}}>
-                                                    Activo</option>
-                                                <option value="1" {{#if (is p.cotizacion_estatus_baja 1)}} selected
-                                                    {{/if}}>
-                                                    Inactivo</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
-                                                 
-                                    <br><br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <button type="submit" class="btn btn-info btn-lg btn-block">Guardar</button>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <a href="/dashboard/operacion/proyectos/buscar"
-                                                class="btn btn-danger btn-lg btn-block">Cancelar</a>
-
-                                        </div>
-                                    </div> -->
                                 </div>
                             </div>
+                        <table class="table">
+                                                    <thead class="rounded ">
+                                                        <tr class="text-center">
+                                                            <th colspan="4" class="text-center" style="background-image: -webkit-gradient(linear, right top, left top, from(rgba(46, 182, 151, .18)), to(transparent));background-image: linear-gradient(270deg, rgba(46, 182, 151, .18), transparent);background-color: #445175;color: #fff;" >
+                                                                <h3 class="h3">Resumen</h3>
+                                                            </th>
 
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <tr>
+                                                            <th>Nombre del Proyecto</th>
+                                                            <td>{{p.cotizacion_proyecto}}</td>
+                                                            <th>Estatus</th>
+                                                            <th>Fecha</th>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th>Descripcion del Proyecto</th>
+                                                            <td>{{p.cotizacion_descripcion}}</td>
+                                                            <td>
+                                                                <select name="" disabled
+                                                                    style="background-color: #BEEDE8;"
+                                                                    class="form-control" id="">
+                                                                    <option value="0" {{#if (is
+                                                                        p.cotizacion_autorizada_estatus 0)}} selected
+                                                                        {{/if}}>Cotizada</option>
+                                                                    <option value="1" {{#if (is
+                                                                        p.cotizacion_autorizada_estatus 1)}} selected
+                                                                        {{/if}}>Autorizada</option>
+                                                                    <option value="2" {{#if (is
+                                                                        p.cotizacion_autorizada_estatus 2)}} selected
+                                                                        {{/if}}>Terminada</option>
+                                                                    <option value="9" {{#if (is
+                                                                        p.cotizacion_autorizada_estatus 9)}} selected
+                                                                        {{/if}}>Poliza</option>
+                                                                </select>
+                                                            </td>
+                                                            <td>{{p.cotizacion_fecha_alta}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Moneda</th>
+                                                            <td><select  name="" class="form-control" disabled id=""
+                                                                    style="background-color: #BEEDE8; color:black !important; width: 100%; height: 100%;">
+                                                                    {{#each moneda}}
+                                                                    <option value="{{moneda_id}}" {{#if
+                                                                        (is../p.cotizacion_moneda_id moneda_id) }}
+                                                                        selected {{/if}}>{{moneda_descripcion}}</option>
+                                                                    {{/each}}
+                                                                </select></td>
+                                                            <td></td>
+
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr class="">
+
+                                                            <td id="miBoton" class="text-center" colspan="4">
+                                                                <h4 class="text-black">Observaciones</h4>
+
+                                                                
+                                                            <textarea name="cotizacion_observaciones" id="" cols="30" rows="3"  class="form-control text-center pt-4" style="resize: none; min-height: 90px; max-height: 90px;">{{p.cotizacion_observaciones}}</textarea>
+                                                                
+                                                            <button class="btn btn-sm btn-info mt-3" type="submit">Actualizar observacion</button>
+                                                                
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                        <tr>
+                                                            <th>% PF</th>
+                                                            <th>IVA</th>
+                                                            <th>% Descuento</th>
+                                                            <th>Cantidad Descuento</th>
+                                                        </tr>
+
+                                                        <td id="txtpf">{{p.pf}}</td>
+                                                        <td><select name="" class="form-control" disabled id=""
+                                                                style="background-color: #BEEDE8; color:black !important; width: 100%; height: 100%;">
+                                                                <option value="0" {{#if (is p.estimacion_iva 0
+                                                                    estimacion_iva)}} selected {{/if}}>No</option>
+                                                                <option value="1" {{#if (is p.estimacion_iva 1
+                                                                    estimacion_iva)}} selected {{/if}}>Si</option>
+                                                            </select></td>
+                                                        <td><input type="text" id="descuento_porcentaje"
+                                                                class="form-control"
+                                                                type="number"
+                                                                value="{{#if (is p.cotizacion_descuento_porcentaje 0)}} {{else}} {{p.cotizacion_descuento_porcentaje}} {{/if}}"
+                                                                onChange="calculateDescuento(1)"></td>
+                                                        <td><input type="text" id="descuento_cantidad"
+                                                                class="form-control"
+                                                                type="number"
+                                                                value=""
+                                                                onchange="calculateDescuento(2)"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                         </form>
                     </div>
                 </div>
@@ -445,8 +344,8 @@ function enviarPF() {
     const totalElement = document.getElementById('muestraTotal').innerText;
     const total = parseFloat(totalElement.replace(/\$|,/g, ""));
     const trueTotal = total + (total * 0.16)
-    const costoElement = document.getElementById('costo');
-    let costo = parseFloat(costoElement.innerText);
+    const costoElement = document.getElementById('costo').innerText;
+    let costo = parseFloat(costoElement.replace(/\$|,/g, ""));
 
 
     console.log(totalElement + 'total');
@@ -514,17 +413,6 @@ function muestraTotal() {
     var total = total + iva;
     document.getElementById('totalIVA').innerHTML = '$'+total.toFixed(2) ;
 
-    axios.post('/addTotal/' + {{{json p.cotizacion_id}}}, { 
-        total: total.toFixed(2),
-        iva: iva.toFixed(2)
-        
-     })
-        .then(response => {
-        console.log(response.data.message);
-        })
-        .catch(error => {
-        console.error(error);
-        });
     totalOrg = total;
     return total;
 }
@@ -737,7 +625,6 @@ function updateSelect(products) {
 
     //? onchange select
 
-
     select.addEventListener('change', event => {
         let selectedProduct = null;
         for (let i = 0; i < products.length; i++) {
@@ -768,8 +655,9 @@ function updateSelect(products) {
                 disciplina_id: selectedProduct.producto_familia_id,
                     //orden de compra numero incrementable
                 producto: selectedProduct.producto_id,
-                descripcion: selectedProduct.producto_descripcion, // no se necesita pero aqui esta xd 
-                marca: selectedProduct.producto_marca_id,
+                producto_moneda_id: selectedProduct.producto_moneda_id,
+                descripcion: selectedProduct.producto_descripcion, 
+                marca: selectedProduct.producto_marca_id, 
                 ma_costo: precio.v90,
                 mo: precio.v91,
                 cantidad: document.getElementById('fifth-input').value,
@@ -800,18 +688,52 @@ function llenarObjeto(data){
 }
 
 function enviarData() {
-  
-    datta.cantidad = parseFloat(document.getElementById('fifth-input').value);
-    datta.total = parseFloat(document.getElementById('eighth-input').value);
-    datta.ma =  parseFloat(document.getElementById('third-input').value);
     
+const monedaProducto = datta.producto_moneda_id.toString();
+const moneda_cotizacionn = moneda_cotizacion
+const ma = parseFloat(document.getElementById('third-input').value)
+const tottal = parseFloat(document.getElementById('eighth-input').value)
+
+const cond =  moneda_cotizacionn.toString() + monedaProducto.toString() 
+console.log(cond)
+let costou, ttotal
+switch (cond) {
+    case "11":
+        costou = ma
+        ttotal = tottal
+        break;
+    case "12":
+        costou = ma / 21
+        total = tottal / 21
+        break;
+    case "22":
+        costou = ma
+        ttotal = tottal
+        break;
+    case "21":
+        costou= ma * 21
+        ttotal = tottal * 21
+        break;
+    default:
+        break;
+}
+
+
+
+
+    
+    datta.cantidad = parseFloat(document.getElementById('fifth-input').value);
+    datta.total = ttotal
+    datta.ma =  costou
+    console.log(datta)
     axios.post('/addProductToProject', datta)
         .then(response => {
             // Maneja la respuesta aquí
-            location.reload();
+            //location.reload();
         })
         .catch(error => {
-            // Maneja el error aquí
+            //! Maneja el error aquí 
+             
             console.error(error);
         });
 }
@@ -855,8 +777,6 @@ function calcularModal(ppcosto, ppmoneda) {
 
     
 }
-
-
 
 
 //? funcion para agregar servicio
@@ -967,8 +887,6 @@ function getCurrentDateSQL() {
 
 
 
-    
-     // Función para calcular subtotal de insumo para cotización simple
 function calcularSubtotal() {
   // Obtener todas las filas de la tabla
   var filas = document.querySelectorAll("tr");
@@ -986,8 +904,8 @@ function calcularSubtotal() {
     if (celdas.length >= 6) {
       // Obtener los valores de cantidad, ma y mo
       var cantidad = parseInt(celdas[3].innerText);
-      var ma = parseFloat(celdas[4].innerText);
-      var mo = parseFloat(celdas[5].innerText);
+      var ma = parseFloat(celdas[4].innerText.replace(/\$/g, ''));
+      var mo = parseFloat(celdas[5].innerText.replace(/\$/g, ''));
       // Verificar que los valores sean numéricos
       if (isNaN(cantidad) || isNaN(ma) || isNaN(mo)) {
         return;
@@ -1006,11 +924,11 @@ function calcularSubtotal() {
 
     }
 
-});
+  });
 
-// Dar formato de moneda al total
-var celdaTotal1 = document.getElementById("muestraTotal");
-    celdaTotal1.innerText = "$" + total.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
+  // Dar formato de moneda al total
+  var celdaTotal1 = document.getElementById("muestraTotal");
+  celdaTotal1.innerText = "$" + total.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
 }
 
 

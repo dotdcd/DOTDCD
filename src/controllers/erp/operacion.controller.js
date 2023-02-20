@@ -41,7 +41,7 @@ export const renderOpProyNuevo = async (req, res) => {
     } catch (error) {
         console.log(error)
 
-    }
+    } 
 }
 
 
@@ -91,15 +91,14 @@ const productosSimple = async (id) => {
     
     let suma = []
     for (const p of productos[0]) {
-        //console.log(p)
+        console.log(p)
         //console.log(p.producto_moneda_id, p.producto_costo, p.insumo_cantidad, p.insumo_cantidad * p.producto_costo)
-        const costo = (p.producto_moneda_id == 1) ? p.tarjeta_ma_costo * p.insumo_cantidad : (p.tarjeta_ma_costo * p.insumo_cantidad * 21);
+        const costo = (p.producto_moneda_id == 1) ? p.insumo_precio_ma * p.insumo_cantidad : ((p.insumo_precio_ma * p.insumo_cantidad) * 21);
         suma.push(costo)
     }
     
     const total = suma.reduce((acc, curr) => acc + curr, 0).toFixed(2)
-
-
+    console.log(total)
     return { productos: productos[0], total: total }
 }
 export const renderOpProyEditar = async (req, res) => {

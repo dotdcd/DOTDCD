@@ -14,6 +14,8 @@ export const addProyecto = async (req, res) => {
     }
   }
 
+
+
 export const updProyecto = async (req, res) => {
     try {
         await pool.query('UPDATE cotizaciones set ? WHERE cotizacion_id = '+req.params.id, [req.body])
@@ -43,7 +45,7 @@ export const updProyecto = async (req, res) => {
 export const getProductoo = async (req, res) => {
   try {
     const searchText = req.query.searchText;
-    const result = await pool.query(`SELECT productos.*, marcas.* FROM productos JOIN marcas ON productos.producto_marca_id = marcas.marca_id WHERE LOWER(producto_descripcion) LIKE LOWER('%${searchText}%')  OR UPPER(producto_descripcion) LIKE UPPER('%${searchText}%') OR LOWER(producto_modelo) LIKE LOWER('${searchText}')  OR UPPER(producto_modelo) LIKE UPPER('${searchText}') AND producto_estatus_baja = 0 LIMIT 15`);
+    const result = await pool.query(`SELECT productos.*, marcas.* FROM productos JOIN marcas ON productos.producto_marca_id = marcas.marca_id WHERE (LOWER(producto_descripcion) LIKE LOWER('%${searchText}%') OR UPPER(producto_descripcion) LIKE UPPER('%${searchText}%') OR LOWER(producto_modelo) LIKE LOWER('${searchText}') OR UPPER(producto_modelo) LIKE UPPER('${searchText}')) AND producto_estatus_baja = 0 LIMIT 15`);
     res.json(result);
   } catch (error) {
     console.error(error);
@@ -168,7 +170,7 @@ export const delProyecto = async (req, res) => {
   export const addProducto = async (req, res) => {
     try {
       const maxOrden = await getMaxOrden();
-      console.log(req.body.ma_costo)
+      console.log(req.body)
       const insumo = {
         insumo_cotizacion_id: req.body.cotizacion_id,
         insumo_cantidad: req.body.cantidad,

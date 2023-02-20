@@ -46,15 +46,14 @@
                                     <!-- Formulario  -->
                                     <form class="form-group" method="post" action="/addProyecto">
                                         <label  class="form-label col-12 p-3 h3 font-weight-bold bg-colorss" for="simpleinput ">
-                                            <h3 class="text-center  "  >Agregar Proyecto</h3> 
+                                            <h3 class="text-center">Agregar Proyecto</h3> 
                                         </label><br/><br/><br/>
 
-                                        
                                             <div class="row">
                                                 <div class="col-6">
                                         <span>Cliente</span>
                                         <select name="cotizacion_cliente_id" class="form-control" id="">
-                                            <option value="" hidden selected>Seleccionar</option>
+                                            <option required  value="" hidden selected>Seleccionar</option>
                                             {{#each clientes}}
                                                     <option value="{{cliente_id}}">{{cliente_razon_social}}</option>
                                             {{/each}}
@@ -62,10 +61,10 @@
 
                                         <span>Contacto</span>
                                         <input type="text" id="simpleinput" class="form-control"
-                                            placeholder="" name="cotizacion_contacto" ><br/>
+                                            placeholder="" name="cotizacion_contacto" required><br/>
 
                                         <span>Empleado</span>
-                                        <select name="cotizacion_empleado_id" class="form-control" id="">
+                                        <select name="cotizacion_empleado_id" class="form-control" id="" required         >
                                             <option value="" hidden selected>Seleccionar</option>
                                             {{#each empleados}}
                                                     <option value="{{empleado_id}}">{{nombre_completo}}</option>
@@ -73,14 +72,14 @@
                                         </select><br/>
                                         
                                         <span> Tipo de cotización</span>
-                                        <select name="cotizacion_tipo_id" class="form-control" id="">
+                                        <select name="cotizacion_tipo_id" class="form-control" id="" required>
                                           <option value="1">Cotización Simple</option>
                                           <option value="2">Cotizacion de Proyecto</option>
                                           <option value="3">Poliza</option>
                                         </select><br/>
 
                                         <span>Moneda</span>
-                                        <select name="cotizacion_moneda_id" id="" class="form-control">
+                                        <select name="cotizacion_moneda_id" id="" class="form-control" required>
                                             <option value="" hidden selected>Seleccionar</option>
                                             {{#each moneda}}
                                                     <option value="{{moneda_id}}">{{moneda_descripcion}}</option>
@@ -88,7 +87,7 @@
                                         </select><br/>
 
                                         <span>IVA</span>
-                                        <select name="estimacion_iva" id="" class="form-control">
+                                        <select name="estimacion_iva" id="" class="form-control" required>
                                             <option value="0">No</option>
                                             <option value="1" selected>Si</option>
                                         </select><br/>
@@ -97,11 +96,9 @@
                                         <input type="date" class="form-control" id="fecha" name="cotizacion_fecha_alta"><br/>
                                         </div>
                                         
-
-                                        
                                             <div class="col-6">
                                                 <span>Empresa </span><!--Empresas loop-->
-                                        <select name="cotizacion_empresa_id" id="" class="form-control">
+                                        <select name="cotizacion_empresa_id" id="" class="form-control" required>
                                             <option value="" hidden selected>Seleccionar</option>
                                             {{#each empresaa}}
                                                     <option value="{{id}}">{{empresa_razon_social}}</option>
@@ -109,7 +106,7 @@
                                         </select><br/>
 
                                         <span>Sucursal</span>
-                                        <select name="sucursal_id" class="form-control" id="">
+                                        <select name="sucursal_id" class="form-control" id="" required>
                                             <option value="" hidden selected>Seleccionar</option>
                                             {{#each sucursales}}
                                                     <option value="{{sucursal_id}}">{{sucursal_nombre}}</option>
@@ -117,26 +114,22 @@
                                         </select><br/>
 
                                         <span>Nombre del Proyecto</span>
-                                        <input type="text" class="form-control" name="cotizacion_proyecto"><br/>
-
-
+                                        <input type="text" class="form-control" name="cotizacion_proyecto" required><br/>
 
                                         <span>Descripcion</span>
-                                        <input type="text" class="form-control" name="cotizacion_descripcion"><br/>
+                                        <input type="text" class="form-control" name="cotizacion_descripcion" required><br/>
 
                                         <span>Ubicacion de la Obra</span>
-                                        <input type="text" class="form-control" name="cotizacion_ubicacion"><br/>
+                                        <input type="text" class="form-control" name="cotizacion_ubicacion" required><br/>
 
                                         <span>Condiciones Comerciales</span>
-                                        <input type="text" class="form-control" name="cotizacion_condiciones_comerciales"><br/>
+                                        <input type="text" class="form-control" name="cotizacion_condiciones_comerciales" required><br/>
 
                                         <span>Observaciones</span>
-                                        <input type="text" class="form-control" name="cotizacion_observaciones"><br/>
+                                        <input type="text" class="form-control" name="cotizacion_observaciones" required><br/>
                                             </div>
                                             </div>
-                                        
-
-
+\
                                         <br><br>
                                         <button type="submit"
                                             class="btn-outline-info btn-lg btn-block ">Generar Proyecto</button>
