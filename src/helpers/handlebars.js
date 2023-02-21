@@ -111,6 +111,10 @@ export const helpers = {
     isPesos: function (a) {
         const b = a * 21
         return b.toFixed(2)
+    },
+    isMoney: function (a) {
+        const b = a.replace( /(\d)(?=(\d{3})+\.)/g, '$1,')
+        return b
     }
 }
 

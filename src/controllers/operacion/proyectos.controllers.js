@@ -170,6 +170,7 @@ export const delProyecto = async (req, res) => {
 
   export const addProducto = async (req, res) => {
     try {
+      console.log(req.body)
       const maxOrden = await getMaxOrden();
       console.log(req.body)
       const insumo = {
@@ -187,7 +188,6 @@ export const delProyecto = async (req, res) => {
         tarjeta_ioficina_porcentaje: req.body.tarjeta_producto_ioficina,
         tarjeta_financiamiento_porcentaje: req.body.tarjeta_producto_financiero
       }
-
       const tarjeta = {
         tarjeta_cotizacion_id: req.body.cotizacion_id,
         tarjeta_ma_costo: req.body.ma_costo,
@@ -198,6 +198,11 @@ export const delProyecto = async (req, res) => {
         tarjeta_financiamiento_porcentaje: req.body.tarjeta_producto_financiero
       }
 
+      const cot = {
+        total: req.body.totalC,
+        costo: req.body.costoC,
+      }
+      //await pool.query("UPDATE cotizaciones SET total = ?, costo = ? WHERE cotizacion_id = " + req.body.cotizacion_id, [cot.total, cot.costo]);
       await pool.query("INSERT INTO cotizaciones_insumos SET ?", [insumo])
       await pool.query("INSERT INTO cotizaciones_tarjetas SET ?", [tarjeta])
 
@@ -208,6 +213,7 @@ export const delProyecto = async (req, res) => {
     }
   }
  
+  
 
   //* Falta traer el params desde el front porque no lo reconoce
   export const deleteInsumo = async (req, res) => {

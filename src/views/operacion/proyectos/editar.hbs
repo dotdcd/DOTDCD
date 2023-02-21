@@ -48,7 +48,7 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <div id="metasAll">
-
+                        
                         <!-- Formulario  -->
                         <form class="form-group ccontainer" method="post" action="/updProyecto/{{p.cotizacion_id}}">
                             <label class="form-label col-12" for="simpleinput">
@@ -59,10 +59,7 @@
                                     <div class="container"> <!-- sistema de niveles -->
                                         <div class="row">
                                             <div class="table rounded">
-                                                
-
-                                                {{#if (is p.cotizacion_tipo_id 1)}}
-                                    
+                                                {{#if (is p.cotizacion_tipo_id 1)}} 
                                                 <table class="table" >
                                                     <tr style="background-image: -webkit-gradient(linear, right top, left top, from(rgba(46, 182, 151, .18)), to(transparent));background-image: linear-gradient(270deg, rgba(46, 182, 151, .18), transparent);background-color: #445175;color: #fff;">
                                                         <th>Acciones</th>
@@ -111,7 +108,7 @@
                                                         <td></td>
                                                         <td></td>
                                                         <td id="pf">{{p.pf}}</td>
-                                                        <td id="costo">$ {{#if (is p.cotizacion_moneda_id 1)}} {{{psimple.total}}} {{else}} {{{isDolar psimple.total}}} {{/if}}</td>
+                                                        <td id="costo">${{#if (is p.cotizacion_moneda_id 1)}}{{{isMoney psimple.total}}}{{else}}{{{isDolar psimple.total}}}{{/if}}</td>
                                                         <td id="muestraTotal"></td>
                                                         <td id="muestraIva"></td>
                                                         <td id="totalIVA" ></td>
@@ -335,8 +332,6 @@
 
 
 
-
-
 console.log({{{json psimple.productos}}})
 
 function enviarPF() {
@@ -352,11 +347,20 @@ function enviarPF() {
     console.log(costo + 'costo');
    
 
+
     let posicionF;
     if (costo === 0) {
         posicionF = 0;
     } else {
         posicionF = ((trueTotal - costo) / total * 100).toFixed(2);
+    }
+
+    if(costo === 0){
+        posicionF = 100;
+    }
+
+    if(costo === 0 && total === 0){
+        posicionF = 0;
     }
     
     
@@ -403,15 +407,15 @@ function muestraTotal() {
   if(desc != 0){
     total = total - (total * (desc / 100));
   }
-  document.getElementById('muestraTotal').innerHTML = total.toFixed(2);
+  document.getElementById('muestraTotal').innerHTML = "$" + total.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
 
   //calcular el iva
   var iva = total * 0.16;
-  document.getElementById('muestraIva').innerHTML = '$'+iva.toFixed(2) ;
+  document.getElementById('muestraIva').innerHTML = '$'+iva.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
 
     //calcular el total
     var total = total + iva;
-    document.getElementById('totalIVA').innerHTML = '$'+total.toFixed(2) ;
+    document.getElementById('totalIVA').innerHTML = '$'+total.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
 
     totalOrg = total;
     return total;
@@ -504,6 +508,7 @@ function roundToTwo(value) {
             return 0.00;
         }
     }
+
 
 
 
@@ -634,26 +639,23 @@ function updateSelect(products) {
         }
         }
         console.log(selectedProduct)
-        
         if (selectedProduct) {
-            const precio = calcularTarjeta(selectedProduct.producto_precio_venta , selectedProduct.producto_mo, selectedProduct.producto_icampo, selectedProduct.producto_ioficina, selectedProduct.producto_hm, selectedProduct.producto_financiero, selectedProduct.producto_utilidad, selectedProduct.producto_moneda_id, selectedProduct.producto_precio_tarjeta);
-            
-            document.getElementById('first-input').value = selectedProduct.producto_descripcion;
+            const ma_costo = selectedProduct.producto_precio_venta;
+            const mo = selectedProduct.producto_mo;
+            const precio = calcularTarjeta(ma_costo, selectedProduct.producto_mo, selectedProduct.producto_icampo, selectedProduct.producto_ioficina, selectedProduct.producto_hm, selectedProduct.producto_financiero, selectedProduct.producto_utilidad, selectedProduct.producto_moneda_id, selectedProduct.producto_precio_tarjeta);
             document.getElementById('second-input').value = selectedProduct.marca_descripcion;
-            document.getElementById('third-input').value = precio.v90;
-            document.getElementById('fourth-input').value = precio.v91;
+            document.getElementById('third-input').value = precio.v90.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
+            document.getElementById('fourth-input').value = precio.v91.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
             document.getElementById('fifth-input').value = 1;
-            document.getElementById('sixth-input').value = precio.v92;
-            //document.getElementById('seventh-input').value = precio.v62;
-            const totalo = (parseFloat(document.getElementById('fifth-input').value) * parseFloat(document.getElementById('sixth-input').value));
-            document.getElementById('eighth-input').value = totalo;
+            document.getElementById('sixth-input').value = precio.v92.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+            const totalo = (parseFloat(document.getElementById('fifth-input').value) * parseFloat(precio.v92));
+            document.getElementById('eighth-input').value = totalo.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
             document.getElementById('product-id').value = selectedProduct.producto_costo;
             document.getElementById('product-price').value = selectedProduct.producto_moneda_id;
-            // Crea el objeto con los datos a enviar
+
             const data = {
                 cotizacion_id: {{p.cotizacion_id}},
                 disciplina_id: selectedProduct.producto_familia_id,
-                    //orden de compra numero incrementable
                 producto: selectedProduct.producto_id,
                 producto_moneda_id: selectedProduct.producto_moneda_id,
                 descripcion: selectedProduct.producto_descripcion, 
@@ -670,8 +672,7 @@ function updateSelect(products) {
                 tarjeta_producto_hm: selectedProduct.producto_hm, 
                 tarjeta_producto_financiero :selectedProduct.producto_financiero,
                 tarjeta_producto_utilidad:selectedProduct.producto_utilidad
-            
-            };
+            }
             
             llenarObjeto(data)
             calcularModal(selectedProduct.producto_costo, selectedProduct.producto_moneda_id)
@@ -691,12 +692,14 @@ function enviarData() {
     
 const monedaProducto = datta.producto_moneda_id.toString();
 const moneda_cotizacionn = moneda_cotizacion
-const ma = parseFloat(document.getElementById('third-input').value)
-const tottal = parseFloat(document.getElementById('eighth-input').value)
+const ma = parseFloat(document.getElementById('third-input').value.replace(/[,]/g, "")) 
+
+const tottal = parseFloat(document.getElementById('eighth-input').value.replace(/[,]/g, ""))
+
 
 const cond =  moneda_cotizacionn.toString() + monedaProducto.toString() 
 console.log(cond)
-let costou, ttotal
+let costou, ttotal, costoCotizacion, totalCotizacion
 switch (cond) {
     case "11":
         costou = ma
@@ -719,17 +722,21 @@ switch (cond) {
 }
 
 
-
+    //    costoCotizacion = parseFloat((document.getElementById('totalIVA').value).replace(/\$/g, '')) + tottal
+    //    totalCotizacion = parseFloat((document.getElementById('costo').value).replace(/\$/g, '')) + ma
 
     
     datta.cantidad = parseFloat(document.getElementById('fifth-input').value);
     datta.total = ttotal
     datta.ma =  costou
+    datta.totalC = totalCotizacion
+    datta.costoC =  costoCotizacion
+
     console.log(datta)
     axios.post('/addProductToProject', datta)
         .then(response => {
             // Maneja la respuesta aquí
-            //location.reload();
+            location.reload();
         })
         .catch(error => {
             //! Maneja el error aquí 
@@ -739,13 +746,11 @@ switch (cond) {
 }
 
 function calcularModal(ppcosto, ppmoneda) {
-    const ma = parseFloat(document.getElementById('third-input').value);
-    const mo = parseFloat(document.getElementById('fourth-input').value);
+   let pcosto, moneda;
 
-    const Cantidad = parseFloat(document.getElementById('fifth-input').value);
-
-    let pcosto, moneda;
-
+    const ma = parseFloat(document.getElementById('third-input').value.replace(/[,]/g, ""))
+    const mo = parseFloat(document.getElementById('fourth-input').value.replace(/[,]/g, ""))
+    const Cantidad = parseFloat(document.getElementById('fifth-input').value)
     if(!ppcosto || !ppmoneda){
         pcosto = parseFloat(document.getElementById('product-id').value);
         moneda = parseFloat(document.getElementById('product-price').value);
@@ -754,8 +759,7 @@ function calcularModal(ppcosto, ppmoneda) {
         moneda = ppmoneda;
     }
 
-    console.log(ma, mo, Cantidad, pcosto, moneda)
-    let pc
+    let pc;
 
     if (moneda_cotizacion == 1){
         pc = (moneda == 1) ? pcosto : pcosto * 21;
@@ -765,15 +769,12 @@ function calcularModal(ppcosto, ppmoneda) {
 
     const precio = ma + mo;
     const total = precio * Cantidad;
-    
-
-    
     const pf =  (ma - pc) / pc * 100;
-    
-    
-    document.getElementById("seventh-input").value = pf.toFixed(2);
-    //document.getElementById('seventh-input').value = precio.toFixed(2);
-    document.getElementById('eighth-input').value = total.toFixed(2);
+
+    console.log(ma, mo, 'Hola')
+
+    document.getElementById('seventh-input').value = "%" + pf.toFixed(2);
+    document.getElementById('eighth-input').value = total.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
 
     
 }
@@ -917,6 +918,7 @@ function calcularSubtotal() {
         // Si el precio de ma no es vacío, entonces hacer la suma con la multiplicación de ma
         var subtotal = cantidad * (ma + mo);
       }
+      
       // Dar formato de moneda al resultado de subtotal
       celdas[6].innerText = "$" + subtotal.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
       // Sumar el subtotal al total
@@ -1010,7 +1012,7 @@ let totalOrg = calcularSubtotal();
             calcularSubtotal();
             return
         }
-        document.getElementById("muestraTotal").innerHTML = total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');;
+        document.getElementById("muestraTotal").innerHTML = "$" + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');;
         document.getElementById("descuento_porcentaje").value = porcentaje.toFixed(2);
         axios.put('/addDescuento/' + id, {
             descuento: porcentaje.toFixed(2)
