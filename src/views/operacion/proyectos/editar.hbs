@@ -24,8 +24,14 @@
     #accordion div.show {
         display: block;
     }
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+}
 
-    
+
 </style>
 {{/section}}
 
@@ -34,7 +40,7 @@
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
                 <h2>
-                    Editar Proyecto <span class="fw-300"><i>DOTDCD - ERP</i></span>
+                    Editar Proyecto | {{p.cotizacion_id}} - {{p.cotizacion_proyecto}} |<span class="fw-300"><i>DOTDCD - ERP</i> </span>
                 </h2>
                 <div class="panel-toolbar">
                     <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
@@ -235,8 +241,11 @@
                                                             <td>{{p.cotizacion_descripcion}}</td>
                                                             <td>
                                                                 <select name="" disabled
-                                                                    style="background-color: #BEEDE8;"
-                                                                    class="form-control" id="">
+                                                                    style=" -webkit-appearance: none;
+                                                                    -moz-appearance: none;
+                                                                    text-indent: 1px;
+                                                                    text-overflow: '';"
+                                                                    class="form-control no-arrow" id="">
                                                                     <option value="0" {{#if (is
                                                                         p.cotizacion_autorizada_estatus 0)}} selected
                                                                         {{/if}}>Cotizada</option>
@@ -255,8 +264,11 @@
                                                         </tr>
                                                         <tr>
                                                             <th>Moneda</th>
-                                                            <td><select  name="" class="form-control" disabled id=""
-                                                                    style="background-color: #BEEDE8; color:black !important; width: 100%; height: 100%;">
+                                                            <td><select  name="" class="form-control no-arrow" disabled id=""
+                                                                    style=" -webkit-appearance: none;
+                                                                    -moz-appearance: none;
+                                                                    text-indent: 1px;
+                                                                    text-overflow: '';">
                                                                     {{#each moneda}}
                                                                     <option value="{{moneda_id}}" {{#if
                                                                         (is../p.cotizacion_moneda_id moneda_id) }}
@@ -290,7 +302,10 @@
 
                                                         <td id="txtpf">{{p.pf}}</td>
                                                         <td><select name="" class="form-control" disabled id=""
-                                                                style="background-color: #BEEDE8; color:black !important; width: 100%; height: 100%;">
+                                                               style=" -webkit-appearance: none;
+                                                                    -moz-appearance: none;
+                                                                    text-indent: 1px;
+                                                                    text-overflow: '';"
                                                                 <option value="0" {{#if (is p.estimacion_iva 0
                                                                     estimacion_iva)}} selected {{/if}}>No</option>
                                                                 <option value="1" {{#if (is p.estimacion_iva 1
@@ -332,7 +347,7 @@
 
 
 
-console.log({{{json psimple.productos}}})
+//console.log({{{json psimple.productos}}})
 
 function enviarPF() {
     const aidi = {{{json p.cotizacion_id}}};
@@ -343,8 +358,8 @@ function enviarPF() {
     let costo = parseFloat(costoElement.replace(/\$|,/g, ""));
 
 
-    console.log(totalElement + 'total');
-    console.log(costo + 'costo');
+    //console.log(totalElement + 'total');
+    //console.log(costo + 'costo');
    
 
 
@@ -352,7 +367,7 @@ function enviarPF() {
     if (costo === 0) {
         posicionF = 0;
     } else {
-        posicionF = ((trueTotal - costo) / total * 100).toFixed(2);
+        posicionF = (((costo / trueTotal) - 1) * -100).toFixed(2);
     }
 
     if(costo === 0){
@@ -366,7 +381,6 @@ function enviarPF() {
     
     const posicionFElement = document.getElementById('pf');
     posicionFElement.innerHTML = '<span>% ' + posicionF + '</span>';
- console.log(posicionF + 'posicionF')
     axios.post('/addPF/' + aidi, { posicionF })
         .then(response => {
         console.log(response.data.message);
@@ -390,7 +404,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 var moneda_cotizacion = {{{json p.cotizacion_moneda_id}}};
 
-console.log(moneda_cotizacion + '111');
+//console.log(moneda_cotizacion + '111');
 
 
 function muestraTotal() {
@@ -424,7 +438,7 @@ function muestraTotal() {
 
 
  function calcularTarjeta(precio ,producto_moo, icampoo, ioficinaa, hmm, financieroo, utilidadd, moneda, tarjetat) {
-        console.log(precio)
+        //console.log(precio)
         let producto_precio_tarjetaa
         let tarjeta
 
@@ -497,7 +511,7 @@ function muestraTotal() {
         const v90 = roundToTwo(v70 + v80);
         const v91 = roundToTwo(v71 + v81);
         const v92 = roundToTwo(v90 + v91);
-        console.log(v61);
+        //console.log(v61);
         return {v90, v91, v92, v00, v62};
     }
 
@@ -599,7 +613,7 @@ function roundToTwo(value) {
                             })
                             .catch(error => {
                                 // Maneja el error aquí
-                                console.error(error);
+                                //console.error(error);
                             });
                     }
                 }, 500);
@@ -625,7 +639,7 @@ function updateSelect(products) {
     //onkeyup guardar el valor del input 5
     document.getElementById('fifth-input').addEventListener('keyup', event => {
         const quantity = parseFloat(document.getElementById('fifth-input').value);
-        console.log(quantity);
+        //console.log(quantity);
     });
 
     //? onchange select
@@ -633,12 +647,12 @@ function updateSelect(products) {
     select.addEventListener('change', event => {
         let selectedProduct = null;
         for (let i = 0; i < products.length; i++) {
-        if (products[i].producto_id == event.target.value) {
-            selectedProduct = products[i];
-            break;
+            if (products[i].producto_id == event.target.value) {
+                selectedProduct = products[i];
+                break;
+            }
         }
-        }
-        console.log(selectedProduct)
+        //console.log(selectedProduct)
         if (selectedProduct) {
             const ma_costo = selectedProduct.producto_precio_venta;
             const mo = selectedProduct.producto_mo;
@@ -698,7 +712,7 @@ const tottal = parseFloat(document.getElementById('eighth-input').value.replace(
 
 
 const cond =  moneda_cotizacionn.toString() + monedaProducto.toString() 
-console.log(cond)
+//console.log(cond)
 let costou, ttotal, costoCotizacion, totalCotizacion
 switch (cond) {
     case "11":
@@ -732,7 +746,7 @@ switch (cond) {
     datta.totalC = totalCotizacion
     datta.costoC =  costoCotizacion
 
-    console.log(datta)
+    //console.log(datta)
     axios.post('/addProductToProject', datta)
         .then(response => {
             // Maneja la respuesta aquí
@@ -741,7 +755,7 @@ switch (cond) {
         .catch(error => {
             //! Maneja el error aquí 
              
-            console.error(error);
+            //console.error(error);
         });
 }
 
@@ -769,9 +783,10 @@ function calcularModal(ppcosto, ppmoneda) {
 
     const precio = ma + mo;
     const total = precio * Cantidad;
-    const pf =  (ma - pc) / pc * 100;
+    const pf =  ((ma / pc) -1) * 100;
 
-    console.log(ma, mo, 'Hola')
+
+    //console.log(ma, pc, 'Hola')
 
     document.getElementById('seventh-input').value = "%" + pf.toFixed(2);
     document.getElementById('eighth-input').value = total.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,');
@@ -950,7 +965,7 @@ const dltInsumo = async(id) => {
                 })
             });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 }
 
@@ -964,7 +979,7 @@ let totalOrg = calcularSubtotal();
     var muestraTotalText = muestraTotalCell.textContent;
     var muestraTotalNumeric = muestraTotalText.replace("$", "").replace(",", "");
     var muestraTotalValue = parseFloat(muestraTotalNumeric);
-    console.log(muestraTotalValue)
+    //console.log(muestraTotalValue)
     const descuentoPorcentaje = document.getElementById("descuento_porcentaje").value;
     const descuentoCantidad = document.getElementById("descuento_cantidad").value;
 
@@ -981,9 +996,9 @@ let totalOrg = calcularSubtotal();
         const porcentaje = parseFloat(descuento) / 100
         const rebaje = muestraTotalValue * porcentaje;
         const total = muestraTotalValue - (muestraTotalValue * porcentaje);
-        console.log(descuento)
-        console.log(rebaje)
-        console.log(total)
+        //console.log(descuento)
+        //console.log(rebaje)
+        //console.log(total)
         if (isNaN(total) || isNaN(rebaje) || rebaje === 0) {
             calcularSubtotal();
             if (shouldReload) {

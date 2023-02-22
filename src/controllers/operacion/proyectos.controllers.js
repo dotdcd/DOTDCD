@@ -2,7 +2,9 @@ import {pool} from '../../db.js'
 
 export const addProyecto = async (req, res) => {
     try {
-      console.log(req.body)
+      
+      req.body.cotizacion_autorizada_estatus = 0
+      //console.log(req.body)
       await pool.query('INSERT INTO cotizaciones SET ?', [req.body])
       req.flash('success', { title: 'Proyecto / Cotización agregado', message: 'El Proyecto / Cotización se ha agregado correctamente' })
       const id = await pool.query('SELECT cotizacion_id FROM cotizaciones WHERE cotizacion_id = (SELECT MAX(cotizacion_id) FROM cotizaciones)')
@@ -44,7 +46,7 @@ export const updProyecto = async (req, res) => {
 */
 export const getProductoo = async (req, res) => {
   try {
-    console.log(req.query.searchText)
+    //console.log(req.query.searchText)
     const searchText = req.query.searchText;
     const result = await pool.query(`SELECT productos.*, marcas.* FROM productos JOIN marcas ON productos.producto_marca_id = marcas.marca_id WHERE (LOWER(producto_descripcion) LIKE LOWER('%${searchText}%') OR UPPER(producto_descripcion) LIKE UPPER('%${searchText}%') OR LOWER(producto_modelo) LIKE LOWER('%${searchText}%') OR UPPER(producto_modelo) LIKE UPPER('${searchText}')) AND producto_estatus_baja = 0 LIMIT 15`);
     res.json(result);
@@ -120,7 +122,7 @@ export const addServicio = async (req, res) => {
 
 export const delProyecto = async (req, res) => {
     const id = req.params.id
-    console.log(id)
+    //console.log(id)
     try {
       await pool.query('UPDATE cotizaciones SET cotizacion_estatus_baja = 1 WHERE cotizacion_id = '+id)
       req.flash('success', {title: 'Proyecto / Cotizacion actualizado', message: 'El Proyecto / Cotizacion se ha actualizado correctamente'})
@@ -170,9 +172,9 @@ export const delProyecto = async (req, res) => {
 
   export const addProducto = async (req, res) => {
     try {
-      console.log(req.body)
+      //console.log(req.body)
       const maxOrden = await getMaxOrden();
-      console.log(req.body)
+      //console.log(req.body)
       const insumo = {
         insumo_cotizacion_id: req.body.cotizacion_id,
         insumo_cantidad: req.body.cantidad,

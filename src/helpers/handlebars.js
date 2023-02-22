@@ -106,11 +106,11 @@ export const helpers = {
     },
     isDolar: function (a) {
         const b = a / 21
-        return b.toFixed(2)
+        return b.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,')
     },
     isPesos: function (a) {
         const b = a * 21
-        return b.toFixed(2)
+        return b.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,')
     },
     isMoney: function (a) {
         const b = a.replace( /(\d)(?=(\d{3})+\.)/g, '$1,')
