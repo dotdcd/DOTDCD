@@ -920,8 +920,8 @@ function calcularSubtotal() {
     if (celdas.length >= 6) {
       // Obtener los valores de cantidad, ma y mo
       var cantidad = parseInt(celdas[3].innerText);
-      var ma = parseFloat(celdas[4].innerText.replace(/\$/g, ''));
-      var mo = parseFloat(celdas[5].innerText.replace(/\$/g, ''));
+      var ma = parseFloat(celdas[4].innerText.replace(/[$,]/g, ""))
+      var mo = parseFloat(celdas[5].innerText.replace(/[$,]/g, ""))
       // Verificar que los valores sean numéricos
       if (isNaN(cantidad) || isNaN(ma) || isNaN(mo)) {
         return;
