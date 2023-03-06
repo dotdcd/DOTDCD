@@ -1,17 +1,10 @@
 import { pool } from '../../db.js'
 
-
-
-
-
-
 const getEmpleados = async() => {
     const empleado = await pool.query('SELECT empleado_id as id, UPPER(CONCAT( empleado_paterno, " ", empleado_materno, " ", empleado_nombre, " ")) AS empleado FROM empleados WHERE empleado_estatus_baja = 0 ORDER BY empleado ASC')
     const empleados = empleado[0]
     return empleados
 }
-
-
 
 export const renderUsuarios = async(req, res) => {
     
@@ -29,8 +22,6 @@ export const renderUsuarios = async(req, res) => {
     }
 }
 
-
-
 export const renderEditarUsuario = async(req, res) => {
     try{
         const { id } = req.params
@@ -46,7 +37,5 @@ export const renderEditarUsuario = async(req, res) => {
         console.log(error)
     }
 }
-
-
 
 //? Actualizar usuario

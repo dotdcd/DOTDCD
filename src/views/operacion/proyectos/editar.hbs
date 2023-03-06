@@ -1,41 +1,72 @@
-{{#section 'styles'}}
+{{#section 'head'}}
 <style>
-    .counter {
-        text-align: center;
-        font-weight: bold;
-    }
-    #accordion {
-        width: 400px;
-    }
-
-    #accordion h3 {
-        cursor: pointer;
-        padding: 10px;
-        background-color: #f0f0f0;
-        border-bottom: 1px solid #ccc;
-    }
-
-    #accordion div {
-        display: none;
-        padding: 10px;
-        background-color: #fdfdfd;
-    }
-
-    #accordion div.show {
-        display: block;
-    }
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  text-indent: 1px;
-  text-overflow: '';
-}
-
+.loader{
+    display: block;
+    position: relative;
+    height: 32px;
+    width: 140px;
+    border: 3px solid #000000;
+    border-radius: 20px;
+    box-sizing: border-box;
+    animation: balancing 2s linear infinite alternate;
+    transform-origin: center center;
+  }
+  .loader:before{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 52px;
+    height: 26px;
+    border-radius: 20px;
+    background: #0044ff;
+    animation: ballbns 2s linear infinite alternate;
+  }
+  @keyframes ballbns {
+    0% {  left: 0; transform: translateX(0%); }
+    100% {  left: 100%; transform: translateX(-100%); }
+  }
+  @keyframes balancing {
+    0% {  transform: rotate(-25deg); }
+    50% {  transform: rotate(0deg); }
+    100% {  transform: rotate(25deg); }
+  }
+  
+        
 
 </style>
 {{/section}}
+<ul class="cd-accordion margin-top-lg margin-bottom-lg">
+  <li class="cd-accordion__item cd-accordion__item--has-children">
+    <input class="cd-accordion__input" type="checkbox" name ="group-1" id="group-1">
+    <label class="cd-accordion__label cd-accordion__label--icon-folder" for="group-1"><span>Group 1</span></label>
 
+    <ul class="cd-accordion__sub cd-accordion__sub--l1">
+      <li class="cd-accordion__item cd-accordion__item--has-children">
+        <input class="cd-accordion__input" type="checkbox" name ="sub-group-1" id="sub-group-1">
+        <label class="cd-accordion__label cd-accordion__label--icon-folder" for="sub-group-1"><span>Sub Group 1</span></label>
+
+        <ul class="cd-accordion__sub cd-accordion__sub--l2">
+          <li class="cd-accordion__item"><a class="cd-accordion__label cd-accordion__label--icon-img" href="#0"><span>Image</span></a></li>
+          <li class="cd-accordion__item"><a class="cd-accordion__label cd-accordion__label--icon-img" href="#0"><span>Image</span></a></li>
+          <li class="cd-accordion__item"><a class="cd-accordion__label cd-accordion__label--icon-img" href="#0"><span>Image</span></a></li>
+        </ul>
+      </li>
+  
+      <li class="cd-accordion__item"><a class="cd-accordion__label cd-accordion__label--icon-img" href="#0"><span>Image</span></a></li>
+      <li class="cd-accordion__item"><a class="cd-accordion__label cd-accordion__label--icon-img" href="#0"><span>Image</span></a></li>
+    </ul>
+  </li>
+
+  <li class="cd-accordion__item cd-accordion__item--has-children">
+    <a class="cd-accordion__label cd-accordion__label--icon-img" href="#0"><span>Image</span></a>
+  </li>
+  <li class="cd-accordion__item cd-accordion__item--has-children">
+    <a class="cd-accordion__label cd-accordion__label--icon-img" href="#0"><span>Image</span></a>
+  </li>
+</ul> <!-- cd-accordion -->
 <div class="row">
+    
     <div class="col-xl-12">
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
@@ -56,7 +87,7 @@ select {
                     <div id="metasAll">
                         
                         <!-- Formulario  -->
-                        <form class="form-group ccontainer" method="post" action="/updProyecto/{{p.cotizacion_id}}">
+                        <form id="formm" class="form-group ccontainer" method="post" action="/updProyecto/{{p.cotizacion_id}}">
                             <label class="form-label col-12" for="simpleinput">
                                 <h3 class="text-center">Editar Proyecto</h3>
                             </label><br />
@@ -128,8 +159,15 @@ select {
                                                 {{/if}}
 
                                                 {{#if (is p.cotizacion_tipo_id 2)}}
+
+
                                                 <div class="row">
                                                     <div class="col-md-12">
+                                                        <div class="accor">
+                                                            
+                                                                
+                                                            
+                                                        </div>
                                                         <div class="accordion w-100 bg-success" id="insumosAccordion">
                                                             {{#each insumos}}
                                                             <div class="card">
@@ -150,55 +188,51 @@ select {
                                                                     aria-labelledby="heading{{@index}}"
                                                                     data-parent="#insumosAccordion">
                                                                     <div class="card-body">
-                                                                        <table class="table table-hover text-center">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th>Acciones</th>
-                                                                                    <th>Producto</th>
-                                                                                    <th>Marca</th>
-                                                                                    <th>Cantidad</th>
-                                                                                    <th>Material</th>
-                                                                                    <td>Insumo Precio MA</td>
-                                                                                    <th>Precio MO</th>
-                                                                                    <th>Subtotal</th>
-                                                                                    <th>Accion</th>
-                                                                                </tr>
-
-                                                                                <tr>
-
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody id="table-bodyy" class="table-bodyy">
-                                                                                {{#each insumos}}
-                                                                                <tr>
-                                                                                    <td> <button class="btn btn-danger"><i class="fal fa-light fa-trash-can"></i></button>   </td>
-                                                                                    <td>{{producto}}</td>
-                                                                                    <td>{{marca_descripcion}}</td>
-                                                                                    <td>{{insumo_cantidad}}</td>
-                                                                                    <td>{{tm_tipo}}</td>
-                                                                                    <td>{{insumo_precio_ma}}</td>
-                                                                                    <td>{{insumo_precio_mo}}</td>
-                                                                                    <td id="subtotal">{{importe}}</td>
-
-                                                                                    <td>
-                                                                                        <div
-                                                                                            class="d-flex justify-content-between">
-
-                                                                                            <button
-                                                                                                class="btn btn-circle btn-sm btn-secondary m-1">eliminar</button>
-
+                                                                        
+                                                                        {{#each ../niveles}}
+                                                                            <div class="card nivel {{{accordionN nivel_id ../insumos}}}">
+                                                                                <div class="card-header" id="heading{{@index}}-{{@index}}">
+                                                                                    <h2 class="mb-0">
+                                                                                        <button class="btn btn-block btn-lg text-white" style="background-color: #0400fd;"
+                                                                                            type="button" data-toggle="collapse" data-target="#collapse{{@index}}-{{@index}}"
+                                                                                            aria-expanded="true" aria-controls="collapse{{@index}}-{{@index}}">
+                                                                                            {{nivel_descripcion}}
+                                                                                        </button>
+                                                                                    </h2>
+                                                                                </div>
+                                                                                <div class="collapse" id="collapse{{@index}}-{{@index}}" aria-labelledby="heading{{@index}}-{{@index}}">
+                                                                                    <div class="card-body">
+                                                                                    {{#each ../insumos}}
+                                                                                        {{#if (is insumo_nivel_id ../nivel_id)}}
+                                                                                            {{#if (is insumo_tipo_id 0 )}}
+                                                                                                <h1 class="aditional">{{producto}}</h1>
+                                                                                            {{/if}}
+                                                                                        {{/if}}
+                                                                                    {{/each}}
+                                                                                    {{#each ../../tipos}}
+                                                                                        <div class="card {{{accordionSub ../../insumos ../nivel_id tipo_id}}}">
+                                                                                            <div class="card-header" id="heading{{@index}}-{{@index}}-{{@index}}">
+                                                                                                <h2 class="mb-0">
+                                                                                                    <button class="btn btn-block btn-lg text-white" style="background-color: #828f11;"
+                                                                                                        type="button" data-toggle="collapse" data-target="#collapse{{@index}}-{{@index}}-{{@index}}"
+                                                                                                        aria-expanded="true" aria-controls="collapse{{@index}}-{{@index}}-{{@index}}">
+                                                                                                        {{tipo_descripcion}}
+                                                                                                    </button>
+                                                                                                </h2>
+                                                                                            </div>
+                                                                                            <div class="collapse" id="collapse{{@index}}-{{@index}}-{{@index}}" aria-labelledby="heading{{@index}}-{{@index}}-{{@index}}">
+                                                                                                {{#each ../../insumos}}
+                                                                                                    {{#if (isTwo insumo_tipo_id ../tipo_id insumo_nivel_id ../../nivel_id )}}
+                                                                                                        <h1 class="aditional">{{producto}}</h1>
+                                                                                                    {{/if}}
+                                                                                                {{/each}}
+                                                                                            </div>
                                                                                         </div>
-
-                                                                                    </td>
-
-                                                                                </tr>
-                                                                                {{/each}}
-                                                                                <tr>
-                                                                                    <td>Total</td>
-                                                                                    <td id="total"></td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
+                                                                                    {{/each}}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        {{/each}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -218,112 +252,112 @@ select {
 
                                 </div>
                             </div>
-                        <table class="table">
-                                                    <thead class="rounded ">
-                                                        <tr class="text-center">
-                                                            <th colspan="4" class="text-center" style="background-image: -webkit-gradient(linear, right top, left top, from(rgba(46, 182, 151, .18)), to(transparent));background-image: linear-gradient(270deg, rgba(46, 182, 151, .18), transparent);background-color: #445175;color: #fff;" >
-                                                                <h3 class="h3">Resumen</h3>
-                                                            </th>
+                            <table class="table">
+                                <thead class="rounded ">
+                                    <tr class="text-center">
+                                        <th colspan="4" class="text-center" style="background-image: -webkit-gradient(linear, right top, left top, from(rgba(46, 182, 151, .18)), to(transparent));background-image: linear-gradient(270deg, rgba(46, 182, 151, .18), transparent);background-color: #445175;color: #fff;" >
+                                            <h3 class="h3">Resumen</h3>
+                                        </th>
 
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                                                        <tr>
-                                                            <th>Nombre del Proyecto</th>
-                                                            <td>{{p.cotizacion_proyecto}}</td>
-                                                            <th>Estatus</th>
-                                                            <th>Fecha</th>
-                                                        </tr>
+                                    <tr>
+                                        <th>Nombre del Proyecto</th>
+                                        <td>{{p.cotizacion_proyecto}}</td>
+                                        <th>Estatus</th>
+                                        <th>Fecha</th>
+                                    </tr>
 
-                                                        <tr>
-                                                            <th>Descripcion del Proyecto</th>
-                                                            <td>{{p.cotizacion_descripcion}}</td>
-                                                            <td>
-                                                                <select name="" disabled
-                                                                    style=" -webkit-appearance: none;
-                                                                    -moz-appearance: none;
-                                                                    text-indent: 1px;
-                                                                    text-overflow: '';"
-                                                                    class="form-control no-arrow" id="">
-                                                                    <option value="0" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 0)}} selected
-                                                                        {{/if}}>Cotizada</option>
-                                                                    <option value="1" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 1)}} selected
-                                                                        {{/if}}>Autorizada</option>
-                                                                    <option value="2" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 2)}} selected
-                                                                        {{/if}}>Terminada</option>
-                                                                    <option value="9" {{#if (is
-                                                                        p.cotizacion_autorizada_estatus 9)}} selected
-                                                                        {{/if}}>Poliza</option>
-                                                                </select>
-                                                            </td>
-                                                            <td>{{p.cotizacion_fecha_alta}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Moneda</th>
-                                                            <td><select  name="" class="form-control no-arrow" disabled id=""
-                                                                    style=" -webkit-appearance: none;
-                                                                    -moz-appearance: none;
-                                                                    text-indent: 1px;
-                                                                    text-overflow: '';">
-                                                                    {{#each moneda}}
-                                                                    <option value="{{moneda_id}}" {{#if
-                                                                        (is../p.cotizacion_moneda_id moneda_id) }}
-                                                                        selected {{/if}}>{{moneda_descripcion}}</option>
-                                                                    {{/each}}
-                                                                </select></td>
-                                                            <td></td>
+                                    <tr>
+                                        <th>Descripcion del Proyecto</th>
+                                        <td>{{p.cotizacion_descripcion}}</td>
+                                        <td>
+                                            <select name="" disabled
+                                                style=" -webkit-appearance: none;
+                                                -moz-appearance: none;
+                                                text-indent: 1px;
+                                                text-overflow: '';"
+                                                class="form-control no-arrow" id="">
+                                                <option value="0" {{#if (is
+                                                    p.cotizacion_autorizada_estatus 0)}} selected
+                                                    {{/if}}>Cotizada</option>
+                                                <option value="1" {{#if (is
+                                                    p.cotizacion_autorizada_estatus 1)}} selected
+                                                    {{/if}}>Autorizada</option>
+                                                <option value="2" {{#if (is
+                                                    p.cotizacion_autorizada_estatus 2)}} selected
+                                                    {{/if}}>Terminada</option>
+                                                <option value="9" {{#if (is
+                                                    p.cotizacion_autorizada_estatus 9)}} selected
+                                                    {{/if}}>Poliza</option>
+                                            </select>
+                                        </td>
+                                        <td>{{p.cotizacion_fecha_alta}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Moneda</th>
+                                        <td><select  name="" class="form-control no-arrow" disabled id=""
+                                                style=" -webkit-appearance: none;
+                                                -moz-appearance: none;
+                                                text-indent: 1px;
+                                                text-overflow: '';">
+                                                {{#each moneda}}
+                                                <option value="{{moneda_id}}" {{#if
+                                                    (is../p.cotizacion_moneda_id moneda_id) }}
+                                                    selected {{/if}}>{{moneda_descripcion}}</option>
+                                                {{/each}}
+                                            </select></td>
+                                        <td></td>
 
-                                                            <td></td>
-                                                        </tr>
-                                                        <tr class="">
+                                        <td></td>
+                                    </tr>
+                                    <tr class="">
 
-                                                            <td id="miBoton" class="text-center" colspan="4">
-                                                                <h4 class="text-black">Observaciones</h4>
+                                        <td id="miBoton" class="text-center" colspan="4">
+                                            <h4 class="text-black">Observaciones</h4>
 
                                                                 
-                                                            <textarea name="cotizacion_observaciones" id="" cols="30" rows="3"  class="form-control text-center pt-4" style="resize: none; min-height: 90px; max-height: 90px;">{{p.cotizacion_observaciones}}</textarea>
+                                        <textarea name="cotizacion_observaciones" id="" cols="30" rows="3"  class="form-control text-center pt-4" style="resize: none; min-height: 90px; max-height: 90px;">{{p.cotizacion_observaciones}}</textarea>
                                                                 
-                                                            <button class="btn btn-sm btn-info mt-3" type="submit">Actualizar observacion</button>
+                                        <button class="btn btn-sm btn-info mt-3" type="submit">Actualizar observacion</button>
                                                                 
-                                                            </td>
+                                        </td>
 
-                                                        </tr>
-                                                        <tr>
-                                                        <tr>
-                                                            <th>% PF</th>
-                                                            <th>IVA</th>
-                                                            <th>% Descuento</th>
-                                                            <th>Cantidad Descuento</th>
-                                                        </tr>
+                                    </tr>
+                                    <tr>
+                                    <tr>
+                                        <th>% PF</th>
+                                        <th>IVA</th>
+                                        <th>% Descuento</th>
+                                        <th>Cantidad Descuento</th>
+                                    </tr>
 
-                                                        <td id="txtpf">{{p.pf}}</td>
-                                                        <td><select name="" class="form-control" disabled id=""
-                                                               style=" -webkit-appearance: none;
-                                                                    -moz-appearance: none;
-                                                                    text-indent: 1px;
-                                                                    text-overflow: '';"
-                                                                <option value="0" {{#if (is p.estimacion_iva 0
-                                                                    estimacion_iva)}} selected {{/if}}>No</option>
-                                                                <option value="1" {{#if (is p.estimacion_iva 1
-                                                                    estimacion_iva)}} selected {{/if}}>Si</option>
-                                                            </select></td>
-                                                        <td><input type="text" id="descuento_porcentaje"
-                                                                class="form-control"
-                                                                type="number"
-                                                                value="{{#if (is p.cotizacion_descuento_porcentaje 0)}} {{else}} {{p.cotizacion_descuento_porcentaje}} {{/if}}"
-                                                                onChange="calculateDescuento(1)"></td>
-                                                        <td><input type="text" id="descuento_cantidad"
-                                                                class="form-control"
-                                                                type="number"
-                                                                value=""
-                                                                onchange="calculateDescuento(2)"></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                    <td id="txtpf">{{p.pf}}</td>
+                                    <td><select name="" class="form-control" disabled id=""
+                                           style=" -webkit-appearance: none;
+                                                -moz-appearance: none;
+                                                text-indent: 1px;
+                                                text-overflow: '';"
+                                            <option value="0" {{#if (is p.estimacion_iva 0
+                                                estimacion_iva)}} selected {{/if}}>No</option>
+                                            <option value="1" {{#if (is p.estimacion_iva 1
+                                                estimacion_iva)}} selected {{/if}}>Si</option>
+                                        </select></td>
+                                    <td><input type="text" id="descuento_porcentaje"
+                                            class="form-control"
+                                            type="number"
+                                            value="{{#if (is p.cotizacion_descuento_porcentaje 0)}} {{else}} {{p.cotizacion_descuento_porcentaje}} {{/if}}"
+                                            onChange="calculateDescuento(1)"></td>
+                                    <td><input type="text" id="descuento_cantidad"
+                                            class="form-control"
+                                            type="number"
+                                            value=""
+                                            onchange="calculateDescuento(2)"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </form>
                     </div>
                 </div>
@@ -342,13 +376,13 @@ select {
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/loader.js"></script>
 
 <script>
 
-
-
-//console.log({{{json psimple.productos}}})
-
+//! 28 de febrero 2023, a angel le compraron juguetes nuevos
+//! seguimos sin el parche del aumento de sueldo
+{{#if (is p.cotizacion_tipo_id 1)}}
 function enviarPF() {
     const aidi = {{{json p.cotizacion_id}}};
     const totalElement = document.getElementById('muestraTotal').innerText;
@@ -393,6 +427,7 @@ function enviarPF() {
 document.addEventListener('DOMContentLoaded', function() {
     enviarPF();
     muestraTotal();
+
     
 });
 
@@ -404,7 +439,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 var moneda_cotizacion = {{{json p.cotizacion_moneda_id}}};
 
-//console.log(moneda_cotizacion + '111');
 
 
 function muestraTotal() {
@@ -807,12 +841,12 @@ function addServicio() {
             <input type="text" hidden class="form-control">
             <label for="first-input">Descripcion</label>
             <input id="first-input" class="form-control mb-2">
-            <label for="second-input">Cantidad</label>
-            <input id="second-input" class="form-control" onkeyup="formcalculate()">
-          </div>
-          <div class="col-6">
             <label for="third-input">Precio</label>
             <input id="third-input" class="form-control mb-2"  onkeyup="formcalculate()">
+          </div>
+          <div class="col-6">
+            <label for="second-input">Cantidad</label>
+            <input id="second-input" class="form-control" onkeyup="formcalculate()">   
             <label for="fourth-input">total</label>
             <input id="fourth-input" class="form-control" >
           </div>
@@ -1125,6 +1159,13 @@ function showEditServicioProduct(orden, nombre, cantidad, precio, marca, materia
     });
 }
 
+{{else if (is p.cotizacion_tipo_id 2)}}
 
+console.log('https://imgs.search.brave.com/zoEmIKBRA2UeKY3uCtqCivLoo1DDfsDTPPLPDTlXroc/rs:fit:450:600:1/g:ce/aHR0cDovLzIuYnAu/YmxvZ3Nwb3QuY29t/Ly0wSUZFZUIzN19t/ay9VU2V4UE5pWU5K/SS9BQUFBQUFBQVR6/Zy9iUURYUmhQN2Nt/dy9zMTYwMC8xMTAy/NV8yODc5NTc1NDA2/NDgwXzE0MDMyODQ0/NTZfbi5qcGc')
+
+
+{{/if}}
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 {{/section}}

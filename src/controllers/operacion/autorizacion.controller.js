@@ -1,7 +1,6 @@
 import {pool} from '../../db.js'
 
 export const delAutorizacion = async (req, res) => {
-    const {id} = req.params;
     try {
         await pool.query('UPDATE cotizaciones set cotizacion_estatus_baja = 1 WHERE cotizacion_id = '+req.params.id, [req.body])
 

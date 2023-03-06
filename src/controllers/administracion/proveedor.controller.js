@@ -3,9 +3,7 @@ import { pool } from '../../db.js'
 
 //* agregar proveedorq
 export const addProveedor = async (req, res) => {
-    const { proveedor_razon_social, proveedor_contacto, proveedor_contacto_email, proveedor_telefono, proveedor_direccion, proveedor_rfc, proveedor_web, proveedor_usuario_password, proveedor_dias_credito, proveedor_limite_credito, proveedor_tipo_id } = req.body
-    const hoy = new Date()
-    const proveedor_fecha_alta = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate()
+    const { proveedor_razon_social} = req.body
     try {
         await pool.query('INSERT INTO proveedores set ?', [req.body])
         req.flash('success', { title: 'Proveedor agregado', message: 'La marca se ha agregado correctamente' })
@@ -20,7 +18,7 @@ export const addProveedor = async (req, res) => {
 
 //* editar proveedor
 export const updProveedor = async (req, res) => {
-    const { proveedor_razon_social, proveedor_contacto, proveedor_contacto_email, proveedor_telefono, proveedor_direccion, proveedor_rfc, proveedor_web, proveedor_usuario_password, proveedor_dias_credito, proveedor_limite_credito, proveedor_tipo_id } = req.body
+    const { proveedor_razon_social} = req.body
     
     try {
         await pool.query('UPDATE proveedores set ? WHERE proveedor_id = ?', [req.body, req.params.id])
@@ -35,7 +33,6 @@ export const updProveedor = async (req, res) => {
 
 //* eliminar proveedor
 export const delProveedor = async (req, res) => {
-    const { id } = req.params.id
     try {
         await pool.query('DELETE FROM proveedores WHERE proveedor_id = ?', [req.params.id])
         return res.status(200).json({ message: 'El proveedor se ha eliminado correctamente', status: 200 })

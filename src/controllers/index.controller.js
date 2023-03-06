@@ -1,5 +1,3 @@
-import {pool} from '../db.js'
-
 
 export const renderIndex = async (req, res) => {
     try {

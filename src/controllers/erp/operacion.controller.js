@@ -50,22 +50,23 @@ const getCotizacionClase = async () => {
     return cotizacionClase[0]
 }
 
+const getProdProyecto = async (id) => {
+    const productos = await pool.query("SELECT cotizaciones_insumos.*, productos.*, marcas.*, COALESCE(tipos_material.tm_tipo, '- -') as tipo_material FROM cotizaciones_insumos LEFT JOIN productos ON cotizaciones_insumos.insumo_producto_id = productos.producto_id LEFT JOIN marcas ON productos.producto_marca_id = marcas.marca_id LEFT JOIN tipos_material ON productos.producto_material_tipo = tipos_material.tm_id WHERE cotizaciones_insumos.insumo_cotizacion_id =" + id)
+    return productos[0]
+}
+
 const getNiveles = async (id) => {
     const niveles = await pool.query("SELECT * FROM cotizaciones_niveles WHERE nivel_cotizacion_id = " + id)
     return niveles[0]
 }
 
-const getProdProyecto = async (id) => {
-    const productos = await pool.query("SELECT cotizaciones_insumos.*, productos.*, marcas.*, COALESCE(tipos_material.tm_tipo, '- -') as tipo_material FROM cotizaciones_insumos LEFT JOIN productos ON cotizaciones_insumos.insumo_producto_id = productos.producto_id LEFT JOIN marcas ON productos.producto_marca_id = marcas.marca_id LEFT JOIN tipos_material ON productos.producto_material_tipo = tipos_material.tm_id WHERE cotizaciones_insumos.insumo_cotizacion_id =" + id)
-    return productos[0]
-}
 const getTipos = async (id) => {
     const tipos = await pool.query("SELECT * FROM cotizaciones_tipos WHERE tipo_cotizacion_id =" + id)
     return tipos[0]
 }
 
 const getDisciplinaProy = async (id) => {
-    const disciplina = await pool.query("SELECT * FROM cotizaciones_diciplinas WHERE diciplina_cotizacion_id = " + 111)
+    const disciplina = await pool.query("SELECT * FROM cotizaciones_diciplinas WHERE diciplina_cotizacion_id = " + id)
     return disciplina[0]
 }
 
@@ -77,12 +78,10 @@ const getInsumos = async (disc, cot) => {
 
 const getInsumosProy = async (id) => {
     const disciplina = await getDisciplinaProy(id)
-    //console.log(disciplina)
     for (const d of disciplina) {
         const insumo = await getInsumos(d.diciplina_id, id)
         d['insumos'] = insumo
     }
-
     return disciplina
 }
 
@@ -120,6 +119,7 @@ export const renderOpProyEditar = async (req, res) => {
         const prodProyecto = await getProdProyecto(id)
         const tipos = await getTipos(id)
         const insumos = await getInsumosProy(id)
+        //console.log(tipos)
         const psimple = await productosSimple(id)
         res.render('operacion/proyectos/editar', { p, clientes, sucursales, empresaa, moneda, empleados, clase, producto, disciplinass, niveles, prodProyecto, tipos, insumos, psimple })
     } catch (error) {

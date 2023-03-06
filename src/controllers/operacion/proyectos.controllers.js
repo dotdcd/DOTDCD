@@ -48,7 +48,7 @@ export const getProductoo = async (req, res) => {
   try {
     //console.log(req.query.searchText)
     const searchText = req.query.searchText;
-    const result = await pool.query(`SELECT productos.*, marcas.* FROM productos JOIN marcas ON productos.producto_marca_id = marcas.marca_id WHERE (LOWER(producto_descripcion) LIKE LOWER('%${searchText}%') OR UPPER(producto_descripcion) LIKE UPPER('%${searchText}%') OR LOWER(producto_modelo) LIKE LOWER('%${searchText}%') OR UPPER(producto_modelo) LIKE UPPER('${searchText}')) AND producto_estatus_baja = 0 LIMIT 15`);
+    const result = await pool.query(`SELECT productos.*, marcas.* FROM productos JOIN marcas ON productos.producto_marca_id = marcas.marca_id WHERE (LOWER(producto_descripcion) LIKE LOWER('%${searchText}%') OR UPPER(producto_descripcion) LIKE UPPER('%${searchText}%') OR LOWER(producto_modelo) LIKE LOWER('%${searchText}%') OR UPPER(producto_modelo) LIKE UPPER('${searchText}')) AND producto_estatus_baja = 0 `);
     res.json(result);
   } catch (error) {
     console.error(error);
@@ -199,6 +199,7 @@ export const delProyecto = async (req, res) => {
         tarjeta_ioficina_porcentaje: req.body.tarjeta_producto_ioficina,
         tarjeta_financiamiento_porcentaje: req.body.tarjeta_producto_financiero
       }
+      
 
       const cot = {
         total: req.body.totalC,
@@ -257,13 +258,85 @@ export const delProyecto = async (req, res) => {
 
   //! END PROYECTOS
 
+
+  //! 
+  export const addDisciplina = async (req, res) => {
+    try {
+      await pool.query('INSERT INTO diciplinas SET ?', [req.body])
+      return res.status(200).json({message: 'its all ok', status: 200})
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({message: 'Error en la consulta, no se puede agregar', status: 500  })
+    }
+  }
+
+  export const adddlvl = async (req, res) => {
+    try {
+      await pool.query('INSERT INTO cotizaciones_niveles SET ?', [req.body])
+      return res.status(200).json({message: 'its all ok', status: 200})
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({message: 'Error en la consulta, no se puede agregar', status: 500  })
+    }
+  }
+
+  export const addSublvl = async (req, res) => {
+    try {
+      await pool.query('INSERT INTO cotizaciones_tipos SET ?', [req.body])
+      return res.status(200).json({message: 'its all ok', status: 200})
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({message: 'Error en la consulta, no se puede agregar', status: 500  })
+    }
+  }
+
+  export const addInsumoC = async (req, res) => {
+    try {
+      const maxOrden = await getMaxOrden();
+      //console.log(req.body)
+      const insumo = {
+        insumo_cotizacion_id: req.body.cotizacion_id,
+        insumo_cantidad: req.body.cantidad,
+        insumo_nivel_id: req.body.nivel_id,
+        insumo_tipo_id: (req.body.tipo_id) ? req.body.tipo_id : null,
+        insumo_producto_id: req.body.producto,
+        insumo_diciplina_id: req.body.disciplina_id,
+        insumo_precio_mo: req.body.mo,
+        insumo_orden: maxOrden + 1,
+        insumo_precio_ma: req.body.ma,
+        tarjeta_ma_costo: req.body.ma_costo,
+        tarjeta_mo_jornadas: req.body.tarjeta_producto_mo,
+        tarjeta_hm_porcentaje: req.body.tarjeta_producto_hm,
+        tarjeta_icampo_porcentaje: req.body.tarjeta_producto_icampo,
+        tarjeta_ioficina_porcentaje: req.body.tarjeta_producto_ioficina,
+        tarjeta_financiamiento_porcentaje: req.body.tarjeta_producto_financiero
+      }
+      const tarjeta = {
+        tarjeta_cotizacion_id: req.body.cotizacion_id,
+        tarjeta_ma_costo: req.body.ma_costo,
+        tarjeta_mo_jornadas: req.body.tarjeta_producto_mo,
+        tarjeta_hm_porcentaje: req.body.tarjeta_producto_hm,
+        tarjeta_icampo_porcentaje: req.body.tarjeta_producto_icampo,
+        tarjeta_ioficina_porcentaje: req.body.tarjeta_producto_ioficina,
+        tarjeta_financiamiento_porcentaje: req.body.tarjeta_producto_financiero
+      }
+
+      await pool.query('INSERT INTO cotizaciones_insumos SET ?', [insumo])
+      await pool.query('')
+      return res.status(200).json({message: 'its all ok', status: 200})
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({message: 'Error en la consulta, no se puede agregar', status: 500  })
+    }
+  }
+  //! 
+
+
   //! START PREFACTURAS
   //? prefactura
   const getIdPre = async () => {
     try {
       const id = await pool.query('SELECT * FROM prefacturas ORDER BY prefactura_id DESC LIMIT 1')
-    
-
       return id[0][0].prefactura_id
     } catch (error) {
       console.log(error)

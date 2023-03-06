@@ -112,9 +112,78 @@ export const helpers = {
         const b = a * 21
         return b.toFixed(2).replace( /(\d)(?=(\d{3})+\.)/g, '$1,')
     },
-    isMoney: function (a) {
-        const b = a.replace( /(\d)(?=(\d{3})+\.)/g, '$1,')
-        return b
+    isMoney: function(a) {
+        if (!a) {
+            return '$0.00'; // Si a es falsy (null, undefined, '', etc.), retorna '$0.00'
+        }
+        const b = a.toString().replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+        return '$' + b;
+    },
+    daysColors: function (a) {
+        switch (true) {
+            case (a >= 1 && a <= 15):
+                return '#E7E6E6'
+                break;
+            case (a >= 16 && a <= 30):
+                return '#70AD47'
+                break;
+            case (a >= 31 && a <= 45):
+                return '#FFC000'
+                break;
+            case (a >= 46 && a <= 60):
+                return '#FFC000'
+                break;
+            case (a >= 61):
+                return '#FF0000'
+            default:
+                break;
+        }
+    },
+    accordionN: function (a, b){
+        let contador = 0;
+
+        for (let i = 0; i < b.length; i++) {
+            if (b[i].insumo_nivel_id == a) {
+                contador++;
+            }
+        }
+        return contador <= 0 ? 'd-none' : '';
+    },
+    accordionSub: function (a, b, c){
+        let contador = 0;
+        for (let i = 0; i < a.length; i++) {
+            if (a[i].insumo_nivel_id == b && a[i].insumo_tipo_id == c) {
+                contador++;
+            }
+        }
+        return contador <= 0 ? 'd-none' : '';
+    },
+    isTwo: function (a, b, c, d) {
+        if (a == b && c == d) {
+            return true
+        } else {
+            return false
+        }
+    },
+    clog: function (a) {
+        console.log(a)
+    },
+    roundCero: function (a) {
+        return a | 0;
+    },
+    isPercentMayor: function (a) {
+        if (a >= 100) {
+            return true
+        } else {
+            return false
+        }
+    },
+    isPercentMinor: function (a) {
+        if (a <= 0) {
+            return true
+        } else {
+            return false
+        }
     }
 }
 

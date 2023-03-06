@@ -6,10 +6,83 @@ import { read } from 'fs-extra';
 
 import { renderEmployees, renderAnalytics, renderProyectos, renderEdificios } from '../controllers/erp/analytics.controller.js';
 import { renderUsuarios, renderEditarUsuario } from '../controllers/erp/inicio.controller.js';
-import { renderOpProyAutorizarProyecto, renderOpProyAutorizar, renderOpProyNuevo,renderOpProyBuscar, renderOpProyEditar, renderOpReqBuscar, renderOpReqEditar, renderOpReqNuevo, renderFolioNuevo, renderFolioEditar, renderFolioBuscar } from '../controllers/erp/operacion.controller.js';
-import { renderEprovMarca, renderProdNuevo,renderProdEditar, renderAdProvMarcaNuevo, renderDeditar, renderAdEditar, renderCeditar, renderPBEditar, renderAdBuscar, renderAdNuevo, renderDCEditar, renderVerPprefactura, renderVerPrefacturas, renderAdProvMarca, renderCliBuscar, renderCliEditar, renderPrefacturas, renderCliNuevo, renderDCBuscar, renderDCNuevo, renderPBNuevo, renderPBBuscar, renderProgPrefacturar, renderDnuevo, renderDbuscar, renderCbuscar, renderCnuevo, renderFacturas, renderFacturar, verFactura, renderProdBuscar,  renderTaxPdf} from '../controllers/erp/administracion.controller.js';
+import { renderOpProyAutorizarProyecto,
+        renderOpProyAutorizar,
+        renderOpProyNuevo,
+        renderOpProyBuscar,
+        renderOpProyEditar,
+        renderOpReqBuscar,
+        renderOpReqEditar,
+        renderOpReqNuevo,
+        renderFolioNuevo,
+        renderFolioEditar,
+        renderFolioBuscar 
+    } from '../controllers/erp/operacion.controller.js';
 
-import { renderEmAsignar, renderEmBuscar, renderEmNuevo, renderEmTodos, renderEmployee, renderContEmployee, renderDoc, renderContratos, renderSignature, renderContrato, renderPastContrato, renderDocV, renderNMultiempresas, renderBMultiempresas, renderJornadas, renderCoBuscar, renderCoNuevo, renderCoRequerir, renderCoEditar, renderEMultiempresas, renderBBuscar, renderBNuevo, renderBEditar, renderEnuevos, renderInuevos, renderEbuscar, renderIngresosbuscar, renderIngresosEditar, renderEEditar} from '../controllers/erp/contabilidad.controller.js'
+import { renderEprovMarca,
+        renderProdNuevo,
+        renderProdEditar,
+        renderAdProvMarcaNuevo,
+        renderDeditar,
+        renderAdEditar,
+        renderCeditar,
+        renderPBEditar,
+        renderAdBuscar,
+        renderAdNuevo,
+        renderDCEditar,
+        renderVerPprefactura,
+        renderVerPrefacturas,
+        renderAdProvMarca,
+        renderCliBuscar,
+        renderCliEditar,
+        renderPrefacturas,
+        renderCliNuevo,
+        renderDCBuscar,
+        renderDCNuevo,
+        renderPBNuevo,
+        renderPBBuscar,
+        renderProgPrefacturar,
+        renderDnuevo,
+        renderDbuscar,
+        renderCbuscar,
+        renderCnuevo,
+        renderFacturas,
+        renderFacturar,
+        verFactura,
+        renderProdBuscar, 
+        renderTaxPdf
+    } from '../controllers/erp/administracion.controller.js';
+
+import { renderEmAsignar,
+    renderEmBuscar,
+    renderEmNuevo,
+    renderEmTodos,
+    renderEmployee,
+    renderContEmployee,
+    renderDoc,
+    renderContratos,
+    renderSignature,
+    renderContrato,
+    renderPastContrato,
+    renderDocV,
+    renderNMultiempresas,
+    renderBMultiempresas,
+    renderJornadas,
+    renderCoBuscar,
+    renderCoNuevo,
+    renderCoRequerir,
+    renderCoEditar,
+    renderEMultiempresas,
+    renderBBuscar,
+    renderBNuevo,
+    renderBEditar,
+    renderEnuevos,
+    renderInuevos,
+    renderEbuscar,
+    renderIngresosbuscar,
+    renderIngresosEditar,
+    renderEEditar
+} from '../controllers/erp/contabilidad.controller.js'
 
 
 import { authenticateUser, isAdmin } from '../middlewares/auth.js';

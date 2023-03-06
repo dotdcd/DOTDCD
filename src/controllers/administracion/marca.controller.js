@@ -15,7 +15,7 @@ export const addMarca = async (req, res) => {
 }
 
 export const updMarca = async (req, res) => {
-    const {marca_id, marca_descripcion, marca_estatus_baja} = req.body
+    const { marca_descripcion, marca_estatus_baja} = req.body
     const marcaid = req.params.id
     try{
         await pool.query('UPDATE marcas SET ? WHERE marca_id ='+marcaid , {marca_descripcion, marca_estatus_baja})
@@ -27,7 +27,6 @@ export const updMarca = async (req, res) => {
 }
 
 export const delMarca = async (req, res) => {
-    const {marca_id} = req.params
     try{
         await pool.query('DELETE FROM marcas WHERE marca_id ='+[req.params.id])
         return res.status(200).json({message: 'Marca eliminada correctamente',status: 200})	
@@ -39,7 +38,6 @@ export const delMarca = async (req, res) => {
 
 
 export const delPMarca = async (req, res) => {
-    const {	id} = req.params.id
     try{
         await pool.query('DELETE FROM marcas_proveedores WHERE proveedoresxmarca_marca_id = ?', [req.params.id])
         return res.status(200).json({message: 'Marca eliminada correctamente',status: 200})	
@@ -49,7 +47,6 @@ export const delPMarca = async (req, res) => {
 }
 
 export const addProveedorMarca = async (req, res) => {
-    const {proveedoresxmarca_proveedor_id, proveedoresxmarca_marca_id} = req.body
     try { 
         await pool.query('INSERT INTO marcas_proveedores set ?', [req.body])
         req.flash('success', {title: 'Proveedor agregado', message: 'El proveedor se ha agregado correctamente'})

@@ -2,9 +2,7 @@
 import {pool} from '../../db.js'
 
 export const addProducto = async (req, res) => {
-    const {producto_codigo, producto_descripcion, producto_tipo_id,producto_material_tipo,producto_familia_id,dispositivo_id,producto_modelo, producto_marca_id,producto_unidad_id,producto_serie_id,producto_costo,producto_costo_fecha,producto_precio_tarjeta,producto_moneda_id,producto_precio_venta} = req.body
-    const hoy = new Date()
-    const producto_fecha_alta = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate()
+    const {producto_descripcion} = req.body
     try { 
         
         await pool.query('INSERT INTO productos set ?', [req.body])
@@ -32,8 +30,6 @@ export const delProducto = async (req, res) => {
   }; 
 
 export const updProducto = async (req, res) => {
-    const idp = req.params.id
-    const {producto_codigo, producto_descripcion, producto_tipo_id,producto_material_tipo,producto_familia_id,dispositivo_id,producto_modelo, producto_marca_id,producto_unidad_id,producto_serie_id,producto_costo,producto_costo_fecha,producto_precio_tarjeta,producto_moneda_id,producto_precio_venta} = req.body
     try {
         await pool.query('UPDATE productos set ? WHERE producto_id = ?', [req.body, req.params.id])
         return res.redirect('/dashboard/administracion/productos/buscar')

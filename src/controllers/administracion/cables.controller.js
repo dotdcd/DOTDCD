@@ -21,7 +21,7 @@ export const addCables = async (req, res) => {
 
 //?Actualiza los datos de la base de datos
 export const updCables = async (req, res) => {
-    const {cable_id, descripcion, clave, cable_estatus_baja} = req.body
+    const {descripcion, clave, cable_estatus_baja} = req.body
     try {
         await pool.query('UPDATE cable SET ? WHERE cable_id ='+req.params.id , {descripcion, clave, cable_estatus_baja})
         return res.redirect('/dashboard/administracion/cables/buscar')
@@ -34,7 +34,6 @@ export const updCables = async (req, res) => {
 
 //? Elimina los cables de la base de datos
 export const delCables = async (req, res) => {
-    const {cable_id} = req.params
     try{
         await pool.query('DELETE FROM cable WHERE cable_id ='+[req.params.id])
         return res.status(200).json({ message: 'El cable se ha eliminado correctamente', status: 200 })

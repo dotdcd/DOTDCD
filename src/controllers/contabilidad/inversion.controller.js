@@ -3,9 +3,7 @@ import { pool } from '../../db.js'
 
 export const addInversion = async (req, res) => {
 
-    const { inversion_clave, Inversion_descripcion } = req.body
-    const hoy = new Date()
-    const cliente_fecha_alta = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate()
+    const { inversion_clave} = req.body
 
     try {
         await pool.query('INSERT INTO inversiones set ?', [req.body])
@@ -19,7 +17,6 @@ export const addInversion = async (req, res) => {
 
 
 export const updInversion = async (req, res) => {
-    const { Inversion_descripcion, inversion_clave } = req.body
     const inversion_id = req.params.id
     try {
         await pool.query('UPDATE inversiones set ? WHERE inversion_id = '+inversion_id, [req.body])
@@ -35,7 +32,6 @@ export const updInversion = async (req, res) => {
 
 
 export const deleteInversion = async (req, res) => {
-    const {id} = req.params.id
     try {
         await pool.query('DELETE FROM inversiones WHERE inversion_id = ?', [req.params.id])
         return res.status(200).json({ message: 'La empresa se ha eliminado correctamente', status: 200 })

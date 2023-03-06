@@ -1,8 +1,25 @@
 import { Router } from "express";
 import {addRequisicion, updRequisicion, delRequisicion} from "../controllers/operacion/requisicion.controller.js";
-import {addProyecto, updProyecto, delProyecto, getProductoo, addServicio, deleteInsumo, addPrefacturaOP, addProducto, updProducto, updServicio, addPf, addDescuento} from "../controllers/operacion/proyectos.controllers.js";
+import {addProyecto, 
+        updProyecto,
+        delProyecto,
+        getProductoo,
+        addServicio,
+        deleteInsumo,
+        addPrefacturaOP,
+        addProducto,
+        updProducto,
+        updServicio,
+        addPf,
+        addDescuento,
+        addDisciplina,
+        adddlvl,
+        addSublvl
+    } from "../controllers/operacion/proyectos.controllers.js";
+
 import {updAutorizacion, delAutorizacion} from "../controllers/operacion/autorizacion.controller.js";
 import {addFolio, updFolio, delFolio} from "../controllers/operacion/folio.controller.js";
+
 const rutasOperacion = Router();
 
 rutasOperacion.post('/addRequisicion', addRequisicion);
@@ -27,6 +44,11 @@ rutasOperacion.put('/updProductToProject/:id', updProducto)//? upd producto coti
 rutasOperacion.put('/updServiceToProject/:id', updServicio)//? upd producto cotizacion / proyecto
 rutasOperacion.post('/addPf/:id', addPf)//? add pf to cotizacion / proyecto
 rutasOperacion.put('/addDescuento/:id', addDescuento)//? add descuento to cotizacion / proyecto
+
+//*Proyecto complejo
+rutasOperacion.post('/addDisciplina', addDisciplina)//? add disciplina to proyecto
+rutasOperacion.post('/adddlvl', adddlvl)//? add dlvl to proyecto
+rutasOperacion.post('/addSublvl', addSublvl)//? add sublvl to proyecto
 
 
 

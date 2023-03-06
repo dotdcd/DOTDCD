@@ -3,7 +3,7 @@ import { pool } from '../../db.js'
 
 export const addEmpresa = async (req, res) => {
 
-    const {empresa_razon_social, empresa_direccion, empresa_colonia, empresa_ciudad_estado, empresa_rfc, empresa_telefono, 	empresa_registro_patronal } = req.body
+    const {empresa_razon_social} = req.body
 
     try {
         await pool.query('INSERT INTO multiempresa set ?', [req.body])
@@ -19,7 +19,6 @@ export const addEmpresa = async (req, res) => {
 
 export const updateEmpresa = async (req, res) => {
     const empresa_id = req.params.id
-    const { empresa_razon_social, empresa_direccion, empresa_colonia, empresa_ciudad_estado, empresa_rfc, empresa_telefono, empresa_registro_patronal, empresa_estatus_baja } = req.body
     try {
         await pool.query('UPDATE multiempresa set ? WHERE empresa_id = '+empresa_id, [req.body])
         req.flash('success', { title: 'Empresa actualizada', message: 'La empresa se ha actualizado correctamente' })
@@ -34,7 +33,6 @@ export const updateEmpresa = async (req, res) => {
 
 //! no redireccionar a la misma pagina
 export const deleteEmpresa = async (req, res) => {
-        const {id} = req.params.id
     try {
         await pool.query('DELETE FROM multiempresa WHERE empresa_id = ?', [req.params.id])
         return res.status(200).json({ message: 'La empresa se ha eliminado correctamente', status: 200 })

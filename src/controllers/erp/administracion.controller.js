@@ -8,11 +8,6 @@ export const renderAdNuevo = async (req, res) => {
     res.render('administracion/marca/nuevo')
 }
 
-
-
-
-
-
 const getmarca = async (id) => {
     try {
         const marcas = await pool.query('SELECT * FROM marcas WHERE marca_id = ?', [id])
