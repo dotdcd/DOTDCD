@@ -120,21 +120,37 @@ export const helpers = {
         return '$' + b;
     },
     daysColors: function (a) {
+        const fechaActual = new Date();
+        const fechaDada = new Date(a);
+        const milisegundosPorDia = 86400000; // 1000 ms * 60 s * 60 min * 24 h
+        const diferencia = fechaActual.getTime() - fechaDada.getTime();
+
+        const diasTranscurridos = (a == null || a == undefined ) ? null : Math.round(diferencia / milisegundosPorDia)
+        
         switch (true) {
-            case (a >= 1 && a <= 15):
-                return '#E7E6E6'
+            case (diasTranscurridos >= 1 && diasTranscurridos <= 15):
+                //console.log(diasTranscurridos, '0 a 15')
+                return '#8BC34A'
                 break;
-            case (a >= 16 && a <= 30):
-                return '#70AD47'
+            case (diasTranscurridos >= 16 && diasTranscurridos <= 30):
+                //console.log(diasTranscurridos, '16 a 30')
+                return '#CDDC39'
                 break;
-            case (a >= 31 && a <= 45):
-                return '#FFC000'
+            case (diasTranscurridos >= 31 && diasTranscurridos <= 45):
+                //console.log(diasTranscurridos, '31 a 45')
+                return '#FFC107'
                 break;
-            case (a >= 46 && a <= 60):
-                return '#FFC000'
+            case (diasTranscurridos >= 46 && diasTranscurridos <= 60):
+                //console.log(diasTranscurridos, '46 a 60')
+                return '#FF9800'
                 break;
-            case (a >= 61):
-                return '#FF0000'
+            case (diasTranscurridos >= 61):
+                //console.log(diasTranscurridos, 'mayor')
+                return '#FC4C49'
+                break;
+            case (diasTranscurridos == null || diasTranscurridos  == undefined ):
+                //console.log('nulo')
+                return '#F6F6F6'
             default:
                 break;
         }

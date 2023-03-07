@@ -54,9 +54,7 @@
                                                 <div class="col-8 px-1">
                                                 <ul style="display: flex; list-style-type: none; margin: 0; padding: 0;">
                                                     <li style="flex-grow: 1; text-align: center;">0%</li>
-                                                    <li style="flex-grow: 1; text-align: center;">25%</li>
                                                     <li style="flex-grow: 1; text-align: center;">50%</li>
-                                                    <li style="flex-grow: 1; text-align: center;">75%</li>
                                                     <li style="flex-grow: 1; text-align: right;">100%</li>
                                                 </ul>
                                                 </div>
@@ -68,11 +66,11 @@
                                             <div class="row">
                                                 <div class="col-1"></div>
                                                 <div class="col-1 mr-2" style="position:relative;">
-                                                    <span style="position:absolute;left:-20px;">{{#if (isPercentMayor cobrado)}} 100{{else if (isPercentMinor cobrado)}} 0{{else}} {{roundCero cobrado}}{{/if}}%</span>
+                                                    <span style="position:absolute;left:-20px;">{{#if (isPercentMayor cobrado)}} 100{{else if (isPercentMinor cobrado)}} 0{{else}} {{roundCero  cobrado}}{{/if}}%</span>
                                                 </div>
                                                 <div class="col-9"> 
                                                     <div class="progress mb-2 border" style="height: 21px;">
-                                                        <span class="progress-indicator" style="background-color: {{daysColors 17}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
+                                                        <span class="progress-indicator" style="background-color: {{ Fcobrado}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
                                                         <div class="progress-bar bg-success" role="progressbar" style="width: {{#if (isPercentMayor cobrado)}} 100{{else if (isPercentMinor cobrado)}} 0{{else}} {{roundCero cobrado}}{{/if}}%; height: 30px !important;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
                                                             <div class="d-flex justify-content-start">
                                                                 <h6 class="mr-2 flex-wrap" style="position: absolute; z-index: 111; top:5%; left:20%;"><span class="badge  text-white" style="text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;">Cobrado</span>
@@ -93,7 +91,7 @@
                                                     </div>
                                                     <div class="col-9">
                                                     <div class="progress mb-2 border" style="height: 21px;">
-                                                        <span class="progress-indicator" style="background-color: {{daysColors 15}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
+                                                        <span class="progress-indicator" style="background-color: ; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
                                                         <div class="progress-bar" role="progressbar" style="width: {{roundCero pf}}%; height: 30px !important; background-color:#FFFF00;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
                                                             <div class="d-flex justify-content-start">
                                                                 <h6 class="mr-2 flex-wrap" style="position: absolute; z-index: 111; top:5%; left:20%;"><span class="badge text-white" style="text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black; background-color:#ffff0000;">PF</span>
@@ -114,7 +112,7 @@
                                                 </div>
                                                 <div class="col-9">
                                                     <div class="progress mb-2 border" style="height: 21px;">
-                                                        <span class="progress-indicator" style="background-color: {{daysColors 17}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
+                                                        <span class="progress-indicator" style="background-color: {{ Ffacturado}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
                                                         <div class="progress-bar bg-info" role="progressbar" style="width: {{#if (isPercentMayor facturas)}} 100{{else if (isPercentMinor facturas)}} 0{{else}} {{roundCero facturas}}{{/if}}%; height: 30px !important;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
                                                             <div class="d-flex justify-content-start">
                                                                 <h6 class="mr-2 flex-wrap" style="position: absolute; z-index: 111; top:5%; left:20%;"><span class="badge  text-white" style="text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;">Facturado</span>
@@ -127,56 +125,17 @@
                                             </div>
                                         </div>
                                      
-                                     <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-1"></div>
-                                            <div class="col-1 mr-2" style="position:relative;">
-                                                <span style="position:absolute;left:-20px;">100%</span>
-                                            </div>
-                                            <div class="col-9">
-                                                <div class="progress mb-2 border" style="height: 21px;">
-                                                    <span class="progress-indicator" style="background-color: {{daysColors 31}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
-                                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 50%; height: 30px !important;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                                        <div class="d-flex justify-content-start">
-                                                            <h6 class="mr-2 flex-wrap" style="position: absolute; z-index: 111; top:5%; left:20%;"><span class="badge  text-white" style="text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;">MO Horas Técnicas</span></h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <div class="col-1"></div>
-                                        </div>
-                                    </div>
+                                     
 
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-1"></div>
                                         <div class="col-1 mr-2" style="position:relative;">
-                                            <span style="position:absolute;left:-20px;">100%</span>
-                                        </div>
-                                        
-                                        <div class="col-9">
-                                        <div class="progress mb-2 border" style="height: 21px;">
-                                            <span class="progress-indicator" style="background-color: {{daysColors 15}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 40%; height: 30px !important;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                                                <div class="d-flex justify-content-start">
-                                                    <h6 class="mr-2 flex-wrap" style="position: absolute; z-index: 111; top:5%; left:20%;"><span class="badge  text-white" style="text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;">MO Indirecto de Campo</span></h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                        <div class="col-1"></div>
-                                    </div>
-                                </div>
-
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-1"></div>
-                                        <div class="col-1 mr-2" style="position:relative;">
-                                            <span style="position:absolute;left:-20px;">{{comprado}}%</span>
+                                            <span style="position:absolute;left:-20px;">{{roundCero comprado}}%</span>
                                         </div>
                                         <div class="col-9">
                                             <div class="progress mb-2 border" style="height: 21px;">
-                                                <span class="progress-indicator" style="background-color: {{daysColors 17}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
+                                                <span class="progress-indicator" style="background-color: {{daysColors Fcomprado}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
                                                 <div class="progress-bar bg-primary" role="progressbar" style="width:{{#if (isPercentMayor comprado)}} 100{{else if (isPercentMinor comprado)}} 0{{else}} {{roundCero comprado}}{{/if}}%; height: 30px !important;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
                                                     <div class="d-flex justify-content-start">
                                                         <h6 class="mr-2 flex-wrap" style="position: absolute; z-index: 111; top:5%; left:20%;"><span class="badge  text-white" style="text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;">Comprado</span></h6>
@@ -197,13 +156,54 @@
                                         <div class="col-9">
                                             <div class="progress mb-2 border" style="height: 21px;">
                                                 
-                                                <span class="progress-indicator" style="background-color: {{daysColors 15}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px; "></span>
+                                                <span class="progress-indicator" style="background-color: ; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px; "></span>
                                                 <div class="progress-bar " role="progressbar" style="width:{{#if (isPercentMayor tiempos)}} 100{{else if (isPercentMinor tiempos)}} 0{{else}} {{roundCero tiempos}}{{/if}}%; height: 30px !important; background-color:#001F7F; z-index: 0;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
                                                     <div class="d-flex justify-content-start">
                                                         <h6 class="mr-2 flex-wrap" style="position: absolute; z-index: 111; top:5%; left:20%;"><span class="badge text-white" style="text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black; background-color:#00207f00;"> Tiempos de Proyecto</span></h6>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-1"></div>
+                                    </div>
+                                </div>
+
+                                <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-1"></div>
+                                            <div class="col-1 mr-2" style="position:relative;">
+                                                <span style="position:absolute;left:-20px;">100%</span>
+                                            </div>
+                                            <div class="col-9">
+                                                <div class="progress mb-2 border" style="height: 21px;">
+                                                    <span class="progress-indicator" style="background-color: ; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
+                                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 50%; height: 30px !important;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="d-flex justify-content-start">
+                                                            <h6 class="mr-2 flex-wrap" style="position: absolute; z-index: 111; top:5%; left:20%;"><span class="badge  text-white" style="text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;">MO Horas Técnicas</span></h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="col-1"></div>
+                                        </div>
+                                    </div>
+
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-1"></div>
+                                        <div class="col-1 mr-2" style="position:relative;">
+                                            <span style="position:absolute;left:-20px;">100%</span>
+                                        </div>
+                                        
+                                        <div class="col-9">
+                                        <div class="progress mb-2 border" style="height: 21px;">
+                                            <span class="progress-indicator" style="background-color:; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 40%; height: 30px !important;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                                <div class="d-flex justify-content-start">
+                                                    <h6 class="mr-2 flex-wrap" style="position: absolute; z-index: 111; top:5%; left:20%;"><span class="badge  text-white" style="text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;">MO Indirecto de Campo</span></h6>
+                                                </div>
+                                            </div>
+                                        </div>
                                         </div>
                                         <div class="col-1"></div>
                                     </div>
@@ -233,166 +233,6 @@
                         </div>
 
 
-                        <div class="row">
-                            <br> <br>
-                            <div class="container-fluid card " style="width:45% !important;">
-                                <div class="row ">
-                                    <h4 class="mb-1">16611 - BOSCH_SIS_ADICIONALES SATELITE </h4>
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <h4>Cotizado: <span class="font-weight-bold"> 1,600,000.00</span></h4>
-                                        </div>
-                                        <div class="row mb-1">
-                                            <div class="col-4 d-flex ">
-                                                <h6 class="mr-2 flex-wrap"><span class="badge badge-success"><span
-                                                            class="progress-indicator"
-                                                            style="background-color:#E7E6E6 ; display: inline-block; width: 10px; height: 10px; border-radius: 100%; margin-right: 8px;"></span>1
-                                                        - 15 </span></h6>
-                                                <h6 class="mr-2 flex-wrap"><span class="badge badge-success"><span
-                                                            class="progress-indicator"
-                                                            style="background-color:#70AD47 ; display: inline-block; width: 10px; height: 10px; border-radius: 100%; margin-right: 8px;"></span>16
-                                                        - 30 </span></h6>
-                                                <h6 class="mr-2 flex-wrap"><span
-                                                        class="badge badge-warning text-dark"><span
-                                                            class="progress-indicator"
-                                                            style="background-color: #FFC000; display: inline-block; width: 10px; height: 10px; border-radius: 100%; margin-right: 8px;"></span>31
-                                                        - 45 </span></h6>
-                                                <h6 class="mr-2 flex-wrap"><span class="badge badge-warning"><span
-                                                            class="progress-indicator"
-                                                            style="background-color: #ff7b00; display: inline-block; width: 10px; height: 10px; border-radius: 100%; margin-right: 8px;"></span>46
-                                                        - 60 </span></h6>
-                                                <h6 class="mr-2 flex-wrap"><span class="badge badge-danger"><span
-                                                            class="progress-indicator"
-                                                            style="background-color:#FF0000; display: inline-block; width: 10px; height: 10px; border-radius: 100%; margin-right: 8px;"></span>+60
-                                                        días</span></h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col-6 border">
-                                        <h3 class="text-center">Tiempos</h3>
-                                        <ul class="list-group list-group-light  w-100">
-                                            <h6 class="mb-2 w-100"><span class="w-100 badge badge-success"
-                                                    style="text-align: left;"><span class="progress-indicator"
-                                                        style="background-color: {{daysColors 1}}; display: inline-block; width: 12px; height: 12px; border-radius: 100%; margin-right: 8px; font-size:16px !important"></span>Cobrado
-                                                </span></h6>
-                                            <h6 class="mb-2 w-100"><span class="w-100 badge badge-info"
-                                                    style="text-align: left;"><span class="progress-indicator"
-                                                        style="background-color: {{daysColors 17}}; display: inline-block; width: 12px; height: 12px; border-radius: 100%; margin-right: 8px; font-size:16px !important"></span>Facturado
-                                                </span></h6>
-                                            <h6 class="mb-2 w-100"><span class="w-100 badge badge-primary"
-                                                    style="text-align: left;"><span class="progress-indicator"
-                                                        style="background-color: {{daysColors 31}}; display: inline-block; width: 12px; height: 12px; border-radius: 100%; margin-right: 8px; font-size:16px !important"></span>Comprado
-                                                </span></h6>
-                                            <h6 class="mb-2 w-100"><span class="w-100 badge badge-secondary"
-                                                    style="text-align: left;"><span class="progress-indicator"
-                                                        style="background-color: {{daysColors 46}}; display: inline-block; width: 12px; height: 12px; border-radius: 100%; margin-right: 8px; font-size:16px !important"></span>MO
-                                                    Horas Técnicas </span></h6>
-                                            <h6 class="mb-2 w-100"><span class="w-100 badge badge-warning"
-                                                    style="text-align: left;"><span class="progress-indicator"
-                                                        style="background-color: {{daysColors 66}}; display: inline-block; width: 12px; height: 12px; border-radius: 100%; margin-right: 8px; font-size:16px !important"></span>MO
-                                                    Indirecto de Campo </span></h6>
-                                            <h6 class="mb-2 w-100"><span class="w-100 badge "
-                                                    style="text-align: left; background-color:#FFFF00;"><span
-                                                        class="progress-indicator"
-                                                        style="background-color: {{daysColors 91}}; display: inline-block; width: 12px; height: 12px; border-radius: 100%; margin-right: 8px; font-size:16px !important"></span>PF
-                                                </span></h6>
-                                            <h6 class="mb-2 w-100"><span class="w-100 badge "
-                                                    style="text-align: left; background-color:#001F7F; color:white"><span
-                                                        class="progress-indicator"
-                                                        style="background-color: {{daysColors 121}}; display: inline-block; width: 12px; height: 12px; border-radius: 100%; margin-right: 8px; font-size:16px !important"></span>
-                                                    Tiempos de Proyecto </span></h6>
-                                            <h6 class="mb-2 w-100"><span class="w-100 badge "
-                                                    style="text-align: left; background-color:#A8D08C; color:white"><span
-                                                        class="progress-indicator"
-                                                        style="background-color: {{daysColors 121}}; display: inline-block; width: 12px; height: 12px; border-radius: 100%; margin-right: 8px; font-size:16px !important"></span>
-                                                    Inventario de H. Técnicas </span></h6>
-
-                                        </ul>
-                                    </div>
-
-                                    <div class="col-6 border">
-                                        <div>
-                                            <h3 class="d-flex align-items-center">
-                                                <div class="text-left font-weight-bold">0%</div>
-                                                <div class="ml-auto text-right font-weight-bold">100%</div>
-                                            </h3>
-                                        </div>
-
-                                        <div class="progress mb-2" style="height: 22px;">
-                                            <span class="progress-indicator"
-                                                style="background-color: {{daysColors 1}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
-                                            <div class="progress-bar bg-success" role="progressbar"
-                                                style="width: 20%; height: 30px !important;" aria-valuenow="20"
-                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-
-                                        <div class="progress mb-2" style="height: 21px;">
-                                            <span class="progress-indicator"
-                                                style="background-color: {{daysColors 17}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
-                                            <div class="progress-bar bg-info" role="progressbar"
-                                                style="width: 30%; height: 30px !important;" aria-valuenow="30"
-                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-
-                                        <div class="progress mb-2" style="height: 21px;">
-                                            <span class="progress-indicator"
-                                                style="background-color: {{daysColors 17}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
-                                            <div class="progress-bar bg-primary" role="progressbar"
-                                                style="width: 40%; height: 30px !important;" aria-valuenow="40"
-                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-
-                                        <div class="progress mb-2" style="height: 21px;">
-                                            <span class="progress-indicator"
-                                                style="background-color: {{daysColors 31}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
-                                            <div class="progress-bar bg-secondary" role="progressbar"
-                                                style="width: 50%; height: 30px !important;" aria-valuenow="50"
-                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-
-                                        <div class="progress mb-2" style="height: 21px;">
-                                            <span class="progress-indicator"
-                                                style="background-color: {{daysColors 15}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
-                                            <div class="progress-bar bg-warning" role="progressbar"
-                                                style="width: 60%; height: 30px !important;" aria-valuenow="60"
-                                                aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-
-                                        <div class="progress mb-2" style="height: 21px;">
-                                            <span class="progress-indicator"
-                                                style="background-color: {{daysColors 15}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
-                                            <div class="progress-bar" role="progressbar"
-                                                style="width: 70%; height: 30px !important; background-color:#FFFF00;"
-                                                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-
-                                        <div class="progress mb-2" style="height: 21px;">
-                                            <span class="progress-indicator"
-                                                style="background-color: {{daysColors 15}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
-                                            <div class="progress-bar " role="progressbar"
-                                                style="width: 90%; height: 30px !important; background-color:#001F7F;"
-                                                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-
-                                        <div class="progress mb-2" style="height: 21px;">
-                                            <span class="progress-indicator"
-                                                style="background-color: {{daysColors 15}}; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
-                                            <div class="progress-bar " role="progressbar"
-                                                style="width: 100%; height: 30px !important; background-color:#A8D08C;"
-                                                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </div>
     </div>
@@ -400,69 +240,7 @@
 <br> <br>
 
 
-<div class="row">
-    <div class="col-xl-12">
-        <div id="panel-1" class="panel">
-            <div class="panel-hdr">
-                <h2>
-                    Visualizar Proyectos <span class="fw-300"><i>DOTDCD - ERP</i></span>
-                </h2>
-                <div class="panel-toolbar">
-                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10"
-                        data-original-title="Collapse"></button>
-                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
-                        data-offset="0,10" data-original-title="Fullscreen"></button>
-                    <button class="btn btn-panel" data-action="panel-close" data-toggle="tooltip" data-offset="0,10"
-                        data-original-title="Close"></button>
-                </div>
-            </div>
-            <div class="panel-container show">
-                <div class="panel-content ">
-                    <div class="container-fluid">
-                        <div class="d-flex align-items-center">
-                            <div class="text-left">0%</div>
-                            <div class="ml-auto text-right">100%</div>
-                        </div>
-                        <div class="container-fluid"><br>
-                            <div class="cotizado" style="background-color: #B3C6E7; height:65vh">cotizado SILICA
-                                DESARROLLOS
-                                <div class="tiemposProyecto" style="background-color: #FFC000; height:5vh; width:10vw;">
-                                    tiemposProyecto</div>
-                                <div class="facturado" style="background-color: #4472C4; height:25vh; width:40vw;">
-                                    facturado
-                                    <div class="cobrado" style="background-color: #ED7D31; height:12vh; width:35vw">
-                                        cobrado
-                                        <div class="htecnicas_consumidas ml-6"
-                                            style="background-color: #A8D08C;  height:5vh; width:10vw;">
-                                            htecnicas_consumidas</div>
-                                    </div>
-                                </div> <br>
-                                <div class="contenedor d-flex justify-content-center">
-                                    <div class="comprado"
-                                        style="background-color: #FB4FEF; width:10% !important; height:40px !important">
-                                        comprado</div>
-                                </div> <br>
-                                <div class="contenedor d-flex justify-content-center">
-                                    <div class="pf"
-                                        style="background-color: #FFFF00; width:10% !important; height:40px !important">
-                                        pf</div>
-                                </div>
-                                <br>
-                                <div class="contenedor d-flex justify-content-center">
-                                    <div class="h_indirectas"
-                                        style="background-color: #002060; width:10% !important;    height:40px !important">
-                                        h_indirectas</div>
-                                </div>
-                                <p class="text-right"><span>$432,234.00</span></p>
-                            </div>
-                        </div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 {{#section 'scripts'}}
 <script>
