@@ -450,30 +450,18 @@ const getCostos = async (cotizacionId) => {
 
   const getEstatusDias = async (cotizacionId) => {
     
-    /*
-    const cobradoQuery =
-      "SELECT MAX(pago_fecha) as fecha FROM facturas_pagos JOIN facturas ON factura_id = pago_factura_id WHERE factura_proyecto_id = ? AND factura_estatus_baja = 1";
-    const facturadoQuery =
-      "SELECT MAX(factura_fecha_alta) as fecha FROM facturas WHERE factura_proyecto_id = ? AND factura_estatus_baja = 1";
-    const compradoQuery =
-      "SELECT MAX(cheque_fecha_alta) as fecha FROM cheques WHERE cheque_cotizacion_id = ? AND cheque_ingreso != 1";
-  
-    const [[cobrado], [facturado], [comprado]] = await Promise.all([
-      pool.query(cobradoQuery, [cotizacionId]),
-      pool.query(facturadoQuery, [cotizacionId]),
-      pool.query(compradoQuery, [cotizacionId]),
-    ]);
-  
-    return {
-      Fcobrado: cobrado.fecha, 
-      Ffacturado: facturado.fecha,
-      Fcomprado: comprado.fecha,
-    };
-    */
-
     const todo = await pool.query("SELECT (SELECT DATE_FORMAT(MAX(pago_fecha), '%Y-%m-%d') FROM facturas_pagos JOIN facturas ON factura_id = pago_factura_id WHERE factura_proyecto_id = ? AND factura_estatus_baja = 1) as cobrado, (SELECT DATE_FORMAT(MAX(factura_fecha_alta), '%Y-%m-%d') FROM facturas WHERE factura_proyecto_id = ? AND factura_estatus_baja = 1) as facturado, (SELECT DATE_FORMAT(MAX(cheque_fecha_alta), '%Y-%m-%d') FROM cheques WHERE cheque_cotizacion_id = ? AND cheque_ingreso != 1) as comprado FROM dual", [cotizacionId, cotizacionId, cotizacionId] );
     return todo[0];
   };
+
+
+  const getComprado = async (cotizacionId) => {
+    const [compradoRows] = await pool.query(
+        "SELECT SUM(coalesce(cheque_monto, 0) + coalesce(pago_monto, 0) + coalesce(pago_monto_moneda_cheque, 0)) as comprado FROM cheques LEFT JOIN ordenes_compra_pagos ON ordenes_compra_pagos.pago_cheque_id = cheques.cheque_id WHERE cheques.cheque_cotizacion_id = ? AND cheques.cheque_ingreso <> '1' AND cheques.cheque_estatus_baja = 0",
+        [cotizacionId]
+    );
+    return compradoRows[0]?.comprado ?? 0;
+};
 
 
 //! Start Analytics Proyectos
@@ -486,19 +474,19 @@ export const renderProyectos = async (req, res) => {
       const proyectosData = await Promise.all(
         proyectos.map(async (proyecto) => {
           const { cotizacion_id, total } = proyecto;
-          const [costos, facturado, cobrado, tiempos, dias] = await Promise.all([
+          const [costos, facturado, cobrado, tiempos, dias, comprado] = await Promise.all([
             getCostos(cotizacion_id),
             getFacturado(cotizacion_id),
             getCobrado(cotizacion_id),
             getTiempos(cotizacion_id),
             getEstatusDias(cotizacion_id),
+            getComprado(cotizacion_id)
           ]);
 
           const porcentajecobrado = (((cobrado ?? 0) / total) * 100) || 0;
           const porcentajefacturado = (((facturado ?? 0) / total) * 100) || 0;
-          const porcentajecomprado = ((costos.total_costo_comprado ?? 0) / (costos.total_costo_cotizado ?? 0)) * 100 || 0;        
-          
-
+          const porcentajecomprado = ((comprado ?? 0) / (costos.total_costo_cotizado ?? 0)) * 100 || 0;
+        
           return { ...proyecto, costos, facturado, cobrado, tiempos: tiempos[0], dias: dias[0] , porcentajecobrado, porcentajefacturado, porcentajecomprado } ;
         })
       );
@@ -506,9 +494,10 @@ export const renderProyectos = async (req, res) => {
       res.render('analytics/proyectos', { proyectos: proyectosData, newPage });
     } catch (error) {
       console.log(error);
-    }  };
+    }  
+};
 
-
+//? aaaaaaaaaaaaaaaa me ;;eva ;a verga
 
 //?Inicia reportes de departamentos
 
