@@ -405,12 +405,7 @@ const getProyectos = async (page) => {
 
 const getCostos = async (cotizacionId) => {
     const costos = await pool.query(
-      "SELECT SUM(IF(producto_moneda_id = 1, insumo_cantidad * producto_costo * 1.16, " +
-      "        IF(insumo_precio_ma = 0, 0, insumo_cantidad * producto_costo * 1.16 * 21 + insumo_cantidad * insumo_precio_ma + insumo_cantidad * insumo_precio_mo)" +
-      "    )) AS total_cotizado1, " +
-      "    SUM(IF(producto_moneda_id = 2, insumo_cantidad * producto_costo * 1.16 * 21, " +
-      "        IF(insumo_precio_ma = 0, 0, insumo_cantidad * producto_costo * 1.16)" +
-      "    )) AS total_costo_cotizado1, " +
+      "SELECT " +
       "    SUM(IF(producto_moneda_id = 1, insumo_cantidad * producto_costo * 1.16, " +
       "        IF(insumo_precio_ma = 0, 0, insumo_cantidad * producto_costo * 1.16 * 21 + insumo_cantidad * insumo_precio_ma + insumo_cantidad * insumo_precio_mo)" +
       "    )) AS total_cotizado, " +
@@ -486,12 +481,11 @@ export const renderProyectos = async (req, res) => {
     try {
       const { page } = req.body;
       const newPage = page + 1;
-  
       const proyectos = await getProyectos();
-  
+
       const proyectosData = await Promise.all(
         proyectos.map(async (proyecto) => {
-          const { cotizacion_id } = proyecto;
+          const { cotizacion_id, total } = proyecto;
           const [costos, facturado, cobrado, tiempos, dias] = await Promise.all([
             getCostos(cotizacion_id),
             getFacturado(cotizacion_id),
@@ -500,16 +494,12 @@ export const renderProyectos = async (req, res) => {
             getEstatusDias(cotizacion_id),
           ]);
 
+          const porcentajecobrado = (((cobrado ?? 0) / total) * 100) || 0;
+          const porcentajefacturado = (((facturado ?? 0) / total) * 100) || 0;
+          const porcentajecomprado = ((costos.total_costo_comprado ?? 0) / (costos.total_costo_cotizado ?? 0)) * 100 || 0;        
           
 
-            const porcentajecobrado = ((cobrado) ? cobrado : 0 / costos.total_costo_cotizado) * 100;
-            const porcentajefacturado = (facturado / costos.total_costo_cotizado) * 100;
-            const porcentajecomprado = (costos.total_costo_comprado / costos.total_costo_cotizado) * 100;
-            const porcentajepagado = (costos.total_costo_pagado / costos.total_costo_cotizado) * 100;
-
-
-
-          return { ...proyecto, costos, facturado, cobrado, tiempos: tiempos[0], dias: dias[0] , porcentajecobrado, porcentajefacturado, porcentajecomprado, porcentajepagado } ;
+          return { ...proyecto, costos, facturado, cobrado, tiempos: tiempos[0], dias: dias[0] , porcentajecobrado, porcentajefacturado, porcentajecomprado } ;
         })
       );
       console.log(proyectosData)
