@@ -397,91 +397,126 @@ export const renderAnalytics = async (req, res) => {
 //*Esto trae el header de los cards de proyectos
 //Es la informacion de la cotizacion y del cliente
 //Trae lo cotizado tambien
-export const getProyectos = async (req, res) => {
-    const cotizaciones = await pool.query("SELECT c.cotizacion_id, c.cotizacion_proyecto, c.cotizacion_moneda_id, c.total, c.pf, c.cotizacion_descripcion, cl.cliente_razon_social FROM cotizaciones c JOIN clientes cl ON c.cotizacion_cliente_id = cl.cliente_id WHERE c.cotizacion_estatus_baja = 0 AND c.cotizacion_autorizada_estatus = 1 AND liquidada_sn = 0 ")
-    for (const c of cotizaciones[0]) {
-        
-        const cotizacionId = c.cotizacion_id
-
-
-        // Consultas a la base de datos
-        const [costoTotalRows] = await pool.query(
-        "SELECT SUM(IF(producto_moneda_id = 1, ((insumo_cantidad * producto_costo) * (1 + 1 * (.16))) * 1, ((insumo_cantidad * (insumo_precio_ma + insumo_precio_mo)) * (1 + 1 * (.16))) * 21)) AS total_cotizado, SUM(IF(producto_moneda_id = 2, ((insumo_cantidad * producto_costo) * (1 + 1 * (.16))) * 21, CASE insumo_precio_ma WHEN 0 THEN 0 ELSE ((insumo_cantidad * producto_costo) * (1 + 1 * (.16))) END)) AS total_costo_cotizado FROM cotizaciones_insumos JOIN productos ON producto_id = insumo_producto_id WHERE insumo_cotizacion_id = ?",
-        [cotizacionId]
-        );
-
-        const [cobradoRows] = await pool.query(
-        "SELECT ROUND(SUM(CASE factura_moneda_id WHEN 1 THEN factura_total WHEN 2 THEN factura_total * 21 ELSE 0 END), 2) AS facturado FROM facturas WHERE factura_proyecto_id = ? AND factura_estatus_baja = 1 ",
-        [cotizacionId]
-        );
-
-        const [facturadoRows] = await pool.query(
-        "SELECT SUM(CASE factura_moneda_id WHEN 1 THEN factura_total WHEN 2 THEN factura_total * 21 ELSE 0 END) AS facturado FROM facturas WHERE factura_proyecto_id = ? AND factura_estatus_baja = 1",
-        [cotizacionId]
-        );
-
-        const [tiemposRows] = await pool.query(
-        "SELECT fecha_inicio, fecha_termino, IF(DATEDIFF(fecha_termino, fecha_inicio) = 0, 100, DATEDIFF(NOW(), fecha_inicio) / DATEDIFF(fecha_termino, fecha_inicio) * 100) AS porcentaje_avance FROM cotizaciones WHERE cotizacion_id = ?",
-        [cotizacionId]
-        );
-        
-        const Fcobrado = await pool.query("SELECT DATE_FORMAT(MAX(pago_fecha), '%Y-%m-%d') as uCobrado FROM facturas_pagos JOIN facturas ON factura_id = pago_factura_id WHERE factura_proyecto_id = ? AND factura_estatus_baja = 1", [cotizacionId])
-        const Ffacturado   = await pool.query("SELECT DATE_FORMAT(MAX(factura_fecha_alta), '%Y-%m-%d') as uFacturado FROM facturas WHERE factura_proyecto_id = ? AND factura_estatus_baja = 1", [cotizacionId])
-        const Fcomprado = await pool.query("SELECT DATE_FORMAT(MAX(pago_fecha), '%Y-%m-%d') as uComprado FROM cheques JOIN bancos_cuentas ON banco_cuenta_id = cheque_cuenta_id LEFT JOIN ordenes_compra_pagos ON pago_cheque_id = cheque_id LEFT JOIN ordenes_compra ON orden_id = pago_orden_id LEFT JOIN requisiciones ON requisicion_id = orden_requisicion_id WHERE cheque_ingreso <> '1' AND cheque_estatus_baja = 0 AND (COALESCE(orden_cotizacion_id, 0) = ? OR COALESCE(cheque_cotizacion_id, 0) = ? OR COALESCE(requisicion_cotizacion_id, 0) = ?)", [cotizacionId, cotizacionId, cotizacionId]);
-        
-        c.Fcobrado = Fcobrado[0][0].uCobrado
-        c.Ffacturado = Ffacturado[0][0].uFacturado
-        c.Fcomprado = Fcomprado[0][0].uComprado
-        console.log(c.Fcobrado, c.Ffacturado, c.Fcomprado)
-
-        // Cálculos y asignaciones
-        const costoTotal = costoTotalRows[0];
-        c.costtoTotal = costoTotal.total_cotizado;
-
-        const cobrado = cobradoRows[0];
-        c.cobrado = ((cobrado?.facturado || 0) / c.total) * 100;
-
-        const facturado = facturadoRows[0];
-        c.facturas = ((facturado?.facturado || 0) / c.total) * 100;
-
-        const tiempos = tiemposRows[0];
-        const porcentajeAvance = tiempos?.porcentaje_avance || 0;
-        c.tiempos = parseInt(porcentajeAvance);
-
-        //*Obtener lo comprado
-        const acumuladoPorCotizacionId = {};
-
-        const comprado = await pool.query("SELECT banco_cuenta_moneda_id, SUM( CASE WHEN banco_cuenta_moneda_id = 1 THEN COALESCE(pago_monto_moneda_cheque, 0) WHEN banco_cuenta_moneda_id = 2 THEN COALESCE(pago_monto_moneda_cheque, 0) * 21 ELSE 0 END ) AS pago_orden_modificado FROM cheques JOIN bancos_cuentas ON banco_cuenta_id = cheque_cuenta_id LEFT JOIN ordenes_compra_pagos ON pago_cheque_id = cheque_id LEFT JOIN ordenes_compra ON orden_id = pago_orden_id LEFT JOIN requisiciones ON requisicion_id = orden_requisicion_id WHERE cheque_ingreso <> '1' AND cheque_estatus_baja = 0 AND (COALESCE(orden_cotizacion_id, 0) = ? OR COALESCE(cheque_cotizacion_id, 0) = ? OR COALESCE(requisicion_cotizacion_id, 0) = ?) GROUP BY banco_cuenta_moneda_id, cheque_monto ORDER BY cheque_id", [cotizacionId, cotizacionId, cotizacionId]);
-
-        for (const s of comprado[0]) {
-        const cotizacionId = parseInt(c.cotizacion_id);
-        const pagoOrdenModificado = parseInt(s.pago_orden_modificado);
-        if (!acumuladoPorCotizacionId[cotizacionId]) {
-            acumuladoPorCotizacionId[cotizacionId] = pagoOrdenModificado;
-        } else {
-            acumuladoPorCotizacionId[cotizacionId] += pagoOrdenModificado;
-        }
-        
-    }
-        c.comprado = ((acumuladoPorCotizacionId[cotizacionId] == null) ? 0 : acumuladoPorCotizacionId[cotizacionId] / c.costtoTotal) * 100
-
-        
-    }
-    return cotizaciones[0]
+const getProyectos = async (page) => {
+    const cotizaciones = await pool.query("SELECT c.cotizacion_id, c.cotizacion_proyecto, c.cotizacion_moneda_id, c.total, c.pf, c.cotizacion_descripcion, cl.cliente_razon_social, total FROM cotizaciones c JOIN clientes cl ON c.cotizacion_cliente_id = cl.cliente_id WHERE c.cotizacion_estatus_baja = 0 AND c.cotizacion_autorizada_estatus = 1 AND liquidada_sn = 0")
+    
+    return cotizaciones[0];
 }
+
+const getCostos = async (cotizacionId) => {
+    const costos = await pool.query(
+      "SELECT SUM(IF(producto_moneda_id = 1, insumo_cantidad * producto_costo * 1.16, " +
+      "        IF(insumo_precio_ma = 0, 0, insumo_cantidad * producto_costo * 1.16 * 21 + insumo_cantidad * insumo_precio_ma + insumo_cantidad * insumo_precio_mo)" +
+      "    )) AS total_cotizado1, " +
+      "    SUM(IF(producto_moneda_id = 2, insumo_cantidad * producto_costo * 1.16 * 21, " +
+      "        IF(insumo_precio_ma = 0, 0, insumo_cantidad * producto_costo * 1.16)" +
+      "    )) AS total_costo_cotizado1, " +
+      "    SUM(IF(producto_moneda_id = 1, insumo_cantidad * producto_costo * 1.16, " +
+      "        IF(insumo_precio_ma = 0, 0, insumo_cantidad * producto_costo * 1.16 * 21 + insumo_cantidad * insumo_precio_ma + insumo_cantidad * insumo_precio_mo)" +
+      "    )) AS total_cotizado, " +
+      "    SUM(IF(producto_moneda_id = 2, insumo_cantidad * producto_costo * 1.16 * 21, " +
+      "        IF(insumo_precio_ma = 0, 0, insumo_cantidad * producto_costo * 1.16)" +
+      "    )) AS total_costo_cotizado " +
+      "FROM cotizaciones_insumos " +
+      "JOIN productos ON producto_id = insumo_producto_id " +
+      "WHERE insumo_cotizacion_id = ? AND producto_estatus_baja = 0",
+      [cotizacionId]
+    );
+    return costos[0][0];
+  };
+  
+  
+
+  const getCobrado = async (cotizacionId) => {
+    const [cobradoRows] = await pool.query(
+      "SELECT SUM(CASE WHEN f.factura_moneda_id = 1 THEN fp.pago_monto_moneda_cheque WHEN f.factura_moneda_id = 2 THEN fp.pago_monto_moneda_cheque * 21 END) AS total_amount FROM facturas_pagos fp JOIN facturas f ON fp.pago_factura_id = f.factura_id WHERE f.factura_proyecto_id = ?  AND f.factura_estatus_baja = 1",
+      [cotizacionId]
+    );
+  
+    return cobradoRows[0]?.total_amount ?? 0;
+  };
+
+  const getFacturado = async (cotizacionId) => {
+    const [cobradoRows] = await pool.query(
+      "SELECT ROUND(SUM(CASE factura_moneda_id WHEN 1 THEN factura_total WHEN 2 THEN factura_total * 21 ELSE 0 END), 2) AS facturado FROM facturas WHERE factura_proyecto_id = ? AND factura_estatus_baja = 1 ",
+      [cotizacionId]
+    );
+  
+    return cobradoRows[0]?.facturado ?? 0;
+  };
+  
+  const getTiempos = async (cotizacionId) => {
+    const [tiemposRows] = await pool.query(
+      "SELECT fecha_inicio, fecha_termino, IF(DATEDIFF(fecha_termino, fecha_inicio) = 0, 100, DATEDIFF(NOW(), fecha_inicio) / DATEDIFF(fecha_termino, fecha_inicio) * 100) AS porcentaje_avance FROM cotizaciones WHERE cotizacion_id = ? LIMIT 1",
+      [cotizacionId]
+    );
+    return tiemposRows;
+  };
+
+  const getEstatusDias = async (cotizacionId) => {
+    
+    /*
+    const cobradoQuery =
+      "SELECT MAX(pago_fecha) as fecha FROM facturas_pagos JOIN facturas ON factura_id = pago_factura_id WHERE factura_proyecto_id = ? AND factura_estatus_baja = 1";
+    const facturadoQuery =
+      "SELECT MAX(factura_fecha_alta) as fecha FROM facturas WHERE factura_proyecto_id = ? AND factura_estatus_baja = 1";
+    const compradoQuery =
+      "SELECT MAX(cheque_fecha_alta) as fecha FROM cheques WHERE cheque_cotizacion_id = ? AND cheque_ingreso != 1";
+  
+    const [[cobrado], [facturado], [comprado]] = await Promise.all([
+      pool.query(cobradoQuery, [cotizacionId]),
+      pool.query(facturadoQuery, [cotizacionId]),
+      pool.query(compradoQuery, [cotizacionId]),
+    ]);
+  
+    return {
+      Fcobrado: cobrado.fecha, 
+      Ffacturado: facturado.fecha,
+      Fcomprado: comprado.fecha,
+    };
+    */
+
+    const todo = await pool.query("SELECT (SELECT DATE_FORMAT(MAX(pago_fecha), '%Y-%m-%d') FROM facturas_pagos JOIN facturas ON factura_id = pago_factura_id WHERE factura_proyecto_id = ? AND factura_estatus_baja = 1) as cobrado, (SELECT DATE_FORMAT(MAX(factura_fecha_alta), '%Y-%m-%d') FROM facturas WHERE factura_proyecto_id = ? AND factura_estatus_baja = 1) as facturado, (SELECT DATE_FORMAT(MAX(cheque_fecha_alta), '%Y-%m-%d') FROM cheques WHERE cheque_cotizacion_id = ? AND cheque_ingreso != 1) as comprado FROM dual", [cotizacionId, cotizacionId, cotizacionId] );
+    return todo[0];
+  };
 
 
 //! Start Analytics Proyectos
 export const renderProyectos = async (req, res) => {
     try {
-        const proyectos = await getProyectos()
-        // const ids = proyectos. map((proyecto) => proyecto.cotizacion_id) // Almacenar todos los IDs en un array
-        res.render('analytics/proyectos', {proyectos})
-    } catch (error) {
-        console.log(error)
-    }
+      const { page } = req.body;
+      const newPage = page + 1;
+  
+      const proyectos = await getProyectos();
+  
+      const proyectosData = await Promise.all(
+        proyectos.map(async (proyecto) => {
+          const { cotizacion_id } = proyecto;
+          const [costos, facturado, cobrado, tiempos, dias] = await Promise.all([
+            getCostos(cotizacion_id),
+            getFacturado(cotizacion_id),
+            getCobrado(cotizacion_id),
+            getTiempos(cotizacion_id),
+            getEstatusDias(cotizacion_id),
+          ]);
 
-}
+          
+
+            const porcentajecobrado = ((cobrado) ? cobrado : 0 / costos.total_costo_cotizado) * 100;
+            const porcentajefacturado = (facturado / costos.total_costo_cotizado) * 100;
+            const porcentajecomprado = (costos.total_costo_comprado / costos.total_costo_cotizado) * 100;
+            const porcentajepagado = (costos.total_costo_pagado / costos.total_costo_cotizado) * 100;
+
+
+
+          return { ...proyecto, costos, facturado, cobrado, tiempos: tiempos[0], dias: dias[0] , porcentajecobrado, porcentajefacturado, porcentajecomprado, porcentajepagado } ;
+        })
+      );
+      console.log(proyectosData)
+      res.render('analytics/proyectos', { proyectos: proyectosData, newPage });
+    } catch (error) {
+      console.log(error);
+    }  };
 
 
 
