@@ -104,7 +104,7 @@ function loaderUpd() {
   divLoader.style.backgroundColor = 'black';
   divLoader.style.opacity = '0.7';
 
-  // Crear el elemento img con la imagen a mostrar
+  // Crear el elemento img con la imagen a mostrar 1
   const imgLoader = document.createElement('span');
   imgLoader.className = 'loaderUpd';
   imgLoader.style.left = '50%';
