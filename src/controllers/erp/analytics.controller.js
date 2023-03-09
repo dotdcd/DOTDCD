@@ -457,7 +457,7 @@ const getCostos = async (cotizacionId) => {
 
   const getComprado = async (cotizacionId) => {
     const [compradoRows] = await pool.query(
-        "SELECT SUM(coalesce(cheque_monto, 0) + coalesce(pago_monto, 0) + coalesce(pago_monto_moneda_cheque, 0)) as comprado FROM cheques LEFT JOIN ordenes_compra_pagos ON ordenes_compra_pagos.pago_cheque_id = cheques.cheque_id WHERE cheques.cheque_cotizacion_id = ? AND cheques.cheque_ingreso <> '1' AND cheques.cheque_estatus_baja = 0",
+        "SELECT SUM(CASE WHEN banco_cuenta_moneda_id = 1 THEN IF(pago_monto_moneda_cheque != 0, pago_monto_moneda_cheque, cheque_monto) ELSE IF(pago_monto_moneda_cheque != 0, pago_monto_moneda_cheque * 21, cheque_monto * 21) END) AS total FROM cheques LEFT JOIN bancos_cuentas ON banco_cuenta_id = cheque_cuenta_id LEFT JOIN ordenes_compra_pagos ON pago_cheque_id = cheque_id LEFT JOIN ordenes_compra ON orden_id = pago_orden_id WHERE cheque_ingreso <> '1' AND cheque_estatus_baja = 0 AND ? IN (COALESCE(orden_cotizacion_id, cheque_cotizacion_id))",
         [cotizacionId]
     );
     return compradoRows[0]?.comprado ?? 0;
