@@ -1,5 +1,4 @@
 /node_modules
-.env
 /src/uploads
 /diagrams
 index.html
@@ -7,3 +6,7 @@ tailwind.config.css
 things.txt
 USER_FILES.sql
 /solar
+egresos.txt
+tailwind.config.css
+asd.php
+.env
