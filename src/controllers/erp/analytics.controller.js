@@ -399,7 +399,7 @@ export const renderAnalytics = async (req, res) => {
 //Trae lo cotizado tambien
 const getProyectos = async (page) => {
     const salts = 50 * page
-    const cotizaciones = await pool.query("SELECT c.cotizacion_id, c.cotizacion_proyecto, c.cotizacion_moneda_id, c.total, c.pf, c.cotizacion_descripcion, cl.cliente_razon_social, total FROM cotizaciones c JOIN clientes cl ON c.cotizacion_cliente_id = cl.cliente_id WHERE c.cotizacion_estatus_baja = 0 AND c.cotizacion_autorizada_estatus = 1 AND liquidada_sn = 0 order by c.cotizacion_id DESC LIMIT 99 OFFSET "+salts)
+    const cotizaciones = await pool.query("SELECT c.cotizacion_id, c.cotizacion_proyecto, c.cotizacion_moneda_id, c.total, c.pf, c.cotizacion_descripcion, cl.cliente_razon_social, total FROM cotizaciones c JOIN clientes cl ON c.cotizacion_cliente_id = cl.cliente_id WHERE c.cotizacion_estatus_baja = 0 AND c.cotizacion_autorizada_estatus = 1 AND liquidada_sn = 0 order by c.cotizacion_id DESC LIMIT 50 OFFSET "+salts)
     return cotizaciones[0];
 }
 
@@ -457,7 +457,7 @@ const getCostos = async (cotizacionId) => {
 
   const getComprado = async (cotizacionId) => {
     const [compradoRows] = await pool.query(
-        "SELECT SUM(CASE WHEN banco_cuenta_moneda_id = 1 THEN IF(pago_monto_moneda_cheque != 0, pago_monto_moneda_cheque, cheque_monto) ELSE IF(pago_monto_moneda_cheque != 0, pago_monto_moneda_cheque * 21, cheque_monto * 21) END) AS SELECT SUM(CASE WHEN banco_cuenta_moneda_id = 1 THEN IF(pago_monto_moneda_cheque != 0, pago_monto_moneda_cheque, cheque_monto) ELSE IF(pago_monto_moneda_cheque != 0, pago_monto_moneda_cheque * 21, cheque_monto * 21) END) AS total FROM cheques LEFT JOIN bancos_cuentas ON banco_cuenta_id = cheque_cuenta_id LEFT JOIN ordenes_compra_pagos ON pago_cheque_id = cheque_id LEFT JOIN ordenes_compra ON orden_id = pago_orden_id WHERE cheque_ingreso <> '1' AND cheque_estatus_baja = 0 AND ? IN (COALESCE(orden_cotizacion_id, cheque_cotizacion_id)) FROM cheques LEFT JOIN bancos_cuentas ON banco_cuenta_id = cheque_cuenta_id LEFT JOIN ordenes_compra_pagos ON pago_cheque_id = cheque_id LEFT JOIN ordenes_compra ON orden_id = pago_orden_id WHERE cheque_ingreso <> '1' AND cheque_estatus_baja = 0 AND ? IN (COALESCE(orden_cotizacion_id, cheque_cotizacion_id))",
+        "SELECT SUM(CASE WHEN banco_cuenta_moneda_id = 1 THEN IF(pago_monto_moneda_cheque != 0, pago_monto_moneda_cheque, cheque_monto) ELSE IF(pago_monto_moneda_cheque != 0, pago_monto_moneda_cheque * 21, cheque_monto * 21) END) AS total FROM cheques LEFT JOIN bancos_cuentas ON banco_cuenta_id = cheque_cuenta_id LEFT JOIN ordenes_compra_pagos ON pago_cheque_id = cheque_id LEFT JOIN ordenes_compra ON orden_id = pago_orden_id WHERE cheque_ingreso <> '1' AND cheque_estatus_baja = 0 AND ? IN (COALESCE(orden_cotizacion_id, cheque_cotizacion_id))",
         [cotizacionId]
     );
     return compradoRows[0]?.total ?? 0;
@@ -485,15 +485,12 @@ export const renderProyectos = async (req, res) => {
 
 
             const porcentajecobrado = (((cobrado ?? 0) / total) * 100) || 0;
-            console.log(cobrado, total, porcentajecobrado);
             const porcentajefacturado = (((facturado ?? 0) / total) * 100) || 0;
             const porcentajecomprado = ((comprado ?? 0) / (costos.total_costo_cotizado ?? 0)) * 100 || 0;
-             
+            
             return { ...proyecto, costos, facturado, cobrado, tiempos: tiempos[0], dias: dias[0] , porcentajecobrado, porcentajefacturado, porcentajecomprado } ;
             })
         );
-
-        
         
         const cantCotizaciones = await pool.query("SELECT COUNT(*) AS total FROM cotizaciones WHERE cotizacion_estatus_baja = 0 AND cotizacion_autorizada_estatus = 1 AND liquidada_sn = 0");
         const cantClientes = await pool.query("SELECT COUNT(DISTINCT cotizacion_cliente_id) AS total FROM cotizaciones WHERE cotizacion_estatus_baja = 0 AND cotizacion_autorizada_estatus = 1 AND liquidada_sn = 0 ");
