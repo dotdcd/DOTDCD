@@ -398,8 +398,8 @@ export const renderAnalytics = async (req, res) => {
 //Es la informacion de la cotizacion y del cliente
 //Trae lo cotizado tambien
 const getProyectos = async (page) => {
-    const cotizaciones = await pool.query("SELECT c.cotizacion_id, c.cotizacion_proyecto, c.cotizacion_moneda_id, c.total, c.pf, c.cotizacion_descripcion, cl.cliente_razon_social, total FROM cotizaciones c JOIN clientes cl ON c.cotizacion_cliente_id = cl.cliente_id WHERE c.cotizacion_estatus_baja = 0 AND c.cotizacion_autorizada_estatus = 1 AND liquidada_sn = 0")
-    
+    const salts = 50 * page
+    const cotizaciones = await pool.query("SELECT c.cotizacion_id, c.cotizacion_proyecto, c.cotizacion_moneda_id, c.total, c.pf, c.cotizacion_descripcion, cl.cliente_razon_social, total FROM cotizaciones c JOIN clientes cl ON c.cotizacion_cliente_id = cl.cliente_id WHERE c.cotizacion_estatus_baja = 0 AND c.cotizacion_autorizada_estatus = 1 AND liquidada_sn = 0 order by c.cotizacion_id DESC LIMIT 99 OFFSET "+salts)
     return cotizaciones[0];
 }
 
@@ -441,8 +441,8 @@ const getCostos = async (cotizacionId) => {
   };
   
   const getTiempos = async (cotizacionId) => {
-    const [tiemposRows] = await pool.query(
-      "SELECT fecha_inicio, fecha_termino, IF(DATEDIFF(fecha_termino, fecha_inicio) = 0, 100, DATEDIFF(NOW(), fecha_inicio) / DATEDIFF(fecha_termino, fecha_inicio) * 100) AS porcentaje_avance FROM cotizaciones WHERE cotizacion_id = ? LIMIT 1",
+        const [tiemposRows] = await pool.query(
+        "SELECT fecha_inicio, fecha_termino, IF(DATEDIFF(fecha_termino, fecha_inicio) = 0, 100, DATEDIFF(NOW(), fecha_inicio) / DATEDIFF(fecha_termino, fecha_inicio) * 100) AS porcentaje_avance FROM cotizaciones WHERE cotizacion_id = ? LIMIT 1",
       [cotizacionId]
     );
     return tiemposRows;
@@ -467,33 +467,36 @@ const getCostos = async (cotizacionId) => {
 //! Start Analytics Proyectos
 export const renderProyectos = async (req, res) => {
     try {
-      const { page } = req.body;
-      const newPage = page + 1;
-      const proyectos = await getProyectos();
+        const page = (req.query.page && parseFloat(req.query.page) >= 1) ? parseFloat(req.query.page) : 1;
+        const newPage = page + 1;
+        const proyectos = await getProyectos(page);
 
-      const proyectosData = await Promise.all(
-        proyectos.map(async (proyecto) => {
-          const { cotizacion_id, total } = proyecto;
-          const [costos, facturado, cobrado, tiempos, dias, comprado] = await Promise.all([
-            getCostos(cotizacion_id),
-            getFacturado(cotizacion_id),
-            getCobrado(cotizacion_id),
-            getTiempos(cotizacion_id),
-            getEstatusDias(cotizacion_id),
-            getComprado(cotizacion_id)
-          ]);
+        const proyectosData = await Promise.all(
+            proyectos.map(async (proyecto) => {
+            const { cotizacion_id, total } = proyecto;
+            const [costos, facturado, cobrado, tiempos, dias, comprado] = await Promise.all([
+                getCostos(cotizacion_id),
+                getFacturado(cotizacion_id),
+                getCobrado(cotizacion_id),
+                getTiempos(cotizacion_id),
+                getEstatusDias(cotizacion_id),
+                getComprado(cotizacion_id)
+            ]);
 
-          const porcentajecobrado = (((cobrado ?? 0) / total) * 100) || 0;
-          const porcentajefacturado = (((facturado ?? 0) / total) * 100) || 0;
-          const porcentajecomprado = ((comprado ?? 0) / (costos.total_costo_cotizado ?? 0)) * 100 || 0;
+
+            const porcentajecobrado = (((cobrado ?? 0) / total) * 100) || 0;
+            const porcentajefacturado = (((facturado ?? 0) / total) * 100) || 0;
+            const porcentajecomprado = ((comprado ?? 0) / (costos.total_costo_cotizado ?? 0)) * 100 || 0;
+            
+            return { ...proyecto, costos, facturado, cobrado, tiempos: tiempos[0], dias: dias[0] , porcentajecobrado, porcentajefacturado, porcentajecomprado } ;
+            })
+        );
         
-          return { ...proyecto, costos, facturado, cobrado, tiempos: tiempos[0], dias: dias[0] , porcentajecobrado, porcentajefacturado, porcentajecomprado } ;
-        })
-      );
-      console.log(proyectosData)
-      res.render('analytics/proyectos', { proyectos: proyectosData, newPage });
+        const cantCotizaciones = await pool.query("SELECT COUNT(*) AS total FROM cotizaciones WHERE cotizacion_estatus_baja = 0 AND cotizacion_autorizada_estatus = 1 AND liquidada_sn = 0");
+        const cantClientes = await pool.query("SELECT COUNT(DISTINCT cotizacion_cliente_id) AS total FROM cotizaciones WHERE cotizacion_estatus_baja = 0 AND cotizacion_autorizada_estatus = 1 AND liquidada_sn = 0 ");
+        res.render('analytics/proyectos', { proyectos: proyectosData, newPage, cantCotizaciones: cantCotizaciones[0][0].total, cantClientes: cantClientes[0][0].total });
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }  
 };
 

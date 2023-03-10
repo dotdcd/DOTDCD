@@ -32,6 +32,54 @@
  100%{ box-shadow: 0 0 0 10px inset }
 }
 
+.btn-link:hover {
+    text-decoration: none;
+}
+
+.btn-link:hover span {
+    color: #0084ff;
+}
+
+.btn-icon:hover {
+    text-decoration: none;
+    color: #008cff;
+}
+
+.btn-link:focus, .btn-link:hover {
+    text-decoration: none;
+}
+
+.table-custom {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.table-custom th {
+  background-color: #343a40;
+  color: #fff;
+  font-weight: bold;
+  text-align: left;
+  padding: 12px;
+}
+
+.table-custom td {
+  border: 1px solid #dee2e6;
+  padding: 12px;
+}
+
+.table-custom tr:nth-child(even) {
+  background-color: #e2e3e5;
+}
+
+.table-custom .additional {
+  font-weight: bold;
+  text-transform: uppercase;
+}
 
       
     
@@ -131,90 +179,6 @@
                                                 </table>
                                                 {{/if}}
 
-                                                {{#if (is p.cotizacion_tipo_id 2)}}
-
-
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="accor">
-                                                            
-                                                                
-                                                            
-                                                        </div>
-                                                        <div class="accordion w-100 bg-success" id="insumosAccordion">
-                                                            {{#each insumos}}
-                                                            <div class="card">
-                                                                <div class="card-header" id="heading{{@index}}">
-                                                                    <h2 class="mb-0">
-                                                                        <button class="btn btn-block btn-lg text-white"
-                                                                            style="background-color: #5A9A5A;"
-                                                                            type="button" data-toggle="collapse"
-                                                                            data-target="#collapse{{@index}}"
-                                                                            aria-expanded="true"
-                                                                            aria-controls="collapse{{@index}}">
-                                                                            {{diciplina_descripcion}}
-                                                                        </button>
-                                                                    </h2>
-                                                                </div>
-
-                                                                <div id="collapse{{@index}}" class="collapse"
-                                                                    aria-labelledby="heading{{@index}}"
-                                                                    data-parent="#insumosAccordion">
-                                                                    <div class="card-body">
-                                                                        
-                                                                        {{#each ../niveles}}
-                                                                            <div class="card nivel {{{accordionN nivel_id ../insumos}}}">
-                                                                                <div class="card-header" id="heading{{@index}}-{{@index}}">
-                                                                                    <h2 class="mb-0">
-                                                                                        <button class="btn btn-block btn-lg text-white" style="background-color: #0400fd;"
-                                                                                            type="button" data-toggle="collapse" data-target="#collapse{{@index}}-{{@index}}"
-                                                                                            aria-expanded="true" aria-controls="collapse{{@index}}-{{@index}}">
-                                                                                            {{nivel_descripcion}}
-                                                                                        </button>
-                                                                                    </h2>
-                                                                                </div>
-                                                                                <div class="collapse" id="collapse{{@index}}-{{@index}}" aria-labelledby="heading{{@index}}-{{@index}}">
-                                                                                    <div class="card-body">
-                                                                                    {{#each ../insumos}}
-                                                                                        {{#if (is insumo_nivel_id ../nivel_id)}}
-                                                                                            {{#if (is insumo_tipo_id 0 )}}
-                                                                                                <h1 class="aditional">{{producto}}</h1>
-                                                                                            {{/if}}
-                                                                                        {{/if}}
-                                                                                    {{/each}}
-                                                                                    {{#each ../../tipos}}
-                                                                                        <div class="card {{{accordionSub ../../insumos ../nivel_id tipo_id}}}">
-                                                                                            <div class="card-header" id="heading{{@index}}-{{@index}}-{{@index}}">
-                                                                                                <h2 class="mb-0">
-                                                                                                    <button class="btn btn-block btn-lg text-white" style="background-color: #828f11;"
-                                                                                                        type="button" data-toggle="collapse" data-target="#collapse{{@index}}-{{@index}}-{{@index}}"
-                                                                                                        aria-expanded="true" aria-controls="collapse{{@index}}-{{@index}}-{{@index}}">
-                                                                                                        {{tipo_descripcion}}
-                                                                                                    </button>
-                                                                                                </h2>
-                                                                                            </div>
-                                                                                            <div class="collapse" id="collapse{{@index}}-{{@index}}-{{@index}}" aria-labelledby="heading{{@index}}-{{@index}}-{{@index}}">
-                                                                                                {{#each ../../insumos}}
-                                                                                                    {{#if (isTwo insumo_tipo_id ../tipo_id insumo_nivel_id ../../nivel_id )}}
-                                                                                                        <h1 class="aditional">{{producto}}</h1>
-                                                                                                    {{/if}}
-                                                                                                {{/each}}
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    {{/each}}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        {{/each}}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            {{/each}}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {{/if}}
-
                                             </div>
                                         </div>
                                     </div> <br><br>
@@ -225,6 +189,133 @@
 
                                 </div>
                             </div>
+                            {{#if (is p.cotizacion_tipo_id 2)}}
+
+
+
+                                                    <div class="col-md-12" style="width: 100%;">
+                                                        <div class="accordion w-100" id="insumosAccordion">
+                                                            {{#each insumos}}
+                                                            <div class="card mb-2">
+                                                                <div class="card-header" id="heading{{@index}}">
+                                                                    <h2 class="mb-0" style="background-color: #f5f5f5; border-radius: 5px; border-bottom: 1px solid blue;">
+                                                                        <button class="btn btn-link btn-icon w-100 text-left p-3" type="button" data-toggle="collapse" data-target="#collapse{{@index}}" aria-expanded="true" aria-controls="collapse{{@index}}">
+                                                                            <i class="fas fa-book fa-lg mr-2"></i>
+                                                                            <span style="font-size: 1.2rem; font-weight: bold;">{{diciplina_descripcion}}</span>
+                                                                            <span class="float-right">
+                                                                                <i class="fas fa-angle-down"></i>
+                                                                            </span>
+                                                                        </button>
+                                                                    </h2>
+
+
+
+                                                                </div>
+
+                                                                <div id="collapse{{@index}}" class="collapse"
+                                                                    aria-labelledby="heading{{@index}}"
+                                                                    data-parent="#insumosAccordion">
+                                                                    <div class="card-body">
+                                                                        
+                                                                        {{#each ../niveles}}
+                                                                            <div class="card nivel {{{accordionN nivel_id ../insumos}}}">
+                                                                                <div class="card-header" id="heading{{@index}}-{{@index}}">
+                                                                                    <h2 class="mb-0" style="padding: 10px;">
+                                                                                        <button class="btn btn-block btn-lg text-white align-items-center" style="background-color: rgba(68, 81, 117, 0.9); text-align: left;" type="button" data-toggle="collapse" data-target="#collapse{{@index}}-{{@index}}" aria-expanded="true" aria-controls="collapse{{@index}}-{{@index}}">
+                                                                                            <i class="fas fa-building mr-2"></i>{{nivel_descripcion}}
+                                                                                            <i class="fas fa-angle-down float-right"></i>
+                                                                                        </button>
+                                                                                    </h2>
+                                                                                </div>
+                                                                                <div class="collapse" id="collapse{{@index}}-{{@index}}" aria-labelledby="heading{{@index}}-{{@index}}">
+                                                                                    <div class="card-body">
+                                                                                        <table class="table">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>Producto</th>
+                                                                                                    <th>Marca</th>
+                                                                                                    <th>Cantidad</th>
+                                                                                                    <th>Precio Unitario</th>
+                                                                                                    <th>Precio MO</th>
+                                                                                                    <th>Subtotal</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                              {{#each ../insumos}}
+                                                                                                    {{#if (is insumo_nivel_id ../nivel_id)}}
+                                                                                                        {{#if (is insumo_tipo_id 0 )}}
+                                                                                                            <tr>
+                                                                                                                <td class="additional">{{producto}}</td>
+                                                                                                                <td></td>
+                                                                                                                <td></td>
+                                                                                                                <td></td>
+                                                                                                                <td></td>
+                                                                                                                <td>$</td>               
+                                                                                                            </tr>
+                                                                                                        {{/if}}
+                                                                                                    {{/if}}
+                                                                                                {{/each}}
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                        {{#each ../../tipos}}
+                                                                                            <div class="card mb-3 {{{accordionSub ../../insumos ../nivel_id tipo_id}}}">
+                                                                                                <div class="card-header" id="heading{{@index}}-{{@index}}-{{@index}}">
+                                                                                                    <h2 class="mb-0">
+                                                                                                        <button class="btn btn-block btn-lg text-white" style="background-color: rgba(16, 70, 130, 0.7); box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2); border-radius: 8px; text-align: left;" type="button" data-toggle="collapse" data-target="#collapse{{@index}}-{{@index}}-{{@index}}" aria-expanded="true" aria-controls="collapse{{@index}}-{{@index}}-{{@index}}">
+                                                                                                            <i class="fas fa-layer-group" style="margin-right: 10px;"></i>
+                                                                                                            <span style="display:inline-block; width: 90%;">{{tipo_descripcion}}</span>
+                                                                                                            <span style="float:right;"><i class="fas fa-chevron-down"></i></span>
+                                                                                                        </button>
+                                                                                                    </h2>
+
+
+
+
+
+
+                                                                                                </div>
+                                                                                                <div class="collapse" id="collapse{{@index}}-{{@index}}-{{@index}}" aria-labelledby="heading{{@index}}-{{@index}}-{{@index}}">
+                                                                                                    <table class="table tabla-custom">
+                                                                                                        <thead>
+                                                                                                            <tr>
+                                                                                                                <th>Producto</th>
+                                                                                                                <th>Marca</th>
+                                                                                                                <th>Cantidad</th>
+                                                                                                                <th>Precio Unitario</th>
+                                                                                                                <th>Precio MO</th>
+                                                                                                                <th>Subtotal</th>
+                                                                                                            </tr>
+                                                                                                        </thead>
+                                                                                                        <tbody>
+                                                                                                            {{#each ../../insumos}}
+                                                                                                                {{#if (isTwo insumo_tipo_id ../tipo_id insumo_nivel_id ../../nivel_id )}}
+                                                                                                                    <tr>
+                                                                                                                        <td class="additional">{{producto}}</td>
+                                                                                                                        <td></td>
+                                                                                                                        <td></td>
+                                                                                                                        <td></td>
+                                                                                                                        <td></td>
+                                                                                                                        <td>$</td>               
+                                                                                                                    </tr>
+                                                                                                                {{/if}}
+                                                                                                            {{/each}}
+                                                                                                        </tbody>
+                                                                                                    </table>
+
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        {{/each}}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        {{/each}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {{/each}}
+                                                        </div>
+
+                                                {{/if}} 
                             <table class="table">
                                 <thead class="rounded ">
                                     <tr class="text-center">
@@ -1140,7 +1231,16 @@ function showEditServicioProduct(orden, nombre, cantidad, precio, marca, materia
 {{else if (is p.cotizacion_tipo_id 2)}}
 
 console.log('https://imgs.search.brave.com/zoEmIKBRA2UeKY3uCtqCivLoo1DDfsDTPPLPDTlXroc/rs:fit:450:600:1/g:ce/aHR0cDovLzIuYnAu/YmxvZ3Nwb3QuY29t/Ly0wSUZFZUIzN19t/ay9VU2V4UE5pWU5K/SS9BQUFBQUFBQVR6/Zy9iUURYUmhQN2Nt/dy9zMTYwMC8xMTAy/NV8yODc5NTc1NDA2/NDgwXzE0MDMyODQ0/NTZfbi5qcGc')
+  document.addEventListener('DOMContentLoaded', function() {
+    // Busca el elemento con la clase "additional"
+    const additionalElement = document.querySelector('.additional');
 
+    // Si no existe el elemento, oculta el elemento que deseas ocultar
+    if (!additionalElement) {
+      const elementToHide = document.querySelector('#nivel-table');
+      elementToHide.style.display = 'none';
+    }
+  });
 
 {{/if}}
 </script>

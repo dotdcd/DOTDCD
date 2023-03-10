@@ -1,3 +1,40 @@
+<div class="container-fluid mt-3">
+    <div class="row flex-wrap">
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-2">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+                    <div class="p-3 bg-success-400 rounded overflow-hidden position-relative text-white mb-g bg-blue">
+                        <div class="d-flex align-items-center">
+                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                                {{{cantCotizaciones}}}
+                                <small class="m-0 l-h-n h3">Total de proyectos activos</small>
+                            </h3>
+                            <i class="fal fa-light fa-file-powerpoint ml-auto fa-4x" style="color:#ffffff6e"></i>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+
+        
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-2">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+                    <div class="p-3 bg-primary-400 rounded overflow-hidden position-relative text-white mb-g bg-blue">
+                        <div class="d-flex align-items-center">
+                            <h3 class="display-4 d-block l-h-n m-0 fw-500">
+                                {{{cantClientes}}}
+                                <small class="m-0 l-h-n h3">Total de clientes con cotizaciones activas</small>
+                            </h3>
+                            <i class="fal fa-light fa-users ml-auto fa-4x" style="color:#ffffff6e"></i>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-xl-12">
         <div id="panel-1" class="panel">
@@ -11,26 +48,28 @@
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
-                  <!--  <div class="col-xl-12">
-                    <div class="row">
-                        <div class="col-sm col-xl-4">
-                            <div class="p-3 bg-success-400 rounded overflow-hidden position-relative text-white mb-g">
-                                <div class="">
-                                    <h3 class="display-4 d-block l-h-n m-0 fw-500">
-                                        900
-                                        <small class="m-0 l-h-n">Proyectos Activos</small>
-                                    </h3>
-                                </div>
+                  
+
+
+                    <div class="container mb-4">
+                        <div class="row">
+                            <div class="col-md-3">
+                              <a href="/dashboard/analytics/proyectos?page={{{substract newPage 2}}}" class="btn btn-lg" style="background-image: -webkit-gradient(linear, right top, left top, from(rgba(46, 182, 151, .18)), to(transparent));background-image: linear-gradient(270deg, rgba(46, 182, 151, .18), transparent);background-color: #445175;color: #fff;"><i class="fal fa-light fa-arrow-left"></i></a>
+                            </div>
+                            <div class="col-md-6 text-center pt-2"><span class="font-weight-bold">Página <br> {{{substract newPage 1}}}</span></div>
+                            <div class="col-md-3 text-right">
+                             <a href="/dashboard/analytics/proyectos?page={{ newPage }}" class="btn btn-lg" style="background-image: -webkit-gradient(linear, right top, left top, from(rgba(46, 182, 151, .18)), to(transparent));background-image: linear-gradient(270deg, rgba(46, 182, 151, .18), transparent);background-color: #445175;color: #fff;"><i class="fal fa-light fa-arrow-right"></i></a>
                             </div>
                         </div>
-                        
                     </div>
-                    </div> -->
+
+                    
+
                     
                     <div class="container-fluid">
                         <div class="row"> 
                             {{#each proyectos}}                        
-                            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-3">
+                            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-3">
                                 <div class="container card pl-4 pt-4 pb-6" style="width:100% !important;">
                                 <div class="row mb-2" style="display: block;">
                                     <span class="text-center d-block font-weight-bold text-center">{{cotizacion_id}}</span>
@@ -82,7 +121,7 @@
                                             <div class="row">
                                                     <div class="col-1"></div>
                                                     <div class="col-1 mr-2" style="position:relative;">
-                                                        <span style="position:absolute;left:-20px;">{{roundCero pf}}%</span>
+                                                        <span style="position:absolute;left:-20px;" class="font-weight-bold">{{roundCero pf}}%</span>
                                                     </div>
                                                     <div class="col-9">
                                                     <div class="progress mb-2 border" style="height: 21px;">
@@ -103,7 +142,7 @@
                                             <div class="row">
                                                 <div class="col-1"></div>
                                                 <div class="col-1 mr-2" style="position:relative;">
-                                                    <span style="position:absolute;left:-20px;">{{#if (isPercentMayor porcentajecobrado)}} 100{{else if (isPercentMinor porcentajecobrado)}} 0{{else}} {{roundCero  porcentajecobrado}}{{/if}}%</span>
+                                                    <span style="position:absolute;left:-20px;" class="font-weight-bold">{{#if (isPercentMayor porcentajecobrado)}} 100{{else if (isPercentMinor porcentajecobrado)}} 0{{else}} {{roundCero  porcentajecobrado}}{{/if}}%</span>
                                                 </div>
                                                 <div class="col-9"> 
                                                     <div class="progress mb-2 border" style="height: 21px;">
@@ -125,7 +164,7 @@
                                             <div class="row">
                                                 <div class="col-1"></div>
                                                 <div class="col-1 mr-2" style="position:relative;">
-                                                    <span style="position:absolute;left:-20px;">{{#if (isPercentMayor porcentajefacturado)}} 100{{else if (isPercentMinor porcentajefacturado)}} 0{{else}} {{roundCero porcentajefacturado}}{{/if}}%</span>
+                                                    <span style="position:absolute;left:-20px;" class="font-weight-bold">{{#if (isPercentMayor porcentajefacturado)}} 100{{else if (isPercentMinor porcentajefacturado)}} 0{{else}} {{roundCero porcentajefacturado}}{{/if}}%</span>
                                                 </div>
                                                 <div class="col-9">
                                                     <div class="progress mb-2 border" style="height: 21px;">
@@ -148,7 +187,7 @@
                                     <div class="row">
                                         <div class="col-1"></div>
                                         <div class="col-1 mr-2" style="position:relative;">
-                                            <span style="position:absolute;left:-20px;">{{roundCero porcentajecomprado}}%</span>
+                                            <span style="position:absolute;left:-20px;" class="font-weight-bold">{{roundCero porcentajecomprado}}%</span>
                                         </div>
                                         <div class="col-9">
                                             <div class="progress mb-2 border" style="height: 21px;">
@@ -168,7 +207,7 @@
                                     <div class="row">
                                         <div class="col-1"></div>
                                         <div class="col-1 mr-2" style="position:relative; z-index: 1;">
-                                            <span style="position:absolute;left:-20px;">{{#if (isPercentMayor tiempos.porcentaje_avance)}} 100{{else if (isPercentMinor tiempos.porcentaje_avance)}} 0{{else}} {{roundCero tiempos.porcentaje_avance}}{{/if}}%</span>
+                                            <span style="position:absolute;left:-20px;" class="font-weight-bold">{{#if (isPercentMayor tiempos.porcentaje_avance)}} 100{{else if (isPercentMinor tiempos.porcentaje_avance)}} 0{{else}} {{roundCero tiempos.porcentaje_avance}}{{/if}}%</span>
                                         </div>
                                         <div class="col-9">
                                             <div class="progress mb-2 border" style="height: 21px;">
@@ -189,12 +228,12 @@
                                         <div class="row">
                                             <div class="col-1"></div>
                                             <div class="col-1 mr-2" style="position:relative;">
-                                                <span style="position:absolute;left:-20px;">100%</span>
+                                                <span style="position:absolute;left:-20px;" class="font-weight-bold">100%</span>
                                             </div>
                                             <div class="col-9">
                                                 <div class="progress mb-2 border" style="height: 21px;">
                                                     <span class="progress-indicator" style="background-color: ; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
-                                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 50%; height: 30px !important;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 0%; height: 30px !important;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                                                         <div class="d-flex justify-content-start">
                                                             <h6 class="mr-2 flex-wrap" style="position: absolute; z-index: 111; top:5%; left:20%;"><span class="badge  text-white" style="text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;">MO Horas Técnicas</span></h6>
                                                         </div>
@@ -209,13 +248,13 @@
                                     <div class="row">
                                         <div class="col-1"></div>
                                         <div class="col-1 mr-2" style="position:relative;">
-                                            <span style="position:absolute;left:-20px;">100%</span>
+                                            <span style="position:absolute;left:-20px;" class="font-weight-bold">0</span>
                                         </div>
                                         
                                         <div class="col-9">
                                         <div class="progress mb-2 border" style="height: 21px;">
                                             <span class="progress-indicator" style="background-color:; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px;"></span>
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 40%; height: 30px !important;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 0%; height: 30px !important;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
                                                 <div class="d-flex justify-content-start">
                                                     <h6 class="mr-2 flex-wrap" style="position: absolute; z-index: 111; top:5%; left:20%;"><span class="badge  text-white" style="text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;">MO Indirecto de Campo</span></h6>
                                                 </div>
@@ -251,6 +290,17 @@
 
 
             </div>
+            <div class="container mb-4">
+                        <div class="row">
+                            <div class="col-md-3">
+                              <a href="/dashboard/analytics/proyectos?page={{{substract newPage 2}}}" class="btn btn-lg" style="background-image: -webkit-gradient(linear, right top, left top, from(rgba(46, 182, 151, .18)), to(transparent));background-image: linear-gradient(270deg, rgba(46, 182, 151, .18), transparent);background-color: #445175;color: #fff;"><i class="fal fa-light fa-arrow-left"></i></a>
+                            </div>
+                            <div class="col-md-6 text-center pt-2"><span class="font-weight-bold">Página <br> {{{substract newPage 1}}}</span></div>
+                            <div class="col-md-3 text-right">
+                             <a href="/dashboard/analytics/proyectos?page={{ newPage }}" class="btn btn-lg" style="background-image: -webkit-gradient(linear, right top, left top, from(rgba(46, 182, 151, .18)), to(transparent));background-image: linear-gradient(270deg, rgba(46, 182, 151, .18), transparent);background-color: #445175;color: #fff;"><i class="fal fa-light fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
         </div>
     </div>
 </div>

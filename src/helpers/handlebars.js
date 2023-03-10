@@ -200,6 +200,45 @@ export const helpers = {
         } else {
             return false
         }
+    },
+    disciplicaIcon: function (a) {
+        switch (a) {
+            case 'Voz  Datos y TV':
+                return 'fas fa-wifi'
+
+            case 'CCTV':
+                return 'fas fa-video'
+
+            case 'Incendio':
+                return 'fas fa-fire'
+            
+            case 'Automatizacion':
+                return 'fas fa-robot'
+
+            case 'Control de Acceso':
+                return 'fas fa-user-lock'
+
+            case 'Sistemas':
+                return 'fas fa-cogs'
+            
+            case 'Pantallas TV':
+                return 'fas fa-tv'
+
+            case 'Sistema de cobro':
+                return 'fas fa-money-bill-wave'
+
+            case 'Infraestructura':
+                return 'fas fa-network-wired'
+            
+            case 'Servicios':
+                return 'fas fa-tools'
+
+            default:
+                return 'icon-wrench'
+        }
+    },
+    substract: function (a, b) {
+        return a - b;
     }
 }
 

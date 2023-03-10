@@ -1483,3 +1483,71 @@ catch(Error $e) {
 }
 
 ?> 
+
+
+
+
+
+
+
+
+
+
+
+
+$comprado = 0;
+			
+		// Leer movimientos
+			$sql = "select cheque_id, cheque_fecha_alta, banco_cuenta_moneda_id, cheque_monto,  
+					COALESCE(pago_monto_moneda_cheque, 0) AS pago_orden, COALESCE(cheque_comentario, '') as cheque_comentario, 
+					COALESCE(P.proveedor_razon_social, '') as proveedor_razon_social_orden, 
+					COALESCE(C.proveedor_razon_social, '') as proveedor_razon_social_cheque
+					FROM cheques
+					LEFT JOIN proveedores as C ON C.proveedor_id = cheque_proveedor_id
+					LEFT JOIN ordenes_compra_pagos ON pago_cheque_id = cheque_id
+					LEFT JOIN ordenes_compra ON orden_id = pago_orden_id
+					LEFT JOIN proveedores as P ON P.proveedor_id = orden_proveedor_id
+					LEFT JOIN requisiciones ON requisicion_id = orden_requisicion_id
+					JOIN bancos_cuentas ON banco_cuenta_id = cheque_cuenta_id
+					WHERE cheque_ingreso <> '1' AND cheque_estatus_baja = 0 
+					AND (COALESCE(orden_cotizacion_id, 0) = ".$cotizacion_id." 
+					OR COALESCE(cheque_cotizacion_id, 0) = ".$cotizacion_id." 
+					OR COALESCE(requisicion_cotizacion_id, 0) = ".$cotizacion_id.")	 	
+					ORDER BY cheque_id";
+					   
+		$res=mysql_query($sql);
+		
+		if(mysql_num_rows($res)>0)
+		{
+			while ($reg = mysql_fetch_array($res))
+			{
+				// Determinar de donde se toma el monto, proyecto, proveedor, cliente
+				if($reg['pago_orden'] != 0)
+					$monto = $reg['pago_orden'];
+				else
+					$monto = $reg['cheque_monto'];
+				
+				// Conversión a pesos
+				$moneda_id_p = $reg['banco_cuenta_moneda_id'];
+				if($moneda_id_p == 2)
+					$monto_pesos = $monto * $Cotizacion_DOLLAR;
+				else{
+					if($moneda_id_p == 3)
+						$monto_pesos = $monto * $Cotizacion_EURO;
+					else
+						$monto_pesos = $monto; 
+				}		
+				// Conversión a moneda solicitada
+				if($moneda_id == 2)
+					$monto_moneda = $monto_pesos / $Cotizacion_DOLLAR;
+				else{
+					if($moneda_id == 3)
+						$monto_moneda = $monto_pesos / $Cotizacion_EURO;
+					else
+						$monto_moneda = $monto_pesos;
+				}
+				$comprado = $comprado + $monto_moneda;
+			}
+		}
+		$comprado_f = '$'.number_format(round($comprado, 2), 2, '.', ',');
+		
