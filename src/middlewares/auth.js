@@ -33,7 +33,8 @@ export const authenticateUser = async (req, res, next) => {
     } catch (error) {
         console.log(error)
     }
-}
+} 
+
 
 export const isAdmin = async (req, res, next) => {
     try {
@@ -45,5 +46,18 @@ export const isAdmin = async (req, res, next) => {
         }
     } catch (error) {
         console.log(error)
+    }
+}
+
+export const isEconomist = async (req, res, next) => {
+    try {
+        const {info} = req.body
+        if(!info.roles == 2 || !info.roles == 1) {
+            return res.status(404).render('errors/error', { layout: 'auth', error: '404', url: req.url, message: 'Página no encontrada' })
+        } else {
+            next()
+        }
+    } catch (error) {
+        console.log(error)  
     }
 }

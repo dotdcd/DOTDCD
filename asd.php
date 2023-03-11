@@ -1,3 +1,149 @@
+
+/* const [horasDisponibles] = await pool.query(
+        "SELECT SUM(hora_administrativa + (cableado_mts * (8/305)) + (tuberia_mts * (8/30)) + (instal_dispositivo * (8/4)) + (configuracion * (8/32)) + mtto_dispositivo + otros) as horas_consumidas from asistencia_inventario where proyectoID = ?", [cotizacionId]
+    );
+    
+    const [horasConsumidas] = await pool.query(
+        "SELECT ROUND((total * pf/100 / CASE cotizacion_moneda_id WHEN 1 THEN 2100 ELSE 100 END) * 8, 2) AS horas FROM cotizaciones WHERE cotizacion_id =  ?" , [cotizacionId]
+    );
+
+    const horasDisponiblesValue = horasDisponibles[0].horas_consumidas;
+    const horasConsumidasValue = horasConsumidas[0].horas_consumidas;
+    const avance = (horasConsumidasValue / horasDisponiblesValue) * 100;
+
+    return {horasDisponiblesValue, horasConsumidasValue, avance};*/
+
+//Sacar las horas consumidas
+
+SELECT SUM(hora_administrativa + (cableado_mts * (8/305)) + (tuberia_mts * (8/30)) + 
+				(instal_dispositivo * (8/4)) + (configuracion * (8/32)) + mtto_dispositivo + otros) as horas_consumidas
+			from asistencia_inventario where proyectoID = 17489
+
+
+
+// SACAR IMPORTE
+SELECT insumo_cantidad, insumo_precio_mo FROM cotizaciones_insumos JOIN productos ON insumo_producto_id = producto_id JOIN marcas ON producto_marca_id = marca_id JOIN unidades ON producto_unidad_id = unidad_id LEFT JOIN familias ON familia_id = insumo_diciplina_id LEFT JOIN cotizaciones_niveles ON nivel_id = insumo_nivel_id LEFT JOIN cotizaciones_tipos ON tipo_id = insumo_tipo_id WHERE insumo_cotizacion_id = 17489 ORDER BY insumo_cotizacion_id, insumo_diciplina_id, insumo_nivel_id, insumo_tipo_id, cotizaciones_insumos.orden
+
+
+
+
+// CALCULOS importe, jornada y horas requeridas
+SELECT ROUND(importe, 2) AS importe, ROUND(importe / 2100, 2) AS jornada, ROUND((importe / 2100) * 8, 2) AS h_requeridas FROM (SELECT insumo_cantidad, insumo_precio_mo, ROUND(insumo_precio_mo * insumo_cantidad, 2) AS importe FROM cotizaciones_insumos JOIN productos ON insumo_producto_id = producto_id JOIN marcas ON producto_marca_id = marca_id JOIN unidades ON producto_unidad_id = unidad_id LEFT JOIN familias ON familia_id = insumo_diciplina_id LEFT JOIN cotizaciones_niveles ON nivel_id = insumo_nivel_id LEFT JOIN cotizaciones_tipos ON tipo_id = insumo_tipo_id WHERE insumo_cotizacion_id = 17489 ORDER BY insumo_cotizacion_id, insumo_diciplina_id, insumo_nivel_id, insumo_tipo_id, cotizaciones_insumos.orden ) AS subconsulta
+
+
+
+// Calculo de no me acuero que era, era algo de horas disponibles y horas consumidas y horas disponibles para el proyecto
+SELECT ROUND((total * (pf/100)), 2) AS Pf_Cantidad, ROUND((total * (pf/100)) / CASE cotizacion_moneda_id WHEN 1 THEN 2100 WHEN 2 THEN 100 ELSE NULL END, 2) AS dias_h_disponibles, ROUND(((total * (pf/100)) / CASE cotizacion_moneda_id WHEN 1 THEN 2100 WHEN 2 THEN 100 ELSE NULL END) * 8, 2) AS horas_disponibles FROM cotizaciones WHERE cotizacion_id = 17489
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <?php
 
 

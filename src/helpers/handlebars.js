@@ -234,7 +234,7 @@ export const helpers = {
                 return 'fas fa-tools'
 
             default:
-                return 'icon-wrench'
+                return 'fas fa-cog'
         }
     },
     substract: function (a, b) {

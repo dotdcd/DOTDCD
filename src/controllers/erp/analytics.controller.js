@@ -464,6 +464,34 @@ const getCostos = async (cotizacionId) => {
 };
 
 
+const getTiemposMO = async (cotizacionId) => {
+    const [tiemposMO] = await pool.query(
+        "SELECT ROUND((total * pf/100 / CASE cotizacion_moneda_id WHEN 1 THEN 2100 ELSE 100 END) * 8, 2) AS horas_disponibles, ROUND((SELECT SUM(hora_administrativa + (cableado_mts * (8/305)) + (tuberia_mts * (8/30)) + (instal_dispositivo * (8/4)) + (configuracion * (8/32)) + mtto_dispositivo + otros) FROM asistencia_inventario WHERE proyectoID = ?), 2) AS horas_consumidas, ROUND(((SELECT SUM(hora_administrativa + (cableado_mts * (8/305)) + (tuberia_mts * (8/30)) + (instal_dispositivo * (8/4)) + (configuracion * (8/32)) + mtto_dispositivo + otros) FROM asistencia_inventario WHERE proyectoID = ?) / (SELECT (total * pf/100 / CASE cotizacion_moneda_id WHEN 1 THEN 2100 ELSE 100 END) * 8 FROM cotizaciones WHERE cotizacion_id = ?)) * 100, 2) AS porcentaje_avance FROM cotizaciones WHERE cotizacion_id = ?",
+        [cotizacionId, cotizacionId, cotizacionId, cotizacionId]
+    );
+    
+    const horasDisponibles = tiemposMO.horas_disponibles;
+    const horasConsumidas = tiemposMO.horas_consumidas;
+    const porcentajeAvance = tiemposMO.porcentaje_avance;
+    
+    const horasDisponibles10 = horasDisponibles * 0.1;
+    const horasConsumidas10 = horasConsumidas * 0.1;
+    const porcentajeAvance10 = porcentajeAvance * 0.1;
+    
+    return {
+        horasDisponibles,
+        horasConsumidas,
+        porcentajeAvance,
+        horasDisponibles10,
+        horasConsumidas10,
+        porcentajeAvance10,
+    };
+};
+
+
+
+
+
 //! Start Analytics Proyectos
 export const renderProyectos = async (req, res) => {
     try {
@@ -474,21 +502,20 @@ export const renderProyectos = async (req, res) => {
         const proyectosData = await Promise.all(
             proyectos.map(async (proyecto) => {
             const { cotizacion_id, total } = proyecto;
-            const [costos, facturado, cobrado, tiempos, dias, comprado] = await Promise.all([
+            const [costos, facturado, cobrado, tiempos, dias, comprado, tiemposMO] = await Promise.all([
                 getCostos(cotizacion_id),
                 getFacturado(cotizacion_id),
                 getCobrado(cotizacion_id),
                 getTiempos(cotizacion_id),
                 getEstatusDias(cotizacion_id),
-                getComprado(cotizacion_id)
+                getComprado(cotizacion_id),
+                getTiemposMO(cotizacion_id)
             ]);
-
 
             const porcentajecobrado = (((cobrado ?? 0) / total) * 100) || 0;
             const porcentajefacturado = (((facturado ?? 0) / total) * 100) || 0;
             const porcentajecomprado = ((comprado ?? 0) / (costos.total_costo_cotizado ?? 0)) * 100 || 0;
-            
-            return { ...proyecto, costos, facturado, cobrado, tiempos: tiempos[0], dias: dias[0] , porcentajecobrado, porcentajefacturado, porcentajecomprado } ;
+            return { ...proyecto, costos, facturado, cobrado, tiempos: tiempos[0], dias: dias[0] , porcentajecobrado, porcentajefacturado, porcentajecomprado, tiemposMO } ;
             })
         );
         
