@@ -469,10 +469,10 @@ const getTiemposMO = async (cotizacionId) => {
         "SELECT ROUND((total * pf/100 / CASE cotizacion_moneda_id WHEN 1 THEN 2100 ELSE 100 END) * 8, 2) AS horas_disponibles, ROUND((SELECT SUM(hora_administrativa + (cableado_mts * (8/305)) + (tuberia_mts * (8/30)) + (instal_dispositivo * (8/4)) + (configuracion * (8/32)) + mtto_dispositivo + otros) FROM asistencia_inventario WHERE proyectoID = ?), 2) AS horas_consumidas, ROUND(((SELECT SUM(hora_administrativa + (cableado_mts * (8/305)) + (tuberia_mts * (8/30)) + (instal_dispositivo * (8/4)) + (configuracion * (8/32)) + mtto_dispositivo + otros) FROM asistencia_inventario WHERE proyectoID = ?) / (SELECT (total * pf/100 / CASE cotizacion_moneda_id WHEN 1 THEN 2100 ELSE 100 END) * 8 FROM cotizaciones WHERE cotizacion_id = ?)) * 100, 2) AS porcentaje_avance FROM cotizaciones WHERE cotizacion_id = ?",
         [cotizacionId, cotizacionId, cotizacionId, cotizacionId]
     );
-    
-    const horasDisponibles = tiemposMO[0][0].horas_disponibles;
-    const horasConsumidas = tiemposMO[0][0].horas_consumidas;
-    const porcentajeAvance = tiemposMO[0][0].porcentaje_avance;
+
+    const horasDisponibles = tiemposMO[0].horas_disponibles;
+    const horasConsumidas = tiemposMO[0].horas_consumidas;
+    const porcentajeAvance = tiemposMO[0].porcentaje_avance;
     
     const horasDisponibles10 = parseInt(horasDisponibles * 0.1);
     const horasConsumidas10 = parseInt(horasConsumidas * 0.1);

@@ -125,7 +125,7 @@ const options = {
 
 //? Statics files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/controllers', express.static(path.join(__dirname, 'controllers\\external-controllers')));  
+app.use('/controllers', express.static(path.join(__dirname, 'controllers\/external-controllers')));  
 app.use(express.static(path.join(__dirname, 'public'), options));
 
 let subscription
