@@ -213,7 +213,7 @@
                                             <div class="progress mb-2 border" style="height: 21px;">
                                                 
                                                 <span class="progress-indicator" style="background-color: ; display: inline-block; width: 20px; height: 20px; border-radius: 100%; margin-right: 5px; "></span>
-                                                <div class="progress-bar " role="progressbar" style="width:%; height: 30px !important; background-color:#001F7F; z-index: 0;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                                <div class="progress-bar " role="progressbar" style="width:{{#if (isPercentMayor tiempos.porcentaje_avance)}} 100{{else if (isPercentMinor tiempos.porcentaje_avance)}} 0{{else}} {{roundCero tiempos.porcentaje_avance}}{{/if}}%; height: 30px !important; background-color:#001F7F; z-index: 0;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
                                                     <div class="d-flex justify-content-start">
                                                         <h6 class="mr-2 flex-wrap" style="position: absolute; z-index: 111; top:5%; left:20%;"><span class="badge text-white" style="text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black; background-color:#00207f00;"> Tiempos de Proyecto</span></h6>
                                                     </div>

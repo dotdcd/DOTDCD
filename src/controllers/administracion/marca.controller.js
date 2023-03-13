@@ -14,6 +14,7 @@ export const addMarca = async (req, res) => {
     }   
 }
 
+
 export const updMarca = async (req, res) => {
     const { marca_descripcion, marca_estatus_baja} = req.body
     const marcaid = req.params.id

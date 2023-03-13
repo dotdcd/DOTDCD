@@ -528,8 +528,6 @@ export const renderProyectos = async (req, res) => {
     }  
 };
 
-//? aaaaaaaaaaaaaaaa me ;;eva ;a verga
-
 //?Inicia reportes de departamentos
 
 //? get global info about all towers

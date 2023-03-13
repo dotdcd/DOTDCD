@@ -247,10 +247,13 @@
                                                                                                                 <td>{{isMoney insumo_precio_mo}}</td>
                                                                                                                 <td>{{isMoney (roundTwo (multiply insumo_cantidad (addition insumo_precio_ma insumo_precio_mo)))}}</td>               
                                                                                                             </tr>
+                                                                                                            
                                                                                                         {{/if}}
                                                                                                     {{/if}}
                                                                                                 {{/each}}
                                                                                             </tbody>
+                                                                                            
+
                                                                                         </table>
                                                                                         {{#each ../../tipos}}
                                                                                             <div class="card mb-3 {{{accordionSub ../../insumos ../nivel_id tipo_id}}}">
@@ -270,7 +273,7 @@
 
                                                                                                 </div>
                                                                                                 <div class="collapse" id="collapse{{@index}}-{{@index}}-{{@index}}" aria-labelledby="heading{{@index}}-{{@index}}-{{@index}}">
-                                                                                                    <table class="table tabla-custom">
+                                                                                                    <table class="table tabla-custom" id="proyectos">
                                                                                                         <thead>
                                                                                                             <tr>
                                                                                                                 <th>Producto</th>
@@ -1226,7 +1229,31 @@ console.log('https://imgs.search.brave.com/zoEmIKBRA2UeKY3uCtqCivLoo1DDfsDTPPLPD
       const elementToHide = document.querySelector('#nivel-table');
       elementToHide.style.display = 'none';
     }
+
+    calcularTotal()
   });
+
+
+  function calcularTotal() {
+  // Obtener todas las filas de la tabla
+  const filas = document.querySelectorAll("#proyectos tbody tr");
+
+  let total = 0;
+
+  // Iterar sobre cada fila y sumar el valor de la celda "Total"
+  filas.forEach((fila) => {
+    const celdaTotal = fila.querySelector("td:last-child");
+    if (celdaTotal) {
+      const valor = parseFloat(celdaTotal.textContent.replace(/[^\d.-]/g, ""));
+      if (!isNaN(valor)) {
+        total += valor;
+      }
+    }
+  });
+  console.log(total)
+  return total.toFixed(2);
+}
+
 
 {{/if}}
 </script>
