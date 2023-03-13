@@ -1,4 +1,4 @@
-{{#section 'head'}}
+    {{#section 'head'}}
 <style>
 
 /*Form loader*/
@@ -241,11 +241,11 @@
                                                                                                         {{#if (is insumo_tipo_id 0 )}}
                                                                                                             <tr>
                                                                                                                 <td class="additional">{{producto}}</td>
-                                                                                                                <td></td>
-                                                                                                                <td></td>
-                                                                                                                <td></td>
-                                                                                                                <td></td>
-                                                                                                                <td>$</td>               
+                                                                                                                <td>{{marca_descripcion}}</td>
+                                                                                                                <td>{{insumo_cantidad}}</td>
+                                                                                                                <td>{{isMoney insumo_precio_ma}}</td>
+                                                                                                                <td>{{isMoney insumo_precio_mo}}</td>
+                                                                                                                <td>{{isMoney (roundTwo (multiply insumo_cantidad (addition insumo_precio_ma insumo_precio_mo)))}}</td>               
                                                                                                             </tr>
                                                                                                         {{/if}}
                                                                                                     {{/if}}
@@ -286,11 +286,11 @@
                                                                                                                 {{#if (isTwo insumo_tipo_id ../tipo_id insumo_nivel_id ../../nivel_id )}}
                                                                                                                     <tr>
                                                                                                                         <td class="additional">{{producto}}</td>
-                                                                                                                        <td></td>
-                                                                                                                        <td></td>
-                                                                                                                        <td></td>
-                                                                                                                        <td></td>
-                                                                                                                        <td>$</td>               
+                                                                                                                        <td>{{marca_descripcion}}</td>
+                                                                                                                        <td>{{insumo_cantidad}}</td>
+                                                                                                                        <td>{{isMoney insumo_precio_ma}}</td>
+                                                                                                                        <td>{{isMoney insumo_precio_mo}}</td>
+                                                                                                                        <td>{{isMoney (roundTwo (multiply insumo_cantidad (addition insumo_precio_ma insumo_precio_mo)))}}</td>               
                                                                                                                     </tr>
                                                                                                                 {{/if}}
                                                                                                             {{/each}}
@@ -439,8 +439,9 @@
 
 <script>
 
-//! 28 de febrero 2023, a angel le compraron juguetes nuevos
-//! seguimos sin el parche del aumento de sueldo
+
+
+
 {{#if (is p.cotizacion_tipo_id 1)}}
 function enviarPF() {
     const aidi = {{{json p.cotizacion_id}}};
@@ -449,12 +450,6 @@ function enviarPF() {
     const trueTotal = total + (total * 0.16)
     const costoElement = document.getElementById('costo').innerText;
     let costo = parseFloat(costoElement.replace(/\$|,/g, ""));
-
-
-    //console.log(totalElement + 'total');
-    //console.log(costo + 'costo');
-   
-
 
     let posicionF;
     if (costo === 0) {
@@ -471,7 +466,6 @@ function enviarPF() {
         posicionF = 0;
     }
     
-    
     const posicionFElement = document.getElementById('pf');
     posicionFElement.innerHTML = '<span>% ' + posicionF + '</span>';
     axios.post('/addPF/' + aidi, { posicionF })
@@ -482,6 +476,7 @@ function enviarPF() {
         console.error(error);
         });
 }
+
 
 document.addEventListener('DOMContentLoaded', function() {
     enviarPF();
@@ -494,11 +489,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-
 var moneda_cotizacion = {{{json p.cotizacion_moneda_id}}};
-
-
 
 function muestraTotal() {
     const desc = {{{json p.cotizacion_descuento_porcentaje}}};

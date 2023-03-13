@@ -130,23 +130,23 @@ export const helpers = {
         switch (true) {
             case (diasTranscurridos >= 1 && diasTranscurridos <= 15):
                 //console.log(diasTranscurridos, '0 a 15')
-                return '#8BC34A'
+                return '#008500'
                 break;
             case (diasTranscurridos >= 16 && diasTranscurridos <= 30):
                 //console.log(diasTranscurridos, '16 a 30')
-                return '#CDDC39'
+                return '#0fff0f'
                 break;
             case (diasTranscurridos >= 31 && diasTranscurridos <= 45):
                 //console.log(diasTranscurridos, '31 a 45')
-                return '#FFC107'
+                return '#ffff14'
                 break;
             case (diasTranscurridos >= 46 && diasTranscurridos <= 60):
                 //console.log(diasTranscurridos, '46 a 60')
-                return '#FF9800'
+                return '#ffa500'
                 break;
             case (diasTranscurridos >= 61):
                 //console.log(diasTranscurridos, 'mayor')
-                return '#FC4C49'
+                return '#e60000'
                 break;
             case (diasTranscurridos == null || diasTranscurridos  == undefined ):
                 //console.log('nulo')
@@ -186,6 +186,9 @@ export const helpers = {
     },
     roundCero: function (a) {
         return a | 0;
+    },
+    roundTwo: function (a) {
+        return a.toFixed(2);
     },
     isPercentMayor: function (a) {
         if (a >= 100) {
@@ -239,6 +242,9 @@ export const helpers = {
     },
     substract: function (a, b) {
         return a - b;
+    },
+    addition: function (a, b) {
+        return a + b;
     }
 }
 

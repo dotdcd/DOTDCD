@@ -470,15 +470,16 @@ const getTiemposMO = async (cotizacionId) => {
         [cotizacionId, cotizacionId, cotizacionId, cotizacionId]
     );
     
-    const horasDisponibles = tiemposMO.horas_disponibles;
-    const horasConsumidas = tiemposMO.horas_consumidas;
-    const porcentajeAvance = tiemposMO.porcentaje_avance;
+    const horasDisponibles = tiemposMO[0][0].horas_disponibles;
+    const horasConsumidas = tiemposMO[0][0].horas_consumidas;
+    const porcentajeAvance = tiemposMO[0][0].porcentaje_avance;
     
-    const horasDisponibles10 = horasDisponibles * 0.1;
-    const horasConsumidas10 = horasConsumidas * 0.1;
-    const porcentajeAvance10 = porcentajeAvance * 0.1;
+    const horasDisponibles10 = parseInt(horasDisponibles * 0.1);
+    const horasConsumidas10 = parseInt(horasConsumidas * 0.1);
+    const porcentajeAvance10 = parseInt(porcentajeAvance * 0.1);
     
     return {
+        horasDisponibles,
         horasDisponibles,
         horasConsumidas,
         porcentajeAvance,

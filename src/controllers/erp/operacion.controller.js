@@ -98,9 +98,9 @@ const productosSimple = async (id) => {
     }
     
     const total = suma.reduce((acc, curr) => acc + curr, 0).toFixed(2)
-    console.log(total)
     return { productos: productos[0], total: total }
 }
+
 export const renderOpProyEditar = async (req, res) => {
     try {
         const moneda = await getMoneda()
@@ -126,6 +126,7 @@ export const renderOpProyEditar = async (req, res) => {
         console.log(error)
     }
 }
+
 export const renderOpProyBuscar = async (req, res) => {
     try {
         let proyArr = []

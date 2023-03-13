@@ -11,6 +11,7 @@ import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs-extra';
 import morgan from 'morgan'
+import cron from 'node-cron';
 
 //? Import helpers
 import { uploadFiles, updFiles } from './helpers/multer.js';
@@ -30,7 +31,7 @@ import contabilidadRoutes from './routes/contabilidad.routes.js';
 import operacionRoutes from './routes/operacion.routes.js';
 import bancosRoutes from './routes/bancos.routes.js';
 
-import cron from 'node-cron';
+
 
 
 const app = express();
@@ -99,7 +100,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// ? View request in dev enviroment
+// ? View request in dev enviromentd
 //app.use(morgan('dev'))
 
 //? Routes files
