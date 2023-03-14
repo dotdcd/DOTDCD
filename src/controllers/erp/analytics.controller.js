@@ -398,8 +398,8 @@ export const renderAnalytics = async (req, res) => {
 //Es la informacion de la cotizacion y del cliente
 //Trae lo cotizado tambien
 const getProyectos = async (page) => {
-    const salts = 50 * page
-    const cotizaciones = await pool.query("SELECT c.cotizacion_id, c.cotizacion_proyecto, c.cotizacion_moneda_id, c.total, c.pf, c.cotizacion_descripcion, cl.cliente_razon_social, total FROM cotizaciones c JOIN clientes cl ON c.cotizacion_cliente_id = cl.cliente_id WHERE c.cotizacion_estatus_baja = 0 AND c.cotizacion_autorizada_estatus = 1 AND liquidada_sn = 0 order by c.cotizacion_id DESC LIMIT 50 OFFSET "+salts)
+    const salts = 52 * page
+    const cotizaciones = await pool.query("SELECT c.cotizacion_id, c.cotizacion_proyecto, c.cotizacion_moneda_id, c.total, c.pf, c.cotizacion_descripcion, cl.cliente_razon_social, total FROM cotizaciones c JOIN clientes cl ON c.cotizacion_cliente_id = cl.cliente_id WHERE c.cotizacion_estatus_baja = 0 AND c.cotizacion_autorizada_estatus = 1 AND liquidada_sn = 0 order by c.cotizacion_id DESC LIMIT 52 OFFSET "+salts)
     return cotizaciones[0];
 }
 
@@ -503,20 +503,20 @@ export const renderProyectos = async (req, res) => {
         const proyectosData = await Promise.all(
             proyectos.map(async (proyecto) => {
             const { cotizacion_id, total } = proyecto;
-            const [costos, facturado, cobrado, tiempos, dias, comprado, tiemposMO] = await Promise.all([
+            const [costos, facturado, cobrado, tiempos, dias, comprado, /*tiemposMO*/] = await Promise.all([
                 getCostos(cotizacion_id),
                 getFacturado(cotizacion_id),
                 getCobrado(cotizacion_id),
                 getTiempos(cotizacion_id),
                 getEstatusDias(cotizacion_id),
                 getComprado(cotizacion_id),
-                getTiemposMO(cotizacion_id)
+                //getTiemposMO(cotizacion_id)
             ]);
 
             const porcentajecobrado = (((cobrado ?? 0) / total) * 100) || 0;
             const porcentajefacturado = (((facturado ?? 0) / total) * 100) || 0;
             const porcentajecomprado = ((comprado ?? 0) / (costos.total_costo_cotizado ?? 0)) * 100 || 0;
-            return { ...proyecto, costos, facturado, cobrado, tiempos: tiempos[0], dias: dias[0] , porcentajecobrado, porcentajefacturado, porcentajecomprado, tiemposMO } ;
+            return { ...proyecto, costos, facturado, cobrado, tiempos: tiempos[0], dias: dias[0] , porcentajecobrado, porcentajefacturado, porcentajecomprado, /*tiemposMO*/ } ;
             })
         );
         
